@@ -2,7 +2,7 @@ import React from "react";
 
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from "react-router/es";
 import willTransitionTo from "./routerTransition";
-import App from "./App";
+import App from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
@@ -34,7 +34,7 @@ import AssetContainer from "./components/Blockchain/AssetContainer";
 import CreateAccount from "./components/Account/CreateAccount";
 import CreateAccountPassword from "./components/Account/CreateAccountPassword";
 import {ExistingAccount, ExistingAccountOptions} from "./components/Wallet/ExistingAccount";
-import { WalletCreate , CreateWalletFromBrainkey } from "./components/Wallet/WalletCreate";
+import { WalletCreate , CreateWalletFromBrainkey } from "./components/Trusty/Wallet/WalletCreate";
 import ImportKeys from "./components/Wallet/ImportKeys";
 import Invoice from "./components/Transfer/Invoice";
 import {BackupCreate, BackupRestore} from "./components/Wallet/Backup";
