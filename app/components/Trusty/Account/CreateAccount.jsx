@@ -150,20 +150,18 @@ class CreateAccount extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         if (!this.isValid()) return;
+        dispatcher.dispatch({type:"show-loader"})
         let account_name = this.accountNameInput.getValue();
         if (WalletDb.getWallet()) {
             Promise.resolve().then(()=>{
                 this.createAccount(account_name);
-            }).then(()=>{
-                dispatcher.dispatch({type:"show-loader"})
             })
         } else {
             let password = this.refs.password.value();
             this.createWallet(password).then(() => {
                 Promise.resolve().then(()=>{
+                 
                     this.createAccount(account_name);
-                }).then(()=>{
-                    dispatcher.dispatch({type:"show-loader"})
                 })
             });
         }
