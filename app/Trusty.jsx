@@ -21,6 +21,7 @@ import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
 import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
+import Landing from "components/Trusty/Landing/Landing";
 
 
 import {dispatcher} from 'components/Trusty/utils'
@@ -169,19 +170,8 @@ class Trusty extends React.Component {
         let myAccountCount = myAccounts.length;
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
-        if (this.state.syncFail) {
-            content = (
-                <SyncError />
-            );
-        } else if (this.state.loading) {
-            content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
-        } else if (this.props.location.pathname === "/init-error") {
-            content = <div className="grid-frame vertical">{this.props.children}</div>;
-        } else if (this.props.location.pathname === '/landing') {
-            content = this.props.children
-        } else {
-            let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
-            content = (
+        function grid(inside){
+            return (
                 <div className="grid-frame vertical">
                     <Header />
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
@@ -193,6 +183,32 @@ class Trusty extends React.Component {
                     <ReactTooltip ref="tooltip" place="top" type={theme === "lightTheme" ? "dark" : "light"} effect="solid"/>
                 </div>
             );
+        }
+        grid = grid.bind(this)
+
+        function authFreeRoutes(){
+            return [
+            '/signup',
+            '/create-wallet-brainkey',
+            ].some(i=>i==this.props.location.pathname)
+        }
+        authFreeRoutes = authFreeRoutes.bind(this)
+
+        if (this.state.syncFail) {
+            content = (
+                <SyncError />
+            );
+        } else if (this.state.loading) {
+            content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
+        } else if (this.props.location.pathname === "/init-error") {
+            content = <div className="grid-frame vertical">{this.props.children}</div>;
+        } else if (myAccountCount == 0 && authFreeRoutes()) {
+            content = grid(this.props.children)
+        } else if (myAccountCount == 0 && !authFreeRoutes()) {
+            content = <Landing/>
+        } else {
+            //let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
+            content = grid(this.props.children)
         }
 
         return (

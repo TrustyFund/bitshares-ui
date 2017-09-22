@@ -31,7 +31,7 @@ import Transfer from "./components/Transfer/Transfer";
 import SettingsContainer from "./components/Settings/SettingsContainer";
 import BlockContainer from "./components/Blockchain/BlockContainer";
 import AssetContainer from "./components/Blockchain/AssetContainer";
-import CreateAccount from "./components/Account/CreateAccount";
+import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import CreateAccountPassword from "./components/Account/CreateAccountPassword";
 import {ExistingAccount, ExistingAccountOptions} from "./components/Wallet/ExistingAccount";
 import { WalletCreate , CreateWalletFromBrainkey } from "./components/Trusty/Wallet/WalletCreate";
@@ -58,6 +58,7 @@ class Auth extends React.Component {
 const routes = (
     <Route path="/" component={App} onEnter={willTransitionTo}>
         <IndexRoute component={DashboardContainer}/>
+        <Route path="/signup" component={CreateAccount}/>
         <Route path="/landing" component={Landing}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
