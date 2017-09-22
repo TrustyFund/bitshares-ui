@@ -76,7 +76,7 @@ class Landing extends Component {
         const top = (
             <div className="logo_starter">
                 <div className="top_buttons">
-                    <Link to="/dashboard"><span>Sign-Up</span></Link>
+                    <Link to="/signup"><span>Sign-Up</span></Link>
                     <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
                 <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
