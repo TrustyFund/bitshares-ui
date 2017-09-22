@@ -71,9 +71,6 @@ class Trusty extends React.Component {
                     console.log("[Trusty.jsx] ----- ERROR ----->", error);
                     this.setState({loading: false});
                 });
-            }).then(()=>{
-                let i = localStorage.getItem("_pswd_unlock")
-                i && dispatcher.dispatch({type:"background-unlock", data: i})
             }).catch(error => {
                 console.log("[Trusty.jsx] ----- ChainStore.init error ----->", error);
                 let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
@@ -88,11 +85,20 @@ class Trusty extends React.Component {
 
         this._rebuildTooltips();
 
-        dispatcher.register( dispatch => {
+        // dispatcher.register( dispatch => {
+        //   if ( dispatch.type === 'show-loader' ) {
+        //     this.setState({ loading: true })
+        //   }
+        // })
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+         dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
             this.setState({ loading: true })
           }
         })
+        return true
+
     }
 
     _rebuildTooltips() {

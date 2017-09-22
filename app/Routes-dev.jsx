@@ -47,6 +47,7 @@ import Help from "./components/Help";
 import InitError from "./components/InitError";
 import LoginSelector from "./components/LoginSelector";
 import CreateWorker from "./components/Account/CreateWorker";
+import Landing from "components/Trusty/Landing/Landing"
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
@@ -57,6 +58,7 @@ class Auth extends React.Component {
 const routes = (
     <Route path="/" component={App} onEnter={willTransitionTo}>
         <IndexRoute component={DashboardContainer}/>
+        <Route path="/landing" component={Landing}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>
