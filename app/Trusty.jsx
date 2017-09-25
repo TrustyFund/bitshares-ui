@@ -173,7 +173,7 @@ class Trusty extends React.Component {
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
-                    <Header />
+                    {/*<Header />*/}
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
