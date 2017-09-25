@@ -48,6 +48,7 @@ import InitError from "./components/InitError";
 import LoginSelector from "./components/LoginSelector";
 import CreateWorker from "./components/Account/CreateWorker";
 import Landing from "components/Trusty/Landing/Landing"
+import Home from "components/Trusty/Home/Home"
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
@@ -60,6 +61,7 @@ const routes = (
         <IndexRoute component={DashboardContainer}/>
         <Route path="/signup" component={CreateAccount}/>
         <Route path="/landing" component={Landing}/>
+        <Route path="/home" component={Home}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>

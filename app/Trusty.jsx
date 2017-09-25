@@ -188,6 +188,7 @@ class Trusty extends React.Component {
 
         function authFreeRoutes(){
             return [
+            '/home',
             '/signup',
             '/create-wallet-brainkey',
             ].some(i=>i==this.props.location.pathname)
