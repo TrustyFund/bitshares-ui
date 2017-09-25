@@ -1,3 +1,6 @@
+$white_color: #e6e6e6;
+
+
 .trusty_form_buttons {
 	text-align: center;
 	button {
@@ -63,4 +66,36 @@ br.desk {
 		display: inline-block;
 	}
 
+}
+
+
+.trusty_header {
+
+	height: 50px;
+	border-bottom: 1px solid $white_color;
+}
+
+.trusty_header_logo {
+	line-height: 53px;
+	width: 50vw;
+	height: 50px;
+	padding-left: 15px;
+	svg { 
+		fill: $white_color; 
+	}
+}
+
+.trusty_inline_buttons {
+
+	display: flex;
+	justify-content: space-around;
+	padding-top: 10px;
+	button {
+		font-family: Gotham_Pro_Bold;
+		display: inline-block;
+		width: 46vw;
+		margin: initial !important;
+		height: 50px;
+		color: black;
+	}
 }
