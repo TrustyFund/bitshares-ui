@@ -23,7 +23,6 @@ class AccountPage extends React.Component {
 
     componentDidMount() {
         if (this.props.account && AccountStore.isMyAccount(this.props.account)) {
-            console.log("%cmount Account Page","color:green")
             AccountActions.setCurrentAccount.defer(this.props.account.get("name"));
         }
 
@@ -78,9 +77,8 @@ AccountPage = BindToChainState(AccountPage, {keep_updating: true, show_loader: t
 
 class AccountPageStoreWrapper extends React.Component {
     render () {
-        let account_name = "anlopan364test2";
+        let account_name = AccountStore.getMyAccounts()[0];
         this.props.params.account_name = account_name;
-
         return <AccountPage {...this.props} account_name={account_name}/>;
     }
 }

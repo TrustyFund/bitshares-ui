@@ -59,7 +59,6 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
     }
 
     let urls = filterAndSortURLs(apiLatenciesCount, apiLatencies);
-
     /*
     * We use a fake connection url to force a fallback to the best of
     * the pre-defined URLs, ranked by latency

@@ -194,6 +194,11 @@ class Trusty extends React.Component {
             '/create-wallet-brainkey',
             ].some(i=>i==this.props.location.pathname)
         }
+        function authRoutes(){
+            return [
+            '/home',
+            ].some(i=>i==this.props.location.pathname)
+        }
         authFreeRoutes = authFreeRoutes.bind(this)
 
         if (this.state.syncFail) {
