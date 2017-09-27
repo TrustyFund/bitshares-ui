@@ -37,6 +37,7 @@ class Trusty extends React.Component {
 
         let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
         this.state = {
+            firstEnteredApp: false,
             loading: true,
             synced: ChainStore.subscribed,
             syncFail,
@@ -56,7 +57,6 @@ class Trusty extends React.Component {
     }
 
     componentDidMount() {
-        
         try {
             NotificationStore.listen(this._onNotificationChange.bind(this));
             SettingsStore.listen(this._onSettingsChange.bind(this));
@@ -67,7 +67,7 @@ class Trusty extends React.Component {
                     AccountStore.loadDbData(Apis.instance().chainId)
                 ]).then(() => {
                     AccountStore.tryToSetCurrentAccount();
-                    this.setState({loading: false});
+                    this.setState({loading: false});        
                 }).catch(error => {
                     console.log("[Trusty.jsx] ----- ERROR ----->", error);
                     this.setState({loading: false});
@@ -83,7 +83,6 @@ class Trusty extends React.Component {
         }
 
         this.props.router.listen(this._rebuildTooltips);
-
         this._rebuildTooltips();
 
         // dispatcher.register( dispatch => {
@@ -93,7 +92,7 @@ class Trusty extends React.Component {
         // })
     }
     shouldComponentUpdate(nextProps, nextState) {
-         dispatcher.register( dispatch => {
+        dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
             this.setState({ loading: true })
           }
@@ -154,6 +153,11 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
+        if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
+            this.setState({firstEnteredApp: true})
+            this.props.router.push(`/home`)
+        }
+
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             console.log(this.state)
             this.setState({loading: false})
