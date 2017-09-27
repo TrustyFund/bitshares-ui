@@ -22,6 +22,8 @@ import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
+import {Link} from 'react-router';
+
 
 
 import {dispatcher} from 'components/Trusty/utils'
@@ -175,10 +177,23 @@ class Trusty extends React.Component {
         localStorage.setItem("_trusty_username",myAccounts[0] || null)
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
+
+        let header = (
+            <header className="trusty_header">
+                { AccountStore.getMyAccounts().length
+                    ? <div  className="trusty_header_logo" dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/images/trusty_fund_logo.svg')}} />
+                    : (<Link to="/">
+                        <button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />
+                      </Link>)
+                }
+            </header>
+        )
+
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
                     {/*<Header />*/}
+                    { header }
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
@@ -219,7 +234,7 @@ class Trusty extends React.Component {
 
         return (
             <div style={{backgroundColor: !this.state.theme ? "#2a2a2a" : null}} className={this.state.theme}>
-                <div id="content-wrapper">
+                <div id="content-wrapper" className="trusty-wrapper">
                     {content}
                     <NotificationSystem
                         ref="notificationSystem"

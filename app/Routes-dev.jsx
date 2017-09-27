@@ -51,7 +51,7 @@ import LoginSelector from "./components/LoginSelector";
 import CreateWorker from "./components/Account/CreateWorker";
 import Landing from "components/Trusty/Landing/Landing"
 import Home from "components/Trusty/Home/Home"
-import PersonalPage from "components/Trusty/Account/PersonalPage"
+
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
