@@ -24,6 +24,7 @@ import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
 import SimpleDepositBlocktradesBridge from "components/Dashboard/SimpleDepositBlocktradesBridge";
 import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
+import MarketCard from "components/Trusty/Dashboard/MarketCard";
 
 class AccountOverview extends React.Component {
 
@@ -41,10 +42,8 @@ class AccountOverview extends React.Component {
             bridgeAsset: null,
             alwaysShowAssets: [
                 "BTS",
-                "USD",
                 "CNY",
                 "OPEN.BTC",
-                "OPEN.USDT",
                 "OPEN.ETH",
                 "OPEN.DASH",
                 "OPEN.LTC",
@@ -102,7 +101,9 @@ class AccountOverview extends React.Component {
         const core_asset = ChainStore.getAsset("1.3.0");
         let {settings, hiddenAssets, orders} = this.props;
 
-        let preferredUnit = settings.get("unit") || "1.3.0";
+
+
+        let preferredUnit = "USD";
         let showAssetPercent = settings.get("showAssetPercent", true);
 
         let balances = [], openOrders = [];
@@ -124,8 +125,6 @@ class AccountOverview extends React.Component {
 
             if (this.state.alwaysShowAssets.indexOf(symbol) == -1) return;
 
-            console.log(symbol)
-
 
             if (symbol.indexOf("OPEN.") !== -1 && !market) market = "USD";
             let preferredMarket = market ? market : core_asset ? core_asset.get("symbol") : "BTS";
@@ -137,6 +136,8 @@ class AccountOverview extends React.Component {
             marketLink = notCore ? <a href={marketURL} onClick={this._onNavigate.bind(this, marketURL)}><AssetName name={asset.get("symbol")} /> : <AssetName name={preferredMarket} /></a> : null;
             directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
             
+            let pair = ["BTS", symbol];
+
             const includeAsset = !hiddenAssets.includes(asset_type);
             const hasBalance = !!balanceObject.get("balance");
             const hasOnOrder = !!orders[asset_type];
@@ -144,41 +145,30 @@ class AccountOverview extends React.Component {
             const canWithdraw = canDepositWithdraw && (hasBalance && balanceObject.get("balance") != 0);
             const canBuy = !!this.props.bridgeCoins.get(symbol);
 
-            let onOrders = hasOnOrder ? <FormattedAsset amount={orders[asset_type]} asset={asset_type} /> : null;
-
-            if (hasOnOrder) {
-                let goToLink = <Link to={`/account/${this.props.account.get("name")}/orders`}><Translate content="account.see_open" /></Link>;
-                openOrders.push(
-                    <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
-                        <td style={{textAlign: "right"}}>
-                            <div className="tooltip" data-place="bottom" data-tip={counterpart.translate("account.in_open", {asset: symbol})} style={{paddingTop: 8}}>{onOrders}</div>
-                        </td>
-                        <td style={{textAlign: "right"}} className="column-hide-small">
-                            <div className="tooltip" data-place="bottom" data-tip={counterpart.translate("account.in_open_value", {asset: symbol})} style={{paddingTop: 8}}>
-                                <EquivalentValueComponent amount={orders[asset_type]} fromAsset={asset_type} noDecimals={true} toAsset={preferredUnit}/>
-                            </div>
-                        </td>
-                        <td colSpan="3" style={{textAlign: "center"}}>
-                            {directMarketLink}
-                            {directMarketLink ? <span> | </span> : null}
-                            {goToLink}
-                        </td>
-                    </tr>
-                );
-            }
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "right"}}>
                         {hasBalance || hasOnOrder ? <BalanceComponent balance={balance} assetInfo={assetInfoLinks}/> : null}
                     </td>
-                    <td style={{textAlign: "right"}} className="column-hide-small">
-                        {hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> : null}
+                    <td style={{textAlign: "right"}}>
+                        {hasBalance || hasOnOrder
+                            ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> 
+                            : "0 BTS"
+                        }
                     </td>
-                    {showAssetPercent ? <td style={{textAlign: "right"}}>
-                        {hasBalance ? <BalanceComponent balance={balance} asPercentage={true}/> : null}
-                    </td> : null}
                     <td style={{textAlign: "center"}}>
                         {directMarketLink}
+                    </td>
+                    <td>
+                        <MarketCard
+                            key={pair[0] + "_" + pair[1]}
+                            marketId={pair[1] + "_" + pair[0]}
+                            new={false}
+                            quote={pair[0]}
+                            base={pair[1]}
+                            invert={pair[2]}
+                            hide={false}
+                        />
                     </td>
                 </tr>
             );
@@ -206,6 +196,8 @@ class AccountOverview extends React.Component {
             }).forEach(a => {
                 let asset = ChainStore.getAsset(a);
 
+                let pair = ["BTS", a];
+
 
                 if (asset && this.props.isMyAccount) {
                     const includeAsset = !hiddenAssets.includes(asset.get("id"));
@@ -223,13 +215,22 @@ class AccountOverview extends React.Component {
                             <td style={{textAlign: "right"}}>
                                 <AssetName name={a} />
                             </td>
+                            <td style={{textAlign: "right"}}>
+                                0 bitUSD
+                            </td>
                             <td style={{textAlign: "center"}}>
                                 {directMarketLink}
                             </td>
-                            <td style={{textAlign: "center"}} className="column-hide-small" data-place="bottom" data-tip={counterpart.translate("tooltip." + (includeAsset ? "hide_asset" : "show_asset"))}>
-                                <a style={{marginRight: 0}} className={includeAsset ? "order-cancel" : "action-plus"} onClick={this._hideAsset.bind(this, asset.get("id"), includeAsset)}>
-                                    <Icon name={includeAsset ? "cross-circle" : "plus-circle"} className="icon-14px" />
-                                </a>
+                            <td>
+                                <MarketCard
+                                    key={pair[0] + "_" + pair[1]}
+                                    marketId={pair[1] + "_" + pair[0]}
+                                    new={false}
+                                    quote={pair[0]}
+                                    base={pair[1]}
+                                    invert={pair[2]}
+                                    hide={false}
+                                />
                             </td>
                         </tr>
                     );
@@ -398,55 +399,6 @@ class AccountOverview extends React.Component {
                     </div>
                     <Proposals account={account.get("id")}/>
                 </div> : null}
-
-                <div className="content-block">
-                    <RecentTransactions
-                        accountsList={Immutable.fromJS([account.get("id")])}
-                        compactView={false}
-                        showMore={true}
-                        fullHeight={true}
-                        limit={10}
-                        showFilters={true}
-                    />
-                </div>
-
-                {/* Deposit Modal */}
-                <SimpleDepositWithdraw
-                    ref="deposit_modal"
-                    action="deposit"
-                    fiatModal={this.state.fiatModal}
-                    account={this.props.account.get("name")}
-                    sender={this.props.account.get("id")}
-                    asset={this.state.depositAsset}
-                    modalId="simple_deposit_modal"
-                    balances={this.props.balances}
-                    {...currentDepositAsset}
-                />
-
-                {/* Withdraw Modal */}
-                <SimpleDepositWithdraw
-                    ref="withdraw_modal"
-                    action="withdraw"
-                    fiatModal={this.state.fiatModal}
-                    account={this.props.account.get("name")}
-                    sender={this.props.account.get("id")}
-                    asset={this.state.withdrawAsset}
-                    modalId="simple_withdraw_modal"
-                    balances={this.props.balances}
-                    {...currentWithdrawAsset}
-                />
-
-                {/* Bridge modal */}
-                <SimpleDepositBlocktradesBridge
-                    ref="bridge_modal"
-                    action="deposit"
-                    account={this.props.account.get("name")}
-                    sender={this.props.account.get("id")}
-                    asset={this.state.bridgeAsset}
-                    modalId="simple_bridge_modal"
-                    balances={this.props.balances}
-                    bridges={currentBridges}
-                />
             </div>
 
         );
