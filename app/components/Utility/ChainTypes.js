@@ -74,6 +74,7 @@ function assetChecker(props, propName, componentName, location) {
 }
 
 function accountChecker(props, propName, componentName, location) {
+    console.log("%ccheck work","color:red")
     componentName = componentName || "ANONYMOUS";
     if (props[propName]) {
         let value = props[propName];
