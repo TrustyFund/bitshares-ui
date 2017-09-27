@@ -1,26 +1,27 @@
 import React from "react";
 import Immutable from "immutable";
 import Translate from "react-translate-component";
-import BalanceComponent from "../../Utility/BalanceComponent";
-import TotalBalanceValue from "../../Utility/TotalBalanceValue";
-import SettleModal from "../../Modal/SettleModal";
-import {BalanceValueComponent, EquivalentValueComponent} from "../../Utility/EquivalentValueComponent";
-import AssetName from "../../Utility/AssetName";
-import CollateralPosition from "../../Blockchain/CollateralPosition";
+import BalanceComponent from "components/Utility/BalanceComponent";
+import TotalBalanceValue from "components/Utility/TotalBalanceValue";
+import SettleModal from "components/Modal/SettleModal";
+import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/EquivalentValueComponent";
+import AssetName from "components/Utility/AssetName";
+import CollateralPosition from "components/Blockchain/CollateralPosition";
+import { RecentTransactions } from "components/Account/RecentTransactions";
 import Proposals from "components/Account/Proposals";
 import {ChainStore} from "bitsharesjs/es";
 import SettingsActions from "actions/SettingsActions";
 import assetUtils from "common/asset_utils";
 import counterpart from "counterpart";
-import Icon from "../../Icon/Icon";
+import Icon from "components/Icon/Icon";
 import {Link} from "react-router";
-import ChainTypes from "../../Utility/ChainTypes";
-import FormattedAsset from "../../Utility/FormattedAsset";
-import BindToChainState from "../../Utility/BindToChainState";
+import ChainTypes from "components/Utility/ChainTypes";
+import FormattedAsset from "components/Utility/FormattedAsset";
+import BindToChainState from "components/Utility/BindToChainState";
 import utils from "common/utils";
 import ReactTooltip from "react-tooltip";
-import SimpleDepositWithdraw from "../../Dashboard/SimpleDepositWithdraw";
-import SimpleDepositBlocktradesBridge from "../../Dashboard/SimpleDepositBlocktradesBridge";
+import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
+import SimpleDepositBlocktradesBridge from "components/Dashboard/SimpleDepositBlocktradesBridge";
 import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
 
@@ -40,7 +41,10 @@ class AccountOverview extends React.Component {
             bridgeAsset: null,
             alwaysShowAssets: [
                 "BTS",
+                "USD",
+                "CNY",
                 "OPEN.BTC",
+                "OPEN.USDT",
                 "OPEN.ETH",
                 "OPEN.DASH",
                 "OPEN.LTC",
@@ -394,6 +398,17 @@ class AccountOverview extends React.Component {
                     </div>
                     <Proposals account={account.get("id")}/>
                 </div> : null}
+
+                <div className="content-block">
+                    <RecentTransactions
+                        accountsList={Immutable.fromJS([account.get("id")])}
+                        compactView={false}
+                        showMore={true}
+                        fullHeight={true}
+                        limit={10}
+                        showFilters={true}
+                    />
+                </div>
 
                 {/* Deposit Modal */}
                 <SimpleDepositWithdraw

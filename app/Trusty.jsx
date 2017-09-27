@@ -160,14 +160,15 @@ class Trusty extends React.Component {
         }
     }
     render() {
+        
         let {disableChat, isMobile, showChat, dockedChat, theme} = this.state;
         let content = null;
         let pathname = this.props.location.pathname;
-
         let showFooter = pathname.indexOf("market") === -1;
         let isAuthPage = pathname.indexOf("brainkey") !== -1;
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
+        localStorage.setItem("_trusty_username",myAccounts[0] || null)
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
         function grid(inside){
@@ -188,7 +189,7 @@ class Trusty extends React.Component {
 
         function authFreeRoutes(){
             return [
-            '/home',
+            '/test-home',
             '/signup',
             '/create-wallet-brainkey',
             ].some(i=>i==this.props.location.pathname)
