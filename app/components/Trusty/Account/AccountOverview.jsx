@@ -310,9 +310,7 @@ class AccountOverview extends React.Component {
                     includedBalancesList = includedBalancesList.push(a);
                 }
             });
-
-            console.log("SHOW",this.state.alwaysShowAssets)
-
+            
             let included = this._renderBalances(includedBalancesList, this.state.alwaysShowAssets, true);
             includedBalances = included.balances;
             includedOrders = included.openOrders;
