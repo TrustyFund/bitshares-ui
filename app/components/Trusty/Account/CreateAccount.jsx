@@ -254,8 +254,8 @@ class CreateAccount extends React.Component {
                 }
                 </div>
 
-
-                <p>KEEP PASSWORD SAFE the only way to access your funds. Your account is secured by immutable BitShares blockchain</p>
+                <p>Make sure to write down your password, as it can never be recovered and is the only way to access your account</p>
+                <p>Your account is secured by immutable BitShares blockchain</p>
                 {/* Backup restore option */}
                 {/*<div style={{paddingTop: 40}}>
                     <label>
