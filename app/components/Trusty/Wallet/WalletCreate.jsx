@@ -183,6 +183,7 @@ class CreateNewWallet extends Component {
 											
 										</div>
 										<span>{underButtonsText}</span>
+										<div style={{ height: "10px"}}/>
 
 								</div>
 
