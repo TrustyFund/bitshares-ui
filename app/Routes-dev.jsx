@@ -62,7 +62,12 @@ const routes = (
         <IndexRoute component={DashboardContainer}/>
         <Route path="/signup" component={CreateAccount}/>
         <Route path="/landing" component={Landing}/>
-        <Route path="/home" component={AccountPage} />
+        <Route path="/home" component={AccountPage}>
+            <IndexRoute component={AccountOverview}/>
+            <Route path="overview" component={AccountOverview} />
+        </Route>
+
+
         <Route path="/test-home" component={Home}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>

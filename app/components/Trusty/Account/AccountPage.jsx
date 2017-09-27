@@ -77,23 +77,11 @@ class AccountPage extends React.Component {
 AccountPage = BindToChainState(AccountPage, {keep_updating: true, show_loader: true});
 
 class AccountPageStoreWrapper extends React.Component {
-    componentDidMount() {
-        console.log("%cmount Account AccountPageWraper","color:green")
-    }
     render () {
-        console.log(this.props)
-        let account_name = localStorage.getItem("_trusty_username") || this.props.routeParams.account_name;
-        return(
-            <div>
-                { this.props.routeParams ? 
-                    (<AccountPage {...this.props} account_name={account_name}/> )
-                    :
-                    (<AccountPage {...this.props} account_name={account_name}>
-                            <AccountOverview />
-                    </AccountPage>)
-                }
-            </div>
-        );
+        let account_name = "anlopan364test2";
+        this.props.params.account_name = account_name;
+
+        return <AccountPage {...this.props} account_name={account_name}/>;
     }
 }
 
