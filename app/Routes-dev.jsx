@@ -15,6 +15,8 @@ import AccountsContainer from "./components/Explorer/AccountsContainer";
 import Explorer from "components/Explorer/Explorer";
 import AccountPage from "./components/Trusty/Account/AccountPage";
 import AccountOverview from "./components/Trusty/Account/AccountOverview";
+import AccountPageOld from "./components/Account/AccountPage";
+import AccountOverviewOld from "./components/Account/AccountOverview";
 import AccountAssets from "./components/Account/AccountAssets";
 import {AccountAssetCreate} from "./components/Account/AccountAssetCreate";
 import AccountAssetUpdate from "./components/Account/AccountAssetUpdate";
@@ -118,9 +120,9 @@ const routes = (
             <Route path="balance-claim" component={BalanceClaimActive} />
         </Route>
 
-        <Route path="/account/:account_name" component={AccountPage} >
-            <IndexRoute component={AccountOverview} />
-            <Route path="overview" component={AccountOverview} />
+        <Route path="/account/:account_name" component={AccountPageOld} >
+            <IndexRoute component={AccountOverviewOld} />
+            <Route path="overview" component={AccountOverviewOld} />
             <Route path="assets" component={AccountAssets} />
             <Route path="create-asset" component={AccountAssetCreate} />
             <Route path="update-asset/:asset" component={AccountAssetUpdate} />
