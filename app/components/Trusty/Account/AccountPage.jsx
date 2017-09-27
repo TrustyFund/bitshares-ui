@@ -4,10 +4,12 @@ import AccountStore from "stores/AccountStore";
 import SettingsStore from "stores/SettingsStore";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 import GatewayStore from "stores/GatewayStore";
-import ChainTypes from "../../Utility/ChainTypes";
-import BindToChainState from "../../Utility/BindToChainState";
+import AccountLeftPanel from "components/Account/AccountLeftPanel";
+import ChainTypes from "components/Utility/ChainTypes";
+import BindToChainState from "components/Utility/BindToChainState";
 import { connect } from "alt-react";
 import accountUtils from "common/account_utils";
+import AccountOverview from "./AccountOverview";
 
 class AccountPage extends React.Component {
 
@@ -21,6 +23,7 @@ class AccountPage extends React.Component {
 
     componentDidMount() {
         if (this.props.account && AccountStore.isMyAccount(this.props.account)) {
+            console.log("%cmount Account Page","color:green")
             AccountActions.setCurrentAccount.defer(this.props.account.get("name"));
         }
 
@@ -35,8 +38,18 @@ class AccountPage extends React.Component {
 
         return (
             <div className="grid-block page-layout">
+                <div className="show-for-medium grid-block shrink left-column no-padding" style={{minWidth: 250}}>
+                    <AccountLeftPanel
+                        account={account}
+                        isMyAccount={isMyAccount}
+                        linkedAccounts={linkedAccounts}
+                        myAccounts={myAccounts}
+                        viewSettings={this.props.viewSettings}
+                    />
+                </div>
                 <div className="grid-block main-content">
                     <div className="grid-container">
+                    {this.props.children}
                     {React.cloneElement(
                         React.Children.only(this.props.children),
                         {
@@ -64,10 +77,23 @@ class AccountPage extends React.Component {
 AccountPage = BindToChainState(AccountPage, {keep_updating: true, show_loader: true});
 
 class AccountPageStoreWrapper extends React.Component {
+    componentDidMount() {
+        console.log("%cmount Account AccountPageWraper","color:green")
+    }
     render () {
-        let account_name = this.props.routeParams.account_name;
-
-        return <AccountPage {...this.props} account_name={account_name}/>;
+        console.log(this.props)
+        let account_name = localStorage.getItem("_trusty_username") || this.props.routeParams.account_name;
+        return(
+            <div>
+                { this.props.routeParams ? 
+                    (<AccountPage {...this.props} account_name={account_name}/> )
+                    :
+                    (<AccountPage {...this.props} account_name={account_name}>
+                            <AccountOverview />
+                    </AccountPage>)
+                }
+            </div>
+        );
     }
 }
 

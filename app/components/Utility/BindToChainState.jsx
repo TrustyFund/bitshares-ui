@@ -91,6 +91,7 @@ function BindToChainState(Component, options = {}) {
                 this.required_props = this.all_chain_props;
             }
             this.dynamic_props = {};
+            this.dynamic_props["account"] = localStorage.getItem("_trusty_username")
             this.default_props = clone(Component.defaultProps) || {};
             for (let key in this.default_props) {
                 let value = this.default_props[key];
@@ -143,6 +144,8 @@ function BindToChainState(Component, options = {}) {
         {
             //let keep_updating = (options && options.keep_updating) || this.props.keep_updating;
             //if(!next_props && !keep_updating && this.state.resolved) return;
+            console.log("%cupdate----------->", "color: blue")
+            console.log(this)
 
             let props = next_props || this.props;
             let new_state = {};
@@ -334,8 +337,7 @@ function BindToChainState(Component, options = {}) {
 
         render() {
             const props = omit(this.props, this.all_chain_props);
-
-            //console.log("----- Wrapper render ----->", this.componentName(), this.props, this.state);
+            console.log("----- Wrapper render ----->", this.componentName(), this.props, this.state);
             for (let prop of this.required_props)  {
                 if(!this.state[prop]) {
                     if (typeof options !== "undefined" && options.show_loader) {
@@ -347,6 +349,7 @@ function BindToChainState(Component, options = {}) {
                     }
                 }
             }
+
             //return <span className={this.state.resolved ? "resolved":"notresolved"}><Component {...props} {...this.state}/></span>;
             return <Component ref="bound_component" {...props} {...this.state}/>;
         }
