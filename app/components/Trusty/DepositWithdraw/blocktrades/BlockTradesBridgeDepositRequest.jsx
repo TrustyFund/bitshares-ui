@@ -24,7 +24,12 @@ class ButtonConversion extends React.Component {
         output_coin_type: React.PropTypes.string.isRequired,
         account_name: React.PropTypes.string.isRequired,
         account_id: React.PropTypes.string.isRequired,
-        url: React.PropTypes.string.isRequired
+        url: React.PropTypes.string.isRequired,
+        deposit_only: React.bool,
+    };
+
+    static defaultProps = {
+        deposit_only: false
     };
 
     constructor(props) {
@@ -1452,10 +1457,11 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 <div>
                     {/*<div style={{paddingBottom: 15}}><Translate component="h5" content="gateway.bridge_text" /></div>*/}
                     <table className="table">
-                        {deposit_header}
-                        {deposit_body}
-                        {withdraw_header}
-                        {withdraw_body}
+
+                        {this.props.deposit_only ? deposit_header : null}
+                        {this.props.deposit_only ? deposit_body : null}
+                        {!this.props.deposit_only ? withdraw_header : null}
+                        {!this.props.deposit_only ? withdraw_body : null}
                         {/*conversion_header*/}
                         {/*conversion_body*/}
                     </table>
