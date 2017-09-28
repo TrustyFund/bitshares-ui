@@ -97,6 +97,9 @@ br.desk {
 	svg { 
 		fill: $white_color; 
 	}
+	@media screen and (min-width: 751px) {
+		width: 200px;
+	}
 }
 
 .trusty_header_arrow {
@@ -125,5 +128,11 @@ br.desk {
 		margin: initial !important;
 		height: 50px;
 		color: black;
+	}
+
+	@media screen and (min-width: 751px) {
+		button {
+			width: 200px;
+		}
 	}
 }
