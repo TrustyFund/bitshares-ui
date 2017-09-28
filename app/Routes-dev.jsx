@@ -50,7 +50,6 @@ import InitError from "./components/InitError";
 import LoginSelector from "./components/LoginSelector";
 import CreateWorker from "./components/Account/CreateWorker";
 import Landing from "components/Trusty/Landing/Landing"
-import Home from "components/Trusty/Home/Home"
 import Withdraw from "components/Trusty/Account/Withdraw"
 import Deposit from "components/Trusty/Account/Deposit"
 
@@ -72,7 +71,6 @@ const routes = (
         </Route>
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
-        <Route path="/test-home" component={Home}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>

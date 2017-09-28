@@ -1,3 +1,4 @@
+import {Link} from 'react-router';
 import React from "react";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
@@ -48,6 +49,10 @@ class AccountPage extends React.Component {
                 </div>
                 <div className="grid-block main-content">
                     <div className="grid-container">
+                        <div className="trusty_inline_buttons">
+                            <Link to="/deposit"><button>DEPOSIT</button></Link>
+                            <Link to="/withdraw"><button>WITHDRAW</button></Link>
+                        </div>
                     {this.props.children}
                     {React.cloneElement(
                         React.Children.only(this.props.children),
