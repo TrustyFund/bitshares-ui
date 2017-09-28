@@ -177,12 +177,12 @@ class Trusty extends React.Component {
         localStorage.setItem("_trusty_username",myAccounts[0] || null)
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
-
+        console.log(this.props.location.pathname)
         let header = (
             <header className="trusty_header">
-                { AccountStore.getMyAccounts().length
+                { AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
                     ? <div  className="trusty_header_logo" dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/images/trusty_fund_logo.svg')}} />
-                    : (<Link to="/">
+                    : (<Link to={AccountStore.getMyAccounts().length ? "/home": "/"}>
                         <button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />
                       </Link>)
                 }
