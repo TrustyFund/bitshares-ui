@@ -147,7 +147,7 @@ class AccountOverview extends React.Component {
 
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
-                    <td style={{textAlign: "right"}}>
+                    <td style={{textAlign: "left"}}>
                         {asset.get("symbol")}
                     </td>
                     <td style={{textAlign: "right"}}>
@@ -212,7 +212,7 @@ class AccountOverview extends React.Component {
                     let directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
                     if (includeAsset && visible || !includeAsset && !visible) balances.push(
                         <tr key={"zz" + a} style={{maxWidth: "100rem"}}>
-                            <td style={{textAlign: "right"}}>
+                            <td style={{textAlign: "left"}}>
                                 <AssetName name={a} />
                             </td>
                             <td style={{textAlign: "right"}}>
@@ -341,15 +341,16 @@ class AccountOverview extends React.Component {
         const currentBridges = this.props.bridgeCoins.get(this.state.bridgeAsset) || null;
 
         return (
-            <div className="grid-content" style={{overflowX: "hidden"}}>
+            <div className="grid-content" style={{overflowX: "hidden", padding: "0 .7rem"}}>
                 <div className="content-block small-12">
                     <div className="generic-bordered-box">
                         <br/>
+                        <p style={{textAlign: "center"}}>TOTAL FUNDS</p>
                         <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
-                        <table className="table">
+                        <table className="table trusty_table">
                             <thead>
                                 <tr>
-                                    <th style={{textAlign: "right"}}><Translate component="span" content="account.asset" /></th>
+                                    <th style={{textAlign: "left"}}><Translate component="span" content="account.asset" /></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.share" /></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.chng" /></th>   
                                 </tr>
