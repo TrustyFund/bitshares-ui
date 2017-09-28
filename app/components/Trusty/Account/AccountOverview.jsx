@@ -2,7 +2,7 @@ import React from "react";
 import Immutable from "immutable";
 import Translate from "react-translate-component";
 import BalanceComponent from "components/Utility/BalanceComponent";
-import TotalBalanceValue from "components/Utility/TotalBalanceValue";
+import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import SettleModal from "components/Modal/SettleModal";
 import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/EquivalentValueComponent";
 import AssetName from "components/Utility/AssetName";
@@ -148,7 +148,7 @@ class AccountOverview extends React.Component {
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "right"}}>
-                        {hasBalance || hasOnOrder ? <BalanceComponent balance={balance} assetInfo={assetInfoLinks}/> : null}
+                        {asset.get("symbol")}
                     </td>
                     <td style={{textAlign: "right"}}>
                         {hasBalance || hasOnOrder
@@ -156,7 +156,7 @@ class AccountOverview extends React.Component {
                             : "0 BTS"
                         }
                     </td>
-                    <td style={{textAlign: "center"}}>
+                    <td style={{textAlign: "center", display: "none"}}>
                         {directMarketLink}
                     </td>
                     <td>
@@ -218,7 +218,7 @@ class AccountOverview extends React.Component {
                             <td style={{textAlign: "right"}}>
                                 0 bitUSD
                             </td>
-                            <td style={{textAlign: "center"}}>
+                            <td style={{textAlign: "center", display: "none"}}>
                                 {directMarketLink}
                             </td>
                             <td>
@@ -344,19 +344,14 @@ class AccountOverview extends React.Component {
             <div className="grid-content" style={{overflowX: "hidden"}}>
                 <div className="content-block small-12">
                     <div className="generic-bordered-box">
-                        <h3>{totalBalance}</h3>
+                        <br/>
+                        <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
                         <table className="table">
                             <thead>
                                 <tr>
-                                    {/*<th><Translate component="span" content="modal.settle.submit" /></th>*/}
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.asset" /></th>
-                                    {/*<<th style={{textAlign: "right"}}><Translate component="span" content="account.bts_market" /></th>*/}
-                                    <th style={{textAlign: "right"}} className="column-hide-small"><Translate component="span" content="account.eq_value" /></th>
-                                    {showAssetPercent ? <th style={{textAlign: "right"}}><Translate component="span" content="account.percent" /></th> : null}
-                                    <th style={{textAlign: "center"}}>
-                                        <Translate content="account.market_actions" />
-                                    </th>
-                                    <th></th>
+                                    <th style={{textAlign: "right"}}><Translate component="span" content="account.share" /></th>
+                                    <th style={{textAlign: "right"}}><Translate component="span" content="account.chng" /></th>   
                                 </tr>
                             </thead>
                             <tbody>
