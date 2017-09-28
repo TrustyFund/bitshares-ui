@@ -24,8 +24,12 @@ $land_padding: 5vw;
 
 
 	.top_buttons {
+		text-align: center;
 		margin-bottom: $title_font;
-		a { color: white}
+		a { 
+			color: white;
+			display: inline-block;
+		}
 		span {
 			text-transform: uppercase;
 			display: inline-block;
