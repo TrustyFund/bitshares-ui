@@ -97,7 +97,7 @@ class Landing extends Component {
                     <p>First time in history every person on earth can invest in a globally disruptive, yet infant, technology</p>
                     <p>Depositing into Trusty.Fund now is like investing in index of Internet companies of 90s, when 20 million people used Internet</p>
                 </div>
-                {button(false)}
+                    {button(false)}
             </div>
         );
     }

@@ -1,8 +1,10 @@
-$title_font: 1.6rem;
+$title_font: 1.45rem;
 $land_padding: 5vw;
 
 #landing {
 	padding: 0 $land_padding 10vw $land_padding;
+
+
 	button {
 		font-family: Gotham_Pro;
 		background: transparent;
@@ -11,7 +13,7 @@ $land_padding: 5vw;
 		width: 100%;
 		padding: 20px 0;
 		border: 1px solid white;
-		font-size: 25px;
+		font-size: 18px;
 		margin-top: 10px;
 	}
 
@@ -61,7 +63,7 @@ $land_padding: 5vw;
 	}
 
 	._logo {
-		padding: 30px 60px 15px 60px;
+		padding: 30px 65px 15px 65px;
 	}
 }
 
