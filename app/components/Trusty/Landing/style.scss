@@ -2,7 +2,7 @@ $title_font: 4vh;//1.45rem;
 $land_padding: 5vw;
 
 #landing {
-	padding: 0 $land_padding 10vw $land_padding;
+	padding: 0 $land_padding 2vh $land_padding;
 
 
 	button {
@@ -43,7 +43,7 @@ $land_padding: 5vw;
 			display: inline-block;
 			width: 42vw;
 			font-family: Gotham_Pro;
-			font-size: 20px;
+			font-size: 17px;
 			text-align: center;
 			height: 15vh;
 			line-height: 15vh;
@@ -59,11 +59,11 @@ $land_padding: 5vw;
 		fill: #e6e6e6;
 	}
 	._logo_text {
-		padding: 20px;
+		padding: 20px 30px 20px 30px;
 	}
 
 	._logo {
-		padding: 30px 65px 15px 65px;
+		padding: 22px 65px 15px 65px;
 	}
 }
 

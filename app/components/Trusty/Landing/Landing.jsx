@@ -82,7 +82,7 @@ class Landing extends Component {
                 <div className="bottom_content">
                     <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
                     <div className="_logo" dangerouslySetInnerHTML={{__html:require('./images/owl_logo_small.svg')}}/>
-                    <p>Single-click to invest in crypto economy</p>
+                    <p>Single-click to invest <br/>  in crypto economy</p>
                     {button(true)}
                 </div>
             </div>
