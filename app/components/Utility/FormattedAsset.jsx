@@ -61,7 +61,8 @@ class FormattedAsset extends React.Component {
 
     render() {
         let {amount, decimalOffset, color, asset, hide_asset, hide_amount, asPercentage} = this.props;
-
+        console.log("----------> amout", amount)
+        console.log("asset", asset)
         if( asset && asset.toJS ) asset = asset.toJS();
 
         let colorClass = color ? "facolor-" + color : "";
