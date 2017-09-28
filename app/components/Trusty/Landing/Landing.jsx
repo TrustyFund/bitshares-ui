@@ -60,7 +60,7 @@ class Landing extends Component {
 
     render() {
 
-        const button = <button className="land_button">INVEST NOW</button>
+        let button = (fixed) => { return <button className={ !fixed ? "land_button" : "land_button fixed_bottom"}>INVEST NOW</button>};
 
         const list = slides.map((slide, index)=>
             <div className="land_slide" key={slide.id}>
@@ -79,10 +79,12 @@ class Landing extends Component {
                     <Link to="/signup"><span>Sign-Up</span></Link>
                     <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
-                <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
-                <div className="_logo" dangerouslySetInnerHTML={{__html:require('./images/owl_logo_small.svg')}}/>
-                <p>Single-click to invest in crypto economy</p>
-                {button}
+                <div className="bottom_content">
+                    <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
+                    <div className="_logo" dangerouslySetInnerHTML={{__html:require('./images/owl_logo_small.svg')}}/>
+                    <p>Single-click to invest in crypto economy</p>
+                    {button(true)}
+                </div>
             </div>
         )
         return (            
@@ -94,8 +96,8 @@ class Landing extends Component {
                 <div className="last_text">
                     <p>First time in history every person on earth can invest in a globally disruptive, yet infant, technology</p>
                     <p>Depositing into Trusty.Fund now is like investing in index of Internet companies of 90s, when 20 million people used Internet</p>
-                    {button}
                 </div>
+                {button(false)}
             </div>
         );
     }

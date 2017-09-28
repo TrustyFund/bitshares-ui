@@ -2,7 +2,7 @@ $title_font: 1.6rem;
 $land_padding: 5vw;
 
 #landing {
-	padding: $land_padding $land_padding 10vw $land_padding;
+	padding: 0 $land_padding 10vw $land_padding;
 	button {
 		font-family: Gotham_Pro;
 		background: transparent;
@@ -15,17 +15,23 @@ $land_padding: 5vw;
 		margin-top: 10px;
 	}
 
-
+	.fixed_bottom {
+		position: absolute;
+		bottom: 3vh;
+		width: 90%;
+	}
 	p {
 		font-family: Gotham_Pro_Bold;
 		font-size: $title_font;
 		text-align: center;
 	}
-
+	.bottom_content {
+	 	height: 85vh;
+	}
 
 	.top_buttons {
+		height: 15vh;
 		text-align: center;
-		margin-bottom: $title_font;
 		a { 
 			color: white;
 			display: inline-block;
@@ -35,30 +41,28 @@ $land_padding: 5vw;
 			display: inline-block;
 			width: 42vw;
 			font-family: Gotham_Pro;
+			font-size: 20px;
 			text-align: center;
-			height: 14vh;
-			line-height: 14vh;
+			height: 15vh;
+			line-height: 15vh;
 		}
 	}
 }
 
 
 .logo_starter {
-	//height: 100vh;
+	height: 100vh;
 	margin-bottom: 35px;
 	svg {
 		fill: #e6e6e6;
 	}
-
 	._logo_text {
 		padding: 20px;
 	}
 
 	._logo {
-		padding: 30px 50px 15px 50px;
+		padding: 30px 60px 15px 60px;
 	}
-
-
 }
 
 
@@ -70,6 +74,10 @@ $land_padding: 5vw;
 	text-align: center;
 	margin-bottom: 50px;
 	font-family: Gotham_Pro;
+
+	.image_area {
+		margin-bottom: 40px;
+	}
 
 	h1 {
 		font-family: Gotham_Pro_Bold;
@@ -110,6 +118,7 @@ br.desk {
 		flex-direction: row-reverse;
 		width: 100vw;
 		justify-content: center;
+
 		.text_area {
 			height: 350px;
 			text-align: left;

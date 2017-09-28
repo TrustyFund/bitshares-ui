@@ -146,7 +146,8 @@ class TotalValue extends React.Component {
     render() {
         let {fromAssets, toAsset, balances, marketStats, collateral, debt, openOrders, inHeader} = this.props;
         let coreAsset = ChainStore.getAsset("1.3.0");
-
+        console.log("--------from assets", fromAssets)
+        console.log("--------to asset", toAsset)
         if (!coreAsset || !toAsset) {
             return null;
         }
