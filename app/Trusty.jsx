@@ -176,8 +176,6 @@ class Trusty extends React.Component {
         let myAccountCount = myAccounts.length;
         localStorage.setItem("_trusty_username",myAccounts[0] || null)
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
-
-        console.log(this.props.location.pathname)
         let header = (
             <header className="trusty_header">
                 { AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
