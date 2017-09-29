@@ -16,7 +16,7 @@ import counterpart from "counterpart";
 import Icon from "components/Icon/Icon";
 import {Link} from "react-router";
 import ChainTypes from "components/Utility/ChainTypes";
-import FormattedAsset from "components/Utility/FormattedAsset";
+import FormattedAsset from "components/Utility/Trusty/FormattedAsset";
 import BindToChainState from "components/Utility/BindToChainState";
 import utils from "common/utils";
 import BorrowModal from "components/Modal/BorrowModal";

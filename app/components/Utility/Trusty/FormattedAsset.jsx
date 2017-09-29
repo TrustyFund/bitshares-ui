@@ -30,7 +30,8 @@ class FormattedAsset extends React.Component {
         hide_asset: PropTypes.bool,
         hide_amount: PropTypes.bool,
         asPercentage: PropTypes.bool,
-        assetInfo: PropTypes.node
+        assetInfo: PropTypes.node,
+        dollarShow: PropTypes.bool
     };
 
     static defaultProps = {
@@ -40,7 +41,8 @@ class FormattedAsset extends React.Component {
         hide_amount: false,
         asPercentage: false,
         assetInfo: null,
-        replace: true
+        replace: true,
+        dollarShow: false
     };
 
     constructor(props) {
@@ -61,8 +63,7 @@ class FormattedAsset extends React.Component {
 
     render() {
         let {amount, decimalOffset, color, asset, hide_asset, hide_amount, asPercentage} = this.props;
-        console.log("----------> amout", amount)
-        console.log("asset", asset)
+
         if( asset && asset.toJS ) asset = asset.toJS();
 
         let colorClass = color ? "facolor-" + color : "";
@@ -103,16 +104,14 @@ class FormattedAsset extends React.Component {
         </div>;
 
         return (
-                <span className={colorClass}  >
+                <span className={colorClass}>
+                { this.props.dollarShow ? <span style={{paddingRight: "10px"}}>$</span> : null }
                 {!hide_amount ?
-                    <div className="trusty_total_money">
-                        <span style={{paddingRight: "10px"}}>$</span>
-                        <FormattedNumber
-                            value={this.props.exact_amount ? amount : amount / precision}
-                            minimumFractionDigits={0}
-                            maximumFractionDigits={decimals}
-                        />
-                    </div>
+                    <FormattedNumber
+                        value={this.props.exact_amount ? amount : amount / precision}
+                        minimumFractionDigits={0}
+                        maximumFractionDigits={decimals}
+                    />
                 : null}
                 {!hide_asset && (this.props.assetInfo ? (
                     <span>&nbsp;
@@ -123,7 +122,12 @@ class FormattedAsset extends React.Component {
                     >
                         <span className="currency click-for-help" onClick={this.togglePopover}><AssetName name={asset.symbol} /></span>
                     </Popover></span>) :
-                    null)}
+
+                    (!this.props.dollarShow ? <span className="currency" onClick={this.togglePopover}> 
+                        <AssetName noTip={this.props.noTip} noPrefix={this.props.noPrefix} name={asset.symbol} replace={this.props.replace} />
+                    </span> : null )
+
+                )}
                 </span>
         );
     }
