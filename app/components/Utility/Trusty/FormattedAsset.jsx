@@ -3,11 +3,11 @@ import {FormattedNumber} from "react-intl";
 import utils from "common/utils";
 import assetUtils from "common/asset_utils";
 import {PropTypes} from "react";
-import ChainTypes from "./ChainTypes";
-import BindToChainState from "./BindToChainState";
+import ChainTypes from "../ChainTypes";
+import BindToChainState from "../BindToChainState";
 import Popover from "react-popover";
-import HelpContent from "./HelpContent";
-import AssetName from "./AssetName";
+import HelpContent from "../HelpContent";
+import AssetName from "../AssetName";
 import {ChainStore} from "bitsharesjs/es";
 
 /**
@@ -61,7 +61,8 @@ class FormattedAsset extends React.Component {
 
     render() {
         let {amount, decimalOffset, color, asset, hide_asset, hide_amount, asPercentage} = this.props;
-
+        console.log("----------> amout", amount)
+        console.log("asset", asset)
         if( asset && asset.toJS ) asset = asset.toJS();
 
         let colorClass = color ? "facolor-" + color : "";
@@ -104,11 +105,14 @@ class FormattedAsset extends React.Component {
         return (
                 <span className={colorClass}  >
                 {!hide_amount ?
-                    <FormattedNumber
-                        value={this.props.exact_amount ? amount : amount / precision}
-                        minimumFractionDigits={0}
-                        maximumFractionDigits={decimals}
-                    />
+                    <div className="trusty_total_money">
+                        <span style={{paddingRight: "10px"}}>$</span>
+                        <FormattedNumber
+                            value={this.props.exact_amount ? amount : amount / precision}
+                            minimumFractionDigits={0}
+                            maximumFractionDigits={decimals}
+                        />
+                    </div>
                 : null}
                 {!hide_asset && (this.props.assetInfo ? (
                     <span>&nbsp;
@@ -119,7 +123,7 @@ class FormattedAsset extends React.Component {
                     >
                         <span className="currency click-for-help" onClick={this.togglePopover}><AssetName name={asset.symbol} /></span>
                     </Popover></span>) :
-                    <span className="currency" onClick={this.togglePopover}> <AssetName noTip={this.props.noTip} noPrefix={this.props.noPrefix} name={asset.symbol} replace={this.props.replace} /></span>)}
+                    null)}
                 </span>
         );
     }

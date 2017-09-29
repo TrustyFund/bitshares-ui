@@ -1,5 +1,5 @@
 import React from "react";
-import FormattedAsset from "../FormattedAsset";
+import FormattedAsset from "./FormattedAsset";
 import ChainTypes from "../ChainTypes";
 import BindToChainState from "../BindToChainState";
 import utils from "common/utils";
