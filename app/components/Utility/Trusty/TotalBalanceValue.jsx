@@ -250,7 +250,7 @@ class TotalValue extends React.Component {
             return(
                 <span>
                     {!!this.props.label ? (<span className="font-secondary"><Translate content={this.props.label} />: </span>) : null}
-                    <FormattedAsset noPrefix amount={totalValue} asset={toAsset.get("id")} decimalOffset={toAsset.get("symbol").indexOf("BTC") === -1 ? toAsset.get("precision") : 4}/>
+                    <FormattedAsset noPrefix amount={totalValue} dollarShow={true} asset={toAsset.get("id")} decimalOffset={toAsset.get("symbol").indexOf("BTC") === -1 ? toAsset.get("precision") : 4}/>
                 </span>
             );
         } else {
