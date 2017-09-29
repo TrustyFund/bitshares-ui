@@ -245,7 +245,7 @@ class TotalValue extends React.Component {
             totalsTip += `<tr><td>&nbsp;</td><td style="text-align: right;">${noDataSymbol} no data</td></tr>`;
 
         totalsTip += "</tbody></table>";
-
+        localStorage.setItem("_trusty_total_value", totalValue)
         if (!inHeader) {
             return(
                 <span>

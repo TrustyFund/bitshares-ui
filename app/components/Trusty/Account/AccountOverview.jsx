@@ -4,7 +4,7 @@ import Translate from "react-translate-component";
 import BalanceComponent from "components/Utility/BalanceComponent";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import SettleModal from "components/Modal/SettleModal";
-import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/EquivalentValueComponent";
+import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/Trusty/EquivalentValueComponent";
 import AssetName from "components/Utility/AssetName";
 import CollateralPosition from "components/Blockchain/CollateralPosition";
 import { RecentTransactions } from "components/Account/RecentTransactions";
@@ -151,7 +151,6 @@ class AccountOverview extends React.Component {
             const canDepositWithdraw = !!this.props.backedCoins.get("OPEN", []).find(a => a.symbol === asset.get("symbol"));
             const canWithdraw = canDepositWithdraw && (hasBalance && balanceObject.get("balance") != 0);
             const canBuy = !!this.props.bridgeCoins.get(symbol);
-
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "left"}}>
