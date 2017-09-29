@@ -118,13 +118,11 @@ br.desk {
 
 .trusty_inline_buttons {
 
-	display: flex;
-	justify-content: space-around;
-	padding-top: 10px;
+	text-align: center;
 	button {
 		font-family: Gotham_Pro_Bold;
 		display: inline-block;
-		width: 46vw;
+		width: 43vw;
 		margin: initial !important;
 		height: 50px;
 		color: black;
