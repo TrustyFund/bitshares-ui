@@ -130,7 +130,7 @@ const routes = (
         }}/>
 
         <Route path="create-wallet-brainkey" getComponent={(location, cb) => {
-            System.import("components/Wallet/WalletCreate").then(loadRoute(cb, "CreateWalletFromBrainkey")).catch(errorLoading);
+            System.import("components/Trusty/Wallet/WalletCreate").then(loadRoute(cb, "CreateWalletFromBrainkey")).catch(errorLoading);
         }}/>
 
         <Route path="transfer" getComponent={(location, cb) => {
