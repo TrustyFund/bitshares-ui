@@ -47,11 +47,11 @@ class AccountPage extends React.Component {
                         viewSettings={this.props.viewSettings}
                     />
                 </div>
-                <div className="grid-block main-content">
+                <div className="grid-block main-content" style={{paddingTop: "10px"}}>
                     <div className="grid-container">
                         <div className="trusty_inline_buttons">
-                            <Link to="/deposit"><button>DEPOSIT</button></Link>
-                            <Link to="/withdraw"><button>WITHDRAW</button></Link>
+                            <Link to="/deposit" style={{marginRight: "7px"}}><button>DEPOSIT</button></Link>
+                            <Link to="/withdraw" style={{marginLeft: "7px"}}><button>WITHDRAW</button></Link>
                         </div>
                     {this.props.children}
                     {React.cloneElement(
