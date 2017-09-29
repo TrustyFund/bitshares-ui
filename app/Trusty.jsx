@@ -174,7 +174,6 @@ class Trusty extends React.Component {
         let isAuthPage = pathname.indexOf("brainkey") !== -1;
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
-        localStorage.setItem("_trusty_username",myAccounts[0] || null)
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
         let header = (
             <header className="trusty_header">

@@ -31,7 +31,8 @@ class FormattedAsset extends React.Component {
         hide_amount: PropTypes.bool,
         asPercentage: PropTypes.bool,
         assetInfo: PropTypes.node,
-        dollarShow: PropTypes.bool
+        dollarShow: PropTypes.bool,
+        trustyPercentage: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -42,7 +43,8 @@ class FormattedAsset extends React.Component {
         asPercentage: false,
         assetInfo: null,
         replace: true,
-        dollarShow: false
+        dollarShow: false,
+        trustyPercentage: false
     };
 
     constructor(props) {
@@ -62,7 +64,7 @@ class FormattedAsset extends React.Component {
     }
 
     render() {
-        let {amount, decimalOffset, color, asset, hide_asset, hide_amount, asPercentage} = this.props;
+        let {amount, decimalOffset, color, asset, hide_asset, hide_amount, asPercentage, trustyPercentage} = this.props;
 
         if( asset && asset.toJS ) asset = asset.toJS();
 
@@ -74,6 +76,17 @@ class FormattedAsset extends React.Component {
 
         if (hide_amount) {
             colorClass += " no-amount";
+        }
+
+
+        if(trustyPercentage) {
+            let totalAmount = +localStorage.getItem("_trusty_total_value")
+            let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
+            return (
+                <span className={colorClass}>
+                    {percent.toFixed(2)}%
+                </span>
+            )
         }
 
         if (asPercentage) {

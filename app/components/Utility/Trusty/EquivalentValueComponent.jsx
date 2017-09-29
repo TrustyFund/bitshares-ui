@@ -11,6 +11,7 @@ import Translate from "react-translate-component";
 import counterpart from "counterpart";
 import ReactTooltip from "react-tooltip";
 
+
 /**
  *  Given an asset amount, displays the equivalent value in baseAsset if possible
  *
@@ -25,7 +26,7 @@ class ValueComponent extends React.Component {
 
     static propTypes = {
         toAsset: ChainTypes.ChainAsset.isRequired,
-        fromAsset: ChainTypes.ChainAsset.isRequired
+        fromAsset: ChainTypes.ChainAsset.isRequired,
     };
 
     static defaultProps = {
@@ -96,10 +97,9 @@ class ValueComponent extends React.Component {
     }
 
     render() {
-        let {amount, toAsset, fromAsset, fullPrecision, marketStats} = this.props;
+        let {amount, toAsset, fromAsset, fullPrecision, marketStats } = this.props;
         let coreAsset = ChainStore.getAsset("1.3.0");
         let toStats, fromStats;
-        console.log("--------->", amount)
         let toID = toAsset.get("id");
         let toSymbol = toAsset.get("symbol");
         let fromID = fromAsset.get("id");
@@ -129,7 +129,7 @@ class ValueComponent extends React.Component {
             return <div className="tooltip inline-block" data-place="bottom" data-tip={counterpart.translate("tooltip.no_price")} style={{fontSize: "0.9rem"}}><Translate content="account.no_price" /></div>;
         }
 
-        return <FormattedAsset noPrefix amount={eqValue} asset={toID} decimalOffset={toSymbol.indexOf("BTC") !== -1 ? 4 : this.props.noDecimals ? toAsset.get("precision") : 0}/>;
+        return <FormattedAsset noPrefix amount={eqValue} trustyPercentage={true} asset={toID} decimalOffset={toSymbol.indexOf("BTC") !== -1 ? 4 : this.props.noDecimals ? toAsset.get("precision") : 0}/>;
     }
 }
 ValueComponent = BindToChainState(ValueComponent, {keep_updating: true});
