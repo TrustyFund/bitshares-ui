@@ -215,7 +215,7 @@ class AccountOverview extends React.Component {
                                 <AssetName name={a} />
                             </td>
                             <td style={{textAlign: "right"}}>
-                                0 bitUSD
+                                0%
                             </td>
                             <td style={{textAlign: "center", display: "none"}}>
                                 {directMarketLink}
