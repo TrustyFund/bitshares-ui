@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+
+@mixin trusty_small_font {
+ font-family : Gotham_Pro;
+ font-size : 32px;
+ color : #FFFFFF;
+ color : rgb(255, 255, 255);
+}
+
+
+@mixin trusty_large_font_letter_space {
+ font-family : Gotham_Pro_Bold;
+ font-weight : bold;
+ font-size : 48px;
+ letter-spacing : 0.48px;
+ color : #FFFFFF;
+ color : rgb(255, 255, 255);
+}
+
+
+@mixin trusty_large_font {
+ font-family : Gotham_Pro_Bold;
+ font-weight : bold;
+ font-size : 48px;
+ color : #FFFFFF;
+ color : rgb(255, 255, 255);
+}
+
+
+@mixin trusty_medium_font {
+ font-family : Gotham_Pro;
+ font-size : 36px;
+ color : #FFFFFF;
+ color : rgb(255, 255, 255);
+}
