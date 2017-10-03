@@ -6,6 +6,8 @@ $land_padding: 5vw;
 $arrow_size: 9.8vh;
 
 
+
+
 .trusty_arrow_down {
 	position: absolute;
 	display:inline-block;
@@ -28,15 +30,16 @@ $arrow_size: 9.8vh;
 }
 
 #landing {
-	padding: 0 $land_padding 2vh $land_padding;
 
-
+	.wrap_img_profile {
+		width: 30vw;
+	}
+	
 	button {
 		font-family: Gotham_Pro;
 		background: transparent;
 		border-radius: 10px;
 		margin-top: 10px;
-		width: 100%;
 		height: 10vh;
 		border: 3px solid white;
 		font-size: 18px;
@@ -171,17 +174,8 @@ br.desk {
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: center;
-		img {
-			width: 83vw !important;
-		}
 		.text_area {
 			padding-bottom: 10vh;
-		}
-	}
-
-	&.sl_id-5 {
-		img {
-			width: 80vw !important;
 		}
 	}
 	.image_area {
@@ -201,26 +195,118 @@ br.desk {
 		padding: 0 3vw;
 	}
 
-	@media screen and (min-width: 751px) { 
+}
+
+@media screen and (min-width: 769px) { 
+	.bottom_content {
+		height: 100% !important;
+		flex-direction: row !important;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.wrap_img_profile {
+		height: 70vh;
+		img {
+			height: 100%;
+		}
+	} 
+
+	._desk_right {
+		width: 34vw;
+		._logo {
+			width: 12vw;
+			margin: 0;
+		}
+		._logo_text {
+			width: 17vw;
+			margin: 0;
+		}
+	}
+	.bottom_info {
+		padding-left: 10vw;
+		padding-right: 10vw;
+
+	}
+	.last_text {
+		height: initial !important;
+		padding-left: 19vw;
+		padding-right: 19vw;
+		padding-top: 12vh !important;
+		padding-bottom: 12vh !important;
+		background-size: 400px !important;
+		text-align: center;
+	}
+
+	.land_button {
+		width: 300px;
+	}
+	
+	._logo._mob, 
+	._logo_text._mob {
+		display: none;
+	}
+
+
+	.land_slide {
 		display: flex;
 		flex-direction: row-reverse;
 		width: 100vw;
-		justify-content: center;
-
+		//justify-content: center;
+		.image_area, .text_area {
+			width: 34vw;
+			height: 45vh;
+		}
 		.text_area {
-			height: 350px;
 			text-align: left;
-			width: 350px;
-			padding: 40px 0 0 20px;
+			padding: 14vh 0 0 0;
 		}
 		img {
-			width: 350px !important;
+			max-width: 350px !important;
 		}
+
+	}
+	button {
+		width: 300px;
+	}
+	.trusty_arrow_down {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+
+
+	._logo._desk, 
+	._logo_text._desk {
+		display: none;
+	}
+
+	#landing {
+		padding: 0 $land_padding 2vh $land_padding;
+
 		button {
-			width: 300px;
+				width: 100%;
+		}
+	}
+	.land_slide {
+		&.sl_id-1 {
+			img {
+				width: 83vw !important;
+			}
+		}
+
+		&.sl_id-5 {
+			img {
+				width: 80vw !important;
+			}
 		}
 	}
 }
+
+
+
+
 
 
 

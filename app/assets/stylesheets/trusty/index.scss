@@ -3,7 +3,13 @@
 $white_color: #e6e6e6;
 $background_color: #1b1f22;
 
+@media screen and (max-width: 768px) {
+  *._desk{display:none}
+}
 
+@media screen and (min-width: 769px) {
+	*._mob{display:none}
+}
 .trusty-wrapper, .trusty-wrapper .grid-block {
 	background-color: $background-color !important;
 	background-image: url(./trusty/pattern.png);

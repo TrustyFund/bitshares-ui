@@ -81,17 +81,14 @@ class Landing extends Component {
     }
     render() {
 
-        let button = (fixed) => { 
-
-
+        let button = (fixed, mob) => { 
             return fixed ? (
-                    <div className="fixed_bottom">
+                    <div className="fixed_bottom _mob">
                         <button>INVEST NOW</button>
-                        <div className="trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
+                        <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
                     </div>
                     )
                 : <button className="land_button">INVEST NOW</button>
-            
         };
 
         const list = slides.map((slide, index)=>
@@ -106,19 +103,25 @@ class Landing extends Component {
                 <div className="trusty_arrow_down" onClick={this.scrollDown.bind(this, event, index)} ><Icon name="trusty_arrow" /></div>
             </div>
         );
+
         const top = (
             <div className="logo_starter">
-                <div className="top_buttons">
+                <div className="top_buttons _mob">
                     <Link to="/signup"><span>Sign-Up</span></Link>
                     <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
                 <div className="bottom_content">
-                    <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
-                    <div className="_logo" dangerouslySetInnerHTML={{__html:require('./img/logo.svg')}}/>
-
-                    <div>
+                    <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
+                    <div className="_logo _mob" dangerouslySetInnerHTML={{__html:require('./img/logo.svg')}}/>
+                    <div className="wrap_img_profile _desk">
+                        <img src={require("./img/img_user_page.png")} />
+                    </div>
+                    <div className="_desk_right">
+                        <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./img/logo.svg')}}/>
+                        <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
                         <p className="_slogan">Crypto Investment Wallet</p>
                         <p className="_description">Single-click to invest in crypto economy</p>
+                        <button className="land_button _desk">INVEST NOW</button>
                     </div>
                 </div>
                 {button(true)}
