@@ -76,7 +76,7 @@ $arrow_size: 9.8vh;
 	p {
 		font-family: Gotham_Pro_Bold;
 		font-size: $title_font;
-		line-height: 4.4vh;
+		line-height: 4.8vh;
 		text-align: center;
 	}
 	.bottom_content {
@@ -85,13 +85,13 @@ $arrow_size: 9.8vh;
 	 	flex-direction: column;
 	 	justify-content: center;
 	 	._slogan {
-			font-size: 3.4vh;
+			font-size: $title_font;
 			margin-bottom: 0;
 
 	 	}
 	 	._description {
 			font-family: Gotham_Pro;
-			font-size: 2.3vh;
+			font-size: 2.6vh;
 
 	 	}
 	}
@@ -118,7 +118,7 @@ $arrow_size: 9.8vh;
 
 	.last_text {
 		padding-top:5vh;
-		height: 100vh;
+		height: 70vh;
 		background: url(trusty/img_owl_opacity.png) no-repeat center;
 		background-size: 83%;
 		background-poisition: 100% -100%;
@@ -152,7 +152,7 @@ $arrow_size: 9.8vh;
 .logo_starter {
 	height: 100vh;
 	svg {
-		fill: #e6e6e6;
+		fill: white;//#e6e6e6;
 	}
 	._logo_text {
 		margin: 0 auto;
@@ -211,11 +211,11 @@ br.desk {
 	h1 {
 		font-family: Gotham_Pro_Bold;
 		font-size: $title_font;
-		line-height: 4.4vh;
+		line-height: 4.8vh;
 	}
 
 	._body {
-		font-size: 20px; 
+		font-size: 3.6vh;//20px 
 		padding: 0 3vw;
 	}
 
