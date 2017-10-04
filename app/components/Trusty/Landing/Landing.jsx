@@ -33,7 +33,7 @@ let slides = [
     {
         id:4,
         image: require('./img/img_1click_to_invest.png'),
-        title: "1-click To Buy Crypto Portfolio",
+        title: "One-Click To<br> Buy Crypto Portfolio",
         text: `
         Deposit and you already own the selected portfolio of cryptocurrencies and assets. Forget the hassle of buying assets separately
         `
@@ -41,7 +41,7 @@ let slides = [
     {   
         id:5,
         image: require('./img/img_chng_portfolio.png'),
-        title: "1-Click Portfolio Management",
+        title: "One-Click<br> Portfolio Management",
         text: `
         Manage your portfolio by following 1-click hints from recognized investors and community
         `
@@ -49,9 +49,9 @@ let slides = [
     {
         id:6,
         image: require('./img/img_index.png'),
-        title: "1-Click To Fix Income,<br>0% free",
+        title: "One-Click To<br> Fix Income, 0% free",
         text: `
-        Fix income to wait out hyper volatility on the market. Just one click to move funds from crypto to traditional assets, e. g. Gold, USD, EUR or CN
+        Fix income to wait out hyper volatility on the market. Just one click to move funds from crypto to traditional assets, e. g. Gold, USD, EUR or CNY
         `
     },
     {
@@ -143,8 +143,8 @@ class Landing extends Component {
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only. They are not intended to be investment advices. Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
-                    <section>©2017 Trusty.Fund. All right reserved</section>
+                    <section>The above references are for information purposes only. They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
+                    <section>2017 Trusty.Fund</section>
                 </div>
             </section>
         );

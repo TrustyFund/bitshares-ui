@@ -107,7 +107,7 @@ class CreateNewWallet extends Component {
 		// }
 
 		render() {
-			let underButtonsText = "Please don't login, unless sure you are using a secure device"
+			let underButtonsText = "Before continuing, make sure your device is secure"
 				let state = this.state;
 				let errors = state.errors;
 				let has_wallet = !!this.props.current_wallet;
