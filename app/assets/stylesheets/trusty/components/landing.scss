@@ -29,11 +29,31 @@ $arrow_size: 9.8vh;
 
 }
 
+.balls_nav {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	span {
+		display: inline-block;
+		width: 3vw;
+		height: 3vw;
+		margin: 3vw 3vw;
+		border-radius: 50%;
+		background: white;
+	}
+}
+
+
 #landing {
 
 	.wrap_img_profile {
 		width: 30vw;
 	}
+
 	
 	button {
 		font-family: Gotham_Pro;
@@ -41,7 +61,7 @@ $arrow_size: 9.8vh;
 		border-radius: 10px;
 		margin-top: 10px;
 		height: 10vh;
-		border: 3px solid white;
+		border: 2px solid white;
 		font-size: 18px;
 	}
 

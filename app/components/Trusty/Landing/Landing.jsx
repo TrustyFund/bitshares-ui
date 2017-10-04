@@ -10,6 +10,13 @@ let slides = [
     {         
         id:1,
         image: require('./img/img_how_use_m_1.png'),
+        images: [
+            require('./img/img_how_use_m_1.png'),
+            require('./img/img_how_use_m_2.png'),
+            require('./img/img_how_use_m_3.png'),
+            require('./img/img_how_use_m_4.png'),
+            require('./img/img_how_use_m_5.png')
+        ],
         title: "How to use",
         text: null
     },
@@ -72,15 +79,44 @@ class Landing extends Component {
 
     constructor() {
         super();
+        this.state = {
+            currentFirstSlide: null
+        }
+        //this.scrollDown = this.scrollDown.bind(this)
+    }
+    componentWillUnmount() {
+        clearInterval(this.timeout)
+    }
+    componentDidMount() {
+
+        let index = 0
+        this.setState({
+            currentFirstSlide: slides[0].images[index]
+        })
+
+        this.timeout = setInterval(() => {
+          if(index >= slides[0].images.length-1) { index=0 } else { index++ }
+          this.setState({
+            currentFirstSlide: slides[0].images[index]
+          })
+        }, 1000)
+
     }
 
     scrollDown(e, index){
+        if(e) e.stopPropagation()
         if(index==null) { JQuery('html,body').animate({scrollTop:window.innerHeight},450); } else {
             JQuery('html,body').animate({scrollTop: window.innerHeight * (index+2)},450);
         }
     }
-    render() {
 
+    render() {
+        let scrollDown = (e, index) =>{
+            e.stopPropagation()
+            JQuery('html,body').animate({scrollTop: window.innerHeight * (index+1)},450);
+        }
+
+        let self = this
         let button = (fixed, mob) => { 
             return fixed ? (
                     <div className="fixed_bottom _mob">
@@ -90,17 +126,24 @@ class Landing extends Component {
                     )
                 : <button className="land_button">INVEST NOW</button>
         };
+        let currentFirst = this.state.currentFirstSlide
+
+        let ballsNav = (
+            <div className="balls_nav">
+                {[1,2,3,4,5,6,7].map((i, index) => <span key={i} onClick={ e => scrollDown(e, index)} /> )}
+            </div>
+            )
 
         const list = slides.map((slide, index)=>
-            <div className={"land_slide sl_id-"+slide.id} key={slide.id}>
+            <div className={"land_slide sl_id-"+slide.id} key={slide.id} onClick={this.scrollDown.bind(this, event, index)}>
                 <div className="image_area">
-                    <img className="_image" src={slide.image}/>
+                    <img className="_image" src={slide.images ? currentFirst : slide.image}/>
                 </div>
                 <div className="text_area">
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
                     { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
                 </div>
-                <div className="trusty_arrow_down" onClick={this.scrollDown.bind(this, event, index)} ><Icon name="trusty_arrow" /></div>
+                <div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>
             </div>
         );
 
@@ -128,7 +171,8 @@ class Landing extends Component {
             </div>
         )
         return ( 
-            <section>           
+            <section>
+                { ballsNav }           
                 <div id="landing">
                     {top}
                     <div className="land_slides">
