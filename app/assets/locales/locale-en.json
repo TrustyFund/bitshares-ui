@@ -968,8 +968,8 @@
   },
   "wallet": {
     "title": "Wallet",
-    "confirm": "Wallet password (confirm)",
-    "password": "Wallet password",
+    "confirm": "password (confirm)",
+    "password": "password",
     "existing_password": "Existing Password",
     "change_password": "Change Password",
     "change_wallet": "Change Wallet",

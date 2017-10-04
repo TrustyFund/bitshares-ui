@@ -56,10 +56,11 @@ $arrow_size: 9.8vh;
 	p {
 		font-family: Gotham_Pro_Bold;
 		font-size: $title_font;
+		line-height: 4.4vh;
 		text-align: center;
 	}
 	.bottom_content {
-	 	height: 69vh;
+	 	height: 63vh;
 	 	display: flex;
 	 	flex-direction: column;
 	 	justify-content: center;
@@ -76,7 +77,7 @@ $arrow_size: 9.8vh;
 	}
 
 	.top_buttons {
-		transform: translateY(2.5vh);
+		transform: translateY(1.5vh);
 		height: 15vh;
 		text-align: center;
 		a { 
@@ -102,9 +103,11 @@ $arrow_size: 9.8vh;
 		background-size: 83%;
 		background-poisition: 100% -100%;
 		p {
+			display: block;
 			margin-bottom: 0;
 		}
 		button {
+			display: block;
 			margin: 5vh 0;
 			font-family: Gotham_Pro_Bold;
 		}
@@ -179,7 +182,7 @@ br.desk {
 		}
 	}
 	.image_area {
-		margin-bottom: 22px;
+		margin-bottom: 2.5vh;
 		img {
 			width: 70vw;
 		}
@@ -188,6 +191,7 @@ br.desk {
 	h1 {
 		font-family: Gotham_Pro_Bold;
 		font-size: $title_font;
+		line-height: 4.4vh;
 	}
 
 	._body {
@@ -196,7 +200,7 @@ br.desk {
 	}
 
 }
-// D E S C T O P
+// D E S K T O P
 
 @media screen and (min-width: 769px) { 
 
@@ -290,7 +294,11 @@ br.desk {
 // M O B I L E
 @media screen and (max-width: 768px) {
 
-
+	.last_text {
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+	}
 	._logo._desk, 
 	._logo_text._desk {
 		display: none;
@@ -311,6 +319,7 @@ br.desk {
 		}
 
 		&.sl_id-5 {
+			.image_area { margin-bottom: .5vh; }
 			img {
 				width: 80vw !important;
 			}
