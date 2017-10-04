@@ -196,8 +196,10 @@ br.desk {
 	}
 
 }
+// D E S C T O P
 
 @media screen and (min-width: 769px) { 
+
 	.bottom_content {
 		height: 100% !important;
 		flex-direction: row !important;
@@ -209,18 +211,30 @@ br.desk {
 		height: 70vh;
 		img {
 			height: 100%;
+			display: inline-block;
+			float: right;
 		}
 	} 
 
 	._desk_right {
-		width: 34vw;
+		width: 350px;
 		._logo {
 			width: 12vw;
 			margin: 0;
 		}
 		._logo_text {
-			width: 17vw;
+			width: 26vw;
 			margin: 0;
+			svg {
+				display: inline-block;
+				margin: 0 auto;
+			}
+		}
+		._slogan {
+			font-size: 3.4vw;
+		}
+		._description {
+			font-size: 1.4vw;
 		}
 	}
 	.bottom_info {
@@ -273,7 +287,7 @@ br.desk {
 		display: none;
 	}
 }
-
+// M O B I L E
 @media screen and (max-width: 768px) {
 
 
