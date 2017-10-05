@@ -11,11 +11,20 @@ let slides = [
         id:1,
         image: require('./img/img_how_use_m_1.png'),
         images: [
+            require('./img/img_how_use_m_0.png'),
             require('./img/img_how_use_m_1.png'),
             require('./img/img_how_use_m_2.png'),
             require('./img/img_how_use_m_3.png'),
             require('./img/img_how_use_m_4.png'),
-            require('./img/img_how_use_m_5.png')
+            require('./img/img_how_use_m_5.png'),
+        ],
+        desk_images: [
+            require('./img/img_how_use_0.png'),
+            require('./img/img_how_use_1.png'),
+            require('./img/img_how_use_2.png'),
+            require('./img/img_how_use_3.png'),
+            require('./img/img_how_use_4.png'),
+            require('./img/img_how_use_5.png'),
         ],
         title: "How to use",
         text: null
@@ -80,7 +89,8 @@ class Landing extends Component {
     constructor() {
         super();
         this.state = {
-            currentFirstSlide: null
+            currentFirstSlide: null,
+            currentFirstSlideDesk: null,
         }
         //this.scrollDown = this.scrollDown.bind(this)
     }
@@ -90,15 +100,28 @@ class Landing extends Component {
     componentDidMount() {
 
         let index = 0
+
         this.setState({
             currentFirstSlide: slides[0].images[index]
         })
 
+        this.setState({
+            currentFirstSlideDesk: slides[0].desk_images[index]
+        })
+
+
         this.timeout = setInterval(() => {
-          if(index >= slides[0].images.length-1) { index=0 } else { index++ }
-          this.setState({
-            currentFirstSlide: slides[0].images[index]
-          })
+
+            if(index >= slides[0].images.length-1) { index=0 } else { index++ }
+
+            this.setState({
+                currentFirstSlide: slides[0].images[index]
+            })
+
+            this.setState({
+                currentFirstSlideDesk: slides[0].desk_images[index]
+            })
+
         }, 1000)
 
     }
@@ -127,6 +150,7 @@ class Landing extends Component {
                 : <button className="land_button">INVEST NOW</button>
         };
         let currentFirst = this.state.currentFirstSlide
+        let currentFirstDesk = this.state.currentFirstSlideDesk
 
         let ballsNav = (
             <div className="balls_nav">
@@ -137,7 +161,8 @@ class Landing extends Component {
         const list = slides.map((slide, index)=>
             <div className={"land_slide sl_id-"+slide.id} key={slide.id} onClick={this.scrollDown.bind(this, event, index)}>
                 <div className="image_area">
-                    <img className="_image" src={slide.images ? currentFirst : slide.image}/>
+                    <img className="_image _mob" src={slide.images ? currentFirst : slide.image}/>
+                    <img className="_image _desk" src={slide.images ? currentFirstDesk : slide.image}/>
                 </div>
                 <div className="text_area">
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
