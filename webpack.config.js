@@ -1,6 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 var Clean = require("clean-webpack-plugin");
 var git = require("git-rev-sync");
 require("es6-promise").polyfill();
@@ -72,7 +73,7 @@ module.exports = function(env) {
         var cleanDirectories = [outputPath];
 
         // WRAP INTO CSS FILE
-        const extractCSS = new ExtractTextPlugin("app.css");
+        const extractCSS = new ExtractTextPlugin("app.[contenthash:8].css");
         cssLoaders = ExtractTextPlugin.extract({
             fallback: "style-loader",
             use: [{loader: "css-loader"}, {loader: "postcss-loader", options: {
@@ -86,6 +87,11 @@ module.exports = function(env) {
         );
 
         // PROD PLUGINS
+        plugins.push(new HtmlWebpackPlugin({
+            title: "Trusty",
+            template: path.resolve(__dirname,'app', 'assets','trusty.html'),
+            filename: path.join(__dirname, 'build', 'dist', 'index.html')
+        }))
         plugins.push(new Clean(cleanDirectories, {root: root_dir}));
         plugins.push(new webpack.DefinePlugin({
             "process.env": {NODE_ENV: JSON.stringify("production")},
@@ -133,7 +139,7 @@ module.exports = function(env) {
         output: {
             publicPath: env.prod ? "" : "/",
             path: outputPath,
-            filename: "[name].js",
+            filename: env.prod ? "[name].[hash:8].js":"[name].js",
             pathinfo: !env.prod,
             sourceMapFilename: "[name].js.map"
         },
