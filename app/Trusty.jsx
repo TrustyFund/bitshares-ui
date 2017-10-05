@@ -175,6 +175,20 @@ class Trusty extends React.Component {
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
+
+
+        function getHeaderTitle(){
+            let  headerTitles = {
+                "signup": "signup",
+                "login": "create-wallet-brainkey",  
+            }
+            let title = ""
+            for ( let k in headerTitles) {
+                if( pathname.indexOf(headerTitles[k]) != -1 ){title = k} 
+            }
+            return title
+        }  
+
         let header = (
             <header className="trusty_header">
                 { AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
@@ -183,6 +197,7 @@ class Trusty extends React.Component {
                         <button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />
                       </Link>)
                 }
+                <span className="header_title">{getHeaderTitle()}</span>
             </header>
         )
 
