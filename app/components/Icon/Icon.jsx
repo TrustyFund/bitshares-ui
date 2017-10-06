@@ -6,7 +6,9 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
     "plus-circle", "question-circle", "cross-circle", "cog", "layers", "users", "wand", "b-logo",
     "accounts", "witnesses", "assets", "proposals", "blocks", "committee_members", "workers", "key",
     "checkmark-circle", "checkmark", "piggy", "locked", "unlocked" , "markets", "fi-star" ,"fees",
-    "thumb-tack", "clock", "clippy", "trusty-logo-text",  "trusty_arrow"];
+    "thumb-tack", "clock", "clippy"].concat([
+        "trusty-logo-text",  "trusty_arrow", "trusty_arrow_back", "trusty_options"
+    ])
 
 let icons_map = {};
 for (let i of icons) icons_map[i] = require(`./${i}.svg`);
