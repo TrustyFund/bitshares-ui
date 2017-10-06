@@ -23,6 +23,7 @@ import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
+import Icon from "components/Icon/Icon"
 
 
 
@@ -172,6 +173,7 @@ class Trusty extends React.Component {
         let pathname = this.props.location.pathname;
         let showFooter = pathname.indexOf("market") === -1;
         let isAuthPage = pathname.indexOf("brainkey") !== -1;
+        let isLanding = pathname.indexOf("landing") !== -1;
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
@@ -189,14 +191,17 @@ class Trusty extends React.Component {
             return title
         }  
 
+        let isProfilePage = AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
         let header = (
             <header className="trusty_header">
-                { AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
+                { isProfilePage
                     ? <div  className="trusty_header_logo" dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/images/trusty_fund_logo.svg')}} />
                     : (<Link to={AccountStore.getMyAccounts().length ? "/home": "/"}>
-                        <button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />
+                        <Icon name="trusty_arrow_back"/>
+                        {/*<button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />*/}
                       </Link>)
                 }
+                { isProfilePage ? <span onClick={()=> { this.props.router.push(`/landing`)}}><Icon name="trusty_options"/></span> : null }
                 <span className="header_title">{getHeaderTitle()}</span>
             </header>
         )
@@ -241,7 +246,7 @@ class Trusty extends React.Component {
             content = <Landing/>
         } else {
             //let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
-            content = grid(this.props.children)
+            content = isLanding ? this.props.children : grid(this.props.children)
         }
 
         return (
