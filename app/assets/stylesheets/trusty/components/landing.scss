@@ -108,8 +108,8 @@ $arrow_size: 9.8vh;
 			text-transform: uppercase;
 			display: inline-block;
 			width: 42vw;
-			font-family: Gotham_Pro;
-			font-size: 17px;
+			//font-family: Gotham_Pro_Medium;
+			font-size: 2.6vh;//17px;
 			text-align: center;
 			height: 15vh;
 			line-height: 15vh;
@@ -155,12 +155,15 @@ $arrow_size: 9.8vh;
 	}
 	._logo_text {
 		margin: 0 auto;
-		width: 70.1vw;
+		//width: 70.1vw;
+		width: 40vh;
+
 	}
 
 	._logo {
 		margin: 5.3vh auto 5.3vh auto;
-		width: 48.1vw;
+		//width: 48.1vw;
+		width: 30vh;
 	}
 }
 
@@ -219,6 +222,7 @@ br.desk {
 	}
 
 }
+
 // D E S K T O P
 
 @media screen and (min-width: 769px) { 
