@@ -84,7 +84,7 @@ class FormattedAsset extends React.Component {
             let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
             return (
                 <span className={colorClass}>
-                    {percent.toFixed(2)}%
+                    {percent.toFixed(0)}%
                 </span>
             )
         }
