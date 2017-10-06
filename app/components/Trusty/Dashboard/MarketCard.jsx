@@ -94,7 +94,7 @@ class MarketCard extends React.Component {
         let changeClass = !marketStats ? "" : parseFloat(marketStats.change) > 0 ? "change-up" : parseFloat(marketStats.change) < 0 ? "change-down" : "";
 
         return (
-            <div className={cnames("float-right", changeClass)}>{!marketStats ? null : marketStats.change}%</div>
+            <div className={cnames("float-right", changeClass)}>{!marketStats ? null : parseFloat(marketStats.change).toFixed(0) }%</div>
         );
     }
 }
