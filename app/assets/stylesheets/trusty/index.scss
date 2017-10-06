@@ -1,4 +1,5 @@
 @import "components/landing";
+@import "components/create-account";
 
 $white_color: #e6e6e6;
 $background_color: #1b1f22;
@@ -81,6 +82,15 @@ $background_color: #1b1f22;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Gotham_Pro_Regular';
+  src: url('trusty/fonts/GothamProRegular/GothamProRegular.woff');
+  // src:	url('trusty/fonts/GothamProLight/GothamProLight.ttf') format('truetype'),
+  // 			url('trusty/fonts/GothamProLight/GothamProLight.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 br.desk {
 	display: none;
@@ -103,11 +113,11 @@ $header_size: 50px;
 .trusty_header {
 	position: relative;
 	height: $header_size;
-	border-bottom: 1px solid $white_color;
+	//border-bottom: 1px solid $white_color;
 	.header_title {
 		display: block;
 		text-align: center;
-		font-family: Gotham_Pro_Medium;
+		font-family: Gotham_Pro_Regular;
 		font-size: 24px;
 		text-transform: uppercase;
 		line-height: $header_size;

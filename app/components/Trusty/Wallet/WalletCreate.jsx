@@ -122,7 +122,7 @@ class CreateNewWallet extends Component {
 				}
 
 				return (
-						<div className="trusty_center">
+						<div className="trusty_center trusty_wallet_create">
 
 						<form
 								style={{maxWidth: "25rem"}}
@@ -131,7 +131,7 @@ class CreateNewWallet extends Component {
 						>
 
 								<p style={{fontWeight: "bold"}} className="trusty_title" ><span>Existing account</span></p>
-								<span>This is the first login on this device, so you also need to enter account brainkey password</span>
+								<span className="tr_text">This is the first login on this device, so you also need to enter account brainkey password</span>
 
 								<div
 										className="grid-content"
