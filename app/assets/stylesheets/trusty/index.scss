@@ -72,6 +72,15 @@ $background_color: #1b1f22;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Gotham_Pro_Medium';
+  src: url('trusty/fonts/GothamProMedium/GothamProMedium.woff');
+  // src:	url('trusty/fonts/GothamProLight/GothamProLight.ttf') format('truetype'),
+  // 			url('trusty/fonts/GothamProLight/GothamProLight.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 br.desk {
 	display: none;
@@ -98,7 +107,7 @@ $header_size: 50px;
 	.header_title {
 		display: block;
 		text-align: center;
-		font-family: Gotham_Pro;
+		font-family: Gotham_Pro_Medium;
 		font-size: 24px;
 		text-transform: uppercase;
 		line-height: $header_size;
