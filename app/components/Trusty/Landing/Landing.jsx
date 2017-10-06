@@ -4,6 +4,7 @@ import cname from "classnames";
 import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
+import listen from 'event-listener'
 
 
 let slides = [
@@ -91,13 +92,23 @@ class Landing extends Component {
         this.state = {
             currentFirstSlide: null,
             currentFirstSlideDesk: null,
+            showBalls: false,
         }
         //this.scrollDown = this.scrollDown.bind(this)
     }
     componentWillUnmount() {
         clearInterval(this.timeout)
+        this.scroll.remove()
     }
     componentDidMount() {
+
+        this.scroll = listen(window, "scroll", ()=>{
+            let scroll = document.body.scrollTop || window.scrollY 
+            let wh = window.innerHeight
+            this.setState({
+                showBalls: scroll >= wh && scroll < wh * 8
+            })
+        })
 
         let index = 0
 
@@ -152,11 +163,11 @@ class Landing extends Component {
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
 
-        let ballsNav = (
-            <div className="balls_nav">
+        let ballsNav = this.state.showBalls ? 
+            (<div className="balls_nav">
                 {[1,2,3,4,5,6,7].map((i, index) => <span key={i} onClick={ e => scrollDown(e, index)} /> )}
-            </div>
-            )
+            </div>) : null 
+
 
         const list = slides.map((slide, index)=>
             <div className={"land_slide sl_id-"+slide.id} key={slide.id} onClick={this.scrollDown.bind(this, event, index)}>
