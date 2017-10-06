@@ -351,7 +351,7 @@ class AccountOverview extends React.Component {
                 <div className="content-block small-12">
                     <div className="generic-bordered-box">
                         <br/>
-                        <p className="trusty_total_funds">TOTAL FUNDS</p>
+                        <p className="trusty_total_funds">{this.props.account_name} TOTAL FUNDS</p>
                         <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
                         <table className="table trusty_table">
                             <thead>
