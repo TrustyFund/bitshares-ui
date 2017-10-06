@@ -389,7 +389,7 @@ class CreateAccount extends React.Component {
         // let my_accounts = AccountStore.getMyAccounts();
         // let firstAccount = my_accounts.length === 0;
         return (
-            <div className="grid-block vertical page-layout Account_create">
+            <div className="grid-block vertical page-layout Account_create trusty_account_create">
 
                 <div className="trusty_center" style={{paddingTop:"15px"}}>
                     {step !== 1 ? <p style={{fontWeight: "bold"}}>
