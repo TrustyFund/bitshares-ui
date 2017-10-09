@@ -48,7 +48,8 @@ class AccountOverview extends React.Component {
                 "OPEN.ETH",
                 "OPEN.DASH",
                 "OPEN.LTC",
-                "OPEN.GOLD",
+                "OPEN.EOS",
+                "OBITS",
                 "TRFND"       
             ]
         };
@@ -90,7 +91,7 @@ class AccountOverview extends React.Component {
     }
 
     _getSeparator(render) {
-        return render ? <span>&nbsp;|&nbsp;</span> : null;
+        return render ? "<span>&nbsp;|&nbsp;</span>" : null;
     }
 
     _onNavigate(route, e) {
@@ -135,8 +136,7 @@ class AccountOverview extends React.Component {
             const marketURL = `/market/${asset.get("symbol")}_${preferredMarket}`;
 
             marketLink = notCore ? <a href={marketURL} onClick={this._onNavigate.bind(this, marketURL)}><AssetName name={asset.get("symbol")} /> : <AssetName name={preferredMarket} /></a> : null;
-            directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
-            
+          
             let pair = ["BTS", symbol];
 
             const includeAsset = !hiddenAssets.includes(asset_type);
@@ -155,9 +155,6 @@ class AccountOverview extends React.Component {
                             ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> 
                             : "0 BTS"
                         }
-                    </td>
-                    <td style={{textAlign: "center", display: "none"}}>
-                        {directMarketLink}
                     </td>
                     <td>
                         <MarketCard
@@ -209,7 +206,6 @@ class AccountOverview extends React.Component {
                     let {market} = assetUtils.parseDescription(asset.getIn(["options", "description"]));
                     if (asset.get("symbol").indexOf("OPEN.") !== -1 && !market) market = "USD";
                     let preferredMarket = market ? market : core_asset ? core_asset.get("symbol") : "BTS";
-                    let directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
                     if (includeAsset && visible || !includeAsset && !visible) balances.push(
                         <tr key={"zz" + a} style={{maxWidth: "100rem"}}>
                             <td style={{textAlign: "left"}}>
@@ -217,9 +213,6 @@ class AccountOverview extends React.Component {
                             </td>
                             <td style={{textAlign: "right"}}>
                                 0%
-                            </td>
-                            <td style={{textAlign: "center", display: "none"}}>
-                                {directMarketLink}
                             </td>
                             <td>
                                 <MarketCard
