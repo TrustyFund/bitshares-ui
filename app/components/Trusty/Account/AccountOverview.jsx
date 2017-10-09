@@ -46,16 +46,10 @@ class AccountOverview extends React.Component {
                 "CNY",
                 "OPEN.BTC",
                 "OPEN.ETH",
-<<<<<<< HEAD
                 "OPEN.DASH",
                 "OPEN.LTC",
                 "OPEN.GOLD",
-                "TRFND"                
-=======
-                "OPEN.MAID",
-                "OPEN.STEEM",
-                "OPEN.DASH"
->>>>>>> show accountpage single route
+                "TRFND"       
             ]
         };
     }
