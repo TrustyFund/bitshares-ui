@@ -3,9 +3,11 @@ import DepositWithdraw from "./Withdraw"
 import { Link } from 'react-router'
 import ClipboardButton from 'react-clipboard.js'
 
+
+
 class Deposit extends React.Component {
 		constructor(){
-			super()
+		super()
     this.onSuccess = this.onSuccess.bind(this);
     this.getText = this.getText.bind(this);
 
@@ -28,6 +30,7 @@ class Deposit extends React.Component {
     render(){
         return (
         	<div className="trusty_deposit" style={{paddingTop: "10px 2rem 0 2rem"}}>
+            
 	        	<DepositWithdraw deposit={true} />
 	        	<ClipboardButton option-text={this.getText} onSuccess={this.onSuccess} component="button" className="trusty_wide_btn">
 			        copy address
@@ -37,6 +40,7 @@ class Deposit extends React.Component {
 	        		<Link to="/home" className="b_left"><button>Confirm</button></Link>
 	        		<Link to="/home" className="b_right"><button >Cancel</button></Link>
 	        	</div>
+            <p className="trusty_ps_text">Payment getaway service is provided by<br/> Openledger.io, at 0% fee</p>
 	        </div>
         )
     }

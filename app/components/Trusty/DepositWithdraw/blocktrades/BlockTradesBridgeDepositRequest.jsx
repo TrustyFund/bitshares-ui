@@ -17,6 +17,8 @@ import { Asset } from "common/MarketClasses";
 import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
 
+import TrustyInput from 'components/Trusty/Forms/TrustyInput';
+
 
 
 
@@ -1217,14 +1219,20 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     deposit_address_and_memo_element = <span className="trusty_deposit_address">{input_address_and_memo.address}</span>;
                 //<span><span className="blocktrades-with-memo">with memo</span> {input_address_and_memo.memo}</span>;
                 
-
+                let coin_type = this.state.deposit_input_coin_type || ""
                 deposit_body = (
                     <div className="blocktrades-bridge">
-                        <div className="trusty_deposit_input">
-                            <div>{deposit_input_coin_type_select}</div>
-                            <div>{deposit_input_amount_edit_box}</div>
-                        </div>
-                        <p className="trusty_help_text" style={{ color: '#b3b31b' }}>Please send coins to the below adress</p>
+                        <TrustyInput
+                            input={deposit_input_amount_edit_box}
+                            right={deposit_input_coin_type_select}
+                            label={"SEND ANY SUM"}
+                            editValue={(v)=>{ console.log(v)}}
+                        />
+                        {/*<div className="trusty_deposit_input">
+                            <div className="t_right">{deposit_input_coin_type_select}</div>
+                            <div className="t_input">{deposit_input_amount_edit_box}</div>
+                        </div>*/}
+                        <p className="trusty_help_text" style={{ color: '#b3b31b' }}>Send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
                         <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
                     </div>
                     )

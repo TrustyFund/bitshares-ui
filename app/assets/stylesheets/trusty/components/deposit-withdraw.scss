@@ -5,34 +5,58 @@
 	}
 }
 
+.trusty_deposit_address {
+	display: inline-block;
+	margin-bottom: 8px;
+}
+
 
 .trusty_deposit {
 	padding: 4.2vw;
 }
 
+.trusty_ps_text {
+	font-family: Gotham_Pro;
+  text-align: center;
+  font-size: .67rem;
+  margin: 10px 0;
 
+}
 .trusty_deposit_input {
 	position: relative;
+}
+.trusty_deposit_input, 
+.trusty_input_container {
 
-	div:nth-child(1){
+	.w_input {
+		position: relative;
+		//min-height: 10vh;
+	}
+
+	.t_right{
 		display: inline-block;
 		position: absolute;
 		top:0;
 		right:0;
-	}
 
+		span {
+			display: inline-block;
+			color: white;
+			font-family: 'Gotham_Pro'
+		}
+	}
 	select {
-		width: 20vw !important;
+		width: 22vw !important;
 		margin: 0 0	 !important;
 		border: none !important; 
 		font-size: 5vw !important;
 		font-family: 'Gotham_Pro_Bold';
 	}
-
-	div:nth-child(2){
+	.t_input{
 		width: 100%;
+		border-bottom: 1px solid white;
 		input {
-			font-size: 5vw !important;
+			font-size: 5.4vw !important;
 			background-color: transparent !important;
 			width: 100% !important;
 			margin: 0 !important;
@@ -40,10 +64,15 @@
 			border-top: none;
 			border-right: none;
 			border-left: none;
-			border-bottom: 1px solid white;
+			border-bottom: none;
 			outline: none !important;
 		}
 
+		input::placeholder {
+			text-transform: uppercase;
+			color: white !important;
+			font-size: 5.4vw !important;
+		}
 		input:focus, input:hover {
 			border-top: none;
 			border-right: none;
@@ -52,6 +81,4 @@
 			outline: none !important;
 		}
 	}
-
-
 }
