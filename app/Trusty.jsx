@@ -182,7 +182,9 @@ class Trusty extends React.Component {
         function getHeaderTitle(){
             let  headerTitles = {
                 "signup": "signup",
-                "login": "create-wallet-brainkey",  
+                "login": "create-wallet-brainkey", 
+                "deposit details": "deposit",
+                "withdraw details": "withdraw" 
             }
             let title = ""
             for ( let k in headerTitles) {

@@ -1,0 +1,57 @@
+.trusty_deposit_and_withdraw {
+	.content-block {
+		margin-bottom: 0;
+
+	}
+}
+
+
+.trusty_deposit {
+	padding: 4.2vw;
+}
+
+
+.trusty_deposit_input {
+	position: relative;
+
+	div:nth-child(1){
+		display: inline-block;
+		position: absolute;
+		top:0;
+		right:0;
+	}
+
+	select {
+		width: 20vw !important;
+		margin: 0 0	 !important;
+		border: none !important; 
+		font-size: 5vw !important;
+		font-family: 'Gotham_Pro_Bold';
+	}
+
+	div:nth-child(2){
+		width: 100%;
+		input {
+			font-size: 5vw !important;
+			background-color: transparent !important;
+			width: 100% !important;
+			margin: 0 !important;
+			border-radius: 0 !important;
+			border-top: none;
+			border-right: none;
+			border-left: none;
+			border-bottom: 1px solid white;
+			outline: none !important;
+		}
+
+		input:focus, input:hover {
+			border-top: none;
+			border-right: none;
+			border-left: none;
+			border-bottom: 1px solid white;
+			outline: none !important;
+		}
+	}
+
+
+}

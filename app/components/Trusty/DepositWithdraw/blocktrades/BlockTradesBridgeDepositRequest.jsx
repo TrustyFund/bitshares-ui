@@ -17,6 +17,8 @@ import { Asset } from "common/MarketClasses";
 import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
 
+
+
 class ButtonConversion extends React.Component {
     static propTypes = {
         balance: ChainTypes.ChainObject,
@@ -1211,10 +1213,22 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 if (input_address_and_memo.memo)
                     deposit_address_and_memo_element = <Translate unsafe content="gateway.address_with_memo" address={input_address_and_memo.address} memo={input_address_and_memo.memo} />;
                 else
-                    deposit_address_and_memo_element = <span>{input_address_and_memo.address}</span>;
+                    deposit_address_and_memo_element = <span className="trusty_deposit_address">{input_address_and_memo.address}</span>;
                 //<span><span className="blocktrades-with-memo">with memo</span> {input_address_and_memo.memo}</span>;
 
-                deposit_body =
+
+                deposit_body = (
+                    <div className="blocktrades-bridge">
+                        <div className="trusty_deposit_input">
+                            <div>{deposit_input_coin_type_select}</div>
+                            <div>{deposit_input_amount_edit_box}</div>
+                        </div>
+                        <p className="trusty_help_text" style={{ color: 'yellow' }}>Please send coins to the below adress</p>
+                        <p className="trusty_help_text" data-clipboard>{deposit_address_and_memo_element}</p>
+                    </div>
+                    )
+
+                let deposit_body_l =
                     <tbody>
                         <tr>
                             <td>
@@ -1223,14 +1237,14 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                         <div>{deposit_input_coin_type_select}</div>
                                         <div>{deposit_input_amount_edit_box}</div>
                                     </div>
-                                    &rarr;
+                                    {/*&rarr;
                                     <div className="inline-block">
                                         <div>{deposit_output_coin_type_select}</div>
                                         <div>{deposit_output_amount_edit_box}</div>
                                     </div>
                                     <div>
                                         {deposit_error_element}
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </td>
                             <td>
@@ -1455,12 +1469,10 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 
             return (
                 <div>
-                    {/*<div style={{paddingBottom: 15}}><Translate component="h5" content="gateway.bridge_text" /></div>*/}
+                    {/*this.props.deposit_only ? deposit_header : null*/}
+                    {this.props.deposit_only ? deposit_body : null}
                     <table className="table">
-
-                        {this.props.deposit_only ? deposit_header : null}
-                        {this.props.deposit_only ? deposit_body : null}
-                        {!this.props.deposit_only ? withdraw_header : null}
+                        {/*!this.props.deposit_only ? withdraw_header : null*/}
                         {!this.props.deposit_only ? withdraw_body : null}
                         {/*conversion_header*/}
                         {/*conversion_body*/}

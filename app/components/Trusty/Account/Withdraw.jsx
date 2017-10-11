@@ -176,14 +176,9 @@ class AccountDepositWithdraw extends React.Component {
             return <option key={index} value={index}>{services_obj.name}</option>;
         });
         return (
-            <div className={this.props.contained ? "grid-content" : "grid-container"}>
-                <div className={this.props.contained ? "" : "grid-content"} style={{paddingTop: "2rem"}}>
-
-                    <Translate content="gateway.title" component="h2" />
-
-                    <div className="grid-content no-padding" style={{paddingTop: 15}}>
-                    {activeService && services[activeService] ? services[activeService].template : services[0].template}
-                    </div>
+            <div className="trusty_deposit_and_withdraw">
+                <div className="grid-content no-padding">
+                {activeService && services[activeService] ? services[activeService].template : services[0].template}
                 </div>
             </div>
         );

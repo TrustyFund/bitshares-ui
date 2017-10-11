@@ -10,22 +10,22 @@ import listen from 'event-listener'
 let slides = [
     {         
         id:1,
-        image: require('./img/img_how_use_m_1.png'),
+        image: require('./imgs/img_how_use_m_1.png'),
         images: [
-            require('./img/img_how_use_m_0.png'),
-            require('./img/img_how_use_m_1.png'),
-            require('./img/img_how_use_m_2.png'),
-            require('./img/img_how_use_m_3.png'),
-            require('./img/img_how_use_m_4.png'),
-            require('./img/img_how_use_m_5.png'),
+            require('./imgs/img_how_use_m_0.png'),
+            require('./imgs/img_how_use_m_1.png'),
+            require('./imgs/img_how_use_m_2.png'),
+            require('./imgs/img_how_use_m_3.png'),
+            require('./imgs/img_how_use_m_4.png'),
+            require('./imgs/img_how_use_m_5.png'),
         ],
         desk_images: [
-            require('./img/img_how_use_0.png'),
-            require('./img/img_how_use_1.png'),
-            require('./img/img_how_use_2.png'),
-            require('./img/img_how_use_3.png'),
-            require('./img/img_how_use_4.png'),
-            require('./img/img_how_use_5.png'),
+            require('./imgs/img_how_use_0.png'),
+            require('./imgs/img_how_use_1.png'),
+            require('./imgs/img_how_use_2.png'),
+            require('./imgs/img_how_use_3.png'),
+            require('./imgs/img_how_use_4.png'),
+            require('./imgs/img_how_use_5.png'),
         ],
         title: "How to use",
         text: null
@@ -33,23 +33,23 @@ let slides = [
 
     {
         id:2,
-        image: require('./img/img_global_network.png'),
-        title: "Create Decentralized Account",
+        image: require('./imgs/img_global_network.png'),
+        title: "3 Min. To Create<br> Decentralized Account",
         text: `
         Sign up, create password and your account will be secured by immutable BitShares public blockchain. Only you have the private key`
     },
     {
         id:3,
-        image: require('./img/img_wallets_1.png'),
-        imageTwo: require('./img/img_wallets_2.png'),
-        title: "Deposit Any Currency",
+        image: require('./imgs/img_wallets_1.png'),
+        imageTwo: require('./imgs/img_wallets_2.png'),
+        title: "Many Methods To<br>Deposit Any Currency",
         text: `
         Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at best exchange rate`
     },
 
     {
         id:4,
-        image: require('./img/img_1click_to_invest.png'),
+        image: require('./imgs/img_1click_to_invest.png'),
         title: "One-Click To<br> Buy Crypto Portfolio",
         text: `
         Deposit and you already own the selected portfolio of cryptocurrencies and assets. Forget the hassle of buying assets separately
@@ -57,7 +57,7 @@ let slides = [
     },
     {   
         id:5,
-        image: require('./img/img_chng_portfolio.png'),
+        image: require('./imgs/img_chng_portfolio.png'),
         title: "One-Click<br> Portfolio Management",
         text: `
         Manage your portfolio by following 1-click hints from recognized investors and community
@@ -65,7 +65,7 @@ let slides = [
     },
     {
         id:6,
-        image: require('./img/img_index.png'),
+        image: require('./imgs/img_index.png'),
         title: "One-Click To<br> Fix Income, 0% free",
         text: `
         Fix income to wait out hyper volatility on the market. Just one click to move funds from crypto to traditional assets, e. g. Gold, USD, EUR or CNY
@@ -73,8 +73,8 @@ let slides = [
     },
     {
         id:7,
-        image: require('./img/img_wallets_1.png'),
-        imageTwo: require('./img/img_wallets_2.png'),
+        image: require('./imgs/img_wallets_1.png'),
+        imageTwo: require('./imgs/img_wallets_2.png'),
         title: "Fiat and Crypto Withdrawal",
         text: `
         Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to any wallet
@@ -99,8 +99,14 @@ class Landing extends Component {
     componentWillUnmount() {
         clearInterval(this.timeout)
         this.scroll.remove()
+        //let viewport = document.querySelector("meta[name=viewport]");
+        //viewport.setAttribute('content', 'width=device-width')
     }
+
     componentDidMount() {
+
+        //let viewport = document.querySelector("meta[name=viewport]");
+        //viewport.setAttribute('content', 'width=750px');
 
         this.scroll = listen(window, "scroll", ()=>{
             let scroll = document.body.scrollTop || window.scrollY 
@@ -198,8 +204,8 @@ class Landing extends Component {
                     <div className="_desk_right">
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./img/logo.svg')}}/>
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
-                        <p className="_slogan">Crypto Investment Wallet</p>
-                        <p className="_description">Single-click to invest in crypto economy</p>
+                        <p className="_slogan">Crypto<br/> Investment Wallet</p>
+                        <p className="_description">Single-click to invest in<br/> crypto economy</p>
                         <button className="land_button _desk">INVEST NOW</button>
                     </div>
                 </div>

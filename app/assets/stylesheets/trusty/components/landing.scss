@@ -71,6 +71,7 @@ $arrow_size: 9.8vh;
 		width: 90%;
 		button {
 			margin-bottom: $arrow_size;
+			font-family: Gotham_Pro_Bold;
 		}
 	}
 	p {
@@ -85,13 +86,16 @@ $arrow_size: 9.8vh;
 	 	flex-direction: column;
 	 	justify-content: center;
 	 	._slogan {
-			font-size: 3.6vh;
+			font-size: 4vh;
 			margin-bottom: 0;
+			line-height: 4.9vh;
+			margin-bottom: 1.4vh;
 
 	 	}
 	 	._description {
 			font-family: Gotham_Pro;
-			font-size: 2.4vh;
+			font-size: 3vh;
+			line-height: 4vh;
 
 	 	}
 	}
@@ -218,6 +222,7 @@ br.desk {
 
 	._body {
 		font-size: 3.6vh;//20px 
+		line-height: 4.2vh;
 		padding: 0 3vw;
 	}
 
@@ -279,9 +284,7 @@ br.desk {
 		text-align: center;
 	}
 
-	.land_button {
-		width: 300px;
-	}
+
 	
 	._logo._mob, 
 	._logo_text._mob {
