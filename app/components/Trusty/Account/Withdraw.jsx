@@ -5,7 +5,7 @@ import utils from "common/utils";
 import Translate from "react-translate-component";
 import ChainTypes from "components/Utility/ChainTypes";
 import BindToChainState from "components/Utility/BindToChainState";
-import TranswiserDepositWithdraw from "components/DepositWithdraw/transwiser/TranswiserDepositWithdraw";
+//import TranswiserDepositWithdraw from "components/DepositWithdraw/transwiser/TranswiserDepositWithdraw";
 import BlockTradesGateway from "components/DepositWithdraw/BlockTradesGateway";
 import OpenLedgerFiatDepositWithdrawal from "components/DepositWithdraw/openledger/OpenLedgerFiatDepositWithdrawal";
 import OpenLedgerFiatTransactionHistory from "components/DepositWithdraw/openledger/OpenLedgerFiatTransactionHistory";

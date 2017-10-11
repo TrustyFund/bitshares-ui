@@ -355,10 +355,10 @@ class OrderBook extends React.Component {
             let leftHeader = (
                 <thead>
                     <tr key="top-header" className="top-header">
-                        <th style={{width: "25%", textAlign: "center"}}><Translate className="header-sub-title" content="exchange.total" /><span className="header-sub-title"> (<AssetName dataPlace="top" name={baseSymbol} />)</span></th>
-                        <th style={{width: "25%", textAlign: "center"}}><span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span></th>
-                        <th style={{width: "25%", textAlign: "center"}}><span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span></th>
-                        <th style={{width: "25%", textAlign: "right"}}>
+                        <th><Translate className="header-sub-title" content="exchange.total" /><span className="header-sub-title"> (<AssetName dataPlace="top" name={baseSymbol} />)</span></th>
+                        <th><span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span></th>
+                        <th><span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span></th>
+                        <th>
                             <Translate className={(this.state.flip ? "ask-total" : "bid-total") + " header-sub-title"} content="exchange.price" />
                         </th>
                     </tr>
@@ -368,12 +368,12 @@ class OrderBook extends React.Component {
             let rightHeader = (
                 <thead>
                     <tr key="top-header" className="top-header">
-                        <th style={{width: "25%", textAlign: "right"}}>
+                        <th>
                             <Translate className={(!this.state.flip ? "ask-total" : "bid-total") + " header-sub-title"} content="exchange.price" />
                         </th>
-                        <th style={{width: "25%", textAlign: "center"}}><span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span></th>
-                        <th style={{width: "25%", textAlign: "center"}}><span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span></th>
-                        <th style={{width: "25%", textAlign: "right"}}><Translate className="header-sub-title" content="exchange.total" /><span className="header-sub-title"> (<AssetName dataPlace="top" name={baseSymbol} />)</span></th>
+                        <th><span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span></th>
+                        <th><span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span></th>
+                        <th><Translate className="header-sub-title" content="exchange.total" /><span className="header-sub-title"> (<AssetName dataPlace="top" name={baseSymbol} />)</span></th>
                     </tr>
                 </thead>
             );
@@ -396,14 +396,14 @@ class OrderBook extends React.Component {
                                         <span> (<AssetName name={quoteSymbol} />)</span>
                                     </div>
                                 </div>
-                                <table className="table order-table table-hover text-right no-overflow">
+                                <table className="table order-table table-hover fixed-table text-right">
                                     {!this.state.flip ? rightHeader : leftHeader}
                                 </table>
                                 <div className="grid-block" ref="hor_asks" style={{paddingRight: !showAllAsks ? 0 : 15, overflow: "hidden", maxHeight: 210}}>
-                                    <table style={{paddingBottom: 5}} className="table order-table table-hover text-right no-overflow">
+                                    <table style={{paddingBottom: 5}} className="table order-table table-hover fixed-table text-right no-overflow">
                                         <TransitionWrapper
                                             ref="askTransition"
-                                            className="orderbook orderbook-top"
+                                            className="orderbook"
                                             component="tbody"
                                             transitionName="newrow"
                                         >
@@ -437,14 +437,14 @@ class OrderBook extends React.Component {
                                         <span> (<AssetName name={baseSymbol} />)</span>
                                     </div>
                                 </div>
-                                <table className="table order-table table-hover text-right">
+                                <table className="table order-table table-hover fixed-table text-right">
                                     {this.state.flip ? rightHeader : leftHeader}
                                 </table>
                                 <div className="grid-block" ref="hor_bids" style={{paddingRight: !showAllBids ? 0 : 15, overflow: "hidden", maxHeight: 210}}>
-                                    <table style={{paddingBottom: 5}} className="table order-table table-hover text-right">
+                                    <table style={{paddingBottom: 5}} className="table order-table table-hover fixed-table text-right no-overflow">
                                         <TransitionWrapper
                                             ref="bidTransition"
-                                            className="orderbook orderbook-bottom"
+                                            className="orderbook"
                                             component="tbody"
                                             transitionName="newrow"
                                         >
@@ -491,7 +491,7 @@ class OrderBook extends React.Component {
                                         <table style={{position: "relative", bottom: 0}} className="table order-table table-hover text-right">
                                             <TransitionWrapper
                                                 ref="askTransition"
-                                                className="ps-container orderbook-top"
+                                                className="ps-container"
                                                 component="tbody"
                                                 transitionName="newrow"
                                             >
@@ -514,7 +514,7 @@ class OrderBook extends React.Component {
                                     <table className="table order-table table-hover text-right">
                                         <TransitionWrapper
                                             ref="bidTransition"
-                                            className="ps-container orderbook-top"
+                                            className="ps-container"
                                             component="tbody"
                                             transitionName="newrow"
                                         >

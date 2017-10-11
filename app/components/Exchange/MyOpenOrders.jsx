@@ -1,6 +1,5 @@
 import React from "react";
 import {PropTypes} from "react";
-import classNames from "classnames";
 import {FormattedDate} from "react-intl";
 import Ps from "perfect-scrollbar";
 import utils from "common/utils";
@@ -20,11 +19,11 @@ class TableHeader extends React.Component {
         return (
             <thead>
                 <tr>
-                    <th style={{width: "18%", textAlign: "center"}}><Translate className="header-sub-title" content="exchange.price" /></th>
-                    <th style={{width: "18%", textAlign: "center"}}>{baseSymbol ? <span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span> : null}</th>
-                    <th style={{width: "18%", textAlign: "center"}}>{baseSymbol ? <span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span> : null}</th>
-                    <th style={{width: "28%", textAlign: "center"}}><Translate className="header-sub-title" content="transaction.expiration" /></th>
-                    <th style={{width: "18%"}}></th>
+                    <th style={{paddingLeft: 10, textAlign: this.props.leftAlign ? "left" : ""}}><Translate className="header-sub-title" content="exchange.price" /></th>
+                    <th style={this.props.leftAlign ? {textAlign: "left"} : null}>{baseSymbol ? <span className="header-sub-title"><AssetName dataPlace="top" name={quoteSymbol} /></span> : null}</th>
+                    <th style={this.props.leftAlign ? {textAlign: "left"} : null}>{baseSymbol ? <span className="header-sub-title"><AssetName dataPlace="top" name={baseSymbol} /></span> : null}</th>
+                    <th style={{width: "28%", textAlign: this.props.leftAlign ? "left" : ""}}><Translate className="header-sub-title" content="transaction.expiration" /></th>
+                    <th />
                 </tr>
             </thead>
         );
@@ -59,19 +58,19 @@ class OrderRow extends React.Component {
 
         return (
             <tr key={order.id}>
-                <td style={{width: "18%"}} className={tdClass}>
+                <td className={tdClass} style={{paddingLeft: 10}}>
                     <PriceText price={order.getPrice()} base={base} quote={quote} />
                     {priceSymbol}
                 </td>
-                <td style={{width: "18%"}}>{utils.format_number(order[!isBid ? "amountForSale" : "amountToReceive"]().getAmount({real: true}), quote.get("precision"))} {amountSymbol}</td>
-                <td style={{width: "18%"}}>{utils.format_number(order[!isBid ? "amountToReceive" : "amountForSale"]().getAmount({real: true}), base.get("precision"))} {valueSymbol}</td>
+                <td>{utils.format_number(order[!isBid ? "amountForSale" : "amountToReceive"]().getAmount({real: true}), quote.get("precision"))} {amountSymbol}</td>
+                <td>{utils.format_number(order[!isBid ? "amountToReceive" : "amountForSale"]().getAmount({real: true}), base.get("precision"))} {valueSymbol}</td>
                 <td style={{width: "28%"}}>
                     {isCall ? null : <FormattedDate
                         value={order.expiration}
                         format="short"
                     />}
                 </td>
-                <td className="text-center" style={{width: "18%", padding: "2px 5px"}}>
+                <td className="text-center" style={{ padding: "2px 5px"}}>
                     {isCall ? null : <a style={{marginRight: 0}} className="order-cancel" onClick={this.props.onCancel}>
                         <Icon name="cross-circle" className="icon-14px" />
                     </a>}
@@ -188,12 +187,12 @@ class MyOpenOrders extends React.Component {
                     <div className="exchange-content-header">
                         <Translate content="exchange.my_orders" />
                     </div>
-                    <table className="table order-table text-right table-hover">
-                        <TableHeader type="sell" baseSymbol={baseSymbol} quoteSymbol={quoteSymbol}/>
+                    <table className="table order-table table-hover">
+                        <TableHeader leftAlign type="sell" baseSymbol={baseSymbol} quoteSymbol={quoteSymbol}/>
                     </table>
 
                     <div className="grid-block no-padding market-right-padding" ref="asks" style={{overflow: "hidden", maxHeight: 200}}>
-                        <table style={{paddingBottom: 5}}  className="table order-table text-right table-hover">
+                        <table style={{paddingBottom: 5}}  className="table order-table table-hover">
                             <TransitionWrapper
                                 component="tbody"
                                 transitionName="newrow"

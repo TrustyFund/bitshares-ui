@@ -10,6 +10,7 @@ import listen from 'event-listener'
 let slides = [
     {         
         id:1,
+
         image: require('./imgs/img_how_use_m_1.png'),
         images: [
             require('./imgs/img_how_use_m_0.png'),
@@ -33,6 +34,7 @@ let slides = [
 
     {
         id:2,
+
         image: require('./imgs/img_global_network.png'),
         title: "3 Min. To Create<br> Decentralized Account",
         text: `
@@ -40,6 +42,7 @@ let slides = [
     },
     {
         id:3,
+
         image: require('./imgs/img_wallets_1.png'),
         imageTwo: require('./imgs/img_wallets_2.png'),
         title: "Many Methods To<br>Deposit Any Currency",

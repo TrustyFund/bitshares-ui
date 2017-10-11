@@ -29,7 +29,11 @@ class ApiNode extends React.Component {
 
     activate(){
         SettingsActions.changeSetting({setting: "apiServer", value: this.props.url });
-
+        if (this.props.url.indexOf("testnet") !== -1) {
+            SettingsActions.changeSetting({setting: "faucet_address", value: settingsAPIs.TESTNET_FAUCET });
+        } else {
+            SettingsActions.changeSetting({setting: "faucet_address", value: settingsAPIs.DEFAULT_FAUCET });
+        };
         setTimeout(function(){
             willTransitionTo(this.props.router, this.props.router.replace, ()=>{}, false);
         }.bind(this), 50);
@@ -79,7 +83,7 @@ class ApiNode extends React.Component {
             {(allowActivation || allowRemoval) && state.hovered && !(automatic && autoActive) &&
                 <div style={{position: "absolute", right: "1em", top: "1.2em"}}>
                     { allowRemoval && <div className="button" onClick={this.remove.bind(this, url, name)}><Translate id="remove" content="settings.remove" /></div>}
-                    {(automatic || isTestnet ? true : up) && allowActivation && <div className="button" onClick={this.activate.bind(this)}><Translate content="settings.activate" /></div>}
+                    {(automatic || isTestnet ? true : true) && allowActivation && <div className="button" onClick={this.activate.bind(this)}><Translate content="settings.activate" /></div>}
                 </div>
             }
         </div>;

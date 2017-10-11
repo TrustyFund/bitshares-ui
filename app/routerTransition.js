@@ -13,10 +13,12 @@ import ls from "common/localStorage";
 const STORAGE_KEY = "__graphene__";
 const ss = new ls(STORAGE_KEY);
 const latencyChecks = ss.get("latencyChecks", 1);
+import counterpart from "counterpart";
 
 // Actions
 import PrivateKeyActions from "actions/PrivateKeyActions";
 import SettingsActions from "actions/SettingsActions";
+import notify from "actions/NotificationActions";
 
 ChainStore.setDispatchFrequency(20);
 
@@ -82,6 +84,8 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
             db = iDB.init_instance(window.openDatabase ? (shimIndexedDB || indexedDB) : indexedDB).init_promise;
         } catch(err) {
             console.log("db init error:", err);
+            replaceState("/init-error");
+            return callback();
         }
         return Promise.all([db, SettingsStore.init()]).then(() => {
             return Promise.all([
@@ -101,7 +105,9 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
                         ChainStore.subscribed = false;
                         ChainStore.init().then(() => {
                             AccountStore.reset();
-                            AccountStore.loadDbData(currentChain);
+                            AccountStore.loadDbData(currentChain).catch(err => {
+                                console.error(err);
+                            });
                         });
                     }
                 })
@@ -119,14 +125,24 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
 
     var onResetError = (err) => {
         console.log("err:", err);
-        return callback();
+        oldChain = "old";
+        connect = true;
+        notify.addNotification({
+            message: counterpart.translate("settings.connection_error", {url: connectionString}),
+            level: "error",
+            autoDismiss: 10
+        });
+        return Apis.close().then(() => {
+            return willTransitionTo(nextState, replaceState, callback, true);
+        });
     };
 
     connectionManager = new Manager({url: connectionString, urls});
     if (nextState.location.pathname === "/init-error") {
-        return Apis.reset(connectionString, true).init_promise
-        .then(onConnect).catch(onResetError);
-
+        return Apis.reset(connectionString, true).then(instance => {
+            return instance.init_promise
+            .then(onConnect).catch(onResetError);
+        });
     }
     let connectionCheckPromise = !apiLatenciesCount ? connectionManager.checkConnections() : null;
     Promise.all([connectionCheckPromise]).then((res => {
@@ -160,7 +176,10 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
                 }
             });
         } else {
-            Apis.reset(connectionManager.url, true).init_promise.then(onConnect).catch(onResetError);
+            oldChain = "old";
+            Apis.reset(connectionManager.url, true).then(instance => {
+                instance.init_promise.then(onConnect).catch(onResetError);
+            });
         }
 
         /* Only try initialize the API with connect = true on the first onEnter */

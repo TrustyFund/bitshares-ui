@@ -18,7 +18,6 @@ import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
 
 
-
 class ButtonConversion extends React.Component {
     static propTypes = {
         balance: ChainTypes.ChainObject,
@@ -1238,6 +1237,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                         <div>{deposit_input_amount_edit_box}</div>
                                     </div>
                                     {/*&rarr;
+
                                     <div className="inline-block">
                                         <div>{deposit_output_coin_type_select}</div>
                                         <div>{deposit_output_amount_edit_box}</div>
@@ -1245,6 +1245,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                     <div>
                                         {deposit_error_element}
                                     </div>*/}
+
+
                                 </div>
                             </td>
                             <td>

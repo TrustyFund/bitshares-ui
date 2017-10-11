@@ -19,6 +19,9 @@ import ChainTypes from "components/Utility/ChainTypes";
 import FormattedAsset from "components/Utility/Trusty/FormattedAsset";
 import BindToChainState from "components/Utility/BindToChainState";
 import utils from "common/utils";
+
+import BorrowModal from "components/Modal/BorrowModal";
+
 import ReactTooltip from "react-tooltip";
 import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
 import SimpleDepositBlocktradesBridge from "components/Dashboard/SimpleDepositBlocktradesBridge";
@@ -90,6 +93,7 @@ class AccountOverview extends React.Component {
 
     _getSeparator(render) {
         return render ? <span>&nbsp;|&nbsp;</span> : null;
+
     }
 
     _onNavigate(route, e) {
@@ -134,6 +138,7 @@ class AccountOverview extends React.Component {
             const marketURL = `/market/${asset.get("symbol")}_${preferredMarket}`;
 
             marketLink = notCore ? <a href={marketURL} onClick={this._onNavigate.bind(this, marketURL)}><AssetName name={asset.get("symbol")} /> : <AssetName name={preferredMarket} /></a> : null;
+
             directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
             
             let pair = ["BTS", symbol];
@@ -209,6 +214,7 @@ class AccountOverview extends React.Component {
                     if (asset.get("symbol").indexOf("OPEN.") !== -1 && !market) market = "USD";
                     let preferredMarket = market ? market : core_asset ? core_asset.get("symbol") : "BTS";
                     let directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
+
                     if (includeAsset && visible || !includeAsset && !visible) balances.push(
                         <tr key={"zz" + a} style={{maxWidth: "100rem"}}>
                             <td style={{textAlign: "left"}}>
