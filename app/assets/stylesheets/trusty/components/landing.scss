@@ -85,11 +85,10 @@ $arrow_size: 9.8vh;
 	 	height: 63vh;
 	 	display: flex;
 	 	flex-direction: column;
-	 	justify-content: center;
+	 	justify-content: space-between;
 	 	._slogan {
 
 			font-size: 4vh;
-			margin-bottom: 0;
 			line-height: 4.9vh;
 			margin-bottom: 1.4vh;
 
@@ -105,7 +104,7 @@ $arrow_size: 9.8vh;
 	}
 
 	.top_buttons {
-		transform: translateY(1.5vh);
+		//transform: translateY(1.5vh);
 		height: 15vh;
 		text-align: center;
 		a { 
@@ -116,7 +115,7 @@ $arrow_size: 9.8vh;
 			text-transform: uppercase;
 			display: inline-block;
 			width: 42vw;
-			//font-family: Gotham_Pro_Medium;
+			font-family: Gotham_Pro_Regular;
 			font-size: 2.6vh;//17px;
 			text-align: center;
 			height: 15vh;
@@ -162,14 +161,16 @@ $arrow_size: 9.8vh;
 		fill: white;//#e6e6e6;
 	}
 	._logo_text {
-		margin: 0 auto;
+		margin: 0 auto 0 auto;
 		//width: 70.1vw;
 		width: 40vh;
+
 
 	}
 
 	._logo {
-		margin: 5.3vh auto 5.3vh auto;
+		//margin: 5.3vh auto 5.3vh auto;
+		margin: 0 auto 0 auto;
 		//width: 48.1vw;
 		width: 30vh;
 	}
