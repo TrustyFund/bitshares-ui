@@ -18,6 +18,8 @@ import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
 
 
+
+
 class ButtonConversion extends React.Component {
     static propTypes = {
         balance: ChainTypes.ChainObject,
@@ -1214,7 +1216,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 else
                     deposit_address_and_memo_element = <span className="trusty_deposit_address">{input_address_and_memo.address}</span>;
                 //<span><span className="blocktrades-with-memo">with memo</span> {input_address_and_memo.memo}</span>;
-
+                
 
                 deposit_body = (
                     <div className="blocktrades-bridge">
@@ -1222,8 +1224,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                             <div>{deposit_input_coin_type_select}</div>
                             <div>{deposit_input_amount_edit_box}</div>
                         </div>
-                        <p className="trusty_help_text" style={{ color: 'yellow' }}>Please send coins to the below adress</p>
-                        <p className="trusty_help_text" data-clipboard>{deposit_address_and_memo_element}</p>
+                        <p className="trusty_help_text" style={{ color: '#b3b31b' }}>Please send coins to the below adress</p>
+                        <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
                     </div>
                     )
 

@@ -1,27 +1,38 @@
 import React from "react"
 import DepositWithdraw from "./Withdraw"
 import { Link } from 'react-router'
-
-//import Clipboard from 'components/Trusty/clipboard.min.js'
+import ClipboardButton from 'react-clipboard.js'
 
 class Deposit extends React.Component {
+		constructor(){
+			super()
+    this.onSuccess = this.onSuccess.bind(this);
+    this.getText = this.getText.bind(this);
 
-		_copyAction(){
-			  var clipboard = new Clipboard('[data-clipboard]');
-		    clipboard.on('success', function(e) {
-		        console.log(e);
-		    });
-		    clipboard.on('error', function(e) {
-		        console.log(e);
-		    });
-		}
+  }
+ 
+  onSuccess() {
+    alert("address copied")
+  }
+ 
+  getText() {
+  	let el = document.body.querySelector("._clipboard_value")
+  	let content = el.textContent
+  	let t = "blocktrades with memo "
+  	if(content.indexOf(t)!=-1){
+  		content = content.split("").splice(t.length).join("")
+  	} 
+    return content;
+  }
 
     render(){
         return (
         	<div className="trusty_deposit" style={{paddingTop: "10px 2rem 0 2rem"}}>
 	        	<DepositWithdraw deposit={true} />
-	        	<button className="trusty_wide_btn" onClick={this._copyAction}>copy adress</button>
-	        	<p className="trusty_help_text" style={{ color: 'yellow' }}>Push CONFIRM button as soon as you complete payment</p>
+	        	<ClipboardButton option-text={this.getText} onSuccess={this.onSuccess} component="button" className="trusty_wide_btn">
+			        copy address
+			      </ClipboardButton>
+	        	<p className="trusty_help_text" style={{ color: '#b3b31b' }}>Push CONFIRM button as soon as you complete payment</p>
 	        	<div className="trusty_inline_buttons">
 	        		<Link to="/home" className="b_left"><button>Confirm</button></Link>
 	        		<Link to="/home" className="b_right"><button >Cancel</button></Link>
