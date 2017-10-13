@@ -85,21 +85,27 @@ $arrow_size: 9.8vh;
 	 	height: 63vh;
 	 	display: flex;
 	 	flex-direction: column;
-	 	justify-content: space-between;
+	 	
+	 	background: url(trusty/img_owl_opacity.png) no-repeat center;
+		background-size: 73%;
+		background-poisition: 100% -100%;
 	 	._slogan {
 
-			font-size: 4vh;
-			line-height: 4.9vh;
-			margin-bottom: 1.4vh;
+			font-size: 8.5vw;
+			margin-bottom: 12px;
 
 
 	 	}
 	 	._description {
 			font-family: Gotham_Pro;
-			font-size: 3vh;
-			line-height: 4vh;
+			font-size: 7vw;
+			line-height: 9vw;
 
 
+	 	}
+
+	 	@media screen and (max-width: 750px){
+	 		justify-content: center;
 	 	}
 	}
 
@@ -116,7 +122,7 @@ $arrow_size: 9.8vh;
 			text-transform: uppercase;
 			display: inline-block;
 			font-family: Gotham_Pro_Regular;
-			font-size: 2.6vh;//17px;
+			font-size: 5.2vw;
 			text-align: center;
 			height: 15vh;
 			line-height: 15vh;
@@ -161,10 +167,9 @@ $arrow_size: 9.8vh;
 		fill: white;//#e6e6e6;
 	}
 	._logo_text {
-		margin: 0 auto 0 auto;
-		//width: 70.1vw;
-		width: 40vh;
 
+		margin: 20px auto 20px auto;
+		width: 70.1vw;
 
 	}
 

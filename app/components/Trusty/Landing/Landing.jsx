@@ -160,15 +160,11 @@ class Landing extends Component {
         }
 
         let self = this
-        let button = (fixed, mob) => { 
-            return fixed ? (
-                    <div className="fixed_bottom _mob">
-                        <button>INVEST NOW</button>
-                        <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
-                    </div>
-                    )
-                : <button className="land_button">INVEST NOW</button>
-        };
+        let button = 
+            <div className="fixed_bottom _mob">
+                <button>INVEST NOW</button>
+                <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
+            </div>
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
 
@@ -200,20 +196,20 @@ class Landing extends Component {
                     <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
                 <div className="bottom_content">
-                    <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./vendor/trusty_fund_logo.svg')}}/>
-                    <div className="_logo _mob" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
+                    <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
+                    {/*<div className="_logo _mob" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>*/}
                     <div className="wrap_img_profile _desk">
                         <img src={require("./vendor/img_user_page.png")} />
                     </div>
                     <div className="_desk_right">
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
-                        <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/trusty_fund_logo.svg')}}/>
-                        <p className="_slogan">Crypto<br/> Investment Wallet</p>
-                        <p className="_description">Single-click to invest in<br/> crypto economy</p>
+                        <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
+                        <p className="_slogan">Investment Wallet</p>
+                        <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
                         <button className="land_button _desk">INVEST NOW</button>
                     </div>
                 </div>
-                {button(true)}
+                {button}
             </div>
         )
         return ( 
@@ -227,8 +223,9 @@ class Landing extends Component {
                  
                     <div className="last_text">
                         <p>First time in history every person on earth can invest in a globally disruptive, yet infant, technology</p>
-                        {button(false)}
+                        <button className="land_button">INVEST NOW</button>
                         <p>Depositing into Trusty.Fund now is like investing in index of Internet companies of 90s, when 20 million people used Internet</p>
+                        <button className="land_button">FAQ</button>
                     </div>
    
                 </div>
