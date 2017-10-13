@@ -196,6 +196,7 @@ class Landing extends Component {
             <div className="logo_starter">
                 <div className="top_buttons _mob">
                     <Link to="/signup"><span>Sign-Up</span></Link>
+                     <Link to="/home"><span>Info</span></Link>
                     <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
                 <div className="bottom_content">
