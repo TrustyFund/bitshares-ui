@@ -38,13 +38,34 @@ let slides = [
         image: require('./vendor/img_global_network.png'),
         title: "3 Min. To Create<br> Decentralized Account",
         text: `
-        Sign up, create password and your account will be secured by immutable BitShares public blockchain. Only you have the private key`
+        Sign up, enter password<br> and your account will be secured<br> by immutable BitShares public<br> blockchain. Only you have the<br> private key`
     },
     {
         id:3,
 
         image: require('./vendor/img_wallets_1.png'),
-        imageTwo: require('./vendor/img_wallets_2.png'),
+        images: [
+            require('./vendor/img_wallets_1.png'),
+            require('./vendor/img_wallets_1a.png'),
+            require('./vendor/img_wallets_1b.png'),
+            require('./vendor/img_wallets_1c.png'),
+            require('./vendor/img_wallets_1d.png'),
+            require('./vendor/img_wallets_1e.png'),
+            require('./vendor/img_wallets_1f.png'),
+            require('./vendor/img_wallets_1g.png'),
+            require('./vendor/img_wallets_1h.png'),
+        ],
+        desk_images: [
+            require('./vendor/img_wallets_2.png'),
+            require('./vendor/img_wallets_2a.png'),
+            require('./vendor/img_wallets_2b.png'),
+            require('./vendor/img_wallets_2c.png'),
+            require('./vendor/img_wallets_2d.png'),
+            require('./vendor/img_wallets_2e.png'),
+            require('./vendor/img_wallets_2f.png'),
+            require('./vendor/img_wallets_2g.png'),
+            require('./vendor/img_wallets_2h.png'),
+        ],
         title: "Many Methods To<br>Deposit Any Currency",
         text: `
         Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at best exchange rate`
@@ -55,7 +76,7 @@ let slides = [
         image: require('./vendor/img_1click_to_invest.png'),
         title: "One-Click To<br> Buy Crypto Portfolio",
         text: `
-        Deposit and you already own the selected portfolio of cryptocurrencies and assets. Forget the hassle of buying assets separately
+        Deposit and you already<br> own the selected portfolio of<br> cryptocurrencies and assets.<br> Forget the hassle of buying<br> assets separately
         `
     },
     {   
@@ -63,7 +84,7 @@ let slides = [
         image: require('./vendor/img_chng_portfolio.png'),
         title: "One-Click<br> Portfolio Management",
         text: `
-        Manage your portfolio by following 1-click hints from recognized investors and community
+        Manage portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using portfolio rebalancing tool
         `
     },
     {
@@ -71,14 +92,14 @@ let slides = [
         image: require('./vendor/img_index.png'),
         title: "One-Click To<br> Fix Income, 0% free",
         text: `
-        Fix income to wait out hyper volatility on the market. Just one click to move funds from crypto to traditional assets, e. g. Gold, USD, EUR or CNY
+        Fix income to wait our prices hyper<br> volatility. One-Click and our funds<br> are all in USD, UER, CNY, Gold, etc.
         `
     },
     {
         id:7,
         image: require('./vendor/img_wallets_1.png'),
         imageTwo: require('./vendor/img_wallets_2.png'),
-        title: "Fiat and Crypto Withdrawal",
+        title: "Withdraw Fiat<br> Or Cryptocurrencies",
         text: `
         Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to any wallet
         `
@@ -191,9 +212,9 @@ class Landing extends Component {
         const top = (
             <div className="logo_starter">
                 <div className="top_buttons _mob">
-                    <Link to="/signup"><span>Sign-Up</span></Link>
+                    <Link to="/signup"><span>SignUp</span></Link>
                      <Link to="/home"><span>Info</span></Link>
-                    <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
+                    <Link to="/create-wallet-brainkey"><span>LogIn</span></Link>
                 </div>
                 <div className="bottom_content">
                     <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
@@ -222,15 +243,15 @@ class Landing extends Component {
                     </div>
                  
                     <div className="last_text">
-                        <p>First time in history every person on earth can invest in a globally disruptive, yet infant, technology</p>
+                        <p>First time in history<br className="_desk _mob"/> everybody can invest<br className="_desk _mob"/> in a globally disruptive,<br className="_desk _mob"/> yet infant, technology</p>
                         <button className="land_button">INVEST NOW</button>
-                        <p>Depositing into Trusty.Fund now is like investing in index of Internet companies of 90s, when 20 million people used Internet</p>
+                        <p>Depositing into Trusty.Fund<br className="_desk _mob"/> now is like early investing<br className="_desk _mob"/> in index of internet<br className="_desk _mob"/> companies, when 20 million<br className="_desk _mob"/> people used internet</p>
                         <button className="land_button">FAQ</button>
                     </div>
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only. They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
+                    <section>The above references are for information purposes only. They are not intended to be investment advices. <br className="_desk _mob"/> Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
             </section>

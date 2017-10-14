@@ -3,19 +3,43 @@
 
 @import "components/deposit-withdraw";
 
+      HTML {
+
+        background-repeat: no-repeat;
+        background-position:  50% -54px;
+        /* По умолчанию показывается мобильный макет */
+        background-image: url( "trusty/trusty_fund.png" );
+        background-size: 100%;
+      }
+      /* Планшет */
+      @media ( max-width: 750px ) {
+        HTML {
+          /* Планшетный макет */
+          background-image: url( "trusty/trusty_fund.png" );
+        }
+      }
+      /* Десктоп */
+      @media ( min-width: 960px ) {
+        HTML {
+          /* Десктопный макет */
+          //background-image: url( "img/960.png" );
+        }
+      }
+
 
 $white_color: #e6e6e6;
 $background_color: #1b1f22;
 
-@media screen and (max-width: 768px) {
-  *._desk{display:none}
+@media screen and (max-width: 750px) {
+  *._desk, {display:none !important;}
 }
 
-@media screen and (min-width: 769px) {
-	*._mob{display:none}
+@media screen and (min-width: 751px) {
+	*._mob{display:none !important;}
 }
 .trusty-wrapper, .trusty-wrapper .grid-block {
-	background-color: $background-color !important;
+	//background: transparent !important;
+	//background-color: $background-color !important;
 	background-image: url(./trusty/pattern.png);
 	background-repeat: repeat;
 	background-size: 42px;
