@@ -177,7 +177,7 @@ class AccountDepositWithdraw extends React.Component {
         });
         return (
             <div className="trusty_deposit_and_withdraw">
-                <div className="grid-content no-padding">
+                <div className="grid-content no-padding" style={{overflow: "hidden"}}>
                 {activeService && services[activeService] ? services[activeService].template : services[0].template}
                 </div>
             </div>
