@@ -1,5 +1,6 @@
 @import "components/landing";
 @import "components/create-account";
+@import "components/account-page";
 
 @import "components/deposit-withdraw";
 
@@ -267,21 +268,5 @@ $header_size: 50px;
 	}
 }
 
-
-.trusty_table {
-	thead, th, tr, tbody {
-		border: none !important;
-		background-color: transparent !important;
-	}
-
-}
-
-.trusty_total_funds {
-	text-transform: uppercase;
-	font-size: 14px;
-	text-align: center;
-	margin-bottom: 0;
-	margin-top: 20px;
-}
 
 

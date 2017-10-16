@@ -1,0 +1,44 @@
+.trusty_table {
+	thead, th, tr, tbody {
+		border: none !important;
+		background-color: transparent !important;
+
+	}
+
+	th span, td span {
+
+		@media screen and (max-width: 750px){
+			font-size: 5vw;
+			
+		}
+	}
+	
+	th span {
+		font-family: 'Gotham_Pro_Regular';
+	}
+
+	td span {
+		font-family: 'Gotham_Pro';
+	}
+}
+
+.trusty_total_funds {
+	p {
+			text-transform: uppercase;
+			text-align: center;
+			margin-bottom: 0;
+			margin-top: 20px;		
+
+			@media screen and (max-width: 750px){
+				font-size: 5vw;	
+			}
+		}
+
+	h3 {
+		font-family: 'Gotham_Pro_Bold';
+		@media screen and (max-width: 750px){
+			font-size: 14vw;	
+		}
+	}
+}
+
