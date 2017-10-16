@@ -3,28 +3,50 @@
 		margin-bottom: 0;
 
 	}
+
+	.trusty_help_text:first-child {
+		margin-bottom: 3vw;
+	} 
 }
 
 .trusty_deposit_address {
 	display: inline-block;
-	margin-bottom: 8px;
+	margin-bottom: get-vw(8px);
 }
 
-
 .trusty_deposit {
-	padding: 4.2vw;
+	@media screen and (max-width: 750px){
+		padding: 0 3.6vw;
+		.trusty_input_container {
+			margin-top: 3px;
+			margin-bottom: 20px;
+		}
+		._bottom {
+			margin-bottom: 2.8vw !important;
+		}
+	}
+
 }
 
 .trusty_ps_text {
+
 	font-family: Gotham_Pro;
   text-align: center;
-  font-size: .67rem;
-  margin: 10px 0;
 
+  @media screen and (max-width: 750px) {
+		font-size: 3.3vw;
+	  margin: 3.8vw 0;
+	  line-height: 4.3vw;
+  }
 }
+
 .trusty_deposit_input {
 	position: relative;
 }
+
+
+
+
 .trusty_deposit_input, 
 .trusty_input_container {
 
@@ -49,8 +71,9 @@
 		width: 22vw !important;
 		margin: 0 0	 !important;
 		border: none !important; 
-		font-size: 5vw !important;
-		font-family: 'Gotham_Pro_Bold';
+		font-size: 6.6vw !important;
+		font-family: 'Gotham_Pro_Medium';
+		padding-bottom: 0 !important;
 	}
 	.t_input{
 		width: 100%;
@@ -66,6 +89,8 @@
 			border-left: none;
 			border-bottom: none;
 			outline: none !important;
+			padding-bottom: 2px;
+			padding-left: 0;
 		}
 
 		input::placeholder {
@@ -80,5 +105,17 @@
 			border-bottom: 1px solid white;
 			outline: none !important;
 		}
+	}
+}
+
+.trusty_help_text {
+	font-family: Gotham_Pro;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	@media screen and (max-width: 750px){
+		font-size: 4.7vw;
+		line-height: 6vw;
+		margin-bottom: 4.4vw;
 	}
 }

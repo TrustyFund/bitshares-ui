@@ -31,11 +31,13 @@ class TrustyInput extends React.Component {
 	}
 
 	setOpened(opened){
+
 		this.setState({opened})
 	}
 
 	render(){
 		let body = document.body
+		let newLabel = this.props.label != "label here" 
 		return (
 				<div className="trusty_input_container">
 					{ this.state.opened ? <label>{this.props.label}</label> : null }

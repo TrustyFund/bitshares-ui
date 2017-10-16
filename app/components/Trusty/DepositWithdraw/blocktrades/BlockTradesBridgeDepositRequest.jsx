@@ -1181,7 +1181,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 let deposit_input_amount_edit_box = estimated_input_amount_text ?
                         <input style={{width: "11rem"}} type="text"
                                value={estimated_input_amount_text || ""}
-                               onChange={this.onInputAmountChanged.bind(this, "deposit") } /> : calcTextDeposit;
+                               onChange={this.onInputAmountChanged.bind(this, "deposit") }
+                               placeholder="SEND ANY SUM"/> : calcTextDeposit;
                 let deposit_output_amount_edit_box = estimated_output_amount_text ?
                         <input style={{width: "11rem"}} type="text"
                                value={estimated_output_amount_text || ""}

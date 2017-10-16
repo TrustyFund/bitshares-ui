@@ -7,7 +7,7 @@
       HTML {
 
         background-repeat: no-repeat;
-        background-position:  50% -64px;
+        background-position:  50% -49px;
         /* По умолчанию показывается мобильный макет */
         background-image: url( "trusty/trusty_fund.png" );
         background-size: 100%;
@@ -16,7 +16,7 @@
       @media ( max-width: 750px ) {
         HTML {
           /* Планшетный макет */
-          background-image: url( "trusty/screens/profile.png" );
+          background-image: url( "trusty/screens/deposit.png" );
         }
       }
       /* Десктоп */
@@ -41,6 +41,11 @@ $background_color: #1b1f22;
 
 *._yellow {
 	color: rgb(179, 179, 27);
+}
+
+
+button:focus, button:active {
+	outline: none;
 }
 .trusty-wrapper, .trusty-wrapper .grid-block {
 	//background: transparent !important;
@@ -150,9 +155,11 @@ $header_size: 50px;
 		display: block;
 		text-align: center;
 		font-family: Gotham_Pro_Regular;
-		font-size: 5.6vw;
 		text-transform: uppercase;
 		line-height: $header_size;
+		@media screen and (max-width: 750px){
+			font-size: 4.8vw;
+		}
 
 	}
 
@@ -241,6 +248,7 @@ $header_size: 50px;
 	text-transform: uppercase;
 	background: transparent;
 	font-family: Gotham_Pro;
+
 }
 
 
@@ -252,13 +260,15 @@ $header_size: 50px;
 	text-transform: uppercase;
 	background: transparent;
 	font-family: Gotham_Pro;
-}
 
-.trusty_help_text {
-	font-family: Gotham_Pro;
-	text-align: center;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	@media screen and (max-width: 750px) {
+		font-size: 4.7vw;
+	}
+
+	.trusty_deposit & {
+		margin-bottom: 2.1vw;
+	}
+
 }
 
 .trusty_inline_buttons {
@@ -273,6 +283,7 @@ $header_size: 50px;
 		background-color: rgb(221, 221, 221) !important;
 		height: 50px;
 		color: black;
+		font-size: 4.8vw;
 	}
 
 	.b_left {
@@ -281,6 +292,7 @@ $header_size: 50px;
 	.b_right {
 		margin-left: 7px;
 	}
+
 
 	@media screen and (min-width: 751px) {
 		button {

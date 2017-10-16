@@ -30,12 +30,11 @@ class Deposit extends React.Component {
     render(){
         return (
         	<div className="trusty_deposit" style={{paddingTop: "10px 2rem 0 2rem"}}>
-            
 	        	<DepositWithdraw deposit={true} />
 	        	<ClipboardButton option-text={this.getText} onSuccess={this.onSuccess} component="button" className="trusty_wide_btn">
 			        copy address
 			      </ClipboardButton>
-	        	<p className="trusty_help_text" style={{ color: '#b3b31b' }}>Push CONFIRM button as soon as you complete payment</p>
+	        	<p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you complete payment</p>
 	        	<div className="trusty_inline_buttons">
 	        		<Link to="/home" className="b_left"><button>Confirm</button></Link>
 	        		<Link to="/home" className="b_right"><button >Cancel</button></Link>
