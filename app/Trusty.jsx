@@ -25,7 +25,7 @@ import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 
-import 'components/Trusty/pixel-glass'
+//import 'components/Trusty/pixel-glass'
 
 import {dispatcher} from 'components/Trusty/utils'
 

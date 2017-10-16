@@ -4,28 +4,29 @@
 
 @import "components/deposit-withdraw";
 
-      HTML {
-
-        background-repeat: no-repeat;
-        background-position:  50% -49px;
-        /* По умолчанию показывается мобильный макет */
-        background-image: url( "trusty/trusty_fund.png" );
-        background-size: 100%;
-      }
-      /* Планшет */
-      @media ( max-width: 750px ) {
-        HTML {
-          /* Планшетный макет */
-          background-image: url( "trusty/screens/deposit.png" );
-        }
-      }
-      /* Десктоп */
-      @media ( min-width: 960px ) {
-        HTML {
-          /* Десктопный макет */
-          //background-image: url( "img/960.png" );
-        }
-      }
+HTML {
+  background-repeat: no-repeat;
+  background-position:  50% -49px;
+  /* По умолчанию показывается мобильный макет */
+  background-image: url( "trusty/screens/trusty_fund.png" );
+  background-size: 100%;
+}
+/* Планшет */
+@media ( max-width: 750px ) {
+  HTML {
+    /* Планшетный макет */
+    //background-image: url( "trusty/screens/profile.png");
+    //background-image: url( "trusty/screens/deposit.png");
+    background-image: url( "trusty/screens/trusty_fund.png" );
+  }
+}
+/* Десктоп */
+@media ( min-width: 960px ) {
+  HTML {
+    /* Десктопный макет */
+    //background-image: url( "img/960.png" );
+  }
+}
 
 
 $white_color: #e6e6e6;
