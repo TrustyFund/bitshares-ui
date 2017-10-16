@@ -45,7 +45,7 @@ let slides = [
 
         image: require('./vendor/img_wallets_1.png'),
         images: [
-            require('./vendor/img_wallets_1.png'),
+            //require('./vendor/img_wallets_1.png'),
             require('./vendor/img_wallets_1a.png'),
             require('./vendor/img_wallets_1b.png'),
             require('./vendor/img_wallets_1c.png'),
@@ -56,7 +56,7 @@ let slides = [
             require('./vendor/img_wallets_1h.png'),
         ],
         desk_images: [
-            require('./vendor/img_wallets_2.png'),
+            //require('./vendor/img_wallets_2.png'),
             require('./vendor/img_wallets_2a.png'),
             require('./vendor/img_wallets_2b.png'),
             require('./vendor/img_wallets_2c.png'),
@@ -116,6 +116,8 @@ class Landing extends Component {
         this.state = {
             currentFirstSlide: null,
             currentFirstSlideDesk: null,
+            currentThirdSlide: null,
+            currentThirdSlideDesk: null,
             showBalls: false,
         }
         //this.scrollDown = this.scrollDown.bind(this)
@@ -141,28 +143,29 @@ class Landing extends Component {
         })
 
         let index = 0
+        let indexTwo = 0
 
         this.setState({
-            currentFirstSlide: slides[0].images[index]
+            currentFirstSlide: slides[0].images[index],
+            currentFirstSlideDesk: slides[0].desk_images[index],
+            currentThirdSlide: slides[2].images[index],
+            currentThirdSlideDesk: slides[2].desk_images[index]
         })
 
-        this.setState({
-            currentFirstSlideDesk: slides[0].desk_images[index]
-        })
+
 
 
         this.timeout = setInterval(() => {
-
             if(index >= slides[0].images.length-1) { index=0 } else { index++ }
-
             this.setState({
-                currentFirstSlide: slides[0].images[index]
+                currentFirstSlide: slides[0].images[index],
+                currentFirstSlideDesk: slides[0].desk_images[index],
             })
-
+            if(indexTwo >= slides[2].images.length-1) { indexTwo=0 } else { indexTwo++ }
             this.setState({
-                currentFirstSlideDesk: slides[0].desk_images[index]
+                currentThirdSlide: slides[2].images[indexTwo],
+                currentThirdSlideDesk: slides[2].desk_images[indexTwo]
             })
-
         }, 1000)
 
     }
@@ -188,18 +191,41 @@ class Landing extends Component {
             </div>
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
+        let currentThird = this.state.currentThirdSlide
+        let currentThirdDesk = this.state.currentThirdSlideDesk
 
         let ballsNav = this.state.showBalls ? 
-            (<div className="balls_nav">
+            (<div className="balls_nav _desk">
                 {[1,2,3,4,5,6,7].map((i, index) => <span key={i} onClick={ e => scrollDown(e, index)} /> )}
             </div>) : null 
+
 
 
         const list = slides.map((slide, index)=>
             <div className={"land_slide sl_id-"+slide.id} key={slide.id} onClick={this.scrollDown.bind(this, event, index)}>
                 <div className="image_area">
-                    <img className="_image _mob" src={slide.images ? currentFirst : slide.image}/>
-                    <img className="_image _desk" src={slide.images ? currentFirstDesk : slide.image}/>
+                    { index == 0 ? 
+                        <div>
+                            <img className="_image _mob" src={currentFirst}/>
+                            <img className="_image _desk" src={currentFirstDesk}/>
+                        </div>
+
+                    : null }
+
+                    { index == 2 || index == 6 ? 
+                         <div>
+                            <img className="_image _mob" src={currentThird}/>
+                            <img className="_image _desk" src={currentThird}/>
+                        </div>
+                    : null }
+
+                    { index != 0 && index !=2 && index != 6 ? 
+                        <img className="_image" src={slide.image}/>
+                        
+                    : null }
+
+
+
                 </div>
                 <div className="text_area">
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
