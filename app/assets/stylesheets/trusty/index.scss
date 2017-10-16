@@ -7,7 +7,7 @@
       HTML {
 
         background-repeat: no-repeat;
-        background-position:  50% -54px;
+        background-position:  50% -64px;
         /* По умолчанию показывается мобильный макет */
         background-image: url( "trusty/trusty_fund.png" );
         background-size: 100%;
@@ -16,7 +16,7 @@
       @media ( max-width: 750px ) {
         HTML {
           /* Планшетный макет */
-          background-image: url( "trusty/trusty_fund.png" );
+          background-image: url( "trusty/screens/profile.png" );
         }
       }
       /* Десктоп */
@@ -37,6 +37,10 @@ $background_color: #1b1f22;
 
 @media screen and (min-width: 751px) {
 	*._mob{display:none !important;}
+}
+
+*._yellow {
+	color: rgb(179, 179, 27);
 }
 .trusty-wrapper, .trusty-wrapper .grid-block {
 	//background: transparent !important;
@@ -174,7 +178,7 @@ $header_size: 50px;
 	}
 }
 
-.trusty_options{
+.trusty_options {
 	position: absolute !important;
 	width: $header_size !important;
 	height: $header_size !important;
@@ -182,11 +186,13 @@ $header_size: 50px;
 	top: 0 !important;
 	right: 0 !important;
 	text-align: center;
+
 	svg {
 		display: inline-block;
 		height: 40% !important;
 		width: 40% !important;
 	}
+
 }
 
 
@@ -222,11 +228,27 @@ $header_size: 50px;
 }
 
 
+.trusty_full_width_button {
+
+	@media screen and ( max-width: 750px) {
+		height: 13.2vw;
+	  margin-top: 2.3vw;
+	  font-size: 4.8vw;
+		width: 100%;
+	}
+	
+	border: 1px solid white;
+	text-transform: uppercase;
+	background: transparent;
+	font-family: Gotham_Pro;
+}
+
+
 .trusty_wide_btn {
 	width: 100%;
 	height: 50px;
 	border-radius: 3px;
-	border: 2px solid white;
+	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
 	font-family: Gotham_Pro;
@@ -242,10 +264,11 @@ $header_size: 50px;
 .trusty_inline_buttons {
 
 	text-align: center;
+
 	button {
 		font-family: Gotham_Pro_Bold;
 		display: inline-block;
-		width: 43vw;
+		width: 44vw;
 		margin: initial !important;
 		background-color: rgb(221, 221, 221) !important;
 		height: 50px;
@@ -259,13 +282,12 @@ $header_size: 50px;
 		margin-left: 7px;
 	}
 
-
-
 	@media screen and (min-width: 751px) {
 		button {
 			width: 200px;
 		}
 	}
+
 }
 
 

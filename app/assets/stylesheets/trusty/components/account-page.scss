@@ -1,44 +1,90 @@
 .trusty_table {
+
+	table {
+		margin-top: 20px;
+		@media screen and (max-width: 750px){
+			margin-top: 5.6vw;
+		}
+	}
 	thead, th, tr, tbody {
 		border: none !important;
 		background-color: transparent !important;
-
-	}
-
-	th span, td span {
-
-		@media screen and (max-width: 750px){
-			font-size: 5vw;
-			
-		}
 	}
 	
 	th span {
 		font-family: 'Gotham_Pro_Regular';
+		@media screen and (max-width: 750px){
+			font-size: 4.4vw;
+		}
 	}
 
-	td span {
-		font-family: 'Gotham_Pro';
+	td, td span, td div {
+		@media screen and (max-width: 750px) {
+			font-size: 6vw;
+		}
+		font-family: 'Gotham_Pro_Medium';
+
 	}
+
+	td {
+		@media screen and (max-width: 750px) {
+			padding-top:0;
+			font-size: 5vw;
+		}
+		span {
+			@media screen and (max-width: 750px){
+				font-size: 5vw;
+				
+			}
+		}
+
+		
+	} 
+
 }
 
 .trusty_total_funds {
 	p {
+			font-family: 'Gotham_Pro_Regular';
 			text-transform: uppercase;
 			text-align: center;
 			margin-bottom: 0;
-			margin-top: 20px;		
-
+			margin-top: 12px;		
 			@media screen and (max-width: 750px){
-				font-size: 5vw;	
+				font-size: 4.2vw;	
 			}
 		}
 
 	h3 {
-		font-family: 'Gotham_Pro_Bold';
+		font-family: 'Gotham_Pro_Medium';
+		margin-top: 0;
+		margin-bottom: 0;
+		line-height: initial;
 		@media screen and (max-width: 750px){
-			font-size: 14vw;	
+			font-size: 13.4vw;	
 		}
+	}
+}
+
+.trusty_profile_incoming_depositis {
+
+	font-family: 'Gotham_Pro';
+	text-transform: uppercase;
+	@media screen and (max-width: 750px) {
+		p:first-child {
+			margin-top: 5.2vw;
+			margin-bottom: 1.5vw;
+		}
+		p {
+			font-size: 4vw;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.trusty_profile_info {
+	@media screen and (max-width: 750px){
+		padding: 0 3.6vw;
 	}
 }
 

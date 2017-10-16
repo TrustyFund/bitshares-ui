@@ -47,7 +47,7 @@ class AccountPage extends React.Component {
                         viewSettings={this.props.viewSettings}
                     />
                 </div>
-                <div className="grid-block main-content" style={{paddingTop: "10px"}}>
+                <div className="grid-block main-content" style={{paddingTop: "0px"}}>
                     <div className="grid-container">
                         <div className="trusty_inline_buttons">
                             <Link to="/deposit" style={{marginRight: "7px"}}><button>DEPOSIT</button></Link>

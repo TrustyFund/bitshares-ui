@@ -346,14 +346,22 @@ class AccountOverview extends React.Component {
         const currentBridges = this.props.bridgeCoins.get(this.state.bridgeAsset) || null;
 
         return (
-            <div className="grid-content" style={{overflowX: "hidden", padding: "0 .7rem"}}>
+            <div className="grid-content trusty_profile_info" style={{overflowX: "hidden"}}>
                 <div className="content-block small-12">
                     <div className="generic-bordered-box">
                         <br/>
                         <div className="trusty_total_funds">
                             <p>{this.props.account_name} TOTAL FUNDS</p>
                             <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
-                        </div>    
+                        </div> 
+
+                        <div className="trusty_profile_incoming_depositis">
+                            <p>Incomming deposits</p>
+                            <p className="_yellow">0 RUB BANK</p>
+                        </div>
+
+                        <button className="trusty_full_width_button">MANAGE PORTFOLIO</button>
+
                         <table className="table trusty_table">
                             <thead>
                                 <tr>
