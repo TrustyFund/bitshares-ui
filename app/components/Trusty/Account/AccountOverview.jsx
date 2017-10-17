@@ -157,12 +157,15 @@ class AccountOverview extends React.Component {
                     </td>
                     <td style={{textAlign: "right"}}>
                         {hasBalance || hasOnOrder
-                            ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> 
+                            ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
                             : "0 BTS"
                         }
                     </td>
                     <td style={{textAlign: "center", display: "none"}}>
                         {directMarketLink}
+                    </td>
+                    <td style={{textAlign: "right"}}>
+                        {hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
                     </td>
                     <td>
                         <MarketCard
@@ -226,6 +229,9 @@ class AccountOverview extends React.Component {
                             </td>
                             <td style={{textAlign: "center", display: "none"}}>
                                 {directMarketLink}
+                            </td>
+                            <td style={{textAlign: "right"}}>
+                                0
                             </td>
                             <td>
                                 <MarketCard
@@ -368,6 +374,7 @@ class AccountOverview extends React.Component {
                                 <tr>
                                     <th style={{textAlign: "left"}}><Translate component="span" content="account.asset" /></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.share" /></th>
+                                    <th style={{textAlign: "right"}}><span>$VALUE</span></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.chng" /></th>   
                                 </tr>
                             </thead>

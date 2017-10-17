@@ -36,7 +36,6 @@ class AssetName extends React.Component {
 		let {name: replacedName, prefix} = utils.replaceName(name, isBitAsset && !isPredMarket && asset.get("issuer") === "1.2.0");
 		// let prefix = isBitAsset && !isPredMarket ? <span>bit</span> :
 		// 			 replacedName !== this.props.name ? <span>{replacedPrefix}</span> : null;
-		console.log(prefix)
 		let excludeList = ["BTWTY", "BANCOR", "BTCSHA", "CROWDFUN", "DRAGON", "TESTME"];
 		let includeBitAssetDescription = isBitAsset && !isPredMarket && excludeList.indexOf(name) === -1;
 
