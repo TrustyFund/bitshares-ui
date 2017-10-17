@@ -138,7 +138,7 @@ class AssetActions {
     }
 
     updateAsset(issuer, new_issuer, update, core_exchange_rate, asset, flags, permissions,
-            isBitAsset, bitasset_opts, original_bitasset_opts, description) {
+            isBitAsset, bitasset_opts, original_bitasset_opts, description, auths) {
 
         // Create asset action here...
         let tr = wallet_api.new_transaction();
@@ -155,7 +155,7 @@ class AssetActions {
 
         let cr_quote_amount = (new big(core_exchange_rate.quote.amount)).times(cr_quote_precision).toString();
         let cr_base_amount = (new big(core_exchange_rate.base.amount)).times(cr_base_precision).toString();
-
+        console.log("auths:", auths);
         let updateObject = {
             fee: {
                 amount: 0,
@@ -172,10 +172,10 @@ class AssetActions {
                 description: description,
                 issuer_permissions: permissions,
                 flags: flags,
-                whitelist_authorities: asset.getIn(["options", "whitelist_authorities"]),
-                blacklist_authorities: asset.getIn(["options", "blacklist_authorities"]),
-                whitelist_markets: asset.getIn(["options", "whitelist_markets"]),
-                blacklist_markets: asset.getIn(["options", "blacklist_markets"]),
+                whitelist_authorities: auths.whitelist_authorities.toJS(),
+                blacklist_authorities: auths.blacklist_authorities.toJS(),
+                whitelist_markets: auths.whitelist_markets.toJS(),
+                blacklist_markets: auths.blacklist_markets.toJS(),
                 extensions: asset.getIn(["options", "extensions"]),
                 core_exchange_rate: {
                     quote: {
@@ -301,7 +301,7 @@ class AssetActions {
                         delete inProgress[id];
                         dispatch({
                             assets: assets,
-                            dynamic_data: results[0],
+                            dynamic: results[0],
                             bitasset_data: results[1],
                             loading: false
                         });
@@ -310,59 +310,8 @@ class AssetActions {
                     });
                 })
                 .catch(error => {
-                    console.log("Error in AssetStore.getAssetList: ", error);
+                    console.log("Error in AssetActions.getAssetList: ", error);
                     dispatch({loading: false});
-                    delete inProgress[id];
-                });
-            }
-        };
-    }
-
-    getAsset(id) {
-        let assetPromise;
-        return (dispatch) => {
-            if (!inProgress[id]) {
-                inProgress[id] = true;
-                if (utils.is_object_id(id)) {
-                    assetPromise = Apis.instance().db_api().exec("get_objects", [
-                        [id]
-                    ]);
-                } else {
-                    assetPromise = Apis.instance().db_api().exec("list_assets", [
-                        id, 1
-                    ]);
-                }
-
-                return assetPromise.then((asset) => {
-
-                    if (asset.length === 0 || !asset) {
-
-                        dispatch({
-                            asset: null,
-                            id: id
-                        });
-                    }
-                    let bitAssetPromise = asset[0].bitasset_data_id ? Apis.instance().db_api().exec("get_objects", [
-                        [asset[0].bitasset_data_id]
-                    ]) : null;
-
-                    Promise.all([
-                        Apis.instance().db_api().exec("get_objects", [
-                            [asset[0].dynamic_asset_data_id]
-                        ]),
-                        bitAssetPromise
-                    ])
-                    .then(results => {
-                        delete inProgress[id];
-                        dispatch({
-                            asset: asset[0],
-                            dynamic_data: results[0][0],
-                            bitasset_data: results[1] ? results[1][0] : null
-                        });
-                    });
-
-                }).catch((error) => {
-                    console.log("Error in AssetStore.updateAsset: ", error);
                     delete inProgress[id];
                 });
             }

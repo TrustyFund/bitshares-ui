@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from "react-router/es";
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from "react-router/es";
 import willTransitionTo from "./routerTransition";
 import App from "./Trusty";
 
@@ -106,7 +106,7 @@ const routes = (
         <Route path="market/:marketID" component={ExchangeContainer} />
         <Route path="settings" component={SettingsContainer} />
         <Route path="block/:height" component={BlockContainer} />
-        <Route path="asset/:symbol" component={AssetContainer} />
+        <Route path="asset/:symbol" component={Asset} />
         <Route path="create-account" component={LoginSelector}>
             <Route path="wallet" component={CreateAccount} />
             <Route path="password" component={CreateAccountPassword} />
@@ -133,6 +133,7 @@ const routes = (
             <Route path="deposit-withdraw" component={AccountDepositWithdraw} />
             <Route path="orders" component={AccountOrders} />
             <Route path="whitelist" component={AccountWhitelist} />
+            <Redirect from="overview" to="dashboard" />
         </Route>
 
         <Route path="deposit-withdraw" component={AccountDepositWithdraw} />

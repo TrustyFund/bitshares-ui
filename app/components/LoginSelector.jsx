@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router";
+import {Link} from "react-router/es";
 import Translate from "react-translate-component";
 import { isIncognito } from "feature_detect";
 var logo = require("assets/logo-ico-blue.png");
@@ -56,8 +56,8 @@ export default class LoginSelector extends React.Component {
 
                         {!!childCount ? null :
                         <div className="creation-options">
-                            <div><Link to="/wallet/backup/restore">Restore</Link></div>
-                            <div><Link to="/create-account/wallet">Advanced</Link></div>
+                            <div><Link to="/wallet/backup/restore"><Translate content="account.restore" /></Link></div>
+                            <div><Link to="/create-account/wallet"><Translate content="account.advanced" /></Link></div>
                         </div>}
 
                         {this.props.children}
