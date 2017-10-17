@@ -1,8 +1,8 @@
 import React from "react";
 import utils from "common/utils";
 import asset_utils from "common/asset_utils";
-import ChainTypes from "./ChainTypes";
-import BindToChainState from "./BindToChainState";
+import ChainTypes from "../ChainTypes";
+import BindToChainState from "../BindToChainState";
 import counterpart from "counterpart";
 
 class AssetName extends React.Component {
@@ -36,7 +36,7 @@ class AssetName extends React.Component {
 		let {name: replacedName, prefix} = utils.replaceName(name, isBitAsset && !isPredMarket && asset.get("issuer") === "1.2.0");
 		// let prefix = isBitAsset && !isPredMarket ? <span>bit</span> :
 		// 			 replacedName !== this.props.name ? <span>{replacedPrefix}</span> : null;
-
+		console.log(prefix)
 		let excludeList = ["BTWTY", "BANCOR", "BTCSHA", "CROWDFUN", "DRAGON", "TESTME"];
 		let includeBitAssetDescription = isBitAsset && !isPredMarket && excludeList.indexOf(name) === -1;
 
@@ -61,7 +61,7 @@ class AssetName extends React.Component {
 					data-place={this.props.dataPlace}
 					data-html={true}
 				>
-					<span className="asset-prefix-replaced">{/*prefix*/}</span><span>{replacedName}</span>
+					<span className="asset-prefix-replaced">{/*prefix*/}</span><span>{ replacedName }</span>
 				</div>
 			);
 
