@@ -8,8 +8,6 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
     "checkmark-circle", "checkmark", "piggy", "locked", "unlocked" , "markets", "fi-star" ,"fees",
     "thumb-tack", "clock", "clippy","shuffle", "transfer", "dollar", "deposit", "withdraw",
     "settle", "trade", "adjust", "excel"]
-
-
     .concat([
         "trusty-logo-text",  "trusty_arrow", "trusty_arrow_back", "trusty_options"
     ])
