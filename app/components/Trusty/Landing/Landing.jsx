@@ -119,6 +119,7 @@ class Landing extends Component {
             currentThirdSlide: null,
             currentThirdSlideDesk: null,
             showBalls: false,
+            windowHeight: window.innerHeight
         }
         //this.scrollDown = this.scrollDown.bind(this)
     }
@@ -171,10 +172,18 @@ class Landing extends Component {
     }
 
     scrollDown(e, index){
-        if(e) e.stopPropagation()
-        if(index==null) { JQuery('html,body').animate({scrollTop:window.innerHeight},450); } else {
-            JQuery('html,body').animate({scrollTop: window.innerHeight * (index+2)},450);
-        }
+        
+        let item = index==null?document.body.querySelector(".sl_id-1"):document.body.querySelector(".sl_id-"+(index+2))
+
+        JQuery('html, body').animate({
+            scrollTop: index==6 ? JQuery(".last_text").offset().top :JQuery(item).offset().top
+        }, 450);
+
+        // console.log(item.getBoundingClientRect().top)
+        // if(e) e.stopPropagation()
+        // if(index==null) { JQuery('html,body').animate({scrollTop:window.innerHeight},450); } else {
+        //     JQuery('html,body').animate({scrollTop: window.innerHeight * (index+2)},450);
+        // }
     }
 
     render() {
@@ -189,6 +198,7 @@ class Landing extends Component {
                 <button>INVEST NOW</button>
                 <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
             </div>
+
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
         let currentThird = this.state.currentThirdSlide
@@ -199,10 +209,10 @@ class Landing extends Component {
                 {[1,2,3,4,5,6,7].map((i, index) => <span key={i} onClick={ e => scrollDown(e, index)} /> )}
             </div>) : null 
 
-
-
         const list = slides.map((slide, index)=>
-            <div className={"land_slide sl_id-"+slide.id} key={slide.id} onClick={this.scrollDown.bind(this, event, index)}>
+            <div className={"land_slide sl_id-"+slide.id} 
+                key={slide.id} onClick={this.scrollDown.bind(this, event, index)}
+                style={{ height: this.state.windowHeight }}>
                 <div className="image_area">
                     { index == 0 ? 
                         <div>
@@ -236,7 +246,7 @@ class Landing extends Component {
         );
 
         const top = (
-            <div className="logo_starter">
+            <div className="logo_starter" style={{height: this.state.windowHeight}}>
                 <div className="top_buttons _mob">
                     <Link to="/signup"><span>SignUp</span></Link>
                      <Link to="/home"><span>Info</span></Link>

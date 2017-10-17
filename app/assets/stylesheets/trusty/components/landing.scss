@@ -68,7 +68,7 @@ $arrow_size: 9.8vh;
 	.fixed_bottom {
 		position: absolute;
 		bottom: 0;
-		width: 90%;
+		width: 100%;
 		button {
 			margin-bottom: 9.8vh;
 			font-family: Gotham_Pro_Bold;
@@ -82,7 +82,7 @@ $arrow_size: 9.8vh;
 		text-align: center;
 	}
 	.bottom_content {
-	 	height: 63vh;
+	 	height: 63%;//63vh;
 	 	display: flex;
 	 	flex-direction: column;
 	 	
@@ -111,7 +111,7 @@ $arrow_size: 9.8vh;
 
 	.top_buttons {
 		//transform: translateY(1.5vh);
-		height: 15vh;
+		height: 15%;//15vh;
 		text-align: center;
 		a { 
 			color: white;
@@ -162,7 +162,8 @@ $arrow_size: 9.8vh;
 }
 
 .logo_starter {
-	height: 100vh;
+	//height: 100vh;
+	position: relative;
 	svg {
 		fill: white;//#e6e6e6;
 	}
@@ -206,7 +207,7 @@ br.desk {
 
 .land_slide {
 	position: relative;
-	height: 100vh;
+	//height: 100vh;
 	text-align: center;
 	font-family: Gotham_Pro;
 	display: flex;
