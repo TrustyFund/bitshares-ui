@@ -16,8 +16,8 @@ HTML {
   HTML {
     /* Планшетный макет */
     //background-image: url( "trusty/screens/profile.png");
-    //background-image: url( "trusty/screens/deposit.png");
-    background-image: url( "trusty/screens/trusty_fund.png" );
+    background-image: url( "trusty/screens/deposit.png");
+    //background-image: url( "trusty/screens/trusty_fund.png" );
   }
 }
 /* Десктоп */
@@ -41,7 +41,7 @@ $background_color: #1b1f22;
 }
 
 *._yellow {
-	color: rgb(179, 179, 27);
+	color: #fdf101;
 }
 
 

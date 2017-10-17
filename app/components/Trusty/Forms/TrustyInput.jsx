@@ -20,6 +20,7 @@ class TrustyInput extends React.Component {
   			opened: false
   		}
   		this.handleChange = this.handleChange.bind(this)
+  		this.setOpened = this.setOpened.bind(this)
   }
 
   handleChange(event) {
@@ -31,8 +32,21 @@ class TrustyInput extends React.Component {
 	}
 
 	setOpened(opened){
-
 		this.setState({opened})
+	}
+
+	componentDidUpdate(){
+		let input = this.refs.inputWrap.querySelector('input')
+		if(this.blur) this.blur.remove()
+		this.blur = listen(input,"blur", e=>{
+			//this.setOpened(false)
+		})
+
+		if(this.focus) this.focus.remove()
+		this.focus = listen( input,"focus",e=>{
+			this.setOpened(true)
+		})
+
 	}
 
 	render(){
@@ -42,13 +56,17 @@ class TrustyInput extends React.Component {
 				<div className="trusty_input_container">
 					{ this.state.opened ? <label>{this.props.label}</label> : null }
 					<div className="w_input">
-						<div className="t_input">
-							{ this.props.input || <input onBlur={this.setOpened.bind(this,false)} 
+						<div ref="inputWrap" className="t_input">
+
+							{ this.props.input && this.state.opened ? this.props.input : null 
+								|| <input 
+										onBlur={this.setOpened.bind(this,false)}
 										onFocus={this.setOpened.bind(this,true)}
 										type="text" 
 										value={this.state.value} 
 										onChange={this.handleChange} 
 										placeholder={!this.state.opened  ? this.props.label: ""} /> }
+
 						</div>
 						<div className="t_right">
 							{this.props.right || <span onClick={()=>{this.setState({value:""})}}>X</span>}
