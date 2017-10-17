@@ -6,14 +6,13 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
     "plus-circle", "question-circle", "cross-circle", "cog", "layers", "users", "wand", "b-logo",
     "accounts", "witnesses", "assets", "proposals", "blocks", "committee_members", "workers", "key",
     "checkmark-circle", "checkmark", "piggy", "locked", "unlocked" , "markets", "fi-star" ,"fees",
-<<<<<<< HEAD
-    "thumb-tack", "clock", "clippy"].concat([
+    "thumb-tack", "clock", "clippy","shuffle", "transfer", "dollar", "deposit", "withdraw",
+    "settle", "trade", "adjust", "excel"]
+
+
+    .concat([
         "trusty-logo-text",  "trusty_arrow", "trusty_arrow_back", "trusty_options"
     ])
-=======
-    "thumb-tack", "clock", "clippy", "shuffle", "transfer", "dollar", "deposit", "withdraw",
-    "settle", "trade", "adjust", "excel"];
->>>>>>> bitshares
 
 let icons_map = {};
 for (let i of icons) icons_map[i] = require(`./${i}.svg`);
