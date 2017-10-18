@@ -212,13 +212,13 @@ br.desk {
 	font-family: Gotham_Pro;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	&.sl_id-1 {
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: center;
 		.text_area {
-			padding-bottom: 10vh;
+			padding-top: 10%;
 		}
 
 		h1 {
@@ -227,9 +227,15 @@ br.desk {
 	}
 	.image_area {
 		margin-bottom: 2.5vh;
+		margin-top: 10%;
 		img {
 			width: 70vw;
 		}
+		flex: 3;
+	}
+
+	.text_area {
+		flex: 2;
 	}
 	
 	h1 {
@@ -243,6 +249,17 @@ br.desk {
 		font-size: 5vw;//20px 
 		line-height: 3.5vh;
 		padding: 0;
+	}
+
+	.trusty_arrow_down {
+		flex: 1;
+		position: relative;
+		left: initial;
+		width: 100%;
+		text-align: center;
+		span {
+			transform: scale(0.6, -0.6) rotate(-90deg) translateY(0%);
+		}
 	}
 
 }

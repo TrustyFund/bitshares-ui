@@ -172,13 +172,11 @@ class Landing extends Component {
     }
 
     scrollDown(e, index){
-        
+        if(e) e.stopPropagation()
         let item = index==null?document.body.querySelector(".sl_id-1"):document.body.querySelector(".sl_id-"+(index+2))
-
         JQuery('html, body').animate({
             scrollTop: index==6 ? JQuery(".last_text").offset().top :JQuery(item).offset().top
         }, 450);
-
         // console.log(item.getBoundingClientRect().top)
         // if(e) e.stopPropagation()
         // if(index==null) { JQuery('html,body').animate({scrollTop:window.innerHeight},450); } else {
@@ -213,6 +211,7 @@ class Landing extends Component {
             <div className={"land_slide sl_id-"+slide.id} 
                 key={slide.id} onClick={this.scrollDown.bind(this, event, index)}
                 style={{ height: this.state.windowHeight }}>
+                { index==0?<div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>:null}
                 <div className="image_area">
                     { index == 0 ? 
                         <div>
@@ -241,7 +240,7 @@ class Landing extends Component {
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
                     { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
                 </div>
-                <div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>
+                { index!= 0 ? <div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>: null }
             </div>
         );
 

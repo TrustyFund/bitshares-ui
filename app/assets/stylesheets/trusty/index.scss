@@ -28,6 +28,11 @@ HTML {
   }
 }
 
+* {  
+	-webkit-backface-visibility:  hidden;
+  -webkit-tap-highlight-color:  transparent;
+}
+
 
 $white_color: #e6e6e6;
 $background_color: #1b1f22;
