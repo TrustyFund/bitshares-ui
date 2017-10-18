@@ -74,7 +74,7 @@ let slides = [
     {
         id:4,
         image: require('./vendor/img_1click_to_invest.png'),
-        title: "One-Click To<br> Buy Crypto Portfolio",
+        title: "One-Click <br>To Buy Portfolio of Cryptos",
         text: `
         Deposit and you already<br> own the selected portfolio of<br> cryptocurrencies and assets.<br> Forget the hassle of buying<br> assets separately
         `
@@ -82,7 +82,7 @@ let slides = [
     {   
         id:5,
         image: require('./vendor/img_chng_portfolio.png'),
-        title: "One-Click<br> Portfolio Management",
+        title: "One-Click<br>To Manage Portfolio",
         text: `
         Manage portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using portfolio rebalancing tool
         `
@@ -90,7 +90,7 @@ let slides = [
     {
         id:6,
         image: require('./vendor/img_index.png'),
-        title: "One-Click To<br> Fix Income, 0% free",
+        title: "One-Click<br>To Fix Income In USD",
         text: `
         Fix income to wait our prices hyper<br> volatility. One-Click and our funds<br> are all in USD, UER, CNY, Gold, etc.
         `
@@ -126,6 +126,7 @@ class Landing extends Component {
     componentWillUnmount() {
         clearInterval(this.timeout)
         this.scroll.remove()
+        this.resize.remove()
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
@@ -140,6 +141,12 @@ class Landing extends Component {
             let wh = window.innerHeight
             this.setState({
                 showBalls: scroll >= wh && scroll < wh * 8
+            })
+        })
+
+        this.resize = listen(window, "resize", ()=>{
+            this.setState({
+                windowHeight: window.innerHeight
             })
         })
 
@@ -278,15 +285,15 @@ class Landing extends Component {
                     </div>
                  
                     <div className="last_text">
-                        <p>First time in history<br className="_desk _mob"/> everybody can invest<br className="_desk _mob"/> in a globally disruptive,<br className="_desk _mob"/> yet infant, technology</p>
+                        <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
                         <button className="land_button">INVEST NOW</button>
-                        <p>Depositing into Trusty.Fund<br className="_desk _mob"/> now is like early investing<br className="_desk _mob"/> in index of internet<br className="_desk _mob"/> companies, when 20 million<br className="_desk _mob"/> people used internet</p>
+                        <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in index of internet<br/> companies, when 20 million<br/> people used internet</p>
                         <button className="land_button">FAQ</button>
                     </div>
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only. They are not intended to be investment advices. <br className="_desk _mob"/> Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
+                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralised Exchange.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
             </section>
