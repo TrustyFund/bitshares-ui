@@ -7,6 +7,7 @@ import JQuery from 'jquery'
 import listen from 'event-listener'
 
 
+
 let slides = [
     {         
         id:1,
@@ -160,9 +161,6 @@ class Landing extends Component {
             currentThirdSlideDesk: slides[2].desk_images[index]
         })
 
-
-
-
         this.timeout = setInterval(() => {
             if(index >= slides[0].images.length-1) { index=0 } else { index++ }
             this.setState({
@@ -201,7 +199,7 @@ class Landing extends Component {
         let button = 
             <div className="fixed_bottom _mob">
                 <button>INVEST NOW</button>
-                <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
+                <div className="trusty_down_arrow" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
         let currentFirst = this.state.currentFirstSlide
@@ -218,7 +216,7 @@ class Landing extends Component {
             <div className={"land_slide sl_id-"+slide.id} 
                 key={slide.id} onClick={this.scrollDown.bind(this, event, index)}
                 style={{ height: this.state.windowHeight }}>
-                { index==0?<div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>:null}
+                { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                 <div className="image_area">
                     { index == 0 ? 
                         <div>
@@ -240,14 +238,12 @@ class Landing extends Component {
                         
                     : null }
 
-
-
                 </div>
                 <div className="text_area">
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
                     { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
                 </div>
-                { index!= 0 ? <div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>: null }
+                { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
             </div>
         );
 
@@ -269,7 +265,7 @@ class Landing extends Component {
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
                         <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
-                        <button className="land_button _desk">INVEST NOW</button>
+                        <button className="_desk">INVEST NOW</button>
                     </div>
                 </div>
                 {button}
@@ -286,9 +282,9 @@ class Landing extends Component {
                  
                     <div className="last_text">
                         <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
-                        <button className="land_button">INVEST NOW</button>
+                        <button>INVEST NOW</button>
                         <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in index of internet<br/> companies, when 20 million<br/> people used internet</p>
-                        <button className="land_button">FAQ</button>
+                        <button>FAQ</button>
                     </div>
    
                 </div>
