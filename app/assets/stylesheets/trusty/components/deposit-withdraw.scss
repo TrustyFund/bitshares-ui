@@ -71,16 +71,17 @@
 		width: 22vw !important;
 		margin: 0 0	 !important;
 		border: none !important; 
-		font-size: 6.6vw !important;
 		font-family: 'Gotham_Pro_Medium';
 		padding-bottom: 0 !important;
 		padding-right: 0 !important;
+		@media screen and (max-width: 750px) {
+			font-size: 6.6vw !important;
+		}
 	}
 	.t_input{
 		width: 100%;
 		border-bottom: 1px solid white;
 		input {
-			font-size: 5.4vw !important;
 			background-color: transparent !important;
 			width: 100% !important;
 			margin: 0 !important;
@@ -92,6 +93,9 @@
 			outline: none !important;
 			padding-bottom: 2px;
 			padding-left: 0;
+			@media screen and (max-width: 750px) {
+				font-size: 5.4vw !important;
+			}
 		}
 
 		input::placeholder {
