@@ -129,7 +129,7 @@ class ValueComponent extends React.Component {
            return <div className="tooltip inline-block" data-place="bottom" data-tip={counterpart.translate("tooltip.no_price")} style={{fontSize: "0.9rem"}}><Translate content="account.no_price" /></div>;
         }
 
-        return <FormattedAsset noPrefix amount={eqValue} trustyPercentage={true} asset={toID} decimalOffset={toSymbol.indexOf("BTC") !== -1 ? 4 : this.props.noDecimals ? toAsset.get("precision") : 0}/>;
+        return <FormattedAsset noPrefix amount={eqValue} trustyPercentage={this.props.trustyPercentage} asset={toID} decimalOffset={toSymbol.indexOf("BTC") !== -1 ? 4 : this.props.noDecimals ? toAsset.get("precision") : 0}/>;
     }
 }
 ValueComponent = BindToChainState(ValueComponent, {keep_updating: true});
@@ -161,7 +161,7 @@ class BalanceValueComponent extends React.Component {
         let amount = Number(this.props.balance.get("balance"));
         let fromAsset = this.props.balance.get("asset_type");
 
-        return <EquivalentValueComponent amount={amount} fromAsset={fromAsset} noDecimals={true} toAsset={this.props.toAsset}/>;
+        return <EquivalentValueComponent trustyPercentage={this.props.trustyPercentage} amount={amount} fromAsset={fromAsset} noDecimals={true} toAsset={this.props.toAsset}/>;
     }
 }
 BalanceValueComponent = BindToChainState(BalanceValueComponent, {keep_updating: true});

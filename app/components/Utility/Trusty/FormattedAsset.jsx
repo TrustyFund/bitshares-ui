@@ -87,7 +87,8 @@ class FormattedAsset extends React.Component {
                     {percent.toFixed(0)}%
                 </span>
             )
-        }
+        } 
+
 
         if (asPercentage) {
             let supply = parseInt(asset.dynamic.current_supply, 10);
@@ -136,9 +137,9 @@ class FormattedAsset extends React.Component {
                         <span className="currency click-for-help" onClick={this.togglePopover}><AssetName name={asset.symbol} /></span>
                     </Popover></span>) :
 
-                    (!this.props.dollarShow ? <span className="currency" onClick={this.togglePopover}> 
+                     (!this.props.dollarShow ? <span style={{display: "none"}} className="currency" onClick={this.togglePopover}> 
                         <AssetName noTip={this.props.noTip} noPrefix={this.props.noPrefix} name={asset.symbol} replace={this.props.replace} />
-                    </span> : null )
+                    </span> : null ) 
 
                 )}
                 </span>

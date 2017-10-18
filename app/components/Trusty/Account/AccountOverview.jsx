@@ -5,7 +5,7 @@ import BalanceComponent from "components/Utility/BalanceComponent";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import SettleModal from "components/Modal/SettleModal";
 import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/Trusty/EquivalentValueComponent";
-import AssetName from "components/Utility/AssetName";
+import AssetName from "components/Utility/Trusty/AssetName";
 import CollateralPosition from "components/Blockchain/CollateralPosition";
 import { RecentTransactions } from "components/Account/RecentTransactions";
 import Proposals from "components/Account/Proposals";
@@ -159,19 +159,23 @@ class AccountOverview extends React.Component {
             const canDepositWithdraw = !!this.props.backedCoins.get("OPEN", []).find(a => a.symbol === asset.get("symbol"));
             const canWithdraw = canDepositWithdraw && (hasBalance && balanceObject.get("balance") != 0);
             const canBuy = !!this.props.bridgeCoins.get(symbol);
+            let s = asset.get("symbol")
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "left"}}>
-                        {asset.get("symbol")}
+                        {~s.search(/open/i)?s.substring(5):s}
                     </td>
                     <td style={{textAlign: "right"}}>
                         {hasBalance || hasOnOrder
-                            ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> 
+                            ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
                             : "0 BTS"
                         }
                     </td>
                     <td style={{textAlign: "center", display: "none"}}>
                         {directMarketLink}
+                    </td>
+                    <td style={{textAlign: "right"}}>
+                        {hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
                     </td>
                     <td>
                         <MarketCard
@@ -224,7 +228,7 @@ class AccountOverview extends React.Component {
                     if (asset.get("symbol").indexOf("OPEN.") !== -1 && !market) market = "USD";
                     let preferredMarket = market ? market : core_asset ? core_asset.get("symbol") : "BTS";
                     let directMarketLink = notCore ? <Link to={`/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="account.trade" /></Link> : null;
-
+                    
                     if (includeAsset && visible || !includeAsset && !visible) balances.push(
                         <tr key={"zz" + a} style={{maxWidth: "100rem"}}>
                             <td style={{textAlign: "left"}}>
@@ -235,6 +239,9 @@ class AccountOverview extends React.Component {
                             </td>
                             <td style={{textAlign: "center", display: "none"}}>
                                 {directMarketLink}
+                            </td>
+                            <td style={{textAlign: "right"}}>
+                                0
                             </td>
                             <td>
                                 <MarketCard
@@ -378,6 +385,7 @@ class AccountOverview extends React.Component {
                                 <tr>
                                     <th style={{textAlign: "left"}}><Translate component="span" content="account.asset" /></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.share" /></th>
+                                    <th style={{textAlign: "right"}}><span>$VALUE</span></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.chng" /></th>   
                                 </tr>
                             </thead>

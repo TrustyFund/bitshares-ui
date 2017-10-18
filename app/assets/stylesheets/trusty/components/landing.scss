@@ -24,7 +24,7 @@ $arrow_size: 9.8vh;
 	}
 
 	span {
-		transform: scale(0.6, -0.6) rotate(-90deg) translateY(-69%);//rotate(90deg) translateY(50%) scale(90%);
+		transform: scale(0.6, -0.6) rotate(-90deg) translateY(-80%);//rotate(90deg) translateY(50%) scale(90%);
 	}
 
 }
@@ -68,7 +68,7 @@ $arrow_size: 9.8vh;
 	.fixed_bottom {
 		position: absolute;
 		bottom: 0;
-		width: 90%;
+		width: 100%;
 		button {
 			margin-bottom: 9.8vh;
 			font-family: Gotham_Pro_Bold;
@@ -82,7 +82,7 @@ $arrow_size: 9.8vh;
 		text-align: center;
 	}
 	.bottom_content {
-	 	height: 63vh;
+	 	height: 63%;//63vh;
 	 	display: flex;
 	 	flex-direction: column;
 	 	
@@ -111,7 +111,7 @@ $arrow_size: 9.8vh;
 
 	.top_buttons {
 		//transform: translateY(1.5vh);
-		height: 15vh;
+		height: 15%;//15vh;
 		text-align: center;
 		a { 
 			color: white;
@@ -162,7 +162,8 @@ $arrow_size: 9.8vh;
 }
 
 .logo_starter {
-	height: 100vh;
+	//height: 100vh;
+	position: relative;
 	svg {
 		fill: white;//#e6e6e6;
 	}
@@ -206,18 +207,18 @@ br.desk {
 
 .land_slide {
 	position: relative;
-	height: 100vh;
+	//height: 100vh;
 	text-align: center;
 	font-family: Gotham_Pro;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	&.sl_id-1 {
 		display: flex;
 		flex-direction: column-reverse;
 		justify-content: center;
 		.text_area {
-			padding-bottom: 10vh;
+			padding-top: 10%;
 		}
 
 		h1 {
@@ -226,9 +227,15 @@ br.desk {
 	}
 	.image_area {
 		margin-bottom: 2.5vh;
+		margin-top: 10%;
 		img {
 			width: 70vw;
 		}
+		flex: 3;
+	}
+
+	.text_area {
+		flex: 2;
 	}
 	
 	h1 {
@@ -242,6 +249,17 @@ br.desk {
 		font-size: 5vw;//20px 
 		line-height: 3.5vh;
 		padding: 0;
+	}
+
+	.trusty_arrow_down {
+		flex: 1;
+		position: relative;
+		left: initial;
+		width: 100%;
+		text-align: center;
+		span {
+			transform: scale(0.6, -0.6) rotate(-90deg) translateY(0%);
+		}
 	}
 
 }

@@ -97,7 +97,12 @@
 		input::placeholder {
 			text-transform: uppercase;
 			color: white !important;
-			font-size: 5.4vw !important;
+
+			@media screen and (max-width: 750px) {
+				font-size: 4vw !important;
+				letter-spacing: .4vw;
+			}
+
 		}
 		input:focus, input:hover {
 			border-top: none;

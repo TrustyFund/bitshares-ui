@@ -1233,7 +1233,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                             <div className="t_right">{deposit_input_coin_type_select}</div>
                             <div className="t_input">{deposit_input_amount_edit_box}</div>
                         </div>*/}
-                        <p className="trusty_help_text" style={{ color: '#b3b31b' }}>Send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
+                        <p className="trusty_help_text _yellow">Please send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
                         <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
                     </div>
                     )
