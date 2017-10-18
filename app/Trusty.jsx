@@ -25,7 +25,8 @@ import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 
-import 'components/Trusty/pixel-glass'
+// import 'components/Trusty/pixel-glass'
+// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 import {dispatcher} from 'components/Trusty/utils'
 
@@ -253,6 +254,7 @@ class Trusty extends React.Component {
 
         return (
             <div style={{backgroundColor: !this.state.theme ? "#2a2a2a" : null}} className={this.state.theme}>
+                <img src={ require("assets/stylesheets/trusty/texture_mob_bgr.png")} className="trusty_fixed_background _mob"/>
                 <div id="content-wrapper" className="trusty-wrapper">
                     {content}
                     <NotificationSystem
