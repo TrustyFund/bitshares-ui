@@ -242,7 +242,7 @@ class Trusty extends React.Component {
                 <SyncError />
             );
         } else if (this.state.loading) {
-            content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
+            content = <div className="grid-frame vertical"><LoadingIndicator type={"trusty-owl"} /></div>;
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
         } else if (myAccountCount == 0 && authFreeRoutes()) {
@@ -256,6 +256,7 @@ class Trusty extends React.Component {
 
         return (
             <div style={{backgroundColor: !this.state.theme ? "#2a2a2a" : null}} className={this.state.theme}>
+                
                 <img src={ require("assets/stylesheets/trusty/texture_mob_bgr.png")} className="trusty_fixed_background _mob"/>
                 <div id="content-wrapper" className="trusty-wrapper">
                     {content}

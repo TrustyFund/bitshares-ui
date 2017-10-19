@@ -9,6 +9,14 @@ class LoadingIndicator extends React.Component {
 
     render() {
         switch (this.props.type) {
+            case "trusty-owl": 
+                return (
+                    <div className="trusty_owl_loader">
+                        <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/>
+                    </div>
+
+                    );
+                break;
             case "three-bounce":
                 return (
                     <div className="three-bounce">

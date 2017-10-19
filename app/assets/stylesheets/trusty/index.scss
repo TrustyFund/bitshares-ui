@@ -11,6 +11,21 @@
 }
 
 
+.trusty_owl_loader {
+
+	width: 60%;
+	opacity: .6;
+	margin: 0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	svg {
+		fill: white;
+
+	}
+}
+
+
 $white_color: #e6e6e6;
 $background_color: #1b1f22;
 
