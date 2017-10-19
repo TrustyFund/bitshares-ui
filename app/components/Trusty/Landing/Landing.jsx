@@ -265,7 +265,7 @@ class Landing extends Component {
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
-                        <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
+                        <p className="_description">One-Touch To Invest In<br/> Crypto Economy</p>
                         <button className="_desk">INVEST NOW</button>
                     </div>
                 </div>
