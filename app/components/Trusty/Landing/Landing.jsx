@@ -7,6 +7,7 @@ import JQuery from 'jquery'
 import listen from 'event-listener'
 
 
+
 let slides = [
     {         
         id:1,
@@ -74,7 +75,7 @@ let slides = [
     {
         id:4,
         image: require('./vendor/img_1click_to_invest.png'),
-        title: "One-Click To<br> Buy Crypto Portfolio",
+        title: "One-Click <br>To Buy Portfolio of Cryptos",
         text: `
         Deposit and you already<br> own the selected portfolio of<br> cryptocurrencies and assets.<br> Forget the hassle of buying<br> assets separately
         `
@@ -82,7 +83,7 @@ let slides = [
     {   
         id:5,
         image: require('./vendor/img_chng_portfolio.png'),
-        title: "One-Click<br> Portfolio Management",
+        title: "One-Click<br>To Manage Portfolio",
         text: `
         Manage portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using portfolio rebalancing tool
         `
@@ -90,7 +91,7 @@ let slides = [
     {
         id:6,
         image: require('./vendor/img_index.png'),
-        title: "One-Click To<br> Fix Income, 0% free",
+        title: "One-Click<br>To Fix Income In USD",
         text: `
         Fix income to wait our prices hyper<br> volatility. One-Click and our funds<br> are all in USD, UER, CNY, Gold, etc.
         `
@@ -126,6 +127,7 @@ class Landing extends Component {
     componentWillUnmount() {
         clearInterval(this.timeout)
         this.scroll.remove()
+        this.resize.remove()
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
@@ -143,6 +145,12 @@ class Landing extends Component {
             })
         })
 
+        this.resize = listen(window, "resize", ()=>{
+            this.setState({
+                windowHeight: window.innerHeight
+            })
+        })
+
         let index = 0
         let indexTwo = 0
 
@@ -152,9 +160,6 @@ class Landing extends Component {
             currentThirdSlide: slides[2].images[index],
             currentThirdSlideDesk: slides[2].desk_images[index]
         })
-
-
-
 
         this.timeout = setInterval(() => {
             if(index >= slides[0].images.length-1) { index=0 } else { index++ }
@@ -194,7 +199,7 @@ class Landing extends Component {
         let button = 
             <div className="fixed_bottom _mob">
                 <button>INVEST NOW</button>
-                <div className="land_button trusty_arrow_down" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow" /></div>
+                <div className="trusty_down_arrow" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
         let currentFirst = this.state.currentFirstSlide
@@ -211,7 +216,7 @@ class Landing extends Component {
             <div className={"land_slide sl_id-"+slide.id} 
                 key={slide.id} onClick={this.scrollDown.bind(this, event, index)}
                 style={{ height: this.state.windowHeight }}>
-                { index==0?<div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>:null}
+                { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                 <div className="image_area">
                     { index == 0 ? 
                         <div>
@@ -233,19 +238,18 @@ class Landing extends Component {
                         
                     : null }
 
-
-
                 </div>
                 <div className="text_area">
                     <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
                     { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
                 </div>
-                { index!= 0 ? <div className="trusty_arrow_down"><Icon name="trusty_arrow" /></div>: null }
+                { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
             </div>
         );
 
         const top = (
             <div className="logo_starter" style={{height: this.state.windowHeight}}>
+
                 <div className="top_buttons _mob">
                     <Link to="/signup"><span>SignUp</span></Link>
                      <Link to="/home"><span>Info</span></Link>
@@ -261,16 +265,17 @@ class Landing extends Component {
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
-                        <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
-                        <button className="land_button _desk">INVEST NOW</button>
+                        <p className="_description">One-Touch To Invest In<br/> Crypto Economy</p>
+                        <button className="_desk">INVEST NOW</button>
                     </div>
                 </div>
                 {button}
             </div>
         )
         return ( 
-            <section>
+            <div>
                 { ballsNav }           
+                <div className="once_finger" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/fingerprint005.svg')}} /> 
                 <div id="landing">
                     {top}
                     <div className="land_slides">
@@ -278,18 +283,18 @@ class Landing extends Component {
                     </div>
                  
                     <div className="last_text">
-                        <p>First time in history<br className="_desk _mob"/> everybody can invest<br className="_desk _mob"/> in a globally disruptive,<br className="_desk _mob"/> yet infant, technology</p>
-                        <button className="land_button">INVEST NOW</button>
-                        <p>Depositing into Trusty.Fund<br className="_desk _mob"/> now is like early investing<br className="_desk _mob"/> in index of internet<br className="_desk _mob"/> companies, when 20 million<br className="_desk _mob"/> people used internet</p>
-                        <button className="land_button">FAQ</button>
+                        <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
+                        <button>INVEST NOW</button>
+                        <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in index of internet<br/> companies, when 20 million<br/> people used internet</p>
+                        <button>FAQ</button>
                     </div>
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only. They are not intended to be investment advices. <br className="_desk _mob"/> Trusty.Fund provides a trustless service for its clients to manage and store funds on the BitShares Decentralised Exchange.</section>
+                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralised Exchange.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
-            </section>
+            </div>
         );
     }
 

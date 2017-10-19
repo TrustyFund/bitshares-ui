@@ -4,33 +4,25 @@
 
 @import "components/deposit-withdraw";
 
-HTML {
-  background-repeat: no-repeat;
-  background-position:  50% -49px;
-  /* По умолчанию показывается мобильный макет */
-  background-image: url( "trusty/screens/trusty_fund.png" );
-  background-size: 100%;
-}
-/* Планшет */
-@media ( max-width: 750px ) {
-  HTML {
-    /* Планшетный макет */
-    //background-image: url( "trusty/screens/profile.png");
-    background-image: url( "trusty/screens/deposit.png");
-    //background-image: url( "trusty/screens/trusty_fund.png" );
-  }
-}
-/* Десктоп */
-@media ( min-width: 960px ) {
-  HTML {
-    /* Десктопный макет */
-    //background-image: url( "img/960.png" );
-  }
-}
 
 * {  
 	-webkit-backface-visibility:  hidden;
   -webkit-tap-highlight-color:  transparent;
+}
+
+
+.trusty_owl_loader {
+
+	width: 60%;
+	opacity: .6;
+	margin: 0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	svg {
+		fill: white;
+
+	}
 }
 
 
@@ -49,16 +41,29 @@ $background_color: #1b1f22;
 	color: #fdf101;
 }
 
+.trusty_fixed_background {
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: -1;
+}
 
+//<img src={ require("assets/stylesheets/trusty/texture_mob_bgr.png")} className="trusty_fixed_background _mob"/>
 button:focus, button:active {
 	outline: none;
 }
 .trusty-wrapper, .trusty-wrapper .grid-block {
-	//background: transparent !important;
-	//background-color: $background-color !important;
-	background-image: url(./trusty/pattern.png);
-	background-repeat: repeat;
-	background-size: 42px;
+	background-color: transparent !important;
+	@media screen and (max-width: 750px) {
+		// background-image: url(./trusty/texture_mob_bgr.png);
+		// background-repeat: repeat;
+		// background-size: 125%;
+	}
+	@media screen and (min-width: 751px) {
+		background-image: url(./trusty/pattern.png);
+		background-repeat: repeat;
+		background-size: 42px;
+	}
 }
 
 .grid-block {
@@ -289,7 +294,6 @@ $header_size: 50px;
 		background-color: rgb(221, 221, 221) !important;
 		height: 50px;
 		color: black;
-		font-size: 4.8vw;
 	}
 
 	.b_left {
@@ -299,7 +303,12 @@ $header_size: 50px;
 		margin-left: 7px;
 	}
 
+	@media screen and (max-width: 750px) {
+		button {
+			font-size: 4.8vw;
+		}
 
+	}
 	@media screen and (min-width: 751px) {
 		button {
 			width: 200px;

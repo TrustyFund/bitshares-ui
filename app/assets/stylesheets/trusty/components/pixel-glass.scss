@@ -1,0 +1,46 @@
+HTML {
+  background-repeat: no-repeat;
+  background-position:  50% -40px;
+  /* По умолчанию показывается мобильный макет */
+  background-image: url( "../screens/trusty_fund.png" );
+  background-size: 100%;
+}
+/* Планшет */
+@media ( max-width: 750px ) {
+  HTML {
+    /* Планшетный макет */
+    //background-image: url( "../screens/profile.png");
+    //background-image: url( "../screens/deposit.png");
+    background-image: url( "../screens/trusty_fund.png" );
+    //background-image: url( "../screens/new_account_terms.png");
+    //background-image: url( "../screens/new_account_signup.png");
+    //background-image: url( "../screens/existing_account_login.png");
+  }
+}
+/* Десктоп */
+@media ( min-width: 960px ) {
+  HTML {
+    /* Десктопный макет */
+    //background-image: url( "img/960.png" );
+  }
+}
+
+
+//disable fixed background
+.trusty_fixed_background {
+  display: none !important;
+}
+
+.trusty-wrapper, .trusty-wrapper .grid-block {
+  @media screen and (max-width: 750px) {
+    background-image: url(../texture_mob_bgr.png);
+    background-repeat: repeat;
+    background-size: 125%;
+  }
+
+  @media screen and (min-width: 751px) {
+    background-image: url(../pattern.png);
+    background-repeat: repeat;
+    background-size: 42px;
+  }
+}

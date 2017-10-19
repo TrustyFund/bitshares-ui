@@ -9,7 +9,12 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
     "thumb-tack", "clock", "clippy","shuffle", "transfer", "dollar", "deposit", "withdraw",
     "settle", "trade", "adjust", "excel"]
     .concat([
-        "trusty-logo-text",  "trusty_arrow", "trusty_arrow_back", "trusty_options"
+        "trusty-logo-text",  
+        "trusty_arrow", 
+        "trusty_arrow_back", 
+        "trusty_options", 
+        "trusty_arrow_down",
+        "trusty_arrow_down_landing"
     ])
 
 let icons_map = {};
