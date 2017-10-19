@@ -249,6 +249,7 @@ class Landing extends Component {
 
         const top = (
             <div className="logo_starter" style={{height: this.state.windowHeight}}>
+
                 <div className="top_buttons _mob">
                     <Link to="/signup"><span>SignUp</span></Link>
                      <Link to="/home"><span>Info</span></Link>
@@ -272,8 +273,9 @@ class Landing extends Component {
             </div>
         )
         return ( 
-            <section>
+            <div>
                 { ballsNav }           
+                <div className="once_finger" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/fingerprint005.svg')}} /> 
                 <div id="landing">
                     {top}
                     <div className="land_slides">
@@ -292,7 +294,7 @@ class Landing extends Component {
                     <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralised Exchange.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
-            </section>
+            </div>
         );
     }
 

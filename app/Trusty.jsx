@@ -25,6 +25,8 @@ import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 
+
+/* pixel perfect helper */
 // import 'components/Trusty/pixel-glass'
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 

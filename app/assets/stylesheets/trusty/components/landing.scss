@@ -1,8 +1,70 @@
 @import "../mixins.scss";
 
+@keyframes fontbulger {
+  0% {
+    transform: scale(1) translate(-50%,-50%);
+  }
+  30% {
+    transform: scale(1.1) translate(-50%,-50%);
+  }
+  100% {
+    transform: scale(1.2) translate(-50%,-50%);
+  }
+}
+
+
+@keyframes opacitylose {
+  0% {
+    opacity: 0.53;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#box {
+}
+
 $land_padding: 5vw;
 $arrow_size: 9.8vh;
+.once_finger {
+	opacity: .1;
+  animation: 
+  	fontbulger 2.2s infinite,
+  	opacitylose 2.7s ease;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 1000;
+	width: 200px;
+	height: 300px;
+	fill: rgba(255,255,255,0.1);
+	svg {
+		fill: rgba(255,255,255,0.1);
+	}
+	
+	.op_1 {
+		svg {
+			fill: rgba(255,255,255,0.1);
+		}
+	}
+	.op_2 {
+		svg {
+			fill: rgba(255,255,255,0.1);
+		}
+	}
+	.op_3 {
+		svg {
+			fill: rgba(255,255,255,0.1);
+		}
+	}
 
+
+	//height: 100vh;
+	//transform: translateY(200%);
+
+}
 .balls_nav {
 	height: 100vh;
 	display: flex;
