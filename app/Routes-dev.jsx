@@ -6,50 +6,50 @@ import App from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
-import Witnesses from "./components/Explorer/Witnesses";
-import CommitteeMembers from "./components/Explorer/CommitteeMembers";
-import FeesContainer from "./components/Blockchain/FeesContainer";
-import BlocksContainer from "./components/Explorer/BlocksContainer";
-import AssetsContainer from "./components/Explorer/AssetsContainer";
-import AccountsContainer from "./components/Explorer/AccountsContainer";
-import Explorer from "components/Explorer/Explorer";
+// import Witnesses from "./components/Explorer/Witnesses";
+// import CommitteeMembers from "./components/Explorer/CommitteeMembers";
+// import FeesContainer from "./components/Blockchain/FeesContainer";
+// import BlocksContainer from "./components/Explorer/BlocksContainer";
+// import AssetsContainer from "./components/Explorer/AssetsContainer";
+// import AccountsContainer from "./components/Explorer/AccountsContainer";
+// import Explorer from "components/Explorer/Explorer";
 import AccountPage from "./components/Trusty/Account/AccountPage";
 import AccountOverview from "./components/Trusty/Account/AccountOverview";
-import AccountPageOld from "./components/Account/AccountPage";
-import AccountOverviewOld from "./components/Account/AccountOverview";
-import AccountAssets from "./components/Account/AccountAssets";
-import {AccountAssetCreate} from "./components/Account/AccountAssetCreate";
-import AccountAssetUpdate from "./components/Account/AccountAssetUpdate";
-import AccountMembership from "./components/Account/AccountMembership";
-import AccountVesting from "./components/Account/AccountVesting";
-import AccountDepositWithdraw from "./components/Account/AccountDepositWithdraw";
-import AccountPermissions from "./components/Account/AccountPermissions";
-import AccountWhitelist from "./components/Account/AccountWhitelist";
-import AccountVoting from "./components/Account/AccountVoting";
-import AccountOrders from "./components/Account/AccountOrders";
-import ExchangeContainer from "./components/Exchange/ExchangeContainer";
-import MarketsContainer from "./components/Exchange/MarketsContainer";
-import Transfer from "./components/Transfer/Transfer";
-import SettingsContainer from "./components/Settings/SettingsContainer";
-import BlockContainer from "./components/Blockchain/BlockContainer";
+// import AccountPageOld from "./components/Account/AccountPage";
+// import AccountOverviewOld from "./components/Account/AccountOverview";
+// import AccountAssets from "./components/Account/AccountAssets";
+// import {AccountAssetCreate} from "./components/Account/AccountAssetCreate";
+// import AccountAssetUpdate from "./components/Account/AccountAssetUpdate";
+// import AccountMembership from "./components/Account/AccountMembership";
+// import AccountVesting from "./components/Account/AccountVesting";
+// import AccountDepositWithdraw from "./components/Account/AccountDepositWithdraw";
+// import AccountPermissions from "./components/Account/AccountPermissions";
+// import AccountWhitelist from "./components/Account/AccountWhitelist";
+// import AccountVoting from "./components/Account/AccountVoting";
+// import AccountOrders from "./components/Account/AccountOrders";
+// import ExchangeContainer from "./components/Exchange/ExchangeContainer";
+// import MarketsContainer from "./components/Exchange/MarketsContainer";
+// import Transfer from "./components/Transfer/Transfer";
+// import SettingsContainer from "./components/Settings/SettingsContainer";
+// import BlockContainer from "./components/Blockchain/BlockContainer";
 //import AssetContainer from "./components/Blockchain/AssetContainer";
-import Asset from "./components/Blockchain/Asset";
+// import Asset from "./components/Blockchain/Asset";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
-import CreateAccountPassword from "./components/Account/CreateAccountPassword";
-import {ExistingAccount, ExistingAccountOptions} from "./components/Wallet/ExistingAccount";
+// import CreateAccountPassword from "./components/Account/CreateAccountPassword";
+// import {ExistingAccount, ExistingAccountOptions} from "./components/Wallet/ExistingAccount";
 import { WalletCreate , CreateWalletFromBrainkey } from "./components/Trusty/Wallet/WalletCreate";
-import ImportKeys from "./components/Wallet/ImportKeys";
-import Invoice from "./components/Transfer/Invoice";
-import {BackupCreate, BackupRestore} from "./components/Wallet/Backup";
-import WalletChangePassword from "./components/Wallet/WalletChangePassword";
-import {WalletManager, WalletOptions, ChangeActiveWallet, WalletDelete} from "./components/Wallet/WalletManager";
-import BalanceClaimActive from "./components/Wallet/BalanceClaimActive";
-import BackupBrainkey from "./components/Wallet/BackupBrainkey";
-import Brainkey from "./components/Wallet/Brainkey";
-import Help from "./components/Help";
-import InitError from "./components/InitError";
-import LoginSelector from "./components/LoginSelector";
-import CreateWorker from "./components/Account/CreateWorker";
+// import ImportKeys from "./components/Wallet/ImportKeys";
+// import Invoice from "./components/Transfer/Invoice";
+// import {BackupCreate, BackupRestore} from "./components/Wallet/Backup";
+// import WalletChangePassword from "./components/Wallet/WalletChangePassword";
+// import {WalletManager, WalletOptions, ChangeActiveWallet, WalletDelete} from "./components/Wallet/WalletManager";
+// import BalanceClaimActive from "./components/Wallet/BalanceClaimActive";
+// import BackupBrainkey from "./components/Wallet/BackupBrainkey";
+// import Brainkey from "./components/Wallet/Brainkey";
+// import Help from "./components/Help";
+// import InitError from "./components/InitError";
+// import LoginSelector from "./components/LoginSelector";
+// import CreateWorker from "./components/Account/CreateWorker";
 import Landing from "components/Trusty/Landing/Landing"
 import Withdraw from "components/Trusty/Account/Withdraw"
 import Deposit from "components/Trusty/Account/Deposit"
@@ -72,7 +72,7 @@ const routes = (
         </Route>
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
-        <Route path="/auth/:data" component={Auth}/>
+{/*        <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>
         <Route path="/explorer/fees" component={FeesContainer} />
@@ -80,10 +80,10 @@ const routes = (
         <Route path="/explorer/assets" component={AssetsContainer} />
         <Route path="/explorer/accounts" component={AccountsContainer} />
         <Route path="/explorer/witnesses" component={Witnesses} />
-        <Route path="/explorer/committee-members" component={CommitteeMembers} />
+        <Route path="/explorer/committee-members" component={CommitteeMembers} />*/}
 
-        <Route path="wallet" component={WalletManager} >
-            {/* wallet management console */}
+{        /*<Route path="wallet" component={WalletManager} >
+          
             <IndexRoute component={WalletOptions} />
             <Route path="change" component={ChangeActiveWallet} />
             <Route path="change-password" component={WalletChangePassword} />
@@ -95,12 +95,12 @@ const routes = (
             <Route path="backup/create" component={BackupCreate} />
             <Route path="backup/brainkey" component={BackupBrainkey} />
             <Route path="balance-claims" component={BalanceClaimActive} />
-        </Route>
+        </Route>*/ }
 
-        <Route path="create-wallet" component={WalletCreate} />
+        {/*<Route path="create-wallet" component={WalletCreate} />*/}
         <Route path="create-wallet-brainkey" component={CreateWalletFromBrainkey} />
 
-        <Route path="transfer" component={Transfer}/>
+{/*        <Route path="transfer" component={Transfer}/>
 
         <Route path="invoice/:data" component={Invoice} />
         <Route path="explorer/markets" component={MarketsContainer} />
@@ -119,9 +119,9 @@ const routes = (
             <Route path="import-keys" component={ImportKeys} />
             <Route path="brainkey" component={Brainkey} />
             <Route path="balance-claim" component={BalanceClaimActive} />
-        </Route>
+        </Route>*/}
 
-        <Route path="/account/:account_name" component={AccountPageOld} >
+{/*        <Route path="/account/:account_name" component={AccountPageOld} >
             <IndexRoute component={AccountOverviewOld} />
             <Route path="overview" component={AccountOverviewOld} />
             <Route path="assets" component={AccountAssets} />
@@ -135,9 +135,9 @@ const routes = (
             <Route path="orders" component={AccountOrders} />
             <Route path="whitelist" component={AccountWhitelist} />
             <Redirect from="overview" to="dashboard" />
-        </Route>
+        </Route>*/}
 
-        <Route path="deposit-withdraw" component={AccountDepositWithdraw} />
+{/*        <Route path="deposit-withdraw" component={AccountDepositWithdraw} />
         <Route path="create-worker" component={CreateWorker} />
         <Route path="/init-error" component={InitError} />
         <Route path="/help" component={Help} >
@@ -146,7 +146,7 @@ const routes = (
                     <Route path=":path3" component={Help} />
                 </Route>
             </Route>
-        </Route>
+        </Route>*/}
     </Route>
 );
 

@@ -363,7 +363,7 @@ class AccountOverview extends React.Component {
                         </div> 
 
                         <div className="trusty_profile_incoming_depositis">
-                            <p>Incomming deposits</p>
+                            <p>Incoming deposits</p>
                             <p className="_yellow">0 RUB BANK</p>
                         </div>
 

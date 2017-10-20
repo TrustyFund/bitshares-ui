@@ -2,9 +2,6 @@
 
 	table {
 		margin-top: 20px;
-		@media screen and (max-width: 750px){
-			margin-top: 5.6vw;
-		}
 	}
 	thead, th, tr, tbody {
 		border: none !important;
@@ -53,22 +50,6 @@
 		line-height: initial;
 		@media screen and (max-width: 750px){
 			font-size: 13.4vw;	
-		}
-	}
-}
-
-.trusty_profile_incoming_depositis {
-
-	font-family: 'Gotham_Pro';
-	text-transform: uppercase;
-	@media screen and (max-width: 750px) {
-		p:first-child {
-			margin-top: 5.2vw;
-			margin-bottom: 1.5vw;
-		}
-		p {
-			font-size: 4vw;
-			margin-bottom: 0;
 		}
 	}
 }

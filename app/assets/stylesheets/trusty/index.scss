@@ -1,6 +1,7 @@
 @import "components/landing";
 @import "components/create-account";
 @import "components/account-page";
+@import "components/profile";
 
 @import "components/deposit-withdraw";
 
@@ -201,20 +202,6 @@ $header_size: 12vw;
 
 .trusty_options {
 
-
-	top: 0 !important;
-	right: 0 !important;
-	text-align: center;
-	position: absolute !important;
-	width: $header_size !important;
-	height: $header_size !important;
-	line-height: 13.5vw;
-
-	@media  screen and (min-width: 750px) {
-	}
-
-
-
 	svg {
 		display: inline-block;
 		height: 40% !important;
@@ -225,11 +212,6 @@ $header_size: 12vw;
 
 
 .trusty_header_logo {
-	line-height: 53px;
-	width: 50vw;
-	height: $header_size;
-	padding-left: 15px;
-
 	svg { 
 		fill: $white_color; 
 	}
@@ -257,13 +239,6 @@ $header_size: 12vw;
 
 
 .trusty_full_width_button {
-
-	@media screen and ( max-width: 750px) {
-		height: 13.2vw;
-	  margin-top: 7.3vw;
-	  font-size: 4.8vw;
-		width: 100%;
-	}
 
 	border: 1px solid white;
 	text-transform: uppercase;
@@ -293,15 +268,15 @@ $header_size: 12vw;
 }
 
 .trusty_inline_buttons {
-
+	
 	text-align: center;
 
 	button {
-		font-family: Gotham_Pro_Bold;
+		font-family: Gotham_Pro_Medium;
 		display: inline-block;
 		width: 44vw;
 		margin: initial !important;
-		background-color: rgb(221, 221, 221) !important;
+		background-color: #fff !important;
 		height: 50px;
 		color: black;
 	}
