@@ -2,7 +2,7 @@
 @import "components/create-account";
 @import "components/account-page";
 @import "components/profile";
-
+@import "components/deposit_details";
 @import "components/deposit-withdraw";
 
 
@@ -188,11 +188,8 @@ $header_size: 12vw;
 	width: 12vw !important;
 	height: 12vw !important;
 	line-height: 13.5vw;
-	@media  screen and (min-width: 751px) {
-	}
-
-	top: 0 !important;
-	left: 0 !important;
+	top: .4vw !important;
+  left: -.2vw !important;
 	text-align: center;
 	svg {
 		display: inline-block;
@@ -259,10 +256,6 @@ $header_size: 12vw;
 
 	@media screen and (max-width: 750px) {
 		font-size: 4.7vw;
-	}
-
-	.trusty_deposit & {
-		margin-bottom: 2.1vw;
 	}
 
 }
