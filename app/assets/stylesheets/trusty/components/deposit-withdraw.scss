@@ -1,6 +1,18 @@
 @media screen and (max-width: 750px) {
-	
-	
+
+	.trusty_input_container {
+
+		.t_input input {
+			padding-top: 3.37vw;
+		}
+
+		select {
+			background-image: none;
+			background-color: transparent;
+			width: 28vw;
+		}
+	}
+
 
 }
 
@@ -78,7 +90,6 @@
 		}
 	}
 	select {
-		width: 22vw !important;
 		margin: 0 0	 !important;
 		border: none !important; 
 		font-family: 'Gotham_Pro_Medium';
