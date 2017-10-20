@@ -93,7 +93,7 @@ let slides = [
         image: require('./vendor/img_index.png'),
         title: "One-Click<br>To Fix Income In USD",
         text: `
-        Fix income to wait our prices hyper<br> volatility. One-Click and our funds<br> are all in USD, UER, CNY, Gold, etc.
+        Fix income to wait out prices hyper<br> volatility. One-Click and your funds<br> are all in USD, UER, CNY, Gold, etc.
         `
     },
     {
@@ -265,7 +265,7 @@ class Landing extends Component {
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
-                        <p className="_description">One-Touch To Invest In<br/> Crypto Economy</p>
+                        <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
                         <button className="_desk">INVEST NOW</button>
                     </div>
                 </div>
