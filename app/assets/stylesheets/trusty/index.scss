@@ -175,7 +175,14 @@ $header_size: 12vw;
 		}
 
 	}
-
+	a {
+		position: absolute;
+		top:0;
+		left:0;
+		display: inline-block;
+		width: 12vw !important;
+    height: 12vw !important;
+	}
 	@media screen and (min-width: 750px) {
 		.header_title {
 			font-size: 32px;

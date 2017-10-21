@@ -1160,7 +1160,7 @@
     .blocktrades-bridge input, .blocktrades-bridge select{
       color: $secondary-text-color;
 
-      border: 1px solid $secondary-text-color;
+      //border: 1px solid $secondary-text-color;
       //background-color: $panel-bg-color !important;
       &.native-coin-types, &.external-coin-types {
           background-color: transparent !important;
