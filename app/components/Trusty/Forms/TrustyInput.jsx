@@ -1,5 +1,6 @@
 import React from "react"
 import listen from 'event-listener'
+import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 
 class TrustyInput extends React.Component {
@@ -54,7 +55,9 @@ class TrustyInput extends React.Component {
 		let newLabel = this.props.label != "label here" 
 		return (
 				<div className="trusty_input_container">
-					{ this.state.opened ? <label>{this.props.label}</label> : null }
+					<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+						{ this.state.opened ? <label>{this.props.label}</label> : null }
+					</CSSTransitionGroup>
 					<div className="w_input">
 						<div ref="inputWrap" className="t_input">
 
