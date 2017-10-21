@@ -128,6 +128,7 @@ class Landing extends Component {
         clearInterval(this.timeout)
         this.scroll.remove()
         this.resize.remove()
+        JQuery("body").css({"margin-top": "0"})
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
@@ -136,6 +137,8 @@ class Landing extends Component {
 
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=750px');
+        let last = window.innerHeight
+        let current = window.innerHeight
 
         this.scroll = listen(window, "scroll", ()=>{
             let scroll = document.body.scrollTop || window.scrollY 
@@ -146,9 +149,17 @@ class Landing extends Component {
         })
 
         this.resize = listen(window, "resize", ()=>{
+            current = window.innerHeight
             this.setState({
                 windowHeight: window.innerHeight
             })
+
+        
+            let down = current > last
+            let diff = current - last
+            window.isMobile && JQuery("body").css({"margin-top": down ? -Math.abs(diff)+"px": "0"})
+            console.log(down ? -Math.abs(diff)+"px": 0)
+            last = window.innerHeight
         })
 
         let index = 0

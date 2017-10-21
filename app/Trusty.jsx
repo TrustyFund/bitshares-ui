@@ -31,7 +31,9 @@ import Icon from "components/Icon/Icon"
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 import {dispatcher} from 'components/Trusty/utils'
-
+const user_agent = navigator.userAgent.toLowerCase();
+let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
 class Trusty extends React.Component {
 
     constructor() {
