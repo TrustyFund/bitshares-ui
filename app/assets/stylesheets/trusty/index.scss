@@ -268,6 +268,20 @@ $header_size: 12vw;
 
 }
 
+.trusty_inline_button{
+	text-align: center;
+
+	button {
+		font-family: Gotham_Pro_Medium;
+		display: inline-block;
+		width: 70vw;
+		margin: initial !important;
+		background-color: #fff !important;
+		height: 50px;
+		color: black;
+	}
+}
+
 .trusty_inline_buttons {
 	
 	text-align: center;
