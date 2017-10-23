@@ -403,8 +403,8 @@ class CreateAccount extends React.Component {
                     }
                 </div>
 
-                <div className="_bottom_button" onClick={()=>{this.props.router.push('/create-wallet-brainkey')}}><span>Log with existing account</span></div>
-                <div className="_bottom_button" style={{marginTop: 15 }} onClick={()=>{this.props.router.push('/terms-of-use')}}><span>I accept Terms of use</span></div>
+                <div className="_bottom_button" onClick={()=>{this.props.router.push('/create-wallet-brainkey')}}><span>Log in with existing account</span></div>
+                <div className="_bottom_button _second" onClick={()=>{this.props.router.push('/terms-of-use')}}><span>I accept Terms of use</span></div>
 
                 {/*<div className="grid-content small-12 medium-4 medium-offset-1">
                     {step === 1 ? this._renderAccountCreateText() : step === 2 ? this._renderBackupText() :

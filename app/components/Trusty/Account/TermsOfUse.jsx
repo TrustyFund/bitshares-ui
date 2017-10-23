@@ -4,6 +4,7 @@ import React from "react"
 let terms = [
 
 	{
+		id:1,
 		title: "RIGHTS AND OBLIGATIONS",
 		text: `
 			Trusty provides the Software solely on the terms and conditions set forth in this Agreement and on the condition that You accept and comply with them. By using the Software You (a) accept this Agreement and agree that You are legally bound by its terms; and (b) represent and warrant that: (i) You are of legal age to enter into a binding agreement; and (ii) if You are a corporation, governmental organization or other legal entity, You have the right, power and authority to enter into this Agreement on behalf of the corporation, governmental organization or other legal entity and bind them to these terms.
@@ -16,6 +17,7 @@ let terms = [
 		`
 	},
 		{
+			id:2,
 		title: "DISCLAIMER",
 		text: `
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OF THE SOFTWARE, EMPLOYEES AND AFFILIATES OF TRUSTY, COPYRIGHT HOLDERS, OR TRUSTY SOFTWARE BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -24,6 +26,7 @@ IN NO EVENT WILL TRUSTY OR ITS AFFILIATES, OR ANY OF ITS OR THEIR RESPECTIVE SER
 		`
 	},
 		{
+		id: 3,
 		title: "RISKS",
 		text: `
 
@@ -32,6 +35,7 @@ Trading and investing in digital assets is highly speculative and comes with man
 		`
 	},
 		{
+			id:4,
 		title: "INTELLECTUAL PROPERTY",
 		text: `
 We retain all right, title, and interest in and to the Content and all of Trusty’s brands, logos, and trademarks, including, but not limited to Trusty – Investment Wallet, Trusty Wallet, Trusty App, Trusty Prepaid Card, and variations of the wording of the aforementioned brands, logos, and trademarks.
@@ -40,6 +44,7 @@ We retain all right, title, and interest in and to the Content and all of Trusty
 		`
 	},
 		{
+			id:5,
 		title: "CHOICE OF LAW",
 		text: `
 
@@ -48,6 +53,7 @@ This Agreement, and its application and interpretation, shall be governed exclus
 		`
 	},
 		{
+			id:6,
 		title: "SEVERABILITY",
 		text: `
 In the event any court shall declare any section or sections of this Agreement invalid or void, such declaration shall not invalidate the entire Agreement and all other paragraphs of the Agreement shall remain in full force and effect.
@@ -56,6 +62,7 @@ In the event any court shall declare any section or sections of this Agreement i
 		`
 	},
 	{
+		id:7,
 		title: "REFERENCES",
 		text: `
 			This Agreement content is based on original agreement of Copay open source BitCoin wallet.
@@ -63,6 +70,7 @@ In the event any court shall declare any section or sections of this Agreement i
 
 	},
 	{
+		id:8,
 		title: "BINDING AGREEMENT",
 		text: `
 			The terms and provisions of this Agreement are binding upon Your heirs, successors, assigns, and other representatives. This Agreement may be executed in counterparts, each of which shall be considered to be an original, but both of which constitute the same Agreement.
@@ -81,7 +89,7 @@ class TermsOfUse extends React.Component {
 
 		let firstP = "This is a binding Agreement between Trusty (or “We”) and the person, persons, or entity (“You” or “Your”) using the service, Software, or application (“Software”)."
 
-		let allPs = terms.map(i=><div><h3>{i.title}</h3><p>{i.text}</p></div>)
+		let allPs = terms.map(i=><div key={i.id}><h3>{i.title}</h3><p>{i.text}</p></div>)
 
 		return (
 			<div className="trusty_terms">

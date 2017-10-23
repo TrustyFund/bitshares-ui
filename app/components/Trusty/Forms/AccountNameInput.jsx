@@ -143,7 +143,9 @@ class AccountNameInput extends React.Component {
                 {/* {noLabel ? null : <label><Translate content="account.name" /></label>} */}
                 <section>
                     {/*<label className="left-label">{this.props.placeholder}</label>*/}
-                    <TrustyInput input={accountInput} label={"new account name"}/>
+                    <TrustyInput 
+                        input={accountInput} 
+                        label={"new account name"}/>
                 </section>
                 <div style={{textAlign: "left"}} className="facolor-error">{error}</div>
                 <div style={{textAlign: "left"}} className="facolor-warning">{error ? null : warning}</div>

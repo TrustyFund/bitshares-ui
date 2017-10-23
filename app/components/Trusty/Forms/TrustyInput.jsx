@@ -9,7 +9,8 @@ class TrustyInput extends React.Component {
 
   static propTypes = {
       label: React.PropTypes.string,
-      textArea: React.PropTypes.bool
+      textArea: React.PropTypes.bool,
+      closeAction: React.PropTypes.func  
   };
 
   static defaultProps = {
@@ -42,7 +43,7 @@ class TrustyInput extends React.Component {
 
 	componentDidUpdate(){
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
-		console.log(input)
+
 		if(this.focus) this.focus.remove()
 
 		this.focus = listen( input,"focus",e=>{
@@ -77,7 +78,7 @@ class TrustyInput extends React.Component {
 										placeholder={!this.state.opened  ? this.props.label: ""} /> }
 
 						</div>
-						<div className="t_right">
+						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
 							{this.props.right || this.state.opened ? <Icon name="trusty_input_close" /> : null }
 						</div>
 					</div>

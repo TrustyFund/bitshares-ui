@@ -1,5 +1,7 @@
 .trusty_form_buttons {
+
 	text-align: center;
+
 	button {
 		font-family: "Gotham_Pro_Regular";
 		font-size: 1.3rem;
@@ -63,13 +65,26 @@
 		    font-size: 4.8vw;
 		    border-bottom: 1px solid white;
 			}
+			&._second {
+				margin-top: 7vw;
+	    	margin-bottom: 4vw;
+			}
 		}
+
 
 		._logo_owl {
     	padding-top: 6vw;
     	span {
     		width: 34vw;
     	}
+		}
+
+		.trusty_input_container {
+			margin-bottom: 2vw;
+		}
+
+		form {
+			padding-top: 2vw;
 		}
 	}
 

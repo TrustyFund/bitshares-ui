@@ -127,7 +127,7 @@ class Landing extends Component {
     componentWillUnmount() {
         clearInterval(this.timeout)
         this.scroll.remove()
-        this.resize.remove()
+        //this.resize.remove()
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
