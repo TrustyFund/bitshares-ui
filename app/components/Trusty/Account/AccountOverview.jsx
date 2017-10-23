@@ -106,8 +106,7 @@ class AccountOverview extends React.Component {
 
     _managePortfolio(){
         return () => {
-            console.log("MANAGE")
-            console.log(this.state.balances)
+            this.props.router.push(`/manage`)
         }
     }
 

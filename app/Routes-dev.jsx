@@ -53,6 +53,7 @@ import CreateWorker from "./components/Account/CreateWorker";
 import Landing from "components/Trusty/Landing/Landing"
 import Withdraw from "components/Trusty/Account/Withdraw"
 import Deposit from "components/Trusty/Account/Deposit"
+import ManagePortfolio from "components/Trusty/Portfolio/Manage"
 
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
@@ -70,6 +71,7 @@ const routes = (
             <IndexRoute component={AccountOverview}/>
             <Route path="overview" component={AccountOverview} />
         </Route>
+        <Route path="/manage" component={ManagePortfolio} />
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
         <Route path="/auth/:data" component={Auth}/>

@@ -1,0 +1,28 @@
+.tab-link {
+	width: 33.33333%;
+	float: left;
+	text-align: center;
+}
+
+.tabs-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tabs-header-container{
+	border-bottom: 1px solid white;
+	height: 25px;
+}
+
+.tabs-content-container{
+	padding-top: 15px;
+}
+
+.tab-link-active{
+	border-bottom: 3px solid white;
+}
+
+.tab-link{
+	height: 100%;
+}

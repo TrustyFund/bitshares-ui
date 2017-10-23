@@ -161,7 +161,7 @@ class Trusty extends React.Component {
     componentWillReceiveProps(nextProps, nextState){
         if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
             this.setState({firstEnteredApp: true})
-            this.props.router.push(`/home`)
+            //this.props.router.push(`/home`)
         }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
@@ -187,7 +187,8 @@ class Trusty extends React.Component {
                 "signup": "signup",
                 "login": "create-wallet-brainkey", 
                 "deposit details": "deposit",
-                "withdraw details": "withdraw" 
+                "withdraw details": "withdraw",
+                "manage portfolio": "manage"
             }
             let title = ""
             for ( let k in headerTitles) {
