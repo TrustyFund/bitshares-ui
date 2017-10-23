@@ -45,10 +45,6 @@ class PortfolioStore extends BaseStore {
         }
     }
 
-    getDefaultIndex(){
-
-    }
-
     incrementAsset(asset){
         let storedPortfolio = portfolioStorage.get("portfolio");
         let assetIndex = storedPortfolio.map.indexOf(asset)
