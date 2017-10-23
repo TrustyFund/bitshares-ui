@@ -52,11 +52,15 @@ class ManagePortfolio extends React.Component {
 
 	renderPortfolioList(assetList){
 		let portfolio = [];
+		let arrow = (
+			<i className="arrowright"></i>
+		)
+
 		assetList.forEach( asset => {
 			portfolio.push(
 				<tr key={asset.asset}>
 					<td>
-						{asset.asset}
+						{asset.asset}{arrow}
 					</td>
 					<td>
 						{this.renderShare(asset.share)}

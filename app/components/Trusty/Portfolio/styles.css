@@ -59,3 +59,12 @@
 		color: black;
 	}
 }
+
+.arrowright{
+	transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 5px;
+}
