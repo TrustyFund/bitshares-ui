@@ -159,32 +159,33 @@ class CreateNewWallet extends Component {
 												<br/>
 										</div>) : null}
 								
-										{ this.state.custom_brainkey ? (
-										<div>
-												{/*<label><Translate content="wallet.brainkey" /></label>*/}
-												<BrainkeyInput tabIndex={4} onChange={this.onBrainkey.bind(this)} errorCallback={(warn) => {
-														let {errors} = this.state;
-														errors.validBrainkey = warn;
-														this.setState({
-																errors
-														});
-												}}/>
-										</div>) : null}
+								{ this.state.custom_brainkey ? (
+								<div>
+										{/*<label><Translate content="wallet.brainkey" /></label>*/}
+										<BrainkeyInput tabIndex={4} onChange={this.onBrainkey.bind(this)} errorCallback={(warn) => {
+												let {errors} = this.state;
+												errors.validBrainkey = warn;
+												this.setState({
+														errors
+												});
+										}}/>
+								</div>) : null}
 
-								<div className="no-overflow">
-
+								<div>
+										<p className="_tooltip_p">Please enter account brainkey once for new devices,<br/>12 words, you backed up, when account was created</p> 
 										<div className="trusty_form_buttons">
 											<button className={cname("button no-margin",{disabled: !(this.state.isValid)})}>
-													<Translate content="settings.backup_brainkey" />
+													{/*<Translate content="settings.backup_brainkey" />*/}
+													<span>Log in</span>
 											</button>
 
-											<button className="button secondary" onClick={this.onBack.bind(this)}>
+{/*											<button className="button secondary" onClick={this.onBack.bind(this)}>
 													<Translate content="account.create_account" />
-											</button>
+											</button>*/}
 											
 										</div>
-										<span>{underButtonsText}</span>
-										<div style={{ height: "10px"}}/>
+										<p className="_tooltip_p" style={{textAlign:"center", marginTop: 0 }}>{underButtonsText}</p>
+										<div className="_bottom_button" onClick={this.onBack.bind(this)}><span>Sign up with new account</span></div>
 
 								</div>
 
@@ -196,6 +197,7 @@ class CreateNewWallet extends Component {
 										</label>
 								</div>) : null}
 						</form>
+						<div className="_logo_owl"><span dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/></div>
 				</div>);
 		}
 }

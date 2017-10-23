@@ -2,13 +2,14 @@ import React from "react"
 import listen from 'event-listener'
 import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 import cname from "classnames";
+import Icon from 'components/Icon/Icon'
 
 
 class TrustyInput extends React.Component {
 
   static propTypes = {
       label: React.PropTypes.string,
-      teaxtArea: React.PropTypes.bool
+      textArea: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -20,7 +21,8 @@ class TrustyInput extends React.Component {
   		super()
   		this.state = {
   			value: "",
-  			opened: false
+  			opened: false,
+  			showClose: false
   		}
   		this.handleChange = this.handleChange.bind(this)
   		this.setOpened = this.setOpened.bind(this)
@@ -40,20 +42,21 @@ class TrustyInput extends React.Component {
 
 	componentDidUpdate(){
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
-		if(this.blur) this.blur.remove()
-
-		this.blur = listen(input,"blur", e=>{
-			//this.setOpened(false)
-		})
-
+		console.log(input)
 		if(this.focus) this.focus.remove()
+
 		this.focus = listen( input,"focus",e=>{
 			this.setOpened(true)
 		})
 
+		//let value = this.props.textArea ? input.textContent : input.value
+		//console.log(value)
+		//if(!value) { this.setState({showClose: false}) } else { this.setState({showClose: true}) }
+
 	}
 
 	render(){
+
 		let body = document.body
 		let newLabel = this.props.label != "label here" 
 		return (
@@ -75,7 +78,7 @@ class TrustyInput extends React.Component {
 
 						</div>
 						<div className="t_right">
-							{this.props.right || <span onClick={()=>{ this.refs.inputWrap.querySelector("input").value = ""}}>X</span>}
+							{this.props.right || this.state.opened ? <Icon name="trusty_input_close" /> : null }
 						</div>
 					</div>
 				</div>

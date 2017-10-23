@@ -21,6 +21,11 @@
       font-size: 5.4vw !important;
       height: 6.4vw;
     }
+
+    .trusty_input_close {
+      
+
+    }
     
   }
 
@@ -99,6 +104,10 @@
       border-left: none;
       border-bottom: 1px solid white;
       outline: none !important;
+    }
+    textarea:hover, textarea:active, textarea:focus, textarea {
+      background-color: transparent !important;
+      border-radius: 0 !important;
     }
   }
 }

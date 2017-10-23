@@ -55,21 +55,18 @@ export default class PasswordConfirm extends Component {
                 className={cname({"has-error": errors.size})} style={{marginTop: "10px"}}
             >
                     {/*<Translate component="label" content={newPassword ? "wallet.new_password" : "wallet.password"} />*/}
-                    <section>
-                        <TrustyInput input={passwordInput} label={"password"}/>
-
-                    </section>
+           
+                    <TrustyInput input={passwordInput} label={"password"}/>
 
                     {/*<Translate component="label" content={newPassword ? "wallet.new_confirm" : "wallet.confirm"} />*/}
-                    
-                    <section>
-                         <TrustyInput input={confirmInput} label={"confirm password"}/>
-                    </section>
 
-                <div style={{paddingBottom: 10}}>{errors.get("password_match") || errors.get("password_length")}</div>
+                    <TrustyInput input={confirmInput} label={"confirm password"}/>
+          
+
+                <div>{errors.get("password_match") || errors.get("password_length")}</div>
 
                 {this.props.children}
-                <br/>
+
             </div>
         );
     }
