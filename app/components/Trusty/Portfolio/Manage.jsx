@@ -10,8 +10,7 @@ class ManagePortfolio extends React.Component {
 
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
-		let renderedPortfolio = this.renderPortfolioList(portfolio);
-		
+		let renderedPortfolio = this.renderPortfolioList(portfolio);		
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets in your portfolio</h5>
@@ -30,7 +29,7 @@ class ManagePortfolio extends React.Component {
 					{renderedPortfolio}
 					<tr>
 						<td></td>
-						<td>100%</td>
+						<td>{this.renderShare(PortfolioStore.getTotalPercentage())}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -45,6 +44,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	renderShare(share){
+		share = share.toFixed(2)
 		return (
 			<span>{share*100}%</span>
 		)
@@ -63,12 +63,24 @@ class ManagePortfolio extends React.Component {
 						{asset.asset}{arrow}
 					</td>
 					<td>
+						<a onClick={this._decrementAsset.bind(this, asset.asset)}>- </a>
 						{this.renderShare(asset.share)}
+						<a onClick={this._incrementAsset.bind(this, asset.asset)}> +</a>
 					</td>
 				</tr>
 			)
 		});
 		return portfolio
+	}
+
+	_incrementAsset(asset){
+		PortfolioStore.incrementAsset(asset);
+		this.forceUpdate();
+	}
+
+	_decrementAsset(asset){
+		PortfolioStore.decrementAsset(asset);
+		this.forceUpdate();
 	}
 
 	render(){
