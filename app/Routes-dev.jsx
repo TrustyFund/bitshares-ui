@@ -15,6 +15,7 @@ import DashboardContainer from "./components/Dashboard/DashboardContainer";
 // import Explorer from "components/Explorer/Explorer";
 import AccountPage from "./components/Trusty/Account/AccountPage";
 import AccountOverview from "./components/Trusty/Account/AccountOverview";
+import TermsOfUse from "./components/Trusty/Account/TermsOfUse";
 // import AccountPageOld from "./components/Account/AccountPage";
 // import AccountOverviewOld from "./components/Account/AccountOverview";
 // import AccountAssets from "./components/Account/AccountAssets";
@@ -74,6 +75,7 @@ const routes = (
         <Route path="/manage" component={ManagePortfolio} />
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
+        <Route path="/terms-of-use" component={TermsOfUse} />
 {/*        <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>

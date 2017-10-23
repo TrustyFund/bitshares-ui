@@ -1,0 +1,91 @@
+.trusty_form_buttons {
+
+	text-align: center;
+
+	button {
+		font-family: "Gotham_Pro_Regular";
+		font-size: 1.3rem;
+	  margin-bottom: 10px !important;
+	  font-weight: bold;
+		padding: initial !important;
+	  line-height: initial !important;
+	}
+
+	@media screen and (max-width: 768px) {
+		button {
+			color: #2a2a2a;
+			width: 100%;
+			font-size: 5vw;
+			background: white !important;
+			height: 13vw !important;
+		}
+		
+	}
+}
+
+.trusty_wallet_create, .trusty_account_create {
+
+	._tooltip_p {
+		font-family: "Gotham_Pro";
+
+	}
+
+	._bottom_button {
+		font-family: "Gotham_Pro";
+	}
+
+	._logo_owl {
+		text-align: center;
+  	span {
+  		display: inline-block;
+  	}
+  	svg {
+  		fill: white;
+  	}
+	}
+
+}
+
+@media screen and (max-width: 768px) {
+
+	.trusty_wallet_create, .trusty_account_create {
+		.form-group {
+			margin-bottom: 1px;
+			
+		}
+		._tooltip_p {
+			line-height: 4vw;
+	    margin-top: 2vw;
+	    font-size: 3.3vw;
+		}
+
+		._bottom_button {
+			text-align: center;
+			span {
+		    font-size: 4.8vw;
+		    border-bottom: 1px solid white;
+			}
+			&._second {
+				margin-top: 7vw;
+	    	margin-bottom: 4vw;
+			}
+		}
+
+
+		._logo_owl {
+    	padding-top: 6vw;
+    	span {
+    		width: 34vw;
+    	}
+		}
+
+		.trusty_input_container {
+			margin-bottom: 2vw;
+		}
+
+		form {
+			padding-top: 2vw;
+		}
+	}
+
+}

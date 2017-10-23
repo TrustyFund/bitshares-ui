@@ -5,6 +5,9 @@
 @import "components/deposit_details";
 @import "components/deposit-withdraw";
 @import "components/input";
+@import "components/login-signup";
+@import "components/terms";
+
 
 
 * {  
@@ -68,29 +71,6 @@ button:focus, button:active {
 	}
 }
 
-.grid-block {
-	//background-color: #171A1D;
-}
-
-.trusty_form_buttons {
-	text-align: center;
-	button {
-		font-size: 1.3rem;
-	  margin-bottom: 10px !important;
-	  font-weight: bold;
-	  padding-left: 0;
-	  padding-right: 0;
-	}
-
-	@media screen and (max-width: 1256px) {
-		button {
-			color: #2a2a2a;
-			width: 100%;
-			background: white !important;
-		}
-		
-	}
-}
 
 .trusty_title {
 	font-size: 1.7rem;
@@ -98,7 +78,7 @@ button:focus, button:active {
 }
 
 .trusty_center {
-	padding: 0 10px;
+	padding: 0 3.9vw;
 	form {
 		display: block;
 		margin: 0 auto;
