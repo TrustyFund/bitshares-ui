@@ -31,6 +31,8 @@ import MarketCard from "components/Trusty/Dashboard/MarketCard";
 
 class AccountOverview extends React.Component {
 
+
+
     static propTypes = {
         balanceAssets: ChainTypes.ChainAssetsList
     };
@@ -52,7 +54,8 @@ class AccountOverview extends React.Component {
                 "OPEN.LTC",
                 "OPEN.GOLD",
                 "TRFND"                
-            ]
+            ],
+            balances: null
         };
     }
 
@@ -99,6 +102,12 @@ class AccountOverview extends React.Component {
     _onNavigate(route, e) {
         e.preventDefault();
         this.props.router.push(route);
+    }
+
+    _managePortfolio(){
+        return () => {
+            this.props.router.push(`/manage`)
+        }
     }
 
     _renderBalances(balanceList, optionalAssets, visible) {
@@ -315,7 +324,8 @@ class AccountOverview extends React.Component {
                     includedBalancesList = includedBalancesList.push(a);
                 }
             });
-            
+
+            this.state.balances = includedBalancesList
             let included = this._renderBalances(includedBalancesList, this.state.alwaysShowAssets, true);
             includedBalances = included.balances;
             includedOrders = included.openOrders;
@@ -367,7 +377,7 @@ class AccountOverview extends React.Component {
                             <p className="_yellow">0 RUB BANK</p>
                         </div>
 
-                        <button className="trusty_full_width_button">MANAGE PORTFOLIO</button>
+                        <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE PORTFOLIO</button>
 
                         <table className="table trusty_table">
                             <thead>
