@@ -65,7 +65,6 @@ class Auth extends React.Component {
 
 const routes = (
     <Route path="/" component={App} onEnter={willTransitionTo}>
-        <IndexRoute component={DashboardContainer}/>
         <Route path="/signup" component={CreateAccount}/>
         <Route path="/landing" component={Landing}/>
         <Route path="/home" component={AccountPage}>

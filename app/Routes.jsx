@@ -27,10 +27,6 @@ function errorLoading(err) {
 const routes = (
     <Route path="/" component={App} onEnter={willTransitionTo}>
         {/*Trusty Routes*/}
-        
-        <IndexRoute getComponent={(location, cb) => {
-            System.import("components/Dashboard/DashboardContainer").then(loadRoute(cb)).catch(errorLoading);
-        }}/>
 
         <Route path="/signup" getComponent={(location, cb) => {
             System.import("components/Trusty/Account/CreateAccount").then(loadRoute(cb)).catch(errorLoading);
