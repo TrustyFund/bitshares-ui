@@ -56,17 +56,6 @@ let slides = [
             require('./vendor/img_wallets_1g.png'),
             require('./vendor/img_wallets_1h.png'),
         ],
-        desk_images: [
-            //require('./vendor/img_wallets_2.png'),
-            require('./vendor/img_wallets_2a.png'),
-            require('./vendor/img_wallets_2b.png'),
-            require('./vendor/img_wallets_2c.png'),
-            require('./vendor/img_wallets_2d.png'),
-            require('./vendor/img_wallets_2e.png'),
-            require('./vendor/img_wallets_2f.png'),
-            require('./vendor/img_wallets_2g.png'),
-            require('./vendor/img_wallets_2h.png'),
-        ],
         title: "Many Methods To<br>Deposit Any Currency",
         text: `
         Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at best exchange rate`
@@ -93,13 +82,24 @@ let slides = [
         image: require('./vendor/img_index.png'),
         title: "One-Click<br>To Fix Income In USD",
         text: `
-        Fix income to wait our prices hyper<br> volatility. One-Click and our funds<br> are all in USD, UER, CNY, Gold, etc.
+        Fix income to wait out prices hyper<br> volatility. One-Click and your funds<br> are all in USD, UER, CNY, Gold, etc.
         `
     },
     {
         id:7,
         image: require('./vendor/img_wallets_1.png'),
         imageTwo: require('./vendor/img_wallets_2.png'),
+        images: [
+            //require('./vendor/img_wallets_2.png'),
+            require('./vendor/img_wallets_2a.png'),
+            require('./vendor/img_wallets_2b.png'),
+            require('./vendor/img_wallets_2c.png'),
+            require('./vendor/img_wallets_2d.png'),
+            require('./vendor/img_wallets_2e.png'),
+            require('./vendor/img_wallets_2f.png'),
+            require('./vendor/img_wallets_2g.png'),
+            require('./vendor/img_wallets_2h.png'),
+        ],
         title: "Withdraw Fiat<br> Or Cryptocurrencies",
         text: `
         Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to any wallet
@@ -118,7 +118,7 @@ class Landing extends Component {
             currentFirstSlide: null,
             currentFirstSlideDesk: null,
             currentThirdSlide: null,
-            currentThirdSlideDesk: null,
+            currentLastSlide: null,
             showBalls: false,
             windowHeight: window.innerHeight
         }
@@ -128,6 +128,7 @@ class Landing extends Component {
         clearInterval(this.timeout)
         this.scroll.remove()
         this.resize.remove()
+        JQuery("body").css({"margin-top": "0"})
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
@@ -136,6 +137,8 @@ class Landing extends Component {
 
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=750px');
+        let last = window.innerHeight
+        let current = window.innerHeight
 
         this.scroll = listen(window, "scroll", ()=>{
             let scroll = document.body.scrollTop || window.scrollY 
@@ -158,7 +161,7 @@ class Landing extends Component {
             currentFirstSlide: slides[0].images[index],
             currentFirstSlideDesk: slides[0].desk_images[index],
             currentThirdSlide: slides[2].images[index],
-            currentThirdSlideDesk: slides[2].desk_images[index]
+            currentLastSlide: slides[6].images[index]
         })
 
         this.timeout = setInterval(() => {
@@ -170,7 +173,7 @@ class Landing extends Component {
             if(indexTwo >= slides[2].images.length-1) { indexTwo=0 } else { indexTwo++ }
             this.setState({
                 currentThirdSlide: slides[2].images[indexTwo],
-                currentThirdSlideDesk: slides[2].desk_images[indexTwo]
+                currentLastSlide: slides[6].images[indexTwo]
             })
         }, 1000)
 
@@ -205,7 +208,7 @@ class Landing extends Component {
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
         let currentThird = this.state.currentThirdSlide
-        let currentThirdDesk = this.state.currentThirdSlideDesk
+        let currentThirdDesk = this.state.currentLastSlide
 
         let ballsNav = this.state.showBalls ? 
             (<div className="balls_nav _desk">
@@ -218,6 +221,8 @@ class Landing extends Component {
                 style={{ height: this.state.windowHeight }}>
                 { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                 <div className="image_area">
+
+
                     { index == 0 ? 
                         <div>
                             <img className="_image _mob" src={currentFirst}/>
@@ -226,16 +231,22 @@ class Landing extends Component {
 
                     : null }
 
-                    { index == 2 || index == 6 ? 
+                    { index == 2 ? 
                          <div>
                             <img className="_image _mob" src={currentThird}/>
-                            <img className="_image _desk" src={currentThird}/>
                         </div>
                     : null }
 
+
+                    { index == 6 ? 
+                        <div>
+                            <img className="_image _mob" src={currentThirdDesk}/>
+                        </div>
+
+                        : null }
+
                     { index != 0 && index !=2 && index != 6 ? 
                         <img className="_image" src={slide.image}/>
-                        
                     : null }
 
                 </div>
@@ -265,7 +276,7 @@ class Landing extends Component {
                         <div className="_logo _desk" dangerouslySetInnerHTML={{__html:require('./vendor/logo.svg')}}/>
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
-                        <p className="_description">One-Touch To Invest In<br/> Crypto Economy</p>
+                        <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
                         <button className="_desk">INVEST NOW</button>
                     </div>
                 </div>

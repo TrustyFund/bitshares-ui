@@ -16,6 +16,8 @@ import { checkFeeStatusAsync, checkBalance } from "common/trxHelper";
 import { Asset } from "common/MarketClasses";
 import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
+import Icon from 'components/Icon/Icon';
+import $ from 'jquery'
 
 import TrustyInput from 'components/Trusty/Forms/TrustyInput';
 
@@ -1111,6 +1113,14 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        $('#resizing_select').change(function(){
+            $("#width_tmp_option").html($('#resizing_select option:selected').text());
+                console.log($("#width_tmp_option").width())
+                $(this).width($("#width_tmp_option").width() + 4);  
+        });
+    }   
+
     render() {
 
         if (!this.props.account || !this.props.issuer_account || !this.props.gateway)
@@ -1158,10 +1168,13 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 Object.keys(this.state.allowed_mappings_for_deposit).sort().forEach(allowed_deposit_input_coin_type => {
                     deposit_input_coin_type_options.push(<option key={allowed_deposit_input_coin_type} value={allowed_deposit_input_coin_type || ""}>{this.state.coins_by_type[allowed_deposit_input_coin_type].symbol}</option>);
                 });
+
+                let fakeWidth = <span style={{ display: "none", fontFamily: "Gotham_Pro_Bold", fontSize: "6.6vw"}} id="width_tmp_option"/>
+            
                 let deposit_input_coin_type_select =
-                    <select style={{width: "11rem"}} className="external-coin-types" value={this.state.deposit_input_coin_type || ""} onChange={this.onInputCoinTypeChanged.bind(this, "deposit")}>
+                    <div><select id="resizing_select"  value={this.state.deposit_input_coin_type || ""} onChange={this.onInputCoinTypeChanged.bind(this, "deposit")}>
                       {deposit_input_coin_type_options}
-                    </select>;
+                    </select>{fakeWidth}<Icon name="trusty_arrow_down"/></div>;
 
                 let deposit_output_coin_type_options = [];
                 let deposit_output_coin_types = this.state.allowed_mappings_for_deposit[this.state.deposit_input_coin_type];

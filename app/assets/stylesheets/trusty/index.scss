@@ -1,8 +1,10 @@
 @import "components/landing";
 @import "components/create-account";
 @import "components/account-page";
-
+@import "components/profile";
+@import "components/deposit_details";
 @import "components/deposit-withdraw";
+@import "components/input";
 
 
 * {  
@@ -157,7 +159,7 @@ br.desk {
 
 }
 
-$header_size: 50px;
+$header_size: 12vw;
 .trusty_header {
 	position: relative;
 	height: $header_size;
@@ -173,7 +175,14 @@ $header_size: 50px;
 		}
 
 	}
-
+	a {
+		position: absolute;
+		top:0;
+		left:0;
+		display: inline-block;
+		width: 12vw !important;
+    height: 12vw !important;
+	}
 	@media screen and (min-width: 750px) {
 		.header_title {
 			font-size: 32px;
@@ -184,11 +193,11 @@ $header_size: 50px;
 
 .trusty_arrow_back {
 	position: absolute !important;
-	width: $header_size !important;
-	height: $header_size !important;
-	line-height: 60px;
-	top: 0 !important;
-	left: 0 !important;
+	width: 12vw !important;
+	height: 12vw !important;
+	line-height: 13.5vw;
+	top: .4vw !important;
+  left: -.2vw !important;
 	text-align: center;
 	svg {
 		display: inline-block;
@@ -197,13 +206,6 @@ $header_size: 50px;
 }
 
 .trusty_options {
-	position: absolute !important;
-	width: $header_size !important;
-	height: $header_size !important;
-	line-height: 60px;
-	top: 0 !important;
-	right: 0 !important;
-	text-align: center;
 
 	svg {
 		display: inline-block;
@@ -215,11 +217,6 @@ $header_size: 50px;
 
 
 .trusty_header_logo {
-	line-height: 53px;
-	width: 50vw;
-	height: $header_size;
-	padding-left: 15px;
-
 	svg { 
 		fill: $white_color; 
 	}
@@ -248,13 +245,6 @@ $header_size: 50px;
 
 .trusty_full_width_button {
 
-	@media screen and ( max-width: 750px) {
-		height: 13.2vw;
-	  margin-top: 7.3vw;
-	  font-size: 4.8vw;
-		width: 100%;
-	}
-
 	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
@@ -276,22 +266,18 @@ $header_size: 50px;
 		font-size: 4.7vw;
 	}
 
-	.trusty_deposit & {
-		margin-bottom: 2.1vw;
-	}
-
 }
 
 .trusty_inline_buttons {
-
+	
 	text-align: center;
 
 	button {
-		font-family: Gotham_Pro_Bold;
+		font-family: Gotham_Pro_Medium;
 		display: inline-block;
 		width: 44vw;
 		margin: initial !important;
-		background-color: rgb(221, 221, 221) !important;
+		background-color: #fff !important;
 		height: 50px;
 		color: black;
 	}

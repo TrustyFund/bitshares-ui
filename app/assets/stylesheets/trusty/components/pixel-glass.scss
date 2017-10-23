@@ -1,6 +1,6 @@
 HTML {
   background-repeat: no-repeat;
-  background-position:  50% -40px;
+  background-position:  50% 0px;
   /* По умолчанию показывается мобильный макет */
   background-image: url( "../screens/trusty_fund.png" );
   background-size: 100%;
@@ -11,7 +11,11 @@ HTML {
     /* Планшетный макет */
     //background-image: url( "../screens/profile.png");
     //background-image: url( "../screens/deposit.png");
-    background-image: url( "../screens/trusty_fund.png" );
+    //background-image: url( "../screens/trusty_fund.png" );
+
+    //background-image: url( "../screens/trusty_fund.png" );
+    background-image: url( "../screens/payment_method_user_profile_perfect.png" );
+    //background-image: url( "../screens/payment_method_deposit_details_v2.png" );
     //background-image: url( "../screens/new_account_terms.png");
     //background-image: url( "../screens/new_account_signup.png");
     //background-image: url( "../screens/existing_account_login.png");

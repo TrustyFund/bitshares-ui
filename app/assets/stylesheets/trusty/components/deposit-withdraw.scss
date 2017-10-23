@@ -1,3 +1,25 @@
+@media screen and (max-width: 750px) {
+
+	.trusty_input_container {
+
+		.t_input input {
+			padding-top: 3.37vw;
+		}
+
+		select {
+			background-image: none;
+			background-color: transparent;
+			width: 28vw;
+		}
+	}
+
+
+}
+
+
+
+
+
 .trusty_deposit_and_withdraw {
 	.content-block {
 		margin-bottom: 0;
@@ -17,10 +39,6 @@
 .trusty_deposit {
 	@media screen and (max-width: 750px){
 		padding: 0 3.6vw;
-		.trusty_input_container {
-			margin-top: 3px;
-			margin-bottom: 20px;
-		}
 		._bottom {
 			margin-bottom: 2.8vw !important;
 		}
@@ -68,14 +86,16 @@
 		}
 	}
 	select {
-		width: 22vw !important;
 		margin: 0 0	 !important;
 		border: none !important; 
 		font-family: 'Gotham_Pro_Medium';
 		padding-bottom: 0 !important;
 		padding-right: 0 !important;
 		@media screen and (max-width: 750px) {
-			font-size: 6.6vw !important;
+			font-size: 6.5vw !important;
+		}
+		option {
+			background-color: black;
 		}
 	}
 	.t_input{
@@ -118,14 +138,3 @@
 	}
 }
 
-.trusty_help_text {
-	font-family: Gotham_Pro;
-	text-align: center;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	@media screen and (max-width: 750px){
-		font-size: 4.7vw;
-		line-height: 6vw;
-		margin-bottom: 4.4vw;
-	}
-}

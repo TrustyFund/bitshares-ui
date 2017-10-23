@@ -1,0 +1,85 @@
+@media screen and (max-width: 768px) {
+
+	.trusty_header_logo {
+
+		line-height: 14vw;
+    width: 57vw;
+    height: 12vw;
+    padding-left: 4vw;
+
+  }
+	
+	.trusty_options {
+
+    top: 1px !important;
+    right: 0px !important;
+    text-align: center;
+    position: absolute !important;
+    width: 13vw !important;
+    height: 13vw !important;
+    line-height: 13.5vw;
+	}
+
+	.grid-block .page-layout {
+		padding-top: 1.9vw;
+	}
+
+	.trusty_total_funds p {
+    margin-top: 4.3vw;
+    font-size: 4.2vw;
+	}
+
+	.trusty_total_funds h3 {
+    font-size: 13.4vw;
+    margin-top: -.8vw;
+	}
+
+	.trusty_profile_incoming_depositis {
+    font-family: 'Gotham_Pro';
+    text-transform: uppercase;
+    padding-top: 1.4vw !important;
+
+		p:first-child {
+	    margin-top: 5.2vw;
+	    margin-bottom: .6vw;
+		}
+
+		p {
+		    font-size: 4.3vw;
+		    font-family: "Gotham_Pro_Regular" !important;
+		}
+
+	}
+
+	.trusty_full_width_button {
+    height: 13.2vw;
+    margin-top: 2vw;
+    font-size: 4.8vw;
+    width: 100%;
+	}
+
+	.trusty_table {
+		
+		table {
+			margin-top: 5.6vw;
+		}
+		th {
+			padding-top: 4.6vw !important;
+	    padding-left: 1.1vw !important;
+		}
+		
+		tbody {
+
+			td {
+				padding-top: 0vw !important;
+    		padding-left: .6vw !important;
+    		font-size: 6.1vw;
+    		height: 6vw;
+    		padding-bottom: 3.5vw !important;
+    		padding-right: 0vw !important;
+			}
+			
+		}
+	}
+
+}

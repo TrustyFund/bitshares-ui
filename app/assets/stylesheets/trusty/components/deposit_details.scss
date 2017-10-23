@@ -1,0 +1,47 @@
+.trusty_help_text {
+	font-family: Gotham_Pro;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+	.trusty_deposit {
+		.trusty_wide_btn {
+		    margin-bottom: 4.9vw;
+		}
+		.trusty_input_container {
+	    margin-top: 2vw;
+	    margin-bottom: 6vw;
+
+	    input {
+	    	padding-bottom: 1vw !important;
+	    }
+  		.trusty_arrow_down {
+			  position: absolute;
+		    right: 0;
+		    top: 42%;
+
+		    option {
+		    	background: black !important;
+		    }
+  		}
+  	}
+
+	}
+
+	.trusty_help_text {
+    font-size: 4.8vw;
+    line-height: 6vw;
+    margin-bottom: 4.1vw;
+	}
+}
+
+#resizing_select {
+  width: 17vw;
+  margin-right: 5vw !important;
+} 
+ 
+#width_tmp_select{
+ 	display: none;
+} 
