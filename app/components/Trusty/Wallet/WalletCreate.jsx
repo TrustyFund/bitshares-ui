@@ -158,12 +158,10 @@ class CreateNewWallet extends Component {
 												<div className="has-error">{errors.wallet_public_name}</div>
 												<br/>
 										</div>) : null}
-
-								<div className="no-overflow">
-
+								
 										{ this.state.custom_brainkey ? (
 										<div>
-												<label><Translate content="wallet.brainkey" /></label>
+												{/*<label><Translate content="wallet.brainkey" /></label>*/}
 												<BrainkeyInput tabIndex={4} onChange={this.onBrainkey.bind(this)} errorCallback={(warn) => {
 														let {errors} = this.state;
 														errors.validBrainkey = warn;
@@ -172,6 +170,9 @@ class CreateNewWallet extends Component {
 														});
 												}}/>
 										</div>) : null}
+
+								<div className="no-overflow">
+
 										<div className="trusty_form_buttons">
 											<button className={cname("button no-margin",{disabled: !(this.state.isValid)})}>
 													<Translate content="settings.backup_brainkey" />
@@ -219,7 +220,7 @@ class WalletCreate extends Component {
 const CreateWalletFromBrainkey = (props) => {
 		if (!props.nested) {
 				return (
-						<div style={{paddingTop: 15}}>
+						<div>
 								<WalletCreate restoreBrainkey {...props} />
 						</div>
 				);

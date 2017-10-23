@@ -2,6 +2,7 @@ import React, {PropTypes, Component} from "react";
 import Translate from "react-translate-component";
 import Immutable from "immutable";
 import cname from "classnames";
+import TrustyInput from "components/Trusty/Forms/TrustyInput";
 
 export default class PasswordConfirm extends Component {
 
@@ -32,13 +33,7 @@ export default class PasswordConfirm extends Component {
         let {newPassword} = this.props;
         let tabIndex = 1;
 
-        return (
-            <div
-                className={cname({"has-error": errors.size})} style={{marginTop: "10px"}}
-            >
-                    <Translate component="label" content={newPassword ? "wallet.new_password" : "wallet.password"} />
-                    <section>
-                    <input
+        let passwordInput = <input
                         type="password"
                         id="password"
                         ref="firstPassword"
@@ -46,17 +41,29 @@ export default class PasswordConfirm extends Component {
                         value={this.state.password}
                         tabIndex={tabIndex++}
                     />
-                    </section>
 
-                    <Translate component="label" content={newPassword ? "wallet.new_confirm" : "wallet.confirm"} />
-                    <section>
-                    <input
+        let confirmInput =  <input
                         type="password"
                         id="confirm"
                         onChange={this.formChange.bind(this)}
                         value={this.state.confirm}
                         tabIndex={tabIndex++}
                     />
+
+        return (
+            <div
+                className={cname({"has-error": errors.size})} style={{marginTop: "10px"}}
+            >
+                    {/*<Translate component="label" content={newPassword ? "wallet.new_password" : "wallet.password"} />*/}
+                    <section>
+                        <TrustyInput input={passwordInput} label={"password"}/>
+
+                    </section>
+
+                    {/*<Translate component="label" content={newPassword ? "wallet.new_confirm" : "wallet.confirm"} />*/}
+                    
+                    <section>
+                         <TrustyInput input={confirmInput} label={"confirm password"}/>
                     </section>
 
                 <div style={{paddingBottom: 10}}>{errors.get("password_match") || errors.get("password_length")}</div>

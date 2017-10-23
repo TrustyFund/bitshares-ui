@@ -1,11 +1,112 @@
-.todo-item {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  float: left;
-  border: solid 2px white;
-  box-sizing: border-box;
+
+
+@media screen and (max-width: 768px) {
+
+  .trusty_input_container {
+
+    .t_input {
+      margin-top: 6vw;
+    }
+
+    label {
+      font-size: 3.5vw;
+      margin-bottom: 0 !important;
+    }
+
+    select {
+      font-size: 6.5vw !important;
+    }
+
+    input {
+      font-size: 5.4vw !important;
+      height: 6.4vw;
+    }
+    
+  }
+
 }
+
+
+.trusty_deposit_input, 
+.trusty_input_container {
+
+  .w_input {
+    position: relative;
+  }
+
+
+  .t_right{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    right:0;
+    span {
+      display: inline-block;
+      color: white;
+      font-family: 'Gotham_Pro'
+    }
+  }
+
+  select {
+    margin: 0 0  !important;
+    border: none !important; 
+    font-family: 'Gotham_Pro_Medium';
+    padding-bottom: 0 !important;
+    padding-right: 0 !important;
+    option {
+      background-color: black;
+    }
+  }
+  
+  .t_input.active_input {
+    @media screen and (max-width: 768px) {
+      margin-top: 0;
+    }
+  }
+
+  .t_input{
+    width: 100%;
+    border-bottom: 1px solid white;
+    input {
+      background-color: transparent !important;
+      width: 100% !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-bottom: none !important;
+      border-bottom-width: 0px !important;
+      outline: none !important;
+      padding-bottom: 2px;
+      padding-left: 0;
+      padding-top: 0 !important;
+    }
+
+    input::placeholder {
+      text-transform: uppercase;
+      color: white !important;
+
+      @media screen and (max-width: 750px) {
+        font-size: 4vw !important;
+        letter-spacing: .4vw;
+      }
+
+    }
+    input:focus, input:hover {
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-bottom: 1px solid white;
+      outline: none !important;
+    }
+  }
+}
+
+
+
+
+//Fade in animation
 
 .example-enter {
   opacity: 0.01;

@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from "react";
 import cname from "classnames";
 import {hash, key} from "bitsharesjs/es";
+import TrustyInput from "components/trusty/Forms/TrustyInput"
 
 var dictionary_set;
 
@@ -81,16 +82,16 @@ export default class BrainkeyInput extends Component {
         }
 
         let {warn, word_count_label, checked_words} = this._checkBrainKey();
-
-        return (
-            <span className="">
-                <div>
-                    <textarea
+        let textArea =  <textarea
                         placeholder="12 security words; can be found in your account settings"
                         tabIndex={this.props.tabIndex || 1}
                         onChange={this.formChange.bind(this)}
                         value={this.state.brnkey} id="brnkey"
                         style={{height: 100}} />
+        return (
+
+            <div>
+                <TrustyInput input={ textArea} label="brainkey"/>
                     <div style={{textAlign: "left"}} className="grid-content no-padding no-overflow">{ checked_words }</div>
                     { this.state.check_digits && ! this.props.hideCheckDigits ? <div>
                         <br/>
@@ -98,8 +99,8 @@ export default class BrainkeyInput extends Component {
                         <br/>
                     </div>:null}
                     <p><i className={cname({error: warn})}>{ word_count_label }</i></p>
-                </div>
-            </span>
+            </div>
+
         )
     }
 

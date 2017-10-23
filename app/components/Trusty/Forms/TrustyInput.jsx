@@ -1,12 +1,14 @@
 import React from "react"
 import listen from 'event-listener'
 import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
+import cname from "classnames";
 
 
 class TrustyInput extends React.Component {
 
   static propTypes = {
       label: React.PropTypes.string,
+      teaxtArea: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -37,8 +39,9 @@ class TrustyInput extends React.Component {
 	}
 
 	componentDidUpdate(){
-		let input = this.refs.inputWrap.querySelector('input')
+		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
 		if(this.blur) this.blur.remove()
+
 		this.blur = listen(input,"blur", e=>{
 			//this.setOpened(false)
 		})
@@ -59,7 +62,7 @@ class TrustyInput extends React.Component {
 						{ this.state.opened ? <label>{this.props.label}</label> : null }
 					</CSSTransitionGroup>
 					<div className="w_input">
-						<div ref="inputWrap" className="t_input">
+						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
 
 							{ this.props.input && this.state.opened ? this.props.input : null 
 								|| <input 
@@ -72,7 +75,7 @@ class TrustyInput extends React.Component {
 
 						</div>
 						<div className="t_right">
-							{this.props.right || <span onClick={()=>{this.setState({value:""})}}>X</span>}
+							{this.props.right || <span onClick={()=>{ this.refs.inputWrap.querySelector("input").value = ""}}>X</span>}
 						</div>
 					</div>
 				</div>

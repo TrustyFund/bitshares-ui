@@ -128,7 +128,6 @@ class Landing extends Component {
         clearInterval(this.timeout)
         this.scroll.remove()
         this.resize.remove()
-        JQuery("body").css({"margin-top": "0"})
         //let viewport = document.querySelector("meta[name=viewport]");
         //viewport.setAttribute('content', 'width=device-width')
     }
