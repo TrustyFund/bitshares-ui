@@ -190,7 +190,8 @@ class Trusty extends React.Component {
                 "login": "create-wallet-brainkey", 
                 "deposit details": "deposit",
                 "withdraw details": "withdraw",
-                "manage portfolio": "manage"
+                "manage portfolio": "manage",
+                "terms of use": "terms-of-use"
             }
             let title = ""
             for ( let k in headerTitles) {
@@ -236,6 +237,7 @@ class Trusty extends React.Component {
             '/test-home',
             '/signup',
             '/create-wallet-brainkey',
+            "/terms-of-use",
             ].some(i=>i==this.props.location.pathname)
         }
         authFreeRoutes = authFreeRoutes.bind(this)

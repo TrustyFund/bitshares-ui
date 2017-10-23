@@ -1,0 +1,27 @@
+
+
+@media screen and (max-width: 768px) {
+
+	.trusty_terms {
+		padding: 1.1vw 4.2vw;
+
+		p {
+			font-family: "Gotham_Pro";
+	    line-height: 5.2vw;
+	    font-size: 4.31vw;
+		}
+
+		p::first-child {
+			margin-bottom: 4.4vw;
+		}
+
+		h3 {
+			font-family: "Gotham_Pro_Regular";
+	    line-height: 5.4vw;
+	    font-size: 4.31vw;
+	    margin-top: 0;
+	    margin-bottom: 0;
+		}
+	}
+	
+}
