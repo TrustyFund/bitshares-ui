@@ -148,11 +148,11 @@ class Landing extends Component {
             })
         })
 
-        this.resize = listen(window, "resize", ()=>{
-            this.setState({
-                windowHeight: window.innerHeight
-            })
-        })
+        // this.resize = listen(window, "resize", ()=>{
+        //     this.setState({
+        //         windowHeight: window.innerHeight
+        //     })
+        // })
 
         let index = 0
         let indexTwo = 0
