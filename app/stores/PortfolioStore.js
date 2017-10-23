@@ -23,18 +23,21 @@ class PortfolioStore extends BaseStore {
     getPortfolio(){
         let storedPortfolio = portfolioStorage.get("portfolio");
 
-        let defaultPortfolio = [
-            {asset: "BTC",share: 0.6},
-            {asset: "ETH",share: 0.1},
-            {asset: "LTC",share: 0.1},
-            {asset: "DASH",share: 0.05},
-            {asset: "EOS",share: 0.04},
-            {asset: "STEEM",share: 0.04},
-            {asset: "BTS",share: 0.04},
-            {asset: "TRFND",share: 0.03}
-        ];
+        let defaultPortfolio = {
+            data:[
+                {asset: "BTC",share: 60},
+                {asset: "ETH",share: 10},
+                {asset: "LTC",share: 10},
+                {asset: "DASH",share: 5},
+                {asset: "EOS",share: 4},
+                {asset: "STEEM",share: 4},
+                {asset: "BTS",share: 4},
+                {asset: "TRFND",share: 3}
+            ],
+            map: ["BTC","ETH","LTC","DASH","EOS","STEEM","BTS","TRFND"]
+        };
 
-        if (storedPortfolio.length > 0){
+        if (storedPortfolio.data && storedPortfolio.data.length > 0){
             return storedPortfolio;
         }else{
             portfolioStorage.set("portfolio",defaultPortfolio);
@@ -42,31 +45,37 @@ class PortfolioStore extends BaseStore {
         }
     }
 
+    getDefaultIndex(){
+
+    }
+
     incrementAsset(asset){
         let storedPortfolio = portfolioStorage.get("portfolio");
-        storedPortfolio.forEach(current => {
-            if (current.asset === asset){
-                current.share = current.share + 0.01;
-            }
-        });
-        portfolioStorage.set("portfolio",storedPortfolio);
+        let assetIndex = storedPortfolio.map.indexOf(asset)
+        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].share < 100){
+            storedPortfolio.data[assetIndex].share++; 
+            portfolioStorage.set("portfolio",storedPortfolio);
+            return true;
+        }
+        return false;
     }
 
     decrementAsset(asset){
         let storedPortfolio = portfolioStorage.get("portfolio");
-        storedPortfolio.forEach(current => {
-            if (current.asset === asset){
-                current.share = current.share - 0.01;
-            }
-        });
-        portfolioStorage.set("portfolio",storedPortfolio);
+        let assetIndex = storedPortfolio.map.indexOf(asset)
+        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].share > 0){
+            storedPortfolio.data[assetIndex].share--; 
+            portfolioStorage.set("portfolio",storedPortfolio);
+            return true;
+        }
+        return false;
     }
 
     getTotalPercentage(){
         let storedPortfolio = portfolioStorage.get("portfolio");
         let result = 0;
-        storedPortfolio.forEach(current => {
-            result += current.share;
+        storedPortfolio.data.forEach(current => {
+            result = result + current.share;
         });
         return result;
     }	

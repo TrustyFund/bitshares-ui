@@ -10,7 +10,7 @@ class ManagePortfolio extends React.Component {
 
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
-		let renderedPortfolio = this.renderPortfolioList(portfolio);		
+		let renderedPortfolio = this.renderPortfolioList(portfolio.data);		
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets in your portfolio</h5>
@@ -44,9 +44,8 @@ class ManagePortfolio extends React.Component {
 	}
 
 	renderShare(share){
-		share = share.toFixed(2)
 		return (
-			<span>{share*100}%</span>
+			<span>{share}%</span>
 		)
 	}
 
@@ -55,7 +54,8 @@ class ManagePortfolio extends React.Component {
 		let arrow = (
 			<i className="arrowright"></i>
 		)
-
+		
+		//TODO: сделать сдесь ссылку на описание Ассета
 		assetList.forEach( asset => {
 			portfolio.push(
 				<tr key={asset.asset}>
