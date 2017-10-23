@@ -163,7 +163,7 @@ class Trusty extends React.Component {
     componentWillReceiveProps(nextProps, nextState){
         if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
             this.setState({firstEnteredApp: true})
-            //this.props.router.push(`/home`)
+            this.props.router.push(`/home`)
         }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
