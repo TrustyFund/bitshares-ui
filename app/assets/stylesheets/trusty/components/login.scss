@@ -21,7 +21,7 @@
 	}
 }
 
-.trusty_wallet_create {
+.trusty_wallet_create, .trusty_account_create {
 
 	._tooltip_p {
 		font-family: "Gotham_Pro";
@@ -46,7 +46,11 @@
 
 @media screen and (max-width: 768px) {
 
-	.trusty_wallet_create {
+	.trusty_wallet_create, .trusty_account_create {
+		.form-group {
+			margin-bottom: 1px;
+			
+		}
 		._tooltip_p {
 			line-height: 4vw;
 	    margin-top: 2vw;

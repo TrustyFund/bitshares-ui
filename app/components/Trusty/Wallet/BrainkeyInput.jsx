@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from "react";
 import cname from "classnames";
 import {hash, key} from "bitsharesjs/es";
-import TrustyInput from "components/trusty/Forms/TrustyInput"
+import TrustyInput from "components/Trusty/Forms/TrustyInput"
 
 var dictionary_set;
 

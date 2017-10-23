@@ -3,8 +3,8 @@ import { connect } from "alt-react";
 import classNames from "classnames";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
-import AccountNameInput from "./../../Forms/AccountNameInput";
-import PasswordInput from "./../Forms/PasswordInput";
+import AccountNameInput from "components/Trusty/Forms/AccountNameInput";
+import PasswordInput from "components/Trusty/Forms/PasswordInput";
 import WalletDb from "stores/WalletDb";
 import notify from "actions/NotificationActions";
 import {Link} from "react-router/es";
@@ -21,6 +21,7 @@ import utils from "common/utils";
 import SettingsActions from "actions/SettingsActions";
 import counterpart from "counterpart";
 import {dispatcher} from "components/Trusty/utils"
+
 
 class CreateAccount extends React.Component {
     constructor() {
@@ -241,21 +242,22 @@ class CreateAccount extends React.Component {
                 {/*<div className="divider" />*/}
 
                 {/* Submit button */}
+                <p className="_tooltip_p _yellow">{" White down your password, it CAN'T BE RECOVERED "} </p>
                 <div className="trusty_form_buttons">
-                {this.state.loading ?  
-                    <LoadingIndicator type="three-bounce"/> : 
-                    <button className={buttonClass}><Translate content="account.create_account" /></button>
-                }
-                {this.state.loading ?  
-                    <span></span> :
-                    <Link to="/create-wallet-brainkey">
-                        <button className={buttonResetClass}><Translate content="settings.backup_brainkey" /></button>
-                    </Link>
-                }
+                    {this.state.loading ?  
+                        <LoadingIndicator type="three-bounce"/> : 
+                        <button className={buttonClass}><span >Sign up</span></button>
+                    }
+                    {/*this.state.loading ?  
+                        <span></span> :
+                        <Link to="/create-wallet-brainkey">
+                            <button className={buttonResetClass}><Translate content="settings.backup_brainkey" /></button>
+                        </Link>*/
+                    }
                 </div>
 
-                <p>Make sure to write down your password, as it can never be recovered and is the only way to access your account</p>
-                <p>Your account is secured by immutable BitShares blockchain</p>
+                <p className="_tooltip_p" style={{textAlign: "center" }}>Before continuing, make sure your device is secure</p>
+
                 {/* Backup restore option */}
                 {/*<div style={{paddingTop: 40}}>
                     <label>
@@ -391,7 +393,7 @@ class CreateAccount extends React.Component {
         return (
             <div className="grid-block vertical page-layout Account_create trusty_account_create">
 
-                <div className="trusty_center" style={{paddingTop:"15px"}}>
+                <div className="trusty_center">
                     {step !== 1 ? <p style={{fontWeight: "bold"}}>
                         <Translate content={"wallet.step_" + step} />
                     </p> : null}
@@ -401,12 +403,16 @@ class CreateAccount extends React.Component {
                     }
                 </div>
 
+                <div className="_bottom_button" onClick={()=>{this.props.router.push('/create-wallet-brainkey')}}><span>Log with existing account</span></div>
+                <div className="_bottom_button" style={{marginTop: 15 }} onClick={()=>{this.props.router.push('/create-wallet-brainkey')}}><span>I accept Terms of use</span></div>
+
                 {/*<div className="grid-content small-12 medium-4 medium-offset-1">
                     {step === 1 ? this._renderAccountCreateText() : step === 2 ? this._renderBackupText() :
                         this._renderGetStartedText()
                     }
                 </div>*/}
-        
+
+                <div className="_logo_owl"><span dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/></div>
             </div>
         );
     }
