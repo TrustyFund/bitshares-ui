@@ -27,8 +27,8 @@ import Icon from "components/Icon/Icon"
 
 
 /* pixel perfect helper */
-// import 'components/Trusty/pixel-glass'
-// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
+import 'components/Trusty/pixel-glass'
+import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 import {dispatcher} from 'components/Trusty/utils'
 const user_agent = navigator.userAgent.toLowerCase();

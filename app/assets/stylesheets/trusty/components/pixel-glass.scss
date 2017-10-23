@@ -6,7 +6,7 @@ HTML {
   background-size: 100%;
 }
 /* Планшет */
-@media ( max-width: 750px ) {
+@media ( max-width: 768px ) {
   HTML {
     /* Планшетный макет */
     //background-image: url( "../screens/profile.png");
@@ -14,7 +14,9 @@ HTML {
     //background-image: url( "../screens/trusty_fund.png" );
 
     //background-image: url( "../screens/trusty_fund.png" );
-    background-image: url( "../screens/payment_method_user_profile_perfect.png" );
+    //background-image: url("../screens/login.png")
+    background-image: url("../screens/signup.png")
+    //background-image: url( "../screens/payment_method_user_profile_perfect.png" );
     //background-image: url( "../screens/payment_method_deposit_details_v2.png" );
     //background-image: url( "../screens/new_account_terms.png");
     //background-image: url( "../screens/new_account_signup.png");
@@ -22,7 +24,7 @@ HTML {
   }
 }
 /* Десктоп */
-@media ( min-width: 960px ) {
+@media ( min-width: 769px ) {
   HTML {
     /* Десктопный макет */
     //background-image: url( "img/960.png" );
