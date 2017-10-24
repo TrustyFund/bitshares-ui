@@ -46,9 +46,11 @@ class TrustyInput extends React.Component {
 
 		if(this.focus) this.focus.remove()
 
-		this.focus = listen( input,"focus",e=>{
-			this.setOpened(true)
-		})
+		if( input )  {
+			this.focus = listen( input,"focus",e=>{
+				this.setOpened(true)
+			})
+		}
 
 		//let value = this.props.textArea ? input.textContent : input.value
 		//console.log(value)

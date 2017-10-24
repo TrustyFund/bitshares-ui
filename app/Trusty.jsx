@@ -190,7 +190,7 @@ class Trusty extends React.Component {
                 "login": "create-wallet-brainkey", 
                 "deposit details": "deposit",
                 "withdraw details": "withdraw",
-                "manage portfolio": "manage",
+                "manage fund": "manage",
                 "terms of use": "terms-of-use"
             }
             let title = ""
