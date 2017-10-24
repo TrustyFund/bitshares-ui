@@ -138,7 +138,7 @@ br.desk {
 	}
 
 }
-
+$header_size_desk: 50px;
 $header_size: 12vw;
 .trusty_header {
 	position: relative;
@@ -163,12 +163,16 @@ $header_size: 12vw;
 		width: 12vw !important;
     height: 12vw !important;
 	}
-	@media screen and (min-width: 750px) {
+	@media screen and (min-width: 768px) {
+		height: $header_size_desk;
 		.header_title {
 			font-size: 32px;
 		}
 	}
 }
+
+
+
 
 
 .trusty_arrow_back {
@@ -182,6 +186,10 @@ $header_size: 12vw;
 	svg {
 		display: inline-block;
 		height: 45% !important;
+	}
+	@media screen and (min-width: 768px) {
+		height: $header_size_desk !important;
+		widht: $header_size_desk !important;
 	}
 }
 
@@ -259,6 +267,10 @@ $header_size: 12vw;
 		background-color: #fff !important;
 		height: 50px;
 		color: black;
+
+		&.wide {
+			width: 92vw;
+		}
 	}
 }
 
@@ -274,6 +286,7 @@ $header_size: 12vw;
 		background-color: #fff !important;
 		height: 50px;
 		color: black;
+
 	}
 
 	.b_left {

@@ -377,7 +377,7 @@ class AccountOverview extends React.Component {
                             <p className="_yellow">0 RUB BANK</p>
                         </div>
 
-                        <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE PORTFOLIO</button>
+                        <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button>
 
                         <table className="table trusty_table">
                             <thead>
