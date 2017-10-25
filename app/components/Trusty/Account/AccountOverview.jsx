@@ -1,7 +1,7 @@
 import React from "react";
 import Immutable from "immutable";
 import Translate from "react-translate-component";
-import BalanceComponent from "components/Utility/BalanceComponent";
+import BalanceComponent from "components/Utility/Trusty/BalanceComponent";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import SettleModal from "components/Modal/SettleModal";
 import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/Trusty/EquivalentValueComponent";
@@ -163,8 +163,9 @@ class AccountOverview extends React.Component {
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "left"}}>
                         {~s.search(/open/i)?s.substring(5):s}
-                    </td>
+                    </td>                  
                     <td style={{textAlign: "right"}}>
+                        <BalanceComponent balance={balance} hide_asset />
                         {hasBalance || hasOnOrder
                             ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
                             : "0 BTS"
@@ -174,6 +175,7 @@ class AccountOverview extends React.Component {
                         {directMarketLink}
                     </td>
                     <td style={{textAlign: "right"}}>
+                        <BalanceComponent balance={balance} hide_asset />
                         {hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
                     </td>
                     <td>
@@ -478,3 +480,6 @@ class BalanceWrapper extends React.Component {
 }
 
 export default BindToChainState(BalanceWrapper);
+
+
+
