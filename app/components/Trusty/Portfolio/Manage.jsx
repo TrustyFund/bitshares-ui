@@ -3,6 +3,7 @@ import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import PortfolioStore from "stores/PortfolioStore";
 import './styles.scss';
 import cname from "classnames";
+import Icon from 'components/Icon/Icon'
 
 class ManagePortfolio extends React.Component {
 	constructor(props){
@@ -53,8 +54,9 @@ class ManagePortfolio extends React.Component {
 	renderPortfolioList(assetList){
 		let portfolio = [];
 		let arrow = (
-			<span>
-				<i className="arrowright"></i>
+			<span className="trusty_portfolio_arrow">
+				<Icon name="trusty_portfolio_arrow_right"/>
+				{/*<i className="arrowright"></i>*/}
 			</span>
 		)
 		
@@ -67,7 +69,7 @@ class ManagePortfolio extends React.Component {
 						<div className={name}>{asset.asset}{arrow}</div>
 					</td>
 					<td>
-						<div className={name}>
+						<div className={cname(name, {"_red": false })}>
 							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset.asset)}>- </a>
 							{this.renderShare(asset.share)}
 							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset.asset)}> +</a>
