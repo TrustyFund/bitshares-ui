@@ -2,7 +2,7 @@ import React from "react";
 import FormattedAsset from "../FormattedAsset";
 import ChainTypes from "../ChainTypes";
 import BindToChainState from "../BindToChainState";
-import MarketsStore from "stores/MarketsStore";
+
 
 /**
  *  Given a balance_object, displays it in a pretty way
@@ -22,22 +22,29 @@ class BalanceComponent extends React.Component {
         hide_asset: false
     };
 
+    getPrice(){
+        let { combinedBids, highestBid } = this.props.marketData
+        let amount = Number(this.props.balance.get("balance"));
+        return combinedBids.map(order=>order.getPrice())[0] 
+    }
+
     render() {
-        let { combinedBids, highestBid } = MarketsStore.getState().marketData
-        console.log(combinedBids)
-        console.log(highestBid)
         let amount = Number(this.props.balance.get("balance"));
         let type = this.props.balance.get("asset_type");
-        console.log(amount)
+        console.log("price", this.getPrice())
+        console.log("amount", amount)
         return (
-            <FormattedAsset
-                amount={amount}
-                asset={type}
-                asPercentage={this.props.asPercentage}
-                assetInfo={this.props.assetInfo}
-                replace={this.props.replace}
-                hide_asset={this.props.hide_asset}
-            />
+            <span>
+                { /*this.getPrice() / amount*/ }
+                <FormattedAsset
+                    amount={amount}
+                    asset={type}
+                    asPercentage={this.props.asPercentage}
+                    assetInfo={this.props.assetInfo}
+                    replace={this.props.replace}
+                    hide_asset={this.props.hide_asset}
+                />
+            </span>
         );
     }
 }

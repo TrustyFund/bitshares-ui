@@ -159,14 +159,15 @@ class AccountOverview extends React.Component {
             const canWithdraw = canDepositWithdraw && (hasBalance && balanceObject.get("balance") != 0);
             const canBuy = !!this.props.bridgeCoins.get(symbol);
             let s = asset.get("symbol")
+
             balances.push(
                 <tr key={asset.get("symbol")} style={{maxWidth: "100rem"}}>
                     <td style={{textAlign: "left"}}>
                         {~s.search(/open/i)?s.substring(5):s}
                     </td>                  
                     <td style={{textAlign: "right"}}>
-                        <BalanceComponent balance={balance} hide_asset />
-                        {hasBalance || hasOnOrder
+                        { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData} balance={balance} hide_asset />
+                            : hasBalance || hasOnOrder
                             ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
                             : "0 BTS"
                         }
@@ -175,8 +176,8 @@ class AccountOverview extends React.Component {
                         {directMarketLink}
                     </td>
                     <td style={{textAlign: "right"}}>
-                        <BalanceComponent balance={balance} hide_asset />
-                        {hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
+                        { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData}  balance={balance} hide_asset /> :
+                          hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
                     </td>
                     <td>
                         <MarketCard
