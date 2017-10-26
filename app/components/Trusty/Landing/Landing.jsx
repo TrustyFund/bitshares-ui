@@ -139,7 +139,6 @@ class ImageAnimate extends Component {
             i++
             this.setState({currentIndex: i})
             if(i >= this.props.images.length) this.setState({currentIndex: 0})
-            console.log(i)
         }, 1000)
     }
     componentWillUnmount(){
