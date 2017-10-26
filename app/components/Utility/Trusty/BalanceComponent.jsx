@@ -1,5 +1,5 @@
 import React from "react";
-import FormattedAsset from "../FormattedAsset";
+import FormattedAsset from "./FormattedAsset";
 import ChainTypes from "../ChainTypes";
 import BindToChainState from "../BindToChainState";
 
@@ -31,12 +31,10 @@ class BalanceComponent extends React.Component {
     render() {
         let amount = Number(this.props.balance.get("balance"));
         let type = this.props.balance.get("asset_type");
-        console.log("price", this.getPrice())
-        console.log("amount", amount)
         return (
             <span>
-                { /*this.getPrice() / amount*/ }
                 <FormattedAsset
+                    trfndPrice={this.getPrice()}
                     amount={amount}
                     asset={type}
                     asPercentage={this.props.asPercentage}
