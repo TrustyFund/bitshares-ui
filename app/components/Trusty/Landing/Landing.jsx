@@ -192,6 +192,7 @@ class Landing extends Component {
     }
 
     render() {
+        let goSignup = () => this.props.router.push("/signup")
         let scrollDown = (e, index) =>{
             e.stopPropagation()
             JQuery('html,body').animate({scrollTop: window.innerHeight * (index+1)},450);
@@ -200,7 +201,7 @@ class Landing extends Component {
         let self = this
         let button = 
             <div className="fixed_bottom _mob">
-                <button>INVEST NOW</button>
+                <button onClick={goSignup}>INVEST NOW</button>
                 <div className="trusty_down_arrow" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
@@ -276,7 +277,7 @@ class Landing extends Component {
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
                         <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
-                        <button className="_desk">INVEST NOW</button>
+                        <button className="_desk" onClick={goSignup}>INVEST NOW</button>
                     </div>
                 </div>
                 {button}
@@ -294,7 +295,7 @@ class Landing extends Component {
                  
                     <div className="last_text">
                         <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
-                        <button>INVEST NOW</button>
+                        <button onClick={goSignup}>INVEST NOW</button>
                         <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in index of internet<br/> companies, when 20 million<br/> people used internet</p>
                         <button>FAQ</button>
                     </div>
