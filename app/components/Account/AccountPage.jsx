@@ -13,7 +13,9 @@ import accountUtils from "common/account_utils";
 class AccountPage extends React.Component {
 
     static propTypes = {
-        account: ChainTypes.ChainAccount.isRequired
+        account: ChainTypes.ChainAccount.isRequired,
+        quoteAsset: ChainTypes.ChainAsset.isRequired,
+        baseAsset: ChainTypes.ChainAsset.isRequired,
     };
 
     static defaultProps = {
