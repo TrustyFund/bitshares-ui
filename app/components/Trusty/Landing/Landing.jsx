@@ -37,9 +37,9 @@ let slides = [
         id:2,
 
         image: require('./vendor/img_global_network.png'),
-        title: "3 Min. To Create<br> Decentralized Account",
+        title: "3 min. To Create<br> Decentralized Account",
         text: `
-        Sign up, enter password<br> and your account will be secured<br> by immutable BitShares public<br> blockchain. Only you have the<br> private key`
+        Click Signup, enter password<br> and your account will be secured<br> by immutable BitShares public<br> blockchain. Only you have the<br> private key`
     },
     {
         id:3,
@@ -64,7 +64,7 @@ let slides = [
     {
         id:4,
         image: require('./vendor/img_1click_to_invest.png'),
-        title: "One-Click <br>To Buy Portfolio of Cryptos",
+        title: "One-Click To<br> Buy Portfolio of Cryptos",
         text: `
         Deposit and you already<br> own the selected portfolio of<br> cryptocurrencies and assets.<br> Forget the hassle of buying<br> assets separately
         `
@@ -82,7 +82,7 @@ let slides = [
         image: require('./vendor/img_index.png'),
         title: "One-Click<br>To Fix Income In USD",
         text: `
-        Fix income to wait out prices hyper<br> volatility. One-Click and your funds<br> are all in USD, UER, CNY, Gold, etc.
+        Fix income to wait out prices hyper<br> volatility. One-Click and your funds<br> are all in USD, EUR, CNY, Gold, etc.
         `
     },
     {
@@ -301,7 +301,7 @@ class Landing extends Component {
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralised Exchange.</section>
+                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralized Exchange.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
             </div>
