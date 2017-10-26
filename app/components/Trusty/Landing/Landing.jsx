@@ -35,7 +35,17 @@ let slides = [
 
     {
         id:2,
-
+        images: [
+            require('./vendor/img_glb_netwk01.png'),
+            require('./vendor/img_glb_netwk02.png'),
+            require('./vendor/img_glb_netwk03.png'),
+            require('./vendor/img_glb_netwk04.png'),
+            require('./vendor/img_glb_netwk05.png'),
+            require('./vendor/img_glb_netwk06.png'),
+            require('./vendor/img_glb_netwk07.png'),
+            require('./vendor/img_glb_netwk08.png'),
+            require('./vendor/img_glb_netwk09.png')
+        ],
         image: require('./vendor/img_global_network.png'),
         title: "3 min. To Create<br> Decentralized Account",
         text: `
@@ -63,6 +73,7 @@ let slides = [
 
     {
         id:4,
+        images: [require('./vendor/img_1click_to_invest.png')],
         image: require('./vendor/img_1click_to_invest.png'),
         title: "One-Click To<br> Buy Portfolio of Cryptos",
         text: `
@@ -71,6 +82,7 @@ let slides = [
     },
     {   
         id:5,
+        images: [require('./vendor/img_chng_portfolio.png')],
         image: require('./vendor/img_chng_portfolio.png'),
         title: "One-Click<br>To Manage Portfolio",
         text: `
@@ -79,6 +91,7 @@ let slides = [
     },
     {
         id:6,
+        images: [require('./vendor/img_index.png')],
         image: require('./vendor/img_index.png'),
         title: "One-Click<br>To Fix Income In USD",
         text: `
@@ -107,6 +120,36 @@ let slides = [
     },
 
 ]
+
+
+
+
+class ImageAnimate extends Component {
+    constructor(){
+        super()
+        this.state = {
+            current: "",
+            currentIndex: 0
+        }
+    }
+    componentDidMount(){
+        this.time = setInterval(()=>{
+            let i = this.state.currentIndex
+            this.setState({current: this.props.images[i]})
+            i++
+            this.setState({currentIndex: i})
+            if(i >= this.props.images.length) this.setState({currentIndex: 0})
+            console.log(i)
+        }, 1000)
+    }
+    componentWillUnmount(){
+        clearInterval(this.time)
+    }
+    render(){
+        return <img className={this.props.class} src={this.state.current}/>
+    }
+}
+
 
 
 
@@ -231,6 +274,13 @@ class Landing extends Component {
 
                     : null }
 
+                    { index == 1 ? 
+                        <div>
+                            <ImageAnimate class={"_image _mob"} images={slide.images}/>
+                            {/*<img className="_image _mob" src={this.state["slide_pic_"+index]}/>*/}
+                        </div>
+                    : null }
+
                     { index == 2 ? 
                          <div>
                             <img className="_image _mob" src={currentThird}/>
@@ -245,7 +295,7 @@ class Landing extends Component {
 
                         : null }
 
-                    { index != 0 && index !=2 && index != 6 ? 
+                    { index != 0 && index !=2 && index != 6 && index != 1 ? 
                         <img className="_image" src={slide.image}/>
                     : null }
 
