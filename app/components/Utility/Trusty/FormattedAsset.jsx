@@ -128,7 +128,7 @@ class FormattedAsset extends React.Component {
                 { this.props.dollarShow ? <span style={{paddingRight: "10px"}}>$</span> : null }
                 {!hide_amount ?
                     <FormattedNumber
-                        value={formattedNumber}
+                        value={formattedNumber.toFixed(2)}
                         minimumFractionDigits={0}
                         maximumFractionDigits={decimals}
                     />
