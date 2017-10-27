@@ -79,13 +79,13 @@
     	}
 		}
 
-		.trusty_input_container {
-			margin-bottom: 2vw;
+		form {
+			//padding-top: 2vw;
 		}
 
-		form {
-			padding-top: 2vw;
-		}
+		@include column_trusty_inputs;
 	}
 
 }
+
+

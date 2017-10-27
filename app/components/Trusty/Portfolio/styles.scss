@@ -21,6 +21,17 @@
 	    font-family: Gotham_Pro_Regular;
   	}
 	}
+
+	.portfolio_item span {
+		&._green {
+			color: #79c610;
+		}
+
+		&._red {
+			color: #ff3030;
+		}
+
+	}
 }
 
 
@@ -47,7 +58,12 @@
 		}
 
 		table tbody{
-
+			.trusty_portfolio_arrow_right {
+				margin-left: 2.6vw;
+				svg {
+					height: 5.7vw;
+				}
+			}
 			tr {
 				
 		    transform: translateY(-3vw);
@@ -66,7 +82,7 @@
 		 		padding-left: 10.6vw;
 
 		 		span {
-		 			margin-left: 2vw;
+		 			//margin-left: 2vw;
 		 		}
 
 	  	}

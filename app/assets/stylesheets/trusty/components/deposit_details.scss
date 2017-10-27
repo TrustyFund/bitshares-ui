@@ -28,8 +28,19 @@
   		}
   	}
 
+  	.trusty_input_container {
+			margin-bottom: 6vw !important;
+  	}	
+
 	}
 
+	._clipboard_value {
+    overflow: scroll;
+    span {
+      display: table-cell;
+      padding-right: 10px;
+		}
+	}
 	.trusty_help_text {
     font-size: 4.8vw;
     line-height: 6vw;

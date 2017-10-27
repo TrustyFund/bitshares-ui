@@ -52,7 +52,7 @@ export default class PasswordConfirm extends Component {
 
         return (
             <div
-                className={cname({"has-error": errors.size})} style={{marginTop: "10px"}}
+                className={cname({"has-error": errors.size})}
             >
                     {/*<Translate component="label" content={newPassword ? "wallet.new_password" : "wallet.password"} />*/}
            

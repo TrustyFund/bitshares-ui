@@ -1,6 +1,24 @@
+@mixin column_trusty_inputs {
+  .trusty_input_container:not(.text_area) {
+    margin-bottom: 2vw;
+    position: relative;
+    height: 10.7vw;;
+    .w_input {
+      position: absolute;
+      width: 100%;
+      bottom:0;
+    }
+  }
+}
 
 
 @media screen and (max-width: 768px) {
+  @include column_trusty_inputs;
+  
+  body .trusty_input_container:first-child {
+    height: 10.4vw;
+  }
+
 
   .trusty_input_container {
 
@@ -27,7 +45,12 @@
       
 
     }
-    
+     
+    textarea {
+      padding-left: 0;
+    }
+
+
   }
 
 }
@@ -44,7 +67,7 @@
   .t_right{
     display: inline-block;
     position: absolute;
-    top:0;
+    bottom:0;
     right:0;
     span {
       display: inline-block;
@@ -90,10 +113,12 @@
     }
 
     input::placeholder {
+      font-family: Gotham_Pro_Regular;
       text-transform: uppercase;
       color: white !important;
 
       @media screen and (max-width: 750px) {
+        letter-spacing: .23vw !important;
         font-size: 4vw !important;
         letter-spacing: .4vw;
       }

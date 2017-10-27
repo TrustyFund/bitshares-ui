@@ -63,10 +63,10 @@ class TrustyInput extends React.Component {
 		let body = document.body
 		let newLabel = this.props.label != "label here" 
 		return (
-				<div className="trusty_input_container">
-					<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+				<div className={cname("trusty_input_container",{ "text_area": this.props.textArea })}>
+					{/*<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>*/}
 						{ this.state.opened ? <label>{this.props.label}</label> : null }
-					</CSSTransitionGroup>
+					{/*</CSSTransitionGroup>*/}
 					<div className="w_input">
 						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
 
@@ -81,7 +81,7 @@ class TrustyInput extends React.Component {
 
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
-							{this.props.right || this.state.opened ? <Icon name="trusty_input_close" /> : null }
+							{this.props.right }
 						</div>
 					</div>
 				</div>

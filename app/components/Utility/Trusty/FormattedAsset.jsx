@@ -33,6 +33,7 @@ class FormattedAsset extends React.Component {
         assetInfo: PropTypes.node,
         dollarShow: PropTypes.bool,
         trustyPercentage: PropTypes.bool,
+        trfndPrice:  PropTypes.number
     };
 
     static defaultProps = {
@@ -44,7 +45,8 @@ class FormattedAsset extends React.Component {
         assetInfo: null,
         replace: true,
         dollarShow: false,
-        trustyPercentage: false
+        trustyPercentage: false,
+        trfndPrice: 0
     };
 
     constructor(props) {
@@ -117,12 +119,16 @@ class FormattedAsset extends React.Component {
             {this.props.assetInfo}
         </div>;
 
+
+        let formattedNumber = this.props.exact_amount ? amount : amount / precision
+        if(this.props.trfndPrice) formattedNumber = formattedNumber * this.props.trfndPrice
+
         return (
                 <span className={colorClass}>
                 { this.props.dollarShow ? <span style={{paddingRight: "10px"}}>$</span> : null }
                 {!hide_amount ?
                     <FormattedNumber
-                        value={this.props.exact_amount ? amount : amount / precision}
+                        value={formattedNumber.toFixed(2)}
                         minimumFractionDigits={0}
                         maximumFractionDigits={decimals}
                     />
