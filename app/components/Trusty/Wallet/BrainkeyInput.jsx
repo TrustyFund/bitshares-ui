@@ -83,7 +83,7 @@ export default class BrainkeyInput extends Component {
 
         let {warn, word_count_label, checked_words} = this._checkBrainKey();
         let textArea =  <textarea
-                        placeholder="12 security words; can be found in your account settings"
+
                         tabIndex={this.props.tabIndex || 1}
                         onChange={this.formChange.bind(this)}
                         value={this.state.brnkey} id="brnkey"
@@ -92,7 +92,7 @@ export default class BrainkeyInput extends Component {
 
             <div className="trusty_brainkey_input">
                 <TrustyInput input={ textArea } label="brainkey" textArea={true}/>
-                <div style={{textAlign: "left"}} className="grid-content no-padding no-overflow">{ checked_words }</div>
+                { /*<div style={{textAlign: "left"}} className="grid-content no-padding no-overflow">{ checked_words }</div>*/ }
                 { this.state.check_digits && ! this.props.hideCheckDigits ? <div>
                     <br/>
                     <pre className="no-overflow">{this.state.check_digits} * Check Digits</pre>

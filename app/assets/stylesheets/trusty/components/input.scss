@@ -15,12 +15,27 @@
 @media screen and (max-width: 768px) {
   @include column_trusty_inputs;
   
-  body .trusty_input_container:first-child {
-    height: 10.4vw;
+  .trusty_input_container.text_area {
+    //margin-bottom: 4.5vw;
+    textarea {
+      padding-top: 6vw;
+
+    }
+    .t_input {
+      height: 6vw;
+      transition: all .2s;
+    }
+
+    &.opened_text_area {
+      label {
+        top: 1vw;
+      }
+      .t_input {
+        height: 28vw !important;
+      }
+    }
   }
   
-
-
 
   .trusty_input_container {
 
@@ -35,6 +50,7 @@
     }
 
     .trusty_place_holder.no_opened {
+      width: 100%;
       font-family: Gotham_Pro_Regular;
       text-transform: uppercase;
       color: white !important;
