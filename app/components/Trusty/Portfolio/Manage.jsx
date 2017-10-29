@@ -8,11 +8,18 @@ import Icon from 'components/Icon/Icon'
 class ManagePortfolio extends React.Component {
 	constructor(props){
 		super();
+		this.state = {
+			valid: false,
+			initPortfolio: PortfolioStore.getPortfolio()
+		}
+		this.renderTotalShare = this.renderTotalShare.bind(this);
+		this.getButtonClass = this.getButtonClass.bind(this);
 	}
 
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
-		let renderedPortfolio = this.renderPortfolioList(portfolio.data);		
+		let renderedPortfolio = this.renderPortfolioList(portfolio.data);	
+		let total = PortfolioStore.getTotalPercentage();	
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -31,23 +38,34 @@ class ManagePortfolio extends React.Component {
 					{renderedPortfolio}
 					<tr>
 						<td></td>
-						<td>{this.renderShare(PortfolioStore.getTotalPercentage())}</td>
+						<td>{this.renderTotalShare(total)}</td>
 					</tr>
 					</tbody>
 				</table>
 				<br/>
 				<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
 				<div className="trusty_inline_button">
-		            <button className="wide">UPDATE PORTFOLIO</button>                        
+		            <button className={this.getButtonClass()}>UPDATE PORTFOLIO</button>                        
 		        </div>
 			</TabContent>
 		);
 	}
 
-	renderShare(share){
+	renderShare(share,className){
 		return (
-			<span>{share}%</span>
+			<span className={className}>{share}%</span>
 		)
+	}
+
+	renderTotalShare(total){
+		let className = (total != 100) ? "wrong-total" : "";
+		return (
+			<span className={className}>{total}%</span>
+		)
+	}
+
+	getButtonClass(){
+		return (PortfolioStore.isValid()) ? "wide" : "disabled wide";
 	}
 
 	renderPortfolioList(assetList){
@@ -55,13 +73,13 @@ class ManagePortfolio extends React.Component {
 		let arrow = (
 			<span className="trusty_portfolio_arrow">
 				<Icon name="trusty_portfolio_arrow_right"/>
-				{/*<i className="arrowright"></i>*/}
 			</span>
 		)
 		
 		//TODO: сделать сдесь ссылку на описание Ассета
 		assetList.forEach( (asset, i) => {
 			let name = "portfolio_item _" + i
+			let assetClass = this.getAssetClass.bind(this,asset);
 			portfolio.push(
 				<tr key={asset.asset}>
 					<td>
@@ -69,9 +87,9 @@ class ManagePortfolio extends React.Component {
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
-							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset.asset)}>- </a>
-							{this.renderShare(asset.share)}
-							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset.asset)}> +</a>
+							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>- </a>
+							{this.renderShare(asset.share,assetClass(asset))}
+							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset)}> +</a>
 						</div>
 					</td>
 				</tr>
@@ -81,13 +99,27 @@ class ManagePortfolio extends React.Component {
 	}
 
 	_incrementAsset(asset){
-		PortfolioStore.incrementAsset(asset);
+		PortfolioStore.incrementAsset(asset.asset);
 		this.forceUpdate();
 	}
 
 	_decrementAsset(asset){
-		PortfolioStore.decrementAsset(asset);
+		PortfolioStore.decrementAsset(asset.asset);
 		this.forceUpdate();
+	}
+
+	getAssetClass(asset){
+		let className = "normal";
+		let assetIndex = this.state.initPortfolio.map.indexOf(asset.asset);
+		let loadedShare = this.state.initPortfolio.data[assetIndex].share;
+		if (asset.share > loadedShare){
+			className = "greater";
+		}else if(asset.share < loadedShare){
+			className = "less";
+		}else{
+			className = "normal";
+		}
+		return className;
 	}
 
 	render(){

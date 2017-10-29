@@ -6,18 +6,22 @@ let portfolioStorage = new ls("__trusty_portfolio__");
 
 class PortfolioStore extends BaseStore {
 
+
 	constructor() {
         super();
+        this.summValid = false;
         this._export(
             "getPortfolio",
             "getTotalPercentage",
             "incrementAsset",
-            "decrementAsset"
+            "decrementAsset",
+            "isValid"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
         this.incrementAsset = this.incrementAsset.bind(this);
         this.decrementAsset = this.decrementAsset.bind(this);
+        this.isValid = this.isValid.bind(this);
     }
 
     getPortfolio(){
@@ -73,8 +77,13 @@ class PortfolioStore extends BaseStore {
         storedPortfolio.data.forEach(current => {
             result = result + current.share;
         });
+        this.summValid = result == 100;
         return result;
     }	
+
+    isValid(){
+        return this.summValid;
+    }
 }
 
 export default alt.createStore(PortfolioStore, "PortfolioStore");

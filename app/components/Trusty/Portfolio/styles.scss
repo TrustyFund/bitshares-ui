@@ -175,6 +175,14 @@
 	width: 100%;
 }
 
+.greater{
+	color: #79c610;
+}
+
+.less{
+	color: #ff3030;
+}
+
 .managePortfolio td{
 	text-align: center;
 }
@@ -184,10 +192,8 @@
 	padding-top: 10px;
 }
 
-.bottomBlock{
-	position: fixed;
-	bottom: 0;
-	padding-bottom: 20px;
+.wrong-total{
+	color: #ff3030;
 }
 
 .trusty_inline_button{
@@ -201,6 +207,12 @@
 		background-color: #fff !important;
 		height: 50px;
 		color: black;
+	}
+
+	.disabled{
+	    opacity: 0.5;
+	    cursor: default;
+	    pointer-events: none;
 	}
 }
 
