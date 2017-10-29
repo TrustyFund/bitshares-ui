@@ -160,7 +160,7 @@ class CreateNewWallet extends Component {
 										</div>) : null}
 								
 								{ this.state.custom_brainkey ? (
-								<div>
+								<div className="trusty_wrap_brainkey_input">
 										{/*<label><Translate content="wallet.brainkey" /></label>*/}
 										<BrainkeyInput tabIndex={4} onChange={this.onBrainkey.bind(this)} errorCallback={(warn) => {
 												let {errors} = this.state;
