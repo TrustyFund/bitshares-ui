@@ -14,7 +14,6 @@ import SyncError from "./components/SyncError";
 import LoadingIndicator from "./components/LoadingIndicator";
 import Header from "components/Trusty/Layout/Header";
 import MobileMenu from "components/Layout/MobileMenu";
-import Chat from "./components/Chat/ChatWrapper";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
@@ -50,9 +49,6 @@ class Trusty extends React.Component {
             synced: ChainStore.subscribed,
             syncFail,
             theme: SettingsStore.getState().settings.get("themes"),
-            disableChat: SettingsStore.getState().settings.get("disableChat", true),
-            showChat: SettingsStore.getState().viewSettings.get("showChat", false),
-            dockedChat: SettingsStore.getState().viewSettings.get("dockedChat", false),
             isMobile: !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
         };
 
@@ -135,23 +131,6 @@ class Trusty extends React.Component {
                 theme: settings.get("themes")
             });
         }
-        if (settings.get("disableChat") !== this.state.disableChat) {
-            this.setState({
-                disableChat: settings.get("disableChat")
-            });
-        }
-
-        if (viewSettings.get("showChat") !== this.state.showChat) {
-            this.setState({
-                showChat: viewSettings.get("showChat")
-            });
-        }
-
-        if (viewSettings.get("dockedChat") !== this.state.dockedChat) {
-            this.setState({
-                dockedChat: viewSettings.get("dockedChat")
-            });
-        }
 
     }
 
@@ -177,7 +156,7 @@ class Trusty extends React.Component {
     }
     render() {
         
-        let {disableChat, isMobile, showChat, dockedChat, theme} = this.state;
+        let {theme} = this.state;
         let content = null;
         let pathname = this.props.location.pathname;
         let showFooter = pathname.indexOf("market") === -1;
