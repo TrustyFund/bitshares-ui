@@ -23,7 +23,8 @@ class TrustyInput extends React.Component {
   		this.state = {
   			value: "",
   			opened: false,
-  			showClose: false
+  			showClose: false,
+  			focused: false
   		}
   		this.handleChange = this.handleChange.bind(this)
   		this.setOpened = this.setOpened.bind(this)
@@ -42,15 +43,22 @@ class TrustyInput extends React.Component {
 	}
 
 	componentDidUpdate(){
-		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
-		if(input!==null)input.focus()
-		if(this.focus) this.focus.remove()
 
-		if( input )  {
-			this.focus = listen( input,"focus",e=>{
-				this.setOpened(true)
-			})
+		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
+
+		if(input!==null && this.state.opened){
+			if(this.state.focused) return 
+			this.setState({focused: true})
+			input.focus()
 		}
+
+
+		// if(this.blur) this.blur.remove()
+		// if( input )  {
+		// 	this.blur = listen( input,"blur",e=>{
+		// 		this.setOpened(false)
+		// 	})
+		// }
 
 		//let value = this.props.textArea ? input.textContent : input.value
 		//console.log(value)
