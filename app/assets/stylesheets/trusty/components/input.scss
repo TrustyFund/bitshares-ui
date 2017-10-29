@@ -19,9 +19,11 @@
     //margin-bottom: 4.5vw;
     textarea {
       padding-top: 6vw;
+
     }
     .t_input {
       height: 6vw;
+      transition: all .2s;
     }
 
     &.opened_text_area {
@@ -29,7 +31,7 @@
         top: 1vw;
       }
       .t_input {
-        height: 25vw !important;
+        height: 28vw !important;
       }
     }
   }
