@@ -345,7 +345,7 @@ class Landing extends Component {
                     <div className="last_text">
                         <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
                         <button onClick={goSignup}>INVEST NOW</button>
-                        <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in index of internet<br/> companies, when 20 million<br/> people used internet</p>
+                        <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in internet companies, when 20 million people <br/> used internet</p>
                         <button>FAQ</button>
                     </div>
    
