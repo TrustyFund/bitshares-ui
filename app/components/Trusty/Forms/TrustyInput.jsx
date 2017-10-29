@@ -43,7 +43,7 @@ class TrustyInput extends React.Component {
 
 	componentDidUpdate(){
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
-
+		if(input!==null)input.focus()
 		if(this.focus) this.focus.remove()
 
 		if( input )  {
@@ -59,25 +59,31 @@ class TrustyInput extends React.Component {
 	}
 
 	render(){
+		let input = <input 
+										id="_id_trusty_input"
+										style={{display: "none"}}
+										onBlur={this.setOpened.bind(this,false)}
+										onFocus={this.setOpened.bind(this,true)}
+										type="text" 
+										value={this.state.value} 
+										onChange={this.handleChange} 
+										placeholder={!this.state.opened  ? this.props.label: ""} />
+
+
 
 		let body = document.body
 		let newLabel = this.props.label != "label here" 
 		return (
 				<div className={cname("trusty_input_container",{ "text_area": this.props.textArea })}>
 					{/*<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>*/}
-						{ this.state.opened ? <label>{this.props.label}</label> : null }
+						{/* this.state.opened ? <label>{this.props.label}</label> : null*/ }
 					{/*</CSSTransitionGroup>*/}
 					<div className="w_input">
 						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
 
-							{ this.props.input && this.state.opened ? this.props.input : null 
-								|| <input 
-										onBlur={this.setOpened.bind(this,false)}
-										onFocus={this.setOpened.bind(this,true)}
-										type="text" 
-										value={this.state.value} 
-										onChange={this.handleChange} 
-										placeholder={!this.state.opened  ? this.props.label: ""} /> }
+							<label onClick={()=>this.setState({ opened: !this.state.opened})} className={cname("trusty_place_holder", {"no_opened":!this.state.opened})}>{this.props.label}</label>
+							{ this.props.input && this.state.opened ? this.props.input : null } 
+							{ !this.state.opened ? input : null }
 
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>

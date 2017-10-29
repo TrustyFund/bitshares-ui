@@ -242,7 +242,7 @@ class CreateAccount extends React.Component {
                 {/*<div className="divider" />*/}
 
                 {/* Submit button */}
-                <p className="_tooltip_p _yellow">{" White down your password, it CAN'T BE RECOVERED "} </p>
+                <p className="_tooltip_p _yellow">{" Write down your password, it CAN'T BE RECOVERED "} </p>
                 <div className="trusty_form_buttons">
                     {this.state.loading ?  
                         <LoadingIndicator type="three-bounce"/> : 
