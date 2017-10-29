@@ -18,6 +18,8 @@
   body .trusty_input_container:first-child {
     height: 10.4vw;
   }
+  
+
 
 
   .trusty_input_container {
@@ -26,7 +28,24 @@
       margin-top: 6vw;
     }
 
+    .trusty_place_holder {
+      position: absolute;
+      left: 0;
+      bottom: 6.8vw;    
+    }
+
+    .trusty_place_holder.no_opened {
+      font-family: Gotham_Pro_Regular;
+      text-transform: uppercase;
+      color: white !important;
+      letter-spacing: .23vw !important;
+      font-size: 4vw !important;
+      letter-spacing: .4vw;
+      bottom: 1.7vw;
+    }
+
     label {
+      transition: all .2s;
       font-size: 3.5vw;
       margin-bottom: 0 !important;
     }
