@@ -35,12 +35,11 @@ class ManagePortfolio extends React.Component {
 					</tr>
 					</tbody>
 				</table>
-				<div className="bottomBlock">
-					<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
-					<div className="trusty_inline_button">
-            <button className="wide">UPDATE PORTFOLIO</button>                        
-          </div>
-				</div>
+				<br/>
+				<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
+				<div className="trusty_inline_button">
+		            <button className="wide">UPDATE PORTFOLIO</button>                        
+		        </div>
 			</TabContent>
 		);
 	}

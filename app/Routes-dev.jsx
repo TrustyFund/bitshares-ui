@@ -75,81 +75,8 @@ const routes = (
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
         <Route path="/terms-of-use" component={TermsOfUse} />
-{/*        <Route path="/auth/:data" component={Auth}/>
-        <Route path="/dashboard" component={DashboardContainer}/>
-        <Route path="explorer" component={Explorer}/>
-        <Route path="/explorer/fees" component={FeesContainer} />
-        <Route path="/explorer/blocks" component={BlocksContainer} />
-        <Route path="/explorer/assets" component={AssetsContainer} />
-        <Route path="/explorer/accounts" component={AccountsContainer} />
-        <Route path="/explorer/witnesses" component={Witnesses} />
-        <Route path="/explorer/committee-members" component={CommitteeMembers} />*/}
-
-{        /*<Route path="wallet" component={WalletManager} >
-          
-            <IndexRoute component={WalletOptions} />
-            <Route path="change" component={ChangeActiveWallet} />
-            <Route path="change-password" component={WalletChangePassword} />
-            <Route path="import-keys" component={ImportKeys} />
-            <Route path="brainkey" component={ExistingAccountOptions} />
-            <Route path="create" component={WalletCreate} />
-            <Route path="delete" component={WalletDelete} />
-            <Route path="backup/restore" component={BackupRestore} />
-            <Route path="backup/create" component={BackupCreate} />
-            <Route path="backup/brainkey" component={BackupBrainkey} />
-            <Route path="balance-claims" component={BalanceClaimActive} />
-        </Route>*/ }
-
-        {/*<Route path="create-wallet" component={WalletCreate} />*/}
+        <Route path="/dashboard" component={AccountOverview}/>
         <Route path="create-wallet-brainkey" component={CreateWalletFromBrainkey} />
-
-{/*        <Route path="transfer" component={Transfer}/>
-
-        <Route path="invoice/:data" component={Invoice} />
-        <Route path="explorer/markets" component={MarketsContainer} />
-        <Route path="market/:marketID" component={ExchangeContainer} />
-        <Route path="settings" component={SettingsContainer} />
-        <Route path="block/:height" component={BlockContainer} />
-        <Route path="asset/:symbol" component={Asset} />
-        <Route path="create-account" component={LoginSelector}>
-            <Route path="wallet" component={CreateAccount} />
-            <Route path="password" component={CreateAccountPassword} />
-        </Route>
-
-        <Route path="existing-account" component={ExistingAccount} >
-            <IndexRoute component={BackupRestore} />
-            <Route path="import-backup" component={ExistingAccountOptions} />
-            <Route path="import-keys" component={ImportKeys} />
-            <Route path="brainkey" component={Brainkey} />
-            <Route path="balance-claim" component={BalanceClaimActive} />
-        </Route>*/}
-
-{/*        <Route path="/account/:account_name" component={AccountPageOld} >
-            <IndexRoute component={AccountOverviewOld} />
-            <Route path="overview" component={AccountOverviewOld} />
-            <Route path="assets" component={AccountAssets} />
-            <Route path="create-asset" component={AccountAssetCreate} />
-            <Route path="update-asset/:asset" component={AccountAssetUpdate} />
-            <Route path="member-stats" component={AccountMembership} />
-            <Route path="vesting" component={AccountVesting} />
-            <Route path="permissions" component={AccountPermissions} />
-            <Route path="voting" component={AccountVoting} />
-            <Route path="deposit-withdraw" component={AccountDepositWithdraw} />
-            <Route path="orders" component={AccountOrders} />
-            <Route path="whitelist" component={AccountWhitelist} />
-            <Redirect from="overview" to="dashboard" />
-        </Route>*/}
-
-{/*        <Route path="deposit-withdraw" component={AccountDepositWithdraw} />
-        <Route path="create-worker" component={CreateWorker} />
-        <Route path="/init-error" component={InitError} />
-        <Route path="/help" component={Help} >
-            <Route path=":path1" component={Help} >
-                <Route path=":path2" component={Help} >
-                    <Route path=":path3" component={Help} />
-                </Route>
-            </Route>
-        </Route>*/}
     </Route>
 );
 
