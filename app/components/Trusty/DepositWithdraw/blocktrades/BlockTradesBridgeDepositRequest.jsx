@@ -5,7 +5,7 @@ import BindToChainState from "components/Utility/BindToChainState";
 import BaseModal from "components/Modal/BaseModal";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import AccountBalance from "components/Account/AccountBalance";
-import WithdrawModalBlocktrades from "components/DepositWithdraw/blocktrades/WithdrawModalBlocktrades";
+import WithdrawModalBlocktrades from "components/Trusty/DepositWithdraw/blocktrades/WithdrawModalBlocktrades";
 import BlockTradesDepositAddressCache from "common/BlockTradesDepositAddressCache";
 import utils from "common/utils";
 import AccountActions from "actions/AccountActions";
@@ -20,6 +20,7 @@ import Icon from 'components/Icon/Icon';
 import $ from 'jquery'
 
 import TrustyInput from 'components/Trusty/Forms/TrustyInput';
+
 
 
 
@@ -272,11 +273,16 @@ class ButtonWithdraw extends React.Component {
         ZfApi.publish(this.getWithdrawModalId(), "open");
     }
 
+    componentDidMount(){
+        ZfApi.publish(this.getWithdrawModalId(), "open");
+    }
+
     render() {
 
         let withdraw_modal_id = this.getWithdrawModalId();
 
         let button_class = "button disabled";
+
         if (Object.keys(this.props.account.get('balances').toJS()).includes(this.props.asset.get('id')) ) {
             if (!(this.props.amount_to_withdraw.indexOf(' ') >= 0) && !isNaN(this.props.amount_to_withdraw) && (this.props.amount_to_withdraw > 0) && (this.props.amount_to_withdraw <= this.props.balance.toJS().balance/utils.get_asset_precision(this.props.asset.get("precision")))) {
 
@@ -680,6 +686,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
     }
 
     componentWillMount() {
+
         // check api.blocktrades.us/v2
         let checkUrl = this.state.url;
         this.urlConnection(checkUrl, 0);
@@ -719,6 +726,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 
     componentDidMount()
     {
+        this.triggerInputAmountChange()
         this.update_timer = setInterval(this.updateEstimates.bind(this), this.refresh_interval);
     }
 
@@ -976,6 +984,24 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         });
 
         return null;
+    }
+
+    triggerInputAmountChange(deposit_withdraw_or_convert="withdraw")
+    {
+        let new_estimated_input_amount = "1";
+
+        let new_estimated_output_amount = this.getAndUpdateOutputEstimate(deposit_withdraw_or_convert,
+                                                                          this.state[deposit_withdraw_or_convert + "_input_coin_type"],
+                                                                          this.state[deposit_withdraw_or_convert + "_output_coin_type"],
+                                                                          new_estimated_input_amount);
+
+        this.setState(
+        {
+            [deposit_withdraw_or_convert + "_estimated_input_amount"]: new_estimated_input_amount,
+            [deposit_withdraw_or_convert + "_estimated_output_amount"]: new_estimated_output_amount,
+            [deposit_withdraw_or_convert + "_estimate_direction"]: this.estimation_directions.output_from_input,
+            key_for_withdrawal_dialog: new_estimated_input_amount
+        });
     }
 
     onInputAmountChanged(deposit_withdraw_or_convert, event)
