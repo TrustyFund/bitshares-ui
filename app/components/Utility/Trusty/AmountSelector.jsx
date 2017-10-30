@@ -1,11 +1,12 @@
 import React from "react";
 import Translate from "react-translate-component";
-import ChainTypes from "../Utility/ChainTypes";
-import BindToChainState from "../Utility/BindToChainState";
-import FormattedAsset from "./FormattedAsset";
-import FloatingDropdown from "./FloatingDropdown";
+import ChainTypes from "../ChainTypes";
+import BindToChainState from "../BindToChainState";
+import FormattedAsset from "../FormattedAsset";
+import FloatingDropdown from "../FloatingDropdown";
 import Immutable from "immutable";
 import counterpart from "counterpart";
+import TrustyInput from "components/Trusty/Forms/TrustyInput"
 
 class AssetSelector extends React.Component {
 
@@ -71,12 +72,7 @@ class AmountSelector extends React.Component {
 
     render() {
         let value = this.props.error ? counterpart.translate(this.props.error) : this.formatAmount(this.props.amount);
-        return (
-            <div className="amount-selector" style={this.props.style}>
-                <label className="right-label">{this.props.display_balance}</label>
-                <Translate className="left-label" component="label" content={this.props.label}/>
-                <div className="inline-label input-wrapper">
-                    <input
+        let input = <input
                         disabled={this.props.disabled}
                         type="text"
                         value={value || ""}
@@ -84,6 +80,14 @@ class AmountSelector extends React.Component {
                         onChange={this._onChange.bind(this) }
                         tabIndex={this.props.tabIndex}
                     />
+
+        return (
+            <div className="amount-selector" style={this.props.style}>
+                <label className="right-label">{this.props.display_balance}</label>
+                <Translate className="left-label" component="label" content={this.props.label}/>
+                <div className="inline-label input-wrapper">
+                    {<TrustyInput input={input} label={this.props.label}/>}
+                    {/*input*/}
                     <div className="form-label select floating-dropdown">
                         <AssetSelector
                             ref={this.props.refCallback}

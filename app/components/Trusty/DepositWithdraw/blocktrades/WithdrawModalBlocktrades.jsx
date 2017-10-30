@@ -6,7 +6,7 @@ import BindToChainState from "components/Utility/BindToChainState";
 import utils from "common/utils";
 import BalanceComponent from "components/Utility/BalanceComponent";
 import counterpart from "counterpart";
-import AmountSelector from "components/Utility/AmountSelector";
+import AmountSelector from "components/Utility/Trusty/AmountSelector";
 import AccountActions from "actions/AccountActions";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import { validateAddress, WithdrawAddresses } from "common/blockTradesMethods";
