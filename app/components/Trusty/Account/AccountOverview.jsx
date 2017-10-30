@@ -7,7 +7,7 @@ import SettleModal from "components/Modal/SettleModal";
 import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/Trusty/EquivalentValueComponent";
 import AssetName from "components/Utility/Trusty/AssetName";
 import CollateralPosition from "components/Blockchain/CollateralPosition";
-import { RecentTransactions } from "components/Account/RecentTransactions";
+import { RecentTransactions } from "components/Trusty/Account/RecentTransactions";
 import Proposals from "components/Account/Proposals";
 import {ChainStore} from "bitsharesjs/es";
 import SettingsActions from "actions/SettingsActions";
@@ -373,12 +373,19 @@ class AccountOverview extends React.Component {
                         </div> 
                         {
                             totalBalance ? (
-                                <div className="trusty_profile_incoming_depositis">
-                                    <p>Incoming deposits</p>
-                                    <p className="_yellow">0 RUB BANK</p>
-                                </div>
+                                <RecentTransactions
+                                    accountsList={Immutable.fromJS([account.get("id")])}
+                                    compactView={true}
+                                    showMore={false}
+                                    fullHeight={true}
+                                    limit={300}
+                                    showFilters={true}
+                                    dashboard
+                                />
                             ) : null
                         }
+
+                        
                         
                         {
                             totalBalance ? <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button> : null
