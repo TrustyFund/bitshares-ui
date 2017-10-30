@@ -86,7 +86,7 @@ class AmountSelector extends React.Component {
                 <label className="right-label">{this.props.display_balance}</label>
                 <Translate className="left-label" component="label" content={this.props.label}/>
                 <div className="inline-label input-wrapper">
-                    {<TrustyInput input={input} label={this.props.label}/>}
+                    {<TrustyInput input={input} label={this.props.trustyLabel}/>}
                     {/*input*/}
                     <div className="form-label select floating-dropdown">
                         <AssetSelector
