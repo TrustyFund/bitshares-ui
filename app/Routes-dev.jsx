@@ -15,6 +15,7 @@ import Landing from "components/Trusty/Landing/Landing"
 import Withdraw from "components/Trusty/Account/Withdraw"
 import Deposit from "components/Trusty/Account/Deposit"
 import ManagePortfolio from "components/Trusty/Portfolio/Manage"
+import Backup from "components/Trusty/Wallet/BackupBrainkey"
 
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
@@ -31,6 +32,7 @@ const routes = (
             <IndexRoute component={AccountOverview}/>
             <Route path="overview" component={AccountOverview} />
         </Route>
+        <Route path="/backup" component={Backup} />
         <Route path="/manage" component={ManagePortfolio} />
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
