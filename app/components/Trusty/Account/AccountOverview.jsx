@@ -341,7 +341,7 @@ class AccountOverview extends React.Component {
                 openOrders={orders}
                 debt={debt}
                 collateral={collateral}
-            /> : null;
+            /> : false;
 
         let showAssetPercent = settings.get("showAssetPercent", false);
 
@@ -360,17 +360,29 @@ class AccountOverview extends React.Component {
                     <div className="generic-bordered-box">
                         <br/>
                         <div className="trusty_total_funds">
-                            <p>{this.props.account_name} TOTAL FUNDS</p>
-                            <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
+                            {
+                                totalBalance 
+                                ?
+                                    <div>
+                                        <p>{this.props.account_name} TOTAL FUNDS</p>
+                                        <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
+                                    </div>
+                                :
+                                    <p>Deposit smth to manage funds</p>
+                            }
                         </div> 
-
-                        <div className="trusty_profile_incoming_depositis">
-                            <p>Incoming deposits</p>
-                            <p className="_yellow">0 RUB BANK</p>
-                        </div>
-
-                        <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button>
-
+                        {
+                            totalBalance ? (
+                                <div className="trusty_profile_incoming_depositis">
+                                    <p>Incoming deposits</p>
+                                    <p className="_yellow">0 RUB BANK</p>
+                                </div>
+                            ) : null
+                        }
+                        
+                        {
+                            totalBalance ? <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button> : null
+                        }
                         <table className="table trusty_table">
                             <thead>
                                 <tr>

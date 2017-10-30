@@ -186,10 +186,9 @@ class Trusty extends React.Component {
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
                         <Icon name="trusty_arrow_back"/>
-                        {/*<button  className="trusty_header_arrow" dangerouslySetInnerHTML={{__html: require('components/Trusty/icons/arrow.svg')}} />*/}
                       </span>)
                 }
-                { isProfilePage ? <Icon name="trusty_options"/> : null }
+                { isProfilePage ? <Link to="/backup"> <Icon name="trusty_options"/> </Link> : null }
                 <span className="header_title">{getHeaderTitle()}</span>
             </header>
         )
