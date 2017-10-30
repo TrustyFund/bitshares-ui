@@ -83,8 +83,8 @@ class AmountSelector extends React.Component {
 
         return (
             <div className="amount-selector" style={this.props.style}>
-                <label className="right-label">{this.props.display_balance}</label>
-                <Translate className="left-label" component="label" content={this.props.label}/>
+                {/*<label className="right-label">{this.props.display_balance}</label>
+                                <Translate className="left-label" component="label" content={this.props.label}/>*/}
                 <div className="inline-label input-wrapper">
                     {<TrustyInput input={input} label={this.props.trustyLabel}/>}
                     {/*input*/}

@@ -489,7 +489,7 @@ class WithdrawModalBlocktrades extends React.Component {
                 {/* Fee selection */}
                 {this.state.feeAmount ? <div className="content-block gate_fee">
                     <AmountSelector
-                        trustyLabel="exchange fee"
+                        trustyLabel="enter address"
                         refCallback={this.setNestedRef.bind(this)}
                         label="transfer.fee"
                         disabled={true}
@@ -518,9 +518,9 @@ class WithdrawModalBlocktrades extends React.Component {
                         </div>
                     </div>):null}
                 <div className="content-block">
-                    <label className="left-label">
-                        <Translate component="span" content="modal.withdraw.address"/>
-                    </label>
+                    {/*<label className="left-label">
+                                            <Translate component="span" content="modal.withdraw.address"/>
+                                        </label>*/}
                     <div className="blocktrades-select-dropdown">
                         <div className="inline-label">
                             <TrustyInput

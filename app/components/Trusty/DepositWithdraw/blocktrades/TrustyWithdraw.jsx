@@ -16,10 +16,10 @@ import Modal from "react-foundation-apps/src/modal";
 import { checkFeeStatusAsync, checkBalance } from "common/trxHelper";
 import {Asset} from "common/MarketClasses";
 import { debounce } from "lodash";
-import TrustyInput from "components/Trusty/Forms/TrustyInput";
+import { TrustyInput } from "components/Trusty/Forms/TrustyInput";
 
 
-class ButtonWithdraw extends React.Component {
+class TrustryWithdraw extends React.Component {
     static propTypes = {
         balance: ChainTypes.ChainObject,
         url: React.PropTypes.string.isRequired
@@ -27,14 +27,6 @@ class ButtonWithdraw extends React.Component {
 
     getWithdrawModalId() {
         return "withdraw_asset_" + this.props.gateway + "_bridge";
-    }
-
-    onWithdraw() {
-        ZfApi.publish(this.getWithdrawModalId(), "open");
-    }
-
-    componentDidMount(){
-        ZfApi.publish(this.getWithdrawModalId(), "open");
     }
 
     render() {
@@ -51,36 +43,31 @@ class ButtonWithdraw extends React.Component {
             }
         }
 
-        return (<span>
-                    <span>
-                        <button className={button_class} onClick={this.onWithdraw.bind(this)}><Translate content="" /><Translate content="gateway.withdraw_now" /> </button>
-                    </span>
-                    <BaseModal id={withdraw_modal_id} overlay={true}>
-                        <br/>
-                        <div className="grid-block vertical">
-                            <WithdrawModalBlocktrades
-								key={`${this.props.key}`}
-                                account={this.props.account.get('name')}
-                                issuer={this.props.issuer}
-                                asset={this.props.asset.get('id')}
-                                output_coin_name={this.props.output_coin_name}
-                                output_coin_symbol={this.props.output_coin_symbol}
-                                output_coin_type={this.props.output_coin_type}
-								output_supports_memos={this.props.output_supports_memos}
-                                amount_to_withdraw={this.props.amount_to_withdraw}
-                                modal_id={withdraw_modal_id}
-                                url={this.props.url}
-                                output_wallet_type={this.props.output_wallet_type}
-                                balance={this.props.account.get("balances").toJS()[this.props.asset.get('id')]} />
-                        </div>
-                    </BaseModal>
-                </span>);
+        return (<div>
+                    <div className="grid-block vertical">
+                        <WithdrawModalBlocktrades
+							key={`${this.props.key}`}
+                            account={this.props.account.get('name')}
+                            issuer={this.props.issuer}
+                            asset={this.props.asset.get('id')}
+                            output_coin_name={this.props.output_coin_name}
+                            output_coin_symbol={this.props.output_coin_symbol}
+                            output_coin_type={this.props.output_coin_type}
+							output_supports_memos={this.props.output_supports_memos}
+                            amount_to_withdraw={this.props.amount_to_withdraw}
+                            modal_id={withdraw_modal_id}
+                            url={this.props.url}
+                            output_wallet_type={this.props.output_wallet_type}
+                            balance={this.props.account.get("balances").toJS()[this.props.asset.get('id')]} />
+                    </div>
+         
+                </div>);
     }
 }
 
-ButtonWithdraw = BindToChainState(ButtonWithdraw);
+TrustryWithdraw = BindToChainState(TrustryWithdraw);
 
-class ButtonWithdrawContainer extends React.Component {
+class TrustryWithdrawContainer extends React.Component {
     static propTypes = {
         account: ChainTypes.ChainAccount.isRequired,
         asset: ChainTypes.ChainAsset.isRequired,
@@ -91,7 +78,7 @@ class ButtonWithdrawContainer extends React.Component {
     render() {
 
         let withdraw_button =
-            <ButtonWithdraw key={this.props.key}
+            <TrustryWithdraw key={this.props.key}
                             account={this.props.account}
                             issuer={this.props.issuer}
                             asset={this.props.asset}
@@ -105,8 +92,11 @@ class ButtonWithdrawContainer extends React.Component {
                             output_wallet_type={this.props.output_wallet_type}
                             balance={this.props.account.get("balances").toJS()[this.props.asset.get('id')]}/>;
 
-        return (<span>
+        return (<div>
                     {withdraw_button}
-                </span>);
+                </div>);
     }
 }
+
+
+export default BindToChainState(TrustryWithdrawContainer, {keep_updating:true});
