@@ -142,6 +142,9 @@ class Trusty extends React.Component {
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
         }
+        if(AccountStore.getMyAccounts().length) {
+            localStorage.setItem("_trusty_username",AccountStore.getMyAccounts()[0])  
+        }
     }
     _navigateBackAction(){
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
