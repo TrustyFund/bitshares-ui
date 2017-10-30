@@ -24,7 +24,6 @@ import BorrowModal from "components/Modal/BorrowModal";
 
 import ReactTooltip from "react-tooltip";
 import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
-import SimpleDepositBlocktradesBridge from "components/Dashboard/SimpleDepositBlocktradesBridge";
 import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
 import MarketCard from "components/Trusty/Dashboard/MarketCard";
@@ -82,16 +81,6 @@ class AccountOverview extends React.Component {
 
     _hideAsset(asset, status) {
         SettingsActions.hideAsset(asset, status);
-    }
-
-    _showDepositWithdraw(action, asset, fiatModal, e) {
-        e.preventDefault();
-        this.setState({
-            [action === "bridge_modal" ? "bridgeAsset" : action === "deposit_modal" ? "depositAsset" : "withdrawAsset"]: asset,
-            fiatModal
-        }, () => {
-            this.refs[action].show();
-        });
     }
 
     _getSeparator(render) {

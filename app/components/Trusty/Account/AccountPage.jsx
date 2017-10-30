@@ -5,7 +5,6 @@ import AccountStore from "stores/AccountStore";
 import SettingsStore from "stores/SettingsStore";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 import GatewayStore from "stores/GatewayStore";
-import AccountLeftPanel from "components/Account/AccountLeftPanel";
 import ChainTypes from "components/Utility/ChainTypes";
 import BindToChainState from "components/Utility/BindToChainState";
 import { connect } from "alt-react";
@@ -20,10 +19,6 @@ class AccountPage extends React.Component {
         account: ChainTypes.ChainAccount.isRequired,
         quoteAsset: ChainTypes.ChainAsset.isRequired,
         baseAsset: ChainTypes.ChainAsset.isRequired,
-    };
-
-    static defaultProps = {
-        account: "props.params.account_name"
     };
 
     constructor() {
@@ -73,15 +68,6 @@ class AccountPage extends React.Component {
 
         return (
             <div className="grid-block page-layout">
-                <div className="show-for-medium grid-block shrink left-column no-padding" style={{minWidth: 250}}>
-                    <AccountLeftPanel
-                        account={account}
-                        isMyAccount={isMyAccount}
-                        linkedAccounts={linkedAccounts}
-                        myAccounts={myAccounts}
-                        viewSettings={this.props.viewSettings}
-                    />
-                </div>
                 <div className="grid-block main-content" style={{paddingTop: "0px"}}>
                     <div className="grid-container">
                         <div className="trusty_inline_buttons">

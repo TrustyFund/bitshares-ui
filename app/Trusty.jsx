@@ -88,12 +88,6 @@ class Trusty extends React.Component {
 
         this.props.router.listen(this._rebuildTooltips);
         this._rebuildTooltips();
-
-        // dispatcher.register( dispatch => {
-        //   if ( dispatch.type === 'show-loader' ) {
-        //     this.setState({ loading: true })
-        //   }
-        // })
     }
     shouldComponentUpdate(nextProps, nextState) {
         dispatcher.register( dispatch => {
@@ -146,7 +140,6 @@ class Trusty extends React.Component {
         }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
-            console.log(this.state)
             this.setState({loading: false})
         }
     }
@@ -238,7 +231,6 @@ class Trusty extends React.Component {
         } else if (myAccountCount == 0 && !authFreeRoutes()) {
             content = <Landing/>
         } else {
-            //let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
             content = isLanding ? this.props.children : grid(this.props.children)
         }
 

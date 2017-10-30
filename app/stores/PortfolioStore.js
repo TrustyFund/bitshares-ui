@@ -1,6 +1,8 @@
 import BaseStore from "./BaseStore";
 import alt from "alt-instance";
 import ls from "common/localStorage";
+import AccountStore from "stores/AccountStore";
+import {ChainStore} from "bitsharesjs/es";
 
 let portfolioStorage = new ls("__trusty_portfolio__");
 
@@ -15,13 +17,32 @@ class PortfolioStore extends BaseStore {
             "getTotalPercentage",
             "incrementAsset",
             "decrementAsset",
-            "isValid"
+            "isValid",
+            "getBalances"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
         this.incrementAsset = this.incrementAsset.bind(this);
         this.decrementAsset = this.decrementAsset.bind(this);
         this.isValid = this.isValid.bind(this);
+        this.getBalances = this.getBalances.bind(this);
+    }
+
+    getBalances(account){
+        let account_balances = account.get("balances");
+        let orders = account.get("orders", null);
+        if (account_balances) {
+            // Filter out balance objects that have 0 balance or are not included in open orders
+            account_balances = account_balances.filter((a, index) => {
+                let balanceObject = ChainStore.getObject(a);
+                if (balanceObject && (!balanceObject.get("balance") && !orders[index])) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+        console.log(account_balances);
     }
 
     getPortfolio(){
