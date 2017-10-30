@@ -21,6 +21,10 @@ class AccountPage extends React.Component {
         baseAsset: ChainTypes.ChainAsset.isRequired,
     };
 
+    static defaultProps = {
+        account: "props.params.account_name"
+    };
+
     constructor() {
 
         super();
