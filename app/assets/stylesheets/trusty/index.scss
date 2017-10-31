@@ -60,6 +60,17 @@ $background_color: #1b1f22;
 	z-index: -1;
 }
 
+.trusty_fixed_background_div {
+	background-image: url(./trusty/texture_mob_bgr.png);
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: -1;
+	background-size: 100%;
+}
+
 //<img src={ require("assets/stylesheets/trusty/texture_mob_bgr.png")} className="trusty_fixed_background _mob"/>
 button:focus, button:active {
 	outline: none;
