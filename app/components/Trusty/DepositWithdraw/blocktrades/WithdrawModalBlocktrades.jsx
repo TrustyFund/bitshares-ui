@@ -538,18 +538,20 @@ class WithdrawModalBlocktrades extends React.Component {
                 {/* Memo input */}
                 {withdraw_memo}
 
+                <p className="trusty_help_text _yellow" style={{textAlign: "left"}}>Please enter a valid btc address</p>
+                <button className="trusty_full_width_button">Paste address</button>
                 {/* Withdraw/Cancel buttons */}
-                <div className="button-group">
+                <div className="button-group trusty_inline_buttons">
 
-                    <div onClick={this.onSubmit.bind(this)} className={"button" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
+                    <div onClick={this.onSubmit.bind(this)} className={"button b_left" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
                         <Translate content="modal.withdraw.submit" />
                     </div>
 
                     <Trigger close={this.props.modal_id}>
-                        <div className="button"><Translate content="account.perm.cancel" /></div>
+                        <div className="button b_right"><Translate content="account.perm.cancel" /></div>
                     </Trigger>
                 </div>
-				{confirmation}
+                {confirmation}
             </div>
             </form>
 	    );

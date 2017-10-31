@@ -1539,6 +1539,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                         {/*conversion_header*/}
                         {/*conversion_body*/}
                     </table>
+                    
                     {/*TrustyWithdraw*/}
 
                 </div>

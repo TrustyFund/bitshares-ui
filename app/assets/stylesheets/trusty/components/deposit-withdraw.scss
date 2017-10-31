@@ -19,9 +19,18 @@
 			background: transparent !important;
 			top: 12vw;
 			padding: 0 4vw;
+
 			
 			.grid-block.vertical {
 				margin-top: -1.1vw !important
+			}
+
+			.trusty_inline_buttons div {
+				margin-top: 4vw;
+			}
+
+			.trusty_help_text  {
+				margin-bottom: 0;
 			}
 
 		}

@@ -281,10 +281,28 @@ $header_size: 12vw;
 }
 
 .trusty_inline_buttons {
-	
+	display: block !important;
 	text-align: center;
 
-	button {
+	div:nth-child(1) {
+		float: left;
+	}
+
+	div:nth-child(2) {
+		float: right;
+	}
+	
+	div {
+		display: inline-block;
+		background-color: transparent !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding: 0 !important;
+		line-height: 13vw;
+	}
+
+
+	button, span {
 		font-family: Gotham_Pro_Medium;
 		display: inline-block;
 		width: 44vw;
