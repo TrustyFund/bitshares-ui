@@ -68,8 +68,22 @@
       margin-bottom: 0 !important;
     }
 
-    select {
+    select, .dropdown-wrapper div {
       font-size: 6.5vw !important;
+    }
+
+    .dropdown-wrapper div {
+      padding-right: 9vw !important;
+      padding-bottom: 1vw;
+    }
+
+
+    .dropdown-wrapper {
+      padding-left:0;
+      padding-top:0;
+      padding-right:0;
+      padding-bottom:0;
+
     }
 
     input {
@@ -112,11 +126,17 @@
       font-family: 'Gotham_Pro'
     }
   }
+  
 
-  select {
+  .dropdown-wrapper div {
+    margin: 0 0  !important; 
+    font-family: 'Gotham_Pro_Regular';
+  }
+  
+  select, {
     margin: 0 0  !important;
     border: none !important; 
-    font-family: 'Gotham_Pro_Medium';
+    font-family: 'Gotham_Pro_Regular';
     padding-bottom: 0 !important;
     padding-right: 0 !important;
     option {

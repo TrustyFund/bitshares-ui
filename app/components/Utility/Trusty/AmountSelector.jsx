@@ -71,6 +71,12 @@ class AmountSelector extends React.Component {
     }
 
     render() {
+        let assetSelector = <AssetSelector
+                            ref={this.props.refCallback}
+                            value={this.props.asset.get("symbol")}
+                            assets={Immutable.List(this.props.assets)}
+                            onChange={this.onAssetChange.bind(this)}
+                        />
         let value = this.props.error ? counterpart.translate(this.props.error) : this.formatAmount(this.props.amount);
         let input = <input
                         disabled={this.props.disabled}
@@ -86,15 +92,10 @@ class AmountSelector extends React.Component {
                 {/*<label className="right-label">{this.props.display_balance}</label>
                                 <Translate className="left-label" component="label" content={this.props.label}/>*/}
                 <div className="inline-label input-wrapper">
-                    {<TrustyInput input={input} label={this.props.trustyLabel}/>}
+                    {<TrustyInput input={input} label={this.props.trustyLabel} right={assetSelector}/>}
                     {/*input*/}
                     <div className="form-label select floating-dropdown">
-                        <AssetSelector
-                            ref={this.props.refCallback}
-                            value={this.props.asset.get("symbol")}
-                            assets={Immutable.List(this.props.assets)}
-                            onChange={this.onAssetChange.bind(this)}
-                        />
+                        {/*assetSelector*/}
                     </div>
                 </div>
             </div>
