@@ -485,7 +485,7 @@ class WithdrawModalBlocktrades extends React.Component {
                                 </div>*/}
 
                 {/* Withdraw amount */}
-                <div className="content-block">
+                <div className="content-block _hide">
                     <AmountSelector 
                         trustyLabel="enter amount"
                         label="modal.withdraw.amount"
@@ -538,8 +538,7 @@ class WithdrawModalBlocktrades extends React.Component {
                     <div className="blocktrades-select-dropdown">
                         <div className="inline-label">
                             <TrustyInput
-                                input={addressInput} label="enter adress" right={addressSelect}
-                            />
+                                input={addressInput} label="enter adress"/>
 
                         </div>
                     </div>

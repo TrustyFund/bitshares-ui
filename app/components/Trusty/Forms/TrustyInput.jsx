@@ -45,8 +45,12 @@ class TrustyInput extends React.Component {
 	labelClick(){
 		console.log(this.props)
 		this.setState({ opened: !this.state.opened})
-		if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
+		//if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
 	}
+
+  componentDidMount(){
+  	if(this.props.isOpen) this.setOpened(true)
+  }
 
 	componentDidUpdate(){
 

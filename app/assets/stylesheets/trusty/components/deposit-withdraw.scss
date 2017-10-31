@@ -14,10 +14,20 @@
 	}
 	
 	.trusty_deposit_and_withdraw {
+
+		.trusty_withdraw_deposit_wrap {
+			padding: 0 4vw;
+		}
+
+		.modal-overlay.is-active {
+			top: 22vw !important;
+		}
+
 		#withdraw_asset_blocktrades_bridge {
 			background: transparent !important;
-			top: 12vw;
 			padding: 0 4vw;
+
+
 
 			
 			.grid-block.vertical {

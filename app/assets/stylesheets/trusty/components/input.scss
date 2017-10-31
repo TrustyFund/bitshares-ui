@@ -70,6 +70,7 @@
 
     select, .dropdown-wrapper div {
       font-size: 6.5vw !important;
+      color: white;
     }
 
     .dropdown-wrapper div {
@@ -133,12 +134,20 @@
     font-family: 'Gotham_Pro_Regular';
   }
   
-  select, {
+  .trusty_arrow_down {
+    position: absolute;
+    right: 0;
+    top: 42%;
+    
+  }
+  
+  select {
     margin: 0 0  !important;
     border: none !important; 
     font-family: 'Gotham_Pro_Regular';
     padding-bottom: 0 !important;
     padding-right: 0 !important;
+    color: white;
     option {
       background-color: black;
     }
