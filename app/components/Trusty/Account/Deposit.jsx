@@ -13,8 +13,9 @@ class Deposit extends React.Component {
 
   }
  
-  onSuccess() {
+  onSuccess(a) {
     alert("address copied")
+    localStorage.setItem("_trusty_copyed_address", this.getText())
   }
  
   getText() {

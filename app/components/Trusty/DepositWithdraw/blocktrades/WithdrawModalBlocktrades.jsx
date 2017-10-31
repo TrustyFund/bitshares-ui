@@ -168,7 +168,21 @@ class WithdrawModalBlocktrades extends React.Component {
         this._validateAddress(new_withdraw_address);
     }
 
-    onWithdrawAddressChanged( e ) {
+    _pasteAddress(){
+
+        let new_withdraw_address = localStorage.getItem("_trusty_copyed_address")
+        document.body.querySelector(".grid-container .trusty_input_container:last-child label").click()
+        this.setState({
+            withdraw_address: new_withdraw_address,
+            withdraw_address_check_in_progress: true,
+            withdraw_address_selected: new_withdraw_address,
+            withdraw_address_is_valid: null
+        }, this._updateFee);
+        this._validateAddress(new_withdraw_address);
+
+    }
+
+    onWithdrawAddressChanged( adress , e ) {
         let new_withdraw_address = e.target.value.trim();
 
         this.setState({
@@ -489,7 +503,7 @@ class WithdrawModalBlocktrades extends React.Component {
                 {/* Fee selection */}
                 {this.state.feeAmount ? <div className="content-block gate_fee">
                     <AmountSelector
-                        trustyLabel="enter address"
+                        trustyLabel="exchange fee"
                         refCallback={this.setNestedRef.bind(this)}
                         label="transfer.fee"
                         disabled={true}
@@ -539,7 +553,7 @@ class WithdrawModalBlocktrades extends React.Component {
                 {withdraw_memo}
 
                 <p className="trusty_help_text _yellow" style={{textAlign: "left"}}>Please enter a valid btc address</p>
-                <button className="trusty_full_width_button">Paste address</button>
+                <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
                 {/* Withdraw/Cancel buttons */}
                 <div className="button-group trusty_inline_buttons">
 
