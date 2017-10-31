@@ -52,6 +52,11 @@ class TrustyInput extends React.Component {
   	if(this.props.isOpen) this.setOpened(true)
   }
 
+	_nullField(){
+		let input = this.refs.inputWrap.querySelector('input')
+		if(input) input.value = ""
+	}
+
 	componentDidUpdate(){
 
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
@@ -106,7 +111,7 @@ class TrustyInput extends React.Component {
 
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
-							{this.props.right }
+							{this.props.right || <span className="close_icon" onClick={this._nullField.bind(this)}><Icon name={"trusty_input_close"} /></span>}
 						</div>
 					</div>
 				</div>
