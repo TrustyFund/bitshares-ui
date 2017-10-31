@@ -58,13 +58,7 @@ class Row extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.showDetails = this.showDetails.bind(this);
     }
-    //
-    // showDetails(e) {
-    //     e.preventDefault();
-    //     this.context.router.push(`/block/${this.props.block}`);
-    // }
 
     shouldComponentUpdate(nextProps) {
         let {block, dynGlobalObject} = this.props;
@@ -76,13 +70,7 @@ class Row extends React.Component {
     }
 
     render() {
-        let {block, fee, color, type, hideOpLabel} = this.props;
-
-        return (
-            <p className="_yellow">
-                {this.props.info}
-            </p>
-        );
+        return this.props.info;
     }
 }
 Row = BindToChainState(Row, {keep_updating:true});
@@ -110,20 +98,6 @@ class Operation extends React.Component {
         }
     }
 
-    linkToAccount(name_or_id) {
-        if(!name_or_id) return <span>-</span>;
-        return utils.is_object_id(name_or_id) ?
-            <LinkToAccountById account={name_or_id}/> :
-            <Link to={`/account/${name_or_id}/overview`}>{name_or_id}</Link>;
-    }
-
-    linkToAsset(symbol_or_id) {
-        if(!symbol_or_id) return <span>-</span>;
-        return utils.is_object_id(symbol_or_id) ?
-            <LinkToAssetById asset={symbol_or_id}/> :
-            <Link to={`/asset/${symbol_or_id}`}>{symbol_or_id}</Link>;
-    }
-
     shouldComponentUpdate(nextProps) {
         if (!this.props.op || !nextProps.op) {
             return false;
@@ -137,15 +111,13 @@ class Operation extends React.Component {
         let line = null, column = null, color = "info";
         let memoComponent = null;
 
-        console.log("OPOP",op)
-
         color = "success";
         op[1].amount.amount = parseFloat(op[1].amount.amount);
 
         column = (
-            <span className="right-td">
+            <p className="_yellow">
                 Receive {op[1].amount.amount / 100000} BTS
-            </span>
+            </p>
         );
 
         line = (
@@ -164,9 +136,7 @@ class Operation extends React.Component {
 
 
 
-        return (
-            line ? line : <tr></tr>
-        );
+        return line;
     }
 }
 
