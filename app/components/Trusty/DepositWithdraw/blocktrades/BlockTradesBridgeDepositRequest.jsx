@@ -21,6 +21,7 @@ import $ from 'jquery'
 
 import TrustyInput from 'components/Trusty/Forms/TrustyInput';
 import TrustyWithdraw from './TrustyWithdraw';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 class ButtonConversion extends React.Component {
     static propTypes = {
@@ -1160,9 +1161,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         else if (this.state.coin_info_request_state == this.coin_info_request_states.never_requested ||
                  this.state.coin_info_request_state == this.coin_info_request_states.request_in_progress)
         {
-            return  <div>
-                      <p>Retrieving current trade data from blocktrades.us</p>
-                    </div>;
+            return  <LoadingIndicator type={"trusty-owl"} />
+            //<div><p>Retrieving current trade data from blocktrades.us</p></div>;
         }
         else
         {

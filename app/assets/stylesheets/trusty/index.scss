@@ -21,9 +21,10 @@
 	width: 60%;
 	opacity: .6;
 	margin: 0 auto;
-	position: relative;
+	position: fixed;
 	top: 50%;
-	transform: translateY(-50%);
+	left: 50%;
+	transform: translate(-50%,-50%);
 	svg {
 		fill: white;
 
@@ -291,7 +292,7 @@ $header_size: 12vw;
 	div:nth-child(2) {
 		float: right;
 	}
-	
+
 	div {
 		display: inline-block;
 		background-color: transparent !important;
