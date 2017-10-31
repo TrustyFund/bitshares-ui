@@ -1389,7 +1389,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 </thead>;
 
                withdraw_body =
-                <div className="trusty_withdraw_deposit_wrap">
+                <div className="trusty_withdraw_wrap">
                     <TrustyInput isOpen={true} label="enter amount" input={withdraw_output_amount_edit_box} right={withdraw_output_coin_type_select}/>
                     <tbody>
                         <tr>
@@ -1417,7 +1417,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                 {withdraw_limit_element}
                             </td>
                         </tr>
-                    </tbody>;
+                    </tbody>
                 </div>
             }
 
