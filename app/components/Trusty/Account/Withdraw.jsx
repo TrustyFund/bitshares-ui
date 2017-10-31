@@ -180,6 +180,7 @@ class AccountDepositWithdraw extends React.Component {
                 <div className="grid-content no-padding" style={{overflow: "hidden"}}>
                 {activeService && services[activeService] ? services[activeService].template : services[0].template}
                 </div>
+                {this.props.children}
             </div>
         );
     }

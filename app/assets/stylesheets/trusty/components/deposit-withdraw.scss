@@ -1,4 +1,4 @@
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 768px) {
 
 	.trusty_input_container {
 
@@ -12,6 +12,37 @@
 			width: 28vw;
 		}
 	}
+	
+	.trusty_deposit_and_withdraw {
+		#withdraw_asset_blocktrades_bridge {
+			background: transparent !important;
+			top: 12vw;
+			padding: 0 4vw;
+
+			
+			.grid-block.vertical {
+				margin-top: -1.1vw !important
+			}
+
+			.trusty_inline_buttons div {
+				margin-top: 4vw;
+			}
+
+			.trusty_help_text  {
+				margin-bottom: 0;
+			}
+
+		}
+
+		.close-button {
+			display: none;
+		}
+		.modal-overlay.is-active {
+			background-color: transparent !important;
+		}
+
+
+	}
 
 
 }
@@ -21,6 +52,10 @@
 
 
 .trusty_deposit_and_withdraw {
+
+
+
+
 	.content-block {
 		margin-bottom: 0;
 

@@ -77,7 +77,7 @@ let slides = [
         image: require('./vendor/img_1click_to_invest.png'),
         title: "One-Click To<br> Buy Portfolio of Cryptos",
         text: `
-        Deposit and you already<br> own the selected portfolio of<br> cryptocurrencies and assets.<br> Forget the hassle of buying<br> assets separately
+        After deposit, you are a click<br> away to own customized<br>portfolio of crypto assets.<br> Forget the hassle of buying<br> assets separately
         `
     },
     {   

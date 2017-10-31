@@ -21,9 +21,10 @@
 	width: 60%;
 	opacity: .6;
 	margin: 0 auto;
-	position: relative;
+	position: fixed;
 	top: 50%;
-	transform: translateY(-50%);
+	left: 50%;
+	transform: translate(-50%,-50%);
 	svg {
 		fill: white;
 
@@ -45,7 +46,13 @@ $background_color: #1b1f22;
 *._yellow {
 	color: #fdf101;
 }
+*._hide {
+	display: none;
+}
 
+*._visibilitness {
+	opacity: 0;
+}
 .trusty_fixed_background {
 	position: fixed;
 	top:0;
@@ -59,12 +66,12 @@ button:focus, button:active {
 }
 .trusty-wrapper, .trusty-wrapper .grid-block {
 	background-color: transparent !important;
-	@media screen and (max-width: 750px) {
+	@media screen and (max-width: 768px) {
 		// background-image: url(./trusty/texture_mob_bgr.png);
 		// background-repeat: repeat;
 		// background-size: 125%;
 	}
-	@media screen and (min-width: 751px) {
+	@media screen and (min-width: 769px) {
 		background-image: url(./trusty/pattern.png);
 		background-repeat: repeat;
 		background-size: 42px;
@@ -275,10 +282,28 @@ $header_size: 12vw;
 }
 
 .trusty_inline_buttons {
-	
+	display: block !important;
 	text-align: center;
 
-	button {
+	div:nth-child(1) {
+		float: left;
+	}
+
+	div:nth-child(2) {
+		float: right;
+	}
+
+	div {
+		display: inline-block;
+		background-color: transparent !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding: 0 !important;
+		line-height: 13vw;
+	}
+
+
+	button, span {
 		font-family: Gotham_Pro_Medium;
 		display: inline-block;
 		width: 44vw;

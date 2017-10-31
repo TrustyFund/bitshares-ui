@@ -38,7 +38,7 @@
   
 
   .trusty_input_container {
-
+    width: 100%;
     .t_input {
       margin-top: 6vw;
     }
@@ -58,16 +58,32 @@
       font-size: 4vw !important;
       letter-spacing: .4vw;
       bottom: 1.7vw;
+      color: white;
     }
 
     label {
+      color: #757777;
       transition: all .2s;
       font-size: 3.5vw;
       margin-bottom: 0 !important;
     }
 
-    select {
+    select, .dropdown-wrapper div {
       font-size: 6.5vw !important;
+    }
+
+    .dropdown-wrapper div {
+      padding-right: 9vw !important;
+      padding-bottom: 1vw;
+    }
+
+
+    .dropdown-wrapper {
+      padding-left:0;
+      padding-top:0;
+      padding-right:0;
+      padding-bottom:0;
+
     }
 
     input {
@@ -110,11 +126,17 @@
       font-family: 'Gotham_Pro'
     }
   }
+  
 
-  select {
+  .dropdown-wrapper div {
+    margin: 0 0  !important; 
+    font-family: 'Gotham_Pro_Regular';
+  }
+  
+  select, {
     margin: 0 0  !important;
     border: none !important; 
-    font-family: 'Gotham_Pro_Medium';
+    font-family: 'Gotham_Pro_Regular';
     padding-bottom: 0 !important;
     padding-right: 0 !important;
     option {
@@ -130,7 +152,7 @@
 
   .t_input{
     width: 100%;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #757777;
     input {
       background-color: transparent !important;
       width: 100% !important;

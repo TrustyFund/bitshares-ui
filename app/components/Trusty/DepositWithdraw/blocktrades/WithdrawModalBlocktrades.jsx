@@ -6,7 +6,7 @@ import BindToChainState from "components/Utility/BindToChainState";
 import utils from "common/utils";
 import BalanceComponent from "components/Utility/BalanceComponent";
 import counterpart from "counterpart";
-import AmountSelector from "components/Utility/AmountSelector";
+import AmountSelector from "components/Utility/Trusty/AmountSelector";
 import AccountActions from "actions/AccountActions";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import { validateAddress, WithdrawAddresses } from "common/blockTradesMethods";
@@ -16,6 +16,7 @@ import Modal from "react-foundation-apps/src/modal";
 import { checkFeeStatusAsync, checkBalance } from "common/trxHelper";
 import {Asset} from "common/MarketClasses";
 import { debounce } from "lodash";
+import TrustyInput from "components/Trusty/Forms/TrustyInput";
 
 class WithdrawModalBlocktrades extends React.Component {
 
@@ -167,7 +168,21 @@ class WithdrawModalBlocktrades extends React.Component {
         this._validateAddress(new_withdraw_address);
     }
 
-    onWithdrawAddressChanged( e ) {
+    _pasteAddress(){
+
+        let new_withdraw_address = localStorage.getItem("_trusty_copyed_address")
+        document.body.querySelector(".grid-container .trusty_input_container:last-child label").click()
+        this.setState({
+            withdraw_address: new_withdraw_address,
+            withdraw_address_check_in_progress: true,
+            withdraw_address_selected: new_withdraw_address,
+            withdraw_address_is_valid: null
+        }, this._updateFee);
+        this._validateAddress(new_withdraw_address);
+
+    }
+
+    onWithdrawAddressChanged( adress , e ) {
         let new_withdraw_address = e.target.value.trim();
 
         this.setState({
@@ -460,15 +475,20 @@ class WithdrawModalBlocktrades extends React.Component {
             balance = "No funds";
         }
 
+        let addressInput = <input type="text" value={withdraw_address_selected} tabIndex="4" onChange = {this.onWithdrawAddressChanged.bind(this)} autoComplete="off" />
+        let addressSelect = <span onClick={this.onDropDownList.bind(this)} >&#9660;</span>
+
         return (<form className="grid-block vertical full-width-content">
             <div className="grid-container">
-                <div className="content-block">
-                    <h3><Translate content="gateway.withdraw_coin" coin={this.props.output_coin_name} symbol={this.props.output_coin_symbol} /></h3>
-                </div>
+                {/*<div className="content-block">
+                                    <h3><Translate content="gateway.withdraw_coin" coin={this.props.output_coin_name} symbol={this.props.output_coin_symbol} /></h3>
+                                </div>*/}
 
                 {/* Withdraw amount */}
                 <div className="content-block">
-                    <AmountSelector label="modal.withdraw.amount"
+                    <AmountSelector 
+                        trustyLabel="enter amount"
+                        label="modal.withdraw.amount"
                         amount={this.state.withdraw_amount}
                         asset={this.props.asset.get("id")}
                         assets={[this.props.asset.get("id")]}
@@ -483,6 +503,7 @@ class WithdrawModalBlocktrades extends React.Component {
                 {/* Fee selection */}
                 {this.state.feeAmount ? <div className="content-block gate_fee">
                     <AmountSelector
+                        trustyLabel="exchange fee"
                         refCallback={this.setNestedRef.bind(this)}
                         label="transfer.fee"
                         disabled={true}
@@ -511,13 +532,15 @@ class WithdrawModalBlocktrades extends React.Component {
                         </div>
                     </div>):null}
                 <div className="content-block">
-                    <label className="left-label">
-                        <Translate component="span" content="modal.withdraw.address"/>
-                    </label>
+                    {/*<label className="left-label">
+                                            <Translate component="span" content="modal.withdraw.address"/>
+                                        </label>*/}
                     <div className="blocktrades-select-dropdown">
                         <div className="inline-label">
-                            <input type="text" value={withdraw_address_selected} tabIndex="4" onChange = {this.onWithdrawAddressChanged.bind(this)} autoComplete="off" />
-                            <span onClick={this.onDropDownList.bind(this)} >&#9660;</span>
+                            <TrustyInput
+                                input={addressInput} label="enter adress" right={addressSelect}
+                            />
+
                         </div>
                     </div>
                     <div className="blocktrades-position-options">
@@ -529,18 +552,20 @@ class WithdrawModalBlocktrades extends React.Component {
                 {/* Memo input */}
                 {withdraw_memo}
 
+                <p className="trusty_help_text _yellow" style={{textAlign: "left"}}>Please enter a valid btc address</p>
+                <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
                 {/* Withdraw/Cancel buttons */}
-                <div className="button-group">
+                <div className="button-group trusty_inline_buttons">
 
-                    <div onClick={this.onSubmit.bind(this)} className={"button" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
+                    <div onClick={this.onSubmit.bind(this)} className={"button b_left" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
                         <Translate content="modal.withdraw.submit" />
                     </div>
 
                     <Trigger close={this.props.modal_id}>
-                        <div className="button"><Translate content="account.perm.cancel" /></div>
+                        <div className="button b_right"><Translate content="account.perm.cancel" /></div>
                     </Trigger>
                 </div>
-				{confirmation}
+                {confirmation}
             </div>
             </form>
 	    );

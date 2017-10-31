@@ -42,6 +42,12 @@ class TrustyInput extends React.Component {
 		this.setState({opened})
 	}
 
+	labelClick(){
+		console.log(this.props)
+		this.setState({ opened: !this.state.opened})
+		if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
+	}
+
 	componentDidUpdate(){
 
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
@@ -81,15 +87,16 @@ class TrustyInput extends React.Component {
 
 		let body = document.body
 		let newLabel = this.props.label != "label here" 
+		
 		return (
-				<div className={cname("trusty_input_container",{ "text_area": this.props.textArea, "opened_text_area": this.state.opened })}>
+				<div className={cname("trusty_input_container",{ "text_area": this.props.textArea, "opened_text_area": this.state.opened && this.props.textArea })}>
 					{/*<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>*/}
 						{/* this.state.opened ? <label>{this.props.label}</label> : null*/ }
 					{/*</CSSTransitionGroup>*/}
 					<div className="w_input">
 						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
 
-							<label onClick={()=>this.setState({ opened: !this.state.opened})} className={cname("trusty_place_holder", {"no_opened":!this.state.opened})}>{this.props.label}</label>
+							<label onClick={this.labelClick.bind(this)} className={cname("trusty_place_holder", this.props.label.split(" ").join("_"), {"no_opened":!this.state.opened})}>{this.props.label}</label>
 							{ this.props.input && this.state.opened ? this.props.input : null } 
 							{ !this.state.opened ? input : null }
 
