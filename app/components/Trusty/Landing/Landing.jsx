@@ -43,7 +43,7 @@ let slides = [
             require('./vendor/img_glb_netwk05.png'),
             require('./vendor/img_glb_netwk06.png'),
             require('./vendor/img_glb_netwk07.png'),
-            require('./vendor/img_glb_netwk08.png'),
+            //require('./vendor/img_glb_netwk08.png'),
             require('./vendor/img_glb_netwk09.png')
         ],
         image: require('./vendor/img_global_network.png'),
@@ -196,13 +196,10 @@ class Landing extends Component {
         // })
 
         let index = 0
-        let indexTwo = 0
 
         this.setState({
             currentFirstSlide: slides[0].images[index],
             currentFirstSlideDesk: slides[0].desk_images[index],
-            currentThirdSlide: slides[2].images[index],
-            currentLastSlide: slides[6].images[index]
         })
 
         this.timeout = setInterval(() => {
@@ -210,11 +207,6 @@ class Landing extends Component {
             this.setState({
                 currentFirstSlide: slides[0].images[index],
                 currentFirstSlideDesk: slides[0].desk_images[index],
-            })
-            if(indexTwo >= slides[2].images.length-1) { indexTwo=0 } else { indexTwo++ }
-            this.setState({
-                currentThirdSlide: slides[2].images[indexTwo],
-                currentLastSlide: slides[6].images[indexTwo]
             })
         }, 1000)
 
@@ -248,8 +240,7 @@ class Landing extends Component {
 
         let currentFirst = this.state.currentFirstSlide
         let currentFirstDesk = this.state.currentFirstSlideDesk
-        let currentThird = this.state.currentThirdSlide
-        let currentThirdDesk = this.state.currentLastSlide
+
 
         let ballsNav = this.state.showBalls ? 
             (<div className="balls_nav _desk">
@@ -272,29 +263,11 @@ class Landing extends Component {
 
                     : null }
 
-                    { index == 1 ? 
+                    { index != 0 ? 
                         <div>
                             <ImageAnimate class={"_image _mob"} images={slide.images}/>
                             {/*<img className="_image _mob" src={this.state["slide_pic_"+index]}/>*/}
                         </div>
-                    : null }
-
-                    { index == 2 ? 
-                         <div>
-                            <img className="_image _mob" src={currentThird}/>
-                        </div>
-                    : null }
-
-
-                    { index == 6 ? 
-                        <div>
-                            <img className="_image _mob" src={currentThirdDesk}/>
-                        </div>
-
-                        : null }
-
-                    { index != 0 && index !=2 && index != 6 && index != 1 ? 
-                        <img className="_image" src={slide.image}/>
                     : null }
 
                 </div>
