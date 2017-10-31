@@ -49,7 +49,7 @@ let slides = [
         image: require('./vendor/img_global_network.png'),
         title: "3 min. To Create<br> Decentralized Account",
         text: `
-        Click Signup, enter password<br> and your account will be secured<br> by immutable BitShares public<br> blockchain. Only you have the<br> private key`
+        Click Signup, enter password<br> and your account will be secured<br> by immutable BitShares  blockchain. <br> Only you have the private key`
     },
     {
         id:3,
