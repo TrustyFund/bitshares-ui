@@ -74,7 +74,7 @@
     }
 
     .dropdown-wrapper div {
-      padding-right: 9vw !important;
+      padding-right: 0vw !important;
       padding-bottom: 1vw;
     }
 
@@ -132,6 +132,7 @@
   .dropdown-wrapper div {
     margin: 0 0  !important; 
     font-family: 'Gotham_Pro_Regular';
+    color: white !important;
   }
   
   .trusty_arrow_down {
@@ -144,7 +145,7 @@
   select {
     margin: 0 0  !important;
     border: none !important; 
-    font-family: 'Gotham_Pro_Regular';
+    font-family: 'Gotham_Pro_Medium';
     padding-bottom: 0 !important;
     padding-right: 0 !important;
     color: white;

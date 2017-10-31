@@ -28,7 +28,9 @@
 			background: transparent !important;
 			padding: 0 4vw;
 
-
+			.dropdown-wrapper:after {
+				display: none;
+			}
 
 			
 			.grid-block.vertical {
