@@ -220,6 +220,8 @@ class Trusty extends React.Component {
         }
         authFreeRoutes = authFreeRoutes.bind(this)
 
+        if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
+
         if (this.state.syncFail) {
             content = (
                 <SyncError />

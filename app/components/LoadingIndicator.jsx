@@ -12,7 +12,7 @@ class LoadingIndicator extends React.Component {
             case "trusty-owl": 
                 return (
                     <div className="trusty_owl_loader">
-                        <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/>
+                        <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/>
                     </div>
 
                     );

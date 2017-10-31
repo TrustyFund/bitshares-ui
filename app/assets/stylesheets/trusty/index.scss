@@ -29,6 +29,11 @@
 		fill: white;
 
 	}
+
+	@media (min-width: 768px) {
+		width: 500px;
+		//transform: scale(.6);
+	}
 }
 
 
@@ -52,6 +57,10 @@ $background_color: #1b1f22;
 
 *._visibilitness {
 	opacity: 0;
+}
+
+.trusty_owl_loader {
+
 }
 .trusty_fixed_background {
 	position: fixed;
