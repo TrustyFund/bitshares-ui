@@ -47,9 +47,9 @@ let slides = [
             require('./vendor/img_glb_netwk09.png')
         ],
         image: require('./vendor/img_global_network.png'),
-        title: "3 min. To Create<br> Decentralized Account",
+        title: "3 min. To Create a<br> Decentralized Account",
         text: `
-        Click Signup, enter password<br> and your account will be secured<br> by immutable BitShares  blockchain. <br> Only you have the private key`
+        Click Signup, enter password<br> and your account will be secured<br> by the immutable BitShares  blockchain. <br> Only you have the private key`
     },
     {
         id:3,
@@ -68,16 +68,16 @@ let slides = [
         ],
         title: "Many Methods To<br>Deposit Any Currency",
         text: `
-        Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at best exchange rate`
+        Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at the best exchange rate`
     },
 
     {
         id:4,
         images: [require('./vendor/img_1click_to_invest.png')],
         image: require('./vendor/img_1click_to_invest.png'),
-        title: "One-Click To<br> Buy Portfolio of Cryptos",
+        title: "One-Click To<br> Buy a Portfolio of Cryptos",
         text: `
-        After deposit, you are a click<br> away to own customized<br>portfolio of crypto assets.<br> Forget the hassle of buying<br> assets separately
+        After deposit, you are a click<br> away from your own customized<br>portfolio of crypto assets.<br> Forget the hassle of buying<br> assets separately
         `
     },
     {   
@@ -86,16 +86,16 @@ let slides = [
         image: require('./vendor/img_chng_portfolio.png'),
         title: "One-Click<br>To Manage Portfolio",
         text: `
-        Manage portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using portfolio rebalancing tool
+        Manage your portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using the portfolio rebalancing tool
         `
     },
     {
         id:6,
         images: [require('./vendor/img_index.png')],
         image: require('./vendor/img_index.png'),
-        title: "One-Click<br>To Fix Income In USD",
+        title: "One-Click<br>To Fix your Income In USD",
         text: `
-        Fix income to wait out prices hyper<br> volatility. One-Click and your funds<br> are all in USD, EUR, CNY, Gold, etc.
+        Fix your income to wait out price hyper<br> volatility. One-Click and your funds<br> are all in USD, EUR, CNY, Gold, etc.
         `
     },
     {
