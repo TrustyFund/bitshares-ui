@@ -49,7 +49,7 @@ let slides = [
         image: require('./vendor/img_global_network.png'),
         title: "3 min. To Create a<br> Decentralized Account",
         text: `
-        Click Signup, enter password<br> and your account will be secured<br> by the immutable BitShares  blockchain. <br> Only you have the private key`
+        Click Signup, enter password<br> and your account will be secured<br> by the immutable<br> BitShares blockchain. <br> Only you have the private key`
     },
     {
         id:3,
@@ -86,16 +86,16 @@ let slides = [
         image: require('./vendor/img_chng_portfolio.png'),
         title: "One-Click<br>To Manage Portfolio",
         text: `
-        Manage your portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules<br> or using the portfolio rebalancing tool
+        Manage your portfolio by mirroring<br> trades of ranked portfolio managers,<br> applying index rules or<br> using the portfolio rebalancing tool
         `
     },
     {
         id:6,
         images: [require('./vendor/img_index.png')],
         image: require('./vendor/img_index.png'),
-        title: "One-Click<br>To Fix your Income In USD",
+        title: "One-Click<br>To Fix Your Income In USD",
         text: `
-        Fix your income to wait out price hyper<br> volatility. One-Click and your funds<br> are all in USD, EUR, CNY, Gold, etc.
+        Fix your income to wait out price<br> hyper volatility. One-Click and<br> your funds are all in<br> USD, EUR, CNY, Gold, etc.
         `
     },
     {
