@@ -47,7 +47,7 @@ let slides = [
             require('./vendor/img_glb_netwk09.png')
         ],
         image: require('./vendor/img_global_network.png'),
-        title: "3 min. To Create a<br> Decentralized Account",
+        title: "3 min. To Create A<br> Decentralized Account",
         text: `
         Click Signup, enter password<br> and your account will be secured<br> by the immutable<br> BitShares blockchain. <br> Only you have the private key`
     },
@@ -75,7 +75,7 @@ let slides = [
         id:4,
         images: [require('./vendor/img_1click_to_invest.png')],
         image: require('./vendor/img_1click_to_invest.png'),
-        title: "One-Click To<br> Buy a Portfolio of Cryptos",
+        title: "One-Click To<br> Buy A Portfolio Of Cryptos",
         text: `
         After deposit, you are a click<br> away from your own customized<br>portfolio of crypto assets.<br> Forget the hassle of buying<br> assets separately
         `
@@ -86,7 +86,7 @@ let slides = [
         image: require('./vendor/img_chng_portfolio.png'),
         title: "One-Click<br>To Manage Portfolio",
         text: `
-        Manage your portfolio by mirroring<br> trades of ranked portfolio managers,<br> applying index rules or<br> using the portfolio rebalancing tool
+        Manage your portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules or<br> using the portfolio rebalancing tool
         `
     },
     {
