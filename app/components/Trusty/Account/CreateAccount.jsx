@@ -157,14 +157,13 @@ class CreateAccount extends React.Component {
         if (WalletDb.getWallet()) {
             Promise.resolve().then(()=>{
                 this.createAccount(account_name);
-            })
+            }).then(()=>this.props.router.push("/home"))
         } else {
             let password = this.refs.password.value();
             this.createWallet(password).then(() => {
                 Promise.resolve().then(()=>{
-                 
                     this.createAccount(account_name);
-                })
+                }).then(()=>this.props.router.push("/home"))
             });
         }
     }

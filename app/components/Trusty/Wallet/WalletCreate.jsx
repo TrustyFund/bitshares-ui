@@ -67,7 +67,7 @@ class CreateNewWallet extends Component {
                     .setWallet(wallet_public_name, valid_password, this.state.brnkey)
                     .then(data=>{
                         setTimeout(()=>{
-                            this.props.router.push("/dashboard")
+                            this.props.router.push("/home")
 						},200)
 					});
 				//this.setState({create_submitted: true});
