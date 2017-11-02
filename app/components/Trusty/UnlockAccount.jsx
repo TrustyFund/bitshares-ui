@@ -29,6 +29,7 @@ class WalletUnlockModal extends React.Component {
         super();
         this.state = this._getInitialState(props);
         this.onPasswordEnter = this.onPasswordEnter.bind(this);
+        this._toggleLock = this._toggleLock.bind(this);
     }
 
     _getInitialState(props = this.props) {
@@ -57,7 +58,25 @@ class WalletUnlockModal extends React.Component {
         );
     }
 
+    _toggleLock(e) {
+        if(e)e.preventDefault();
+        function unlock(){
+            WalletUnlockActions.unlock().then(() => {
+                AccountActions.tryToSetCurrentAccount();
+            });
+        }
+        if (WalletDb.isLocked()) {
+            unlock()
+        } else {
+            WalletUnlockActions.lock().then(()=>{
+                unlock()
+            })
+        }
+    }
+
     componentDidMount() {
+
+        this._toggleLock()
         // ZfApi.subscribe(this.props.modalId, (name, msg) => {
         //     if(name !== this.props.modalId)
         //         return;
@@ -138,8 +157,10 @@ class WalletUnlockModal extends React.Component {
             }
             ZfApi.publish(this.props.modalId, "close");
             this.props.resolve();
-            WalletUnlockActions.change();
+            WalletUnlockActions.change()
+
             this.setState({password_input_reset: Date.now(), password_error: false});
+            this.props.router.push("/home")
         }
         return false;
     }
@@ -171,6 +192,16 @@ class WalletUnlockModal extends React.Component {
         }
         return (
             <form onSubmit={this.onPasswordEnter} noValidate>
+
+                <div className="trusty_input_container">
+                    <div className="w_input">
+                        <div className="t_input active_input" style={{border:"none"}}>
+                            <label className="trusty_place_holder">Account Name</label>
+                            <div className="trusty_fake_input_show">{localStorage.getItem("_trusty_username")}</div>
+                        </div>
+                    </div>
+                </div>
+
                 <PasswordInput
                     ref="password_input"
                     onEnter={this.onPasswordEnter}
@@ -261,7 +292,7 @@ class WalletUnlockModal extends React.Component {
         return (
             // U N L O C K
             <div className="trusty_unlock_account">
-                {passwordLogin ? this.renderPasswordLogin() : this.renderWalletLogin()}
+                {/*passwordLogin ? this.renderPasswordLogin() :*/ this.renderWalletLogin()}
             </div>
         );
     }

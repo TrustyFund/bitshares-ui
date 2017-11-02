@@ -17,18 +17,16 @@ import MobileMenu from "components/Layout/MobileMenu";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
-import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
+//import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 
-// import WalletDb from "stores/WalletDb";
-//         if(WalletDb.isLocked && AccountStore.getMyAccounts().length) {
-//             this.props.router.push("/unlock")
-//             return 
-//         }
+import WalletDb from "stores/WalletDb";
+import WalletUnlockStore from "stores/WalletUnlockStore";
+
 
 
 /* pixel perfect helper */
@@ -147,6 +145,11 @@ class Trusty extends React.Component {
             return
         }
 
+        if(!~this.props.location.pathname.indexOf("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
+            this.props.router.push("/unlock")
+            return 
+        } 
+
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
         }
@@ -154,7 +157,7 @@ class Trusty extends React.Component {
         if(AccountStore.getMyAccounts().length) {
             localStorage.setItem("_trusty_username",AccountStore.getMyAccounts()[0])  
         }
-
+ 
     }
     _navigateBackAction(){
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
@@ -272,7 +275,7 @@ class Trusty extends React.Component {
                         }}
                     />
                     <TransactionConfirm/>
-                    <WalletUnlockModal/>
+                    {/*<WalletUnlockModal/>*/}
                 </div>
             </div>
         );
@@ -300,11 +303,12 @@ class RootIntl extends React.Component {
 
 RootIntl = connect(RootIntl, {
     listenTo() {
-        return [AccountStore,IntlStore];
+        return [AccountStore,IntlStore,WalletUnlockStore];
     },
     getProps() {
         return {
-            locale: IntlStore.getState().currentLocale
+            locale: IntlStore.getState().currentLocale,
+            walletLocked: WalletUnlockStore.getState().locked,
         };
     }
 });
