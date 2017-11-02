@@ -106,7 +106,6 @@ class AccountOverview extends React.Component {
 
 
         let preferredUnit = "USD";
-        let showAssetPercent = settings.get("showAssetPercent", true);
 
         let balances = [], openOrders = [];
         balanceList.forEach( balance => {
@@ -282,7 +281,7 @@ class AccountOverview extends React.Component {
         let includedBalances, hiddenBalances, includedOrders, hiddenOrders, hasOpenOrders = false;
         let account_balances = account.get("balances");
 
-        let includedBalancesList = Immutable.List(), hiddenBalancesList = Immutable.List();
+        let includedBalancesList = Immutable.List();
         call_orders.forEach( (callID) => {
             let position = ChainStore.getObject(callID);
             if (position) {
@@ -299,7 +298,7 @@ class AccountOverview extends React.Component {
 
         if (account_balances) {
             // Filter out balance objects that have 0 balance or are not included in open orders
-            account_balances = account_balances.filter((a, index) => {
+            includedBalancesList = account_balances.filter((a, index) => {
                 let balanceObject = ChainStore.getObject(a);
                 if (balanceObject && (!balanceObject.get("balance") && !orders[index])) {
                     return false;
@@ -308,31 +307,13 @@ class AccountOverview extends React.Component {
                 }
             });
 
-            // Separate balances into hidden and included
-            account_balances.forEach((a, asset_type) => {
-                if (hiddenAssets.includes(asset_type)) {
-                    hiddenBalancesList = hiddenBalancesList.push(a);
-                } else {
-                    includedBalancesList = includedBalancesList.push(a);
-                }
-            });
-
             this.state.balances = includedBalancesList
             let included = this._renderBalances(includedBalancesList, this.state.alwaysShowAssets, true);
             includedBalances = included.balances;
             includedOrders = included.openOrders;
-            let hidden = this._renderBalances(hiddenBalancesList, this.state.alwaysShowAssets);
-            hiddenBalances = hidden.balances;
-            hiddenOrders = hidden.openOrders;
-
-            hasOpenOrders = hiddenOrders.length || includedOrders.length;
         }
 
-        if (hiddenBalances) {
-            hiddenBalances.unshift(<tr style={{backgroundColor: "transparent"}} key="hidden"><td style={{height: 20}} colSpan="4"></td></tr>);
-        }
-
-        let totalBalanceList = includedBalancesList.concat(hiddenBalancesList);
+        let totalBalanceList = includedBalancesList;
         let label = 'TOTAL FUNDS'
 
         let totalBalance = totalBalanceList.size ?
@@ -343,16 +324,6 @@ class AccountOverview extends React.Component {
                 collateral={collateral}
             /> : false;
 
-        let showAssetPercent = settings.get("showAssetPercent", false);
-
-        // Find the current Openledger coins
-        const currentDepositAsset = this.props.backedCoins.get("OPEN", []).find(c => {
-            return c.symbol === this.state.depositAsset;
-        }) || {};
-        const currentWithdrawAsset = this.props.backedCoins.get("OPEN", []).find(c => {
-            return c.symbol === this.state.withdrawAsset;
-        }) || {};
-        const currentBridges = this.props.bridgeCoins.get(this.state.bridgeAsset) || null;
 
         return (
             <div className="grid-content trusty_profile_info" style={{overflowX: "hidden"}}>
