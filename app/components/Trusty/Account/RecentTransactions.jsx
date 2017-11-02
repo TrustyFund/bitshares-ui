@@ -170,15 +170,6 @@ class RecentTransactions extends React.Component {
         style.width = "100%";
         style.height = "100%";
 
-        let options = null;
-        if (true || this.props.showFilters) {
-            options = ["all", "transfer", "limit_order_create", "limit_order_cancel", "fill_order", "account_create", "account_update", "asset_create",
-            "witness_withdraw_pay", "vesting_balance_withdraw"]
-            .map(type => {
-                return <option value={type} key={type}>{counterpart.translate("transaction.trxTypes." + type)}</option>;
-            });
-        }
-
         let display_history = history.length ?
             history.slice(0, limit)
             .map(o => {
