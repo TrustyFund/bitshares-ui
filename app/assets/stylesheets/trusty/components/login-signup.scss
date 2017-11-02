@@ -71,12 +71,19 @@
 			}
 		}
 
-
 		._logo_owl {
-    	padding-top: 6vw;
-    	span {
-    		width: 34vw;
-    	}
+	    	padding-top: 6vw;
+	    	span, span.trusty_owl_small_logo {
+	    	   width: 34vw !important;
+	    	}
+
+	    	span.icon.trusty_owl_small_logo {
+	    	   width: 34vw !important;
+	    	   svg {
+	    	   	width: initial;
+	    	   	height: initial;
+	    	   }
+	    	}
 		}
 
 		form {

@@ -21,6 +21,7 @@ import utils from "common/utils";
 import SettingsActions from "actions/SettingsActions";
 import counterpart from "counterpart";
 import {dispatcher} from "components/Trusty/utils"
+import Icon from "components/Icon/Icon"
 
 
 class CreateAccount extends React.Component {
@@ -411,8 +412,8 @@ class CreateAccount extends React.Component {
                         this._renderGetStartedText()
                     }
                 </div>*/}
-
-                <div className="_logo_owl"><span dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/></div>
+                <div className="_logo_owl"><Icon name="trusty_owl_small_logo" /></div>
+                {/*<div className="_logo_owl"><span dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/></div>*/}
             </div>
         );
     }
