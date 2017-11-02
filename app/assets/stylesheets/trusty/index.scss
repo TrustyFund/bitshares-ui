@@ -209,7 +209,7 @@ $header_size: 12vw;
 	height: 12vw !important;
 	line-height: 13.5vw;
 	top: .4vw !important;
-  left: -.2vw !important;
+  	left: -.2vw !important;
 	text-align: center;
 	svg {
 		display: inline-block;
@@ -264,7 +264,7 @@ $header_size: 12vw;
 	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
-	font-family: Gotham_Pro;
+	font-family: Gotham_Pro_Medium;
 
 }
 
@@ -329,7 +329,10 @@ $header_size: 12vw;
 		display: inline-block;
 		width: 44vw;
 		margin: initial !important;
-		background-color: #fff !important;
+		//background-color: #fff !important;
+		background-color: transparent !important;
+		color: white !important;
+		border: 1px solid white;
 		height: 50px;
 		color: black;
 
