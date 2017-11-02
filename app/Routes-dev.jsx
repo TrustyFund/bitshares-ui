@@ -16,6 +16,7 @@ import Withdraw from "components/Trusty/Account/Withdraw"
 import Deposit from "components/Trusty/Account/Deposit"
 import ManagePortfolio from "components/Trusty/Portfolio/Manage"
 import Backup from "components/Trusty/Wallet/BackupBrainkey"
+import UnlockAccount from "components/Trusty/UnlockAccount"
 
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
@@ -38,7 +39,8 @@ const routes = (
         <Route path="/deposit" component={Deposit} />
         <Route path="/terms-of-use" component={TermsOfUse} />
         <Route path="/dashboard" component={AccountOverview}/>
-        <Route path="create-wallet-brainkey" component={CreateWalletFromBrainkey} />
+        <Route path="/create-wallet-brainkey" component={CreateWalletFromBrainkey} />
+        <Route path="/unlock" component={UnlockAccount} />
     </Route>
 );
 

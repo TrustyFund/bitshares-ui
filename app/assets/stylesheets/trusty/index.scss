@@ -7,6 +7,7 @@
 @import "components/input";
 @import "components/login-signup";
 @import "components/terms";
+@import "components/unlock-account";
 
 
 
@@ -259,13 +260,26 @@ $header_size: 12vw;
 }
 
 
-.trusty_full_width_button {
+button.trusty_full_width_button {
 
 	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
 	font-family: Gotham_Pro_Medium;
 
+}
+
+div.trusty_full_width_button_colored {
+	text-transform: uppercase;
+	background-color: #fff !important;
+	color: black;
+	font-family: Gotham_Pro_Medium;
+	line-height:13vw;
+	text-align: center;
+	height: 13.2vw;
+    margin-top: 2vw;
+    font-size: 4.8vw;
+    width: 100%;
 }
 
 
@@ -285,6 +299,7 @@ $header_size: 12vw;
 }
 
 .trusty_inline_button{
+
 	text-align: center;
 
 	button {

@@ -24,6 +24,12 @@ import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 
+// import WalletDb from "stores/WalletDb";
+//         if(WalletDb.isLocked && AccountStore.getMyAccounts().length) {
+//             this.props.router.push("/unlock")
+//             return 
+//         }
+
 
 /* pixel perfect helper */
 // import 'components/Trusty/pixel-glass'
@@ -134,17 +140,21 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
+
         if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
             this.setState({firstEnteredApp: true})
             this.props.router.push(`/home`)
+            return
         }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
         }
+
         if(AccountStore.getMyAccounts().length) {
             localStorage.setItem("_trusty_username",AccountStore.getMyAccounts()[0])  
         }
+
     }
     _navigateBackAction(){
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
@@ -170,7 +180,8 @@ class Trusty extends React.Component {
                 "deposit details": "deposit",
                 "withdraw": "withdraw",
                 "manage fund": "manage",
-                "terms of use": "terms-of-use"
+                "terms of use": "terms-of-use",
+                "unlock account": "unlock"
             }
             let title = ""
             for ( let k in headerTitles) {
@@ -216,11 +227,13 @@ class Trusty extends React.Component {
             '/signup',
             '/create-wallet-brainkey',
             "/terms-of-use",
+            "/unlock"
             ].some(i=>i==this.props.location.pathname)
         }
         authFreeRoutes = authFreeRoutes.bind(this)
 
         if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
+
 
         if (this.state.syncFail) {
             content = (
