@@ -139,16 +139,18 @@ class Trusty extends React.Component {
     // }
     componentWillReceiveProps(nextProps, nextState){
 
-        if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
-            this.setState({firstEnteredApp: true})
-            this.props.router.push(`/home`)
-            return
-        }
+        let check = path => ~this.props.location.pathname.indexOf(path)
 
-        if(!~this.props.location.pathname.indexOf("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
+        if(!check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
             this.props.router.push("/unlock")
             return 
         } 
+
+        // if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
+        //     this.setState({firstEnteredApp: true})
+        //     this.props.router.push(`/home`)
+        //     return
+        // }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
@@ -159,6 +161,7 @@ class Trusty extends React.Component {
         }
  
     }
+
     _navigateBackAction(){
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
@@ -249,7 +252,7 @@ class Trusty extends React.Component {
         } else if (myAccountCount == 0 && authFreeRoutes()) {
             content = grid(this.props.children)
         } else if (myAccountCount == 0 && !authFreeRoutes()) {
-            content = <Landing/>
+            content = <Landing type={"trusty-owl"} />
         } else {
             content = isLanding ? this.props.children : grid(this.props.children)
         }
