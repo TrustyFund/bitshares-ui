@@ -162,8 +162,6 @@ ManagePortfolio = BindToChainState(ManagePortfolio, {keep_updating: true, show_l
 
 class ManagePortfolioWrapper extends React.Component {
     render () {
-        let quoteAsset = "TRFND"
-        let baseAsset = "BTS"
         let account_name = AccountStore.getMyAccounts()[0];
         this.props.params.account_name = account_name;
         return <ManagePortfolio {...this.props} account_name={account_name}/>;
