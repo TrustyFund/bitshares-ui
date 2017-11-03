@@ -29,7 +29,6 @@ class PortfolioStore extends BaseStore {
         this.getBalances = this.getBalances.bind(this);
         this.getAssetPrices = this.getAssetPrices.bind(this);
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
-        ChainStore.subscribe(this.chainStoreUpdate);
     }
 
     getBalances(account){
@@ -111,19 +110,27 @@ class PortfolioStore extends BaseStore {
     }
 
     getAssetPrices(){
+        ChainStore.subscribe(this.chainStoreUpdate);
         this.requestChainStoreAssets();
     }
 
     requestChainStoreAssets(){
         let portfolio = this.getPortfolio();
         portfolio.data.forEach((asset) => {
-            ChainStore.getAsset(asset.marketAsset);
+            let a = ChainStore.getAsset(asset.marketAsset);
         });
     }
 
     chainStoreUpdate(){
         let portfolio = this.getPortfolio();
-        if (ChainStore.assets_by_symbol.size === portfolio.data.length){
+        let assetsFetchComplite = true;
+        portfolio.data.forEach((asset)=>{
+            if (!ChainStore.assets_by_symbol.has(asset.marketAsset)){
+                assetsFetchComplite = false;
+            }
+        });
+        
+        if (assetsFetchComplite){
             ChainStore.unsubscribe(this.chainStoreUpdate);
 
             let baseAsset = ChainStore.getAsset("BTS");
