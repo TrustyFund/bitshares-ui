@@ -8,6 +8,7 @@ import { connect } from "alt-react";
 import ChainTypes from "components/Utility/ChainTypes";
 import BindToChainState from "components/Utility/BindToChainState";
 import AccountStore from "stores/AccountStore";
+import {ChainStore} from "bitsharesjs/es";
 
 class ManagePortfolio extends React.Component {
 
@@ -63,7 +64,6 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		//PortfolioStore.getBalances(this.props.account);
 		PortfolioStore.getAssetPrices();
 	}
 
