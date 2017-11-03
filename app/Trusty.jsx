@@ -17,12 +17,16 @@ import MobileMenu from "components/Layout/MobileMenu";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
-import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
+//import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
+
+import WalletDb from "stores/WalletDb";
+import WalletUnlockStore from "stores/WalletUnlockStore";
+
 
 
 /* pixel perfect helper */
@@ -134,18 +138,30 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
-        if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
-            this.setState({firstEnteredApp: true})
-            this.props.router.push(`/home`)
-        }
+
+        let check = path => ~this.props.location.pathname.indexOf(path)
+
+        if(!check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
+            this.props.router.push("/unlock")
+            return 
+        } 
+
+        // if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
+        //     this.setState({firstEnteredApp: true})
+        //     this.props.router.push(`/home`)
+        //     return
+        // }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
         }
+
         if(AccountStore.getMyAccounts().length) {
             localStorage.setItem("_trusty_username",AccountStore.getMyAccounts()[0])  
         }
+ 
     }
+
     _navigateBackAction(){
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
@@ -170,7 +186,8 @@ class Trusty extends React.Component {
                 "deposit details": "deposit",
                 "withdraw": "withdraw",
                 "manage fund": "manage",
-                "terms of use": "terms-of-use"
+                "terms of use": "terms-of-use",
+                "unlock account": "unlock"
             }
             let title = ""
             for ( let k in headerTitles) {
@@ -178,11 +195,11 @@ class Trusty extends React.Component {
             }
             return title
         }  
-
+     
         let isProfilePage = AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
         let header = (
             <header className="trusty_header">
-                { isProfilePage
+                { ~this.props.location.pathname.indexOf("unlock") ? null : isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
                         <Icon name="trusty_arrow_back"/>
@@ -216,11 +233,13 @@ class Trusty extends React.Component {
             '/signup',
             '/create-wallet-brainkey',
             "/terms-of-use",
+            "/unlock"
             ].some(i=>i==this.props.location.pathname)
         }
         authFreeRoutes = authFreeRoutes.bind(this)
 
         if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
+
 
         if (this.state.syncFail) {
             content = (
@@ -233,7 +252,7 @@ class Trusty extends React.Component {
         } else if (myAccountCount == 0 && authFreeRoutes()) {
             content = grid(this.props.children)
         } else if (myAccountCount == 0 && !authFreeRoutes()) {
-            content = <Landing/>
+            content = <Landing type={"trusty-owl"} />
         } else {
             content = isLanding ? this.props.children : grid(this.props.children)
         }
@@ -259,7 +278,7 @@ class Trusty extends React.Component {
                         }}
                     />
                     <TransactionConfirm/>
-                    <WalletUnlockModal/>
+                    {/*<WalletUnlockModal/>*/}
                 </div>
             </div>
         );
@@ -287,11 +306,12 @@ class RootIntl extends React.Component {
 
 RootIntl = connect(RootIntl, {
     listenTo() {
-        return [AccountStore,IntlStore];
+        return [AccountStore,IntlStore,WalletUnlockStore];
     },
     getProps() {
         return {
-            locale: IntlStore.getState().currentLocale
+            locale: IntlStore.getState().currentLocale,
+            walletLocked: WalletUnlockStore.getState().locked,
         };
     }
 });

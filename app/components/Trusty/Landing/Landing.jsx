@@ -113,7 +113,7 @@ let slides = [
             require('./vendor/img_wallets_2g.png'),
             require('./vendor/img_wallets_2h.png'),
         ],
-        title: "Withdraw Fiat<br> Or Cryptocurrencies",
+        title: "Deposit Fiat<br> Or Cryptocurrencies",
         text: `
         Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to any wallet
         `

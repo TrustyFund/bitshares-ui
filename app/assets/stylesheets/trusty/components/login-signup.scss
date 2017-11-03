@@ -23,7 +23,9 @@
 	}
 }
 
-.trusty_wallet_create, .trusty_account_create {
+.trusty_wallet_create, 
+.trusty_account_create, 
+.trusty_unlock_account {
 
 	._tooltip_p {
 		font-family: "Gotham_Pro";
@@ -48,15 +50,18 @@
 
 @media screen and (max-width: 768px) {
 
-	.trusty_wallet_create, .trusty_account_create {
+	.trusty_wallet_create, 
+	.trusty_account_create, 
+	.trusty_unlock_account {
 		.form-group {
 			margin-bottom: 1px;
 			
 		}
 		._tooltip_p {
 			line-height: 4vw;
-	    margin-top: 2vw;
-	    font-size: 3.3vw;
+		    margin-top: 2vw;
+		    font-size: 3.3vw;
+		    margin-bottom: 4.6vw;
 		}
 
 		._bottom_button {
@@ -71,12 +76,20 @@
 			}
 		}
 
-
 		._logo_owl {
-    	padding-top: 6vw;
-    	span {
-    		width: 34vw;
-    	}
+			text-align: center;
+	    	padding-top: 6vw;
+	    	span, span.trusty_owl_small_logo {
+	    	   width: 34vw !important;
+	    	}
+	    	span.icon.trusty_owl_small_logo {
+	    	   display: inline-block;
+	    	   width: 34vw !important;
+	    	   svg {
+	    	   	width: initial;
+	    	   	height: initial;
+	    	   }
+	    	}
 		}
 
 		form {

@@ -8,7 +8,8 @@ import WalletManagerStore from "stores/WalletManagerStore";
 import WalletActions from "actions/WalletActions";
 import { connect } from "alt-react";
 import cname from "classnames";
-import {dispatcher} from 'components/Trusty/utils'
+import {dispatcher} from 'components/Trusty/utils';
+import Icon from 'components/Icon/Icon';
 
 class CreateNewWallet extends Component {
 
@@ -66,7 +67,7 @@ class CreateNewWallet extends Component {
                     .setWallet(wallet_public_name, valid_password, this.state.brnkey)
                     .then(data=>{
                         setTimeout(()=>{
-                            this.props.router.push("/dashboard")
+                            this.props.router.push("/home")
 						},200)
 					});
 				//this.setState({create_submitted: true});
@@ -197,7 +198,7 @@ class CreateNewWallet extends Component {
 										</label>
 								</div>) : null}
 						</form>
-						<div className="_logo_owl"><span dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/owl_logo_small.svg')}}/></div>
+						<div className="_logo_owl"><Icon name="trusty_owl_small_logo" /></div>
 				</div>);
 		}
 }

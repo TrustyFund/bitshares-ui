@@ -384,10 +384,10 @@
     "pay_from": "Pay with account",
     "existing_accounts": "Existing Accounts",
     "name_input": {
-      "name_is_taken": "Account name is already taken.",
-      "not_found": "Account not found.",
-      "premium_name_faucet": "Name should contain numbers or have no vowels.",
-      "premium_name_warning": "This is a premium name which is more expensive than a name containing a dash (-) or a number."
+      "name_is_taken": "Account name is already taken",
+      "not_found": "Account not found",
+      "premium_name_faucet": "Account name should end with a digit",
+      "premium_name_warning": "Account name should end with a digit"
     },
     "propose_from": "Propose From",
     "settle": "Settle",

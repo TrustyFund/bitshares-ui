@@ -16,7 +16,8 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
         "trusty_arrow_down",
         "trusty_arrow_down_landing",
         "trusty_input_close",
-        "trusty_portfolio_arrow_right"
+        "trusty_portfolio_arrow_right",
+        "trusty_owl_small_logo"
     ])
 
 let icons_map = {};

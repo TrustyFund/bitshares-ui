@@ -7,6 +7,7 @@
 @import "components/input";
 @import "components/login-signup";
 @import "components/terms";
+@import "components/unlock-account";
 
 
 
@@ -18,7 +19,7 @@
 
 .trusty_owl_loader {
 
-	width: 60%;
+	width: 60vw;  
 	opacity: .6;
 	margin: 0 auto;
 	position: fixed;
@@ -209,7 +210,7 @@ $header_size: 12vw;
 	height: 12vw !important;
 	line-height: 13.5vw;
 	top: .4vw !important;
-  left: -.2vw !important;
+  	left: -.2vw !important;
 	text-align: center;
 	svg {
 		display: inline-block;
@@ -259,13 +260,26 @@ $header_size: 12vw;
 }
 
 
-.trusty_full_width_button {
+button.trusty_full_width_button {
 
 	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
-	font-family: Gotham_Pro;
+	font-family: Gotham_Pro_Medium;
 
+}
+
+div.trusty_full_width_button_colored {
+	text-transform: uppercase;
+	background-color: #fff !important;
+	color: black;
+	font-family: Gotham_Pro_Medium;
+	line-height:13vw;
+	text-align: center;
+	height: 13.2vw;
+    margin-top: 2vw;
+    font-size: 4.8vw;
+    width: 100%;
 }
 
 
@@ -285,6 +299,7 @@ $header_size: 12vw;
 }
 
 .trusty_inline_button{
+
 	text-align: center;
 
 	button {
@@ -329,7 +344,10 @@ $header_size: 12vw;
 		display: inline-block;
 		width: 44vw;
 		margin: initial !important;
-		background-color: #fff !important;
+		//background-color: #fff !important;
+		background-color: transparent !important;
+		color: white !important;
+		border: 1px solid white;
 		height: 50px;
 		color: black;
 

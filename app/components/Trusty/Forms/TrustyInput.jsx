@@ -24,7 +24,8 @@ class TrustyInput extends React.Component {
   			value: "",
   			opened: false,
   			showClose: false,
-  			focused: false
+  			focused: false,
+  			isEmpty: true
   		}
   		this.handleChange = this.handleChange.bind(this)
   		this.setOpened = this.setOpened.bind(this)
@@ -50,18 +51,26 @@ class TrustyInput extends React.Component {
 
   componentDidMount(){
   	if(this.props.isOpen) this.setOpened(true)
+  	if(this.onchange) this.onchange.remove()
   }
+
+	_nullField(){
+		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
+		if(input) { input.value = ""; input.focus() }
+	}
 
 	componentDidUpdate(){
 
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
-
 		if(input!==null && this.state.opened){
 			if(this.state.focused) return 
 			this.setState({focused: true})
 			input.focus()
+			if(this.onchange) return 
+			// this.onchange = listen(input, "keydown",()=>{
+			// 	this.setState({isEmpty: input.value.length == 0})
+			// })
 		}
-
 
 		// if(this.blur) this.blur.remove()
 		// if( input )  {
@@ -106,7 +115,7 @@ class TrustyInput extends React.Component {
 
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
-							{this.props.right }
+							{this.props.right ?  this.props.right : !this.state.isEmpty ? <span className="close_icon" onClick={this._nullField.bind(this)}><Icon name={"trusty_input_close"} /></span> : null }
 						</div>
 					</div>
 				</div>
