@@ -63,7 +63,8 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioStore.getBalances(this.props.account);
+		//PortfolioStore.getBalances(this.props.account);
+		PortfolioStore.getAssetPrices();
 	}
 
 	renderShare(share,className){

@@ -3,6 +3,8 @@ import alt from "alt-instance";
 import ls from "common/localStorage";
 import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
+import MarketsActions from "actions/MarketsActions";
+import MarketsStore from "stores/MarketsStore";
 
 let portfolioStorage = new ls("__trusty_portfolio__");
 
@@ -18,7 +20,8 @@ class PortfolioStore extends BaseStore {
             "incrementAsset",
             "decrementAsset",
             "isValid",
-            "getBalances"
+            "getBalances",
+            "getAssetPrices"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
@@ -26,6 +29,7 @@ class PortfolioStore extends BaseStore {
         this.decrementAsset = this.decrementAsset.bind(this);
         this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
+        this.getAssetPrices = this.getAssetPrices.bind(this);
     }
 
     getBalances(account){
@@ -105,6 +109,21 @@ class PortfolioStore extends BaseStore {
     isValid(){
         return this.summValid;
     }
-}
 
+    getAssetPrices(){
+        let baseAsset = ChainStore.getAsset("BTS");
+        let quoteArray = ["TRFND","OPEN.BTC","OPEN.ETH"];
+
+        quoteArray.forEach((asset) => {
+            let quoteAsset = ChainStore.getAsset(asset);
+            MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
+                MarketsActions.getMarketStats(baseAsset,quoteAsset);
+                let stats = MarketsStore.getState().marketData;
+                console.log("STATS",stats)
+            });
+            MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
+        });
+
+    }
+}
 export default alt.createStore(PortfolioStore, "PortfolioStore");
