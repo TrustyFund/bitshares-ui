@@ -28,6 +28,8 @@ class PortfolioStore extends BaseStore {
         this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
         this.getAssetPrices = this.getAssetPrices.bind(this);
+        this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
+        ChainStore.subscribe(this.chainStoreUpdate);
     }
 
     getBalances(account){
@@ -109,36 +111,38 @@ class PortfolioStore extends BaseStore {
     }
 
     getAssetPrices(){
-        let baseAsset = ChainStore.getAsset("BTS");
-        let portfolio = this.getPortfolio();
-        console.log("BASE",baseAsset);
+        this.requestChainStoreAssets();
+    }
 
+    requestChainStoreAssets(){
+        let portfolio = this.getPortfolio();
         portfolio.data.forEach((asset) => {
-            let marketAsset = asset.marketAsset;
-            let tradable = asset.tradable;
-            if (tradable){
-                this.getAsset(marketAsset).then((quoteAsset)=> {
-                    console.log("QUOTE",marketAsset,quoteAsset);
+            ChainStore.getAsset(asset.marketAsset);
+        });
+    }
+
+    chainStoreUpdate(){
+        let portfolio = this.getPortfolio();
+        if (ChainStore.assets_by_symbol.size === portfolio.data.length){
+            ChainStore.unsubscribe(this.chainStoreUpdate);
+
+            let baseAsset = ChainStore.getAsset("BTS");
+            let portfolio = this.getPortfolio();
+            console.log("BASE",baseAsset);
+
+            portfolio.data.forEach((asset) => {
+                if (asset.tradable){
+                    let quoteAsset = ChainStore.getAsset(asset.marketAsset);
+                    console.log("QUOTE",asset.marketAsset,quoteAsset);
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
                         MarketsActions.getMarketStats(baseAsset,quoteAsset);
                         let stats = MarketsStore.getState().marketData;
                         console.log("STATS",stats);
                         MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
                     });  
-                });
-            }
-        });
-    }
-
-    getAsset(symbol){
-        return new Promise((resolve,reject) => {
-            let quoteAsset = ChainStore.getAsset(symbol);
-            if (quoteAsset){
-                resolve(quoteAsset)
-            }else{
-                reject("No such " + symbol);     
-            }   
-        })
+                }
+            });
+        }
     }
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");
