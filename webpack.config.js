@@ -53,6 +53,12 @@ module.exports = function(env) {
 
     // COMMON PLUGINS
     var plugins = [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.js',
+            minChunks: Infinity
+        }),
+        new webpack.NamedModulesPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin({
             APP_VERSION: JSON.stringify(git.tag()),
@@ -134,6 +140,28 @@ module.exports = function(env) {
                 "react-hot-loader/patch",
                 "webpack-hot-middleware/client",
                 path.resolve(root_dir, "app/Main-dev.js")
+            ],
+            vendor: [
+                'babel-polyfill',
+                'jquery',
+                'react',
+                'react-dom',
+                'react-router', 
+                "alt",
+                "alt-container",
+                "alt-react",
+                "bitsharesjs",
+                "classnames",
+                "cookies-js",
+                "counterpart",
+                "event-emitter",
+                "event-listener",
+                "lodash",
+                "object-assign",
+                "react-clipboard.js",
+                "react-hot-loader",
+                "react-intl",
+                "bitsharesjs-ws"
             ]
         },
         output: {

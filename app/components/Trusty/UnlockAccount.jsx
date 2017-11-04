@@ -136,9 +136,10 @@ class WalletUnlockModal extends React.Component {
     onPasswordEnter(e) {
         const {passwordLogin} = this.props;
         e.preventDefault();
-        const password = passwordLogin ? this.refs.password_input.value : this.refs.password_input.value();
+        const password = this.refs.password_input.value() 
         const account = passwordLogin ? this.state.account && this.state.account.get("name") : null;
         this.setState({password_error: null});
+        console.log(password)
         WalletDb.validatePassword(
             password || "",
             true, //unlock

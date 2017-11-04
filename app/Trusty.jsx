@@ -142,8 +142,8 @@ class Trusty extends React.Component {
         let check = path => ~this.props.location.pathname.indexOf(path)
 
         if(!check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
-            //this.props.router.push("/unlock")
-           // return 
+            this.props.router.push("/unlock")
+           return 
         } 
 
         // if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
