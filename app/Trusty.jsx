@@ -198,7 +198,7 @@ class Trusty extends React.Component {
      
         let isProfilePage = AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
         let header = (
-            <header className="trusty_header">
+            <div className="trusty_header">
                 { ~this.props.location.pathname.indexOf("unlock") ? null : isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
@@ -207,7 +207,7 @@ class Trusty extends React.Component {
                 }
                 { isProfilePage ? <Link to="/backup"> <Icon name="trusty_options"/> </Link> : null }
                 <span className="header_title">{getHeaderTitle()}</span>
-            </header>
+            </div>
         )
 
         function grid(inside){
@@ -215,6 +215,7 @@ class Trusty extends React.Component {
                 <div className="grid-frame vertical">
                     {/*<Header />*/}
                     { header }
+                    <div className="trusty_header_fake">{header}</div>
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">

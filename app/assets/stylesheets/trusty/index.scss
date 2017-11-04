@@ -169,9 +169,27 @@ br.desk {
 }
 $header_size_desk: 50px;
 $header_size: 12vw;
+
+
+.trusty_header_fake {
+	width: 100%;
+	.trusty_header {
+		position: relative;
+		z-index: 100;
+		opacity: 0;
+	}
+}
+
+
 .trusty_header {
-	position: relative;
+
+	position: fixed;
+	width: 100%;
 	height: $header_size;
+	top:0;
+	left:0;
+	right: 0;
+	z-index: 1200;
 	//border-bottom: 1px solid $white_color;
 	.header_title {
 		display: block;
