@@ -53,13 +53,6 @@ module.exports = function(env) {
 
     // COMMON PLUGINS
     var plugins = [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'vendor.[chunkhash].js',
-            minChunks: Infinity
-        }),
-        new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.[hash].js' }),
-        new webpack.NamedModulesPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin({
             APP_VERSION: JSON.stringify(git.tag()),
@@ -94,6 +87,22 @@ module.exports = function(env) {
         );
 
         // PROD PLUGINS
+
+        plugins.push(
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor',
+                filename: 'vendor.[chunkhash].js',
+                minChunks: Infinity
+            })
+        ),
+        plugins.push(
+            new webpack.optimize.CommonsChunkPlugin({ 
+                name: 'meta', 
+                chunks: ['vendor'], 
+                filename: 'meta.[hash].js' 
+            })
+        )
+        plugins.push(new webpack.NamedModulesPlugin())
         plugins.push(new HtmlWebpackPlugin({
             title: "Trusty",
             template: path.resolve(__dirname,'app', 'assets','trusty.html'),
@@ -154,7 +163,7 @@ module.exports = function(env) {
                  "event-emitter",
                 "event-listener",
                 "file-saver",
-                "foundation-apps",
+                //"foundation-apps",
                 "fractional",
                 "highcharts",
                 "immutable",
@@ -165,15 +174,15 @@ module.exports = function(env) {
                 "js-sha256",
                 "lodash",
                 "lzma",
-                "node-fetch",
-                "numeral,
+                //"node-fetch",
+                "numeral",
                 "object-assign",
                 "perfect-scrollbar",
                 "qrcode.react",
                 "react",
                 "react-clipboard.js",
                 "react-dom",
-                "react-foundation-apps",
+               //"react-foundation-apps",
                 "react-highcharts",
                 "react-hot-loader",
                 "react-interpolate-component",
@@ -186,7 +195,7 @@ module.exports = function(env) {
                 "react-stockcharts",
                 "react-tooltip",
                 "react-transition-group",
-                "react-translate-component,
+                "react-translate-component",
                 "react-tabs-redux",
                 "tcomb",
                 "whatwg-fetch",
