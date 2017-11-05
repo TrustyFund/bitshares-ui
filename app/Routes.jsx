@@ -67,6 +67,11 @@ const routes = (
             System.import("components/Trusty/Portfolio/Manage").then(loadRoute(cb)).catch(errorLoading);
         }}/>
 
+        <Route path="/init-error" getComponent={(location, cb) => {
+            System.import("components/InitError").then(loadRoute(cb)).catch(errorLoading);
+        }}/>
+
+
     </Route>
 );
 

@@ -55,44 +55,41 @@ class Trusty extends React.Component {
             theme: SettingsStore.getState().settings.get("themes"),
             isMobile: !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
         };
-
+        this._chainStoreSub = this._chainStoreSub.bind(this);
+        this._syncStatus = this._syncStatus.bind(this);
         this._rebuildTooltips = this._rebuildTooltips.bind(this);
+    }
+
+    _syncStatus(setState = false) {
+        let synced = true;
+        let dynGlobalObject = ChainStore.getObject("2.1.0");
+        if (dynGlobalObject) {
+            let block_time = dynGlobalObject.get("time");
+            if (!/Z$/.test(block_time)) {
+                block_time += "Z";
+            }
+
+            let bt = (new Date(block_time).getTime() + ChainStore.getEstimatedChainTimeOffset()) / 1000;
+            let now = new Date().getTime() / 1000;
+            synced = Math.abs(now - bt) < 5;
+        }
+        if (setState && synced !== this.state.synced) {
+            this.setState({synced});
+        }
+        return synced;
     }
 
     componentWillUnmount() {
         NotificationStore.unlisten(this._onNotificationChange);
         SettingsStore.unlisten(this._onSettingsChange);
+        ChainStore.unsubscribe(this._chainStoreSub);
     }
 
     componentDidMount() {
-        try {
-            NotificationStore.listen(this._onNotificationChange.bind(this));
-            SettingsStore.listen(this._onSettingsChange.bind(this));
-
-            ChainStore.init().then(() => {
-                this.setState({synced: true});
-                Promise.all([
-                    AccountStore.loadDbData(Apis.instance().chainId)
-                ]).then(() => {
-                    AccountStore.tryToSetCurrentAccount();
-                    this.setState({loading: false});        
-                }).catch(error => {
-                    console.log("[Trusty.jsx] ----- ERROR ----->", error);
-                    this.setState({loading: false});
-                });
-            }).catch(error => {
-                console.log("[Trusty.jsx] ----- ChainStore.init error ----->", error);
-                let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
-
-                this.setState({loading: false, synced: false, syncFail});
-            });
-        } catch(e) {
-            console.error("e:", e);
-        }
-
-        this.props.router.listen(this._rebuildTooltips);
-        this._rebuildTooltips();
+        this._setListeners();
+        this.syncCheckInterval = setInterval(this._syncStatus, 5000);
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
@@ -103,6 +100,17 @@ class Trusty extends React.Component {
 
     }
 
+    _setListeners() {
+        try {
+            NotificationStore.listen(this._onNotificationChange.bind(this));
+            SettingsStore.listen(this._onSettingsChange);
+            ChainStore.subscribe(this._chainStoreSub);
+            AccountStore.tryToSetCurrentAccount();
+        } catch(e) {
+            console.error("e:", e);
+        }
+    }
+
     _rebuildTooltips() {
         ReactTooltip.hide();
 
@@ -111,6 +119,19 @@ class Trusty extends React.Component {
                 this.refs.tooltip.globalRebuild();
             }
         }, 1500);
+    }
+
+    _chainStoreSub() {
+        let synced = this._syncStatus();
+        if (synced !== this.state.synced) {
+            this.setState({synced});
+        }
+        if (ChainStore.subscribed !== this.state.synced || ChainStore.subError) {
+            let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
+            this.setState({
+                syncFail
+            });
+        }
     }
 
     /** Usage: NotificationActions.[success,error,warning,info] */

@@ -6,7 +6,6 @@ import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import SettleModal from "components/Modal/SettleModal";
 import {BalanceValueComponent, EquivalentValueComponent} from "components/Utility/Trusty/EquivalentValueComponent";
 import AssetName from "components/Utility/Trusty/AssetName";
-import CollateralPosition from "components/Blockchain/CollateralPosition";
 import { RecentTransactions } from "components/Trusty/Account/RecentTransactions";
 import Proposals from "components/Account/Proposals";
 import {ChainStore} from "bitsharesjs/es";
@@ -389,17 +388,6 @@ class AccountOverview extends React.Component {
                         <SettleModal ref="settlement_modal" asset={this.state.settleAsset} account={account.get("name")}/>
                     </div>
                 </div>
-
-                {call_orders.length > 0 ? (
-
-                <div className="content-block">
-                    <div className="generic-bordered-box">
-                        <div className="block-content-header">
-                            <Translate content="account.collaterals" />
-                        </div>
-                        <CollateralPosition callOrders={call_orders} account={account} />
-                    </div>
-                </div>) : null}
 
                 {account.get("proposals") && account.get("proposals").size ?
                 <div className="content-block">
