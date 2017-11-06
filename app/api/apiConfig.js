@@ -16,7 +16,7 @@ export const rudexAPIs = {
 };
 
 export const settingsAPIs = {
-    DEFAULT_WS_NODE: "wss://fake.automatic-selection.com",
+    DEFAULT_WS_NODE: "wss://eu.openledger.info/ws",
     WS_NODE_LIST: [
         {url: "wss://eu.openledger.info/ws", location: "Berlin, Germany"},
         {url: "wss://bitshares.crypto.fans/ws", location: "Munich, Germany"},
