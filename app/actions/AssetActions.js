@@ -270,6 +270,7 @@ class AssetActions {
                 return Apis.instance().db_api().exec("list_assets", [
                     start, count
                 ]).then(assets => {
+
                     let bitAssetIDS = [];
                     let dynamicIDS = [];
 

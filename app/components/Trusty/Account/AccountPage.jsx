@@ -12,6 +12,7 @@ import accountUtils from "common/account_utils";
 import AccountOverview from "./AccountOverview";
 import MarketsStore from "stores/MarketsStore";
 import MarketsActions from "actions/MarketsActions";
+import PortfolioStore from "stores/PortfolioStore";
 
 class AccountPage extends React.Component {
 
@@ -30,9 +31,11 @@ class AccountPage extends React.Component {
         super();
 
         this._subToMarket = this._subToMarket.bind(this);
+        this.state = {portfolio: null}
     }
 
     componentWillMount(){
+
         if (this.props.quoteAsset.toJS && this.props.baseAsset.toJS) {
             this._subToMarket(this.props);  
         } 
@@ -47,6 +50,10 @@ class AccountPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
+        PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
+            this.setState({portfolio})
+        })
 
         if (nextProps.quoteAsset && nextProps.baseAsset) {
             return this._subToMarket(nextProps);
@@ -95,7 +102,8 @@ class AccountPage extends React.Component {
                             orders: account.get("orders", null),
                             backedCoins: this.props.backedCoins,
                             bridgeCoins: this.props.bridgeCoins,
-                            marketData: this.props.marketData
+                            marketData: this.props.marketData,
+                            portfolio: this.state.portfolio
                         }
                     )}
                     </div>

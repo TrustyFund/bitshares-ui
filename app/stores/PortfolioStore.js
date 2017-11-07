@@ -6,6 +6,19 @@ import {ChainStore} from "bitsharesjs/es";
 import MarketsActions from "actions/MarketsActions";
 import MarketsStore from "stores/MarketsStore";
 import Immutable from "immutable";
+import AssetActions from 'actions/AssetActions';
+import { dispatcher } from 'components/Trusty/utils';
+import {Apis} from "bitsharesjs-ws";
+
+const createMap = (myObj) =>{
+     return new Map(
+        Object
+            .keys(myObj)
+            .map(
+                key => [key, myObj[key]]
+            )
+    )
+}
 
 let portfolioStorage = new ls("__trusty_portfolio__");
 
@@ -82,9 +95,10 @@ class PortfolioStore extends BaseStore {
 
         let balances  = this.getBalances(account)
         let activeBalaces = []
-
+        //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
         balances.forEach(b=> {
             let balance = ChainStore.getObject(b)
+           
             if(this.getPortfolio().data) {
                 let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
                 if (balanceAsset) {
@@ -102,7 +116,9 @@ class PortfolioStore extends BaseStore {
                                 asset: asset.get("symbol"),
                                 share: 0,
                                 marketAsset: asset.get("symbol"),
-                                tradable: true
+                                tradable: true,
+                                balanceID: b,
+                                balanceMap: balance
                             })    
                         }
                     }  
@@ -111,11 +127,36 @@ class PortfolioStore extends BaseStore {
         })
 
         let data = activeBalaces.concat(this.getPortfolio().data)
-        return {
+
+        let port = {
             data,
             map: data.map(b=>b.asset)
         }
 
+        return new Promise((resolve, reject)=>{
+            Promise.resolve().then(()=>{
+                port.data.forEach((item, index)=>{
+                    Apis.instance().db_api().exec("list_assets", [
+                        item.asset, 1
+                    ]).then(assets => {
+                        let data = port.data[index]
+                        data.assetMap = createMap(assets[0])
+                        if(!data.balanceMap) {
+                            data.balanceID = 0;
+                            data.balanceMap = createMap({
+                                id:0,
+                                owner: 0,
+                                asset_type: 0,
+                                balance: 0
+                            })
+                        }
+                    })  
+                })
+                
+            }).then(()=>{
+                resolve(port)
+            })
+        })
     }
 
     incrementAsset(asset){

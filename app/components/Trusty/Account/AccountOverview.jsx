@@ -27,12 +27,13 @@ import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
 import MarketCard from "components/Trusty/Dashboard/MarketCard";
 
+
 class AccountOverview extends React.Component {
 
 
 
     static propTypes = {
-        balanceAssets: ChainTypes.ChainAssetsList
+        balanceAssets: ChainTypes.ChainAssetsList,
     };
 
     constructor() {
@@ -108,6 +109,7 @@ class AccountOverview extends React.Component {
 
         let balances = [], openOrders = [];
         balanceList.forEach( balance => {
+            console.log("portfolio",this.props.portfolio)
             let balanceObject = ChainStore.getObject(balance);
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
@@ -117,7 +119,6 @@ class AccountOverview extends React.Component {
             let marketLink, directMarketLink;
             let symbol = "";
             if (!asset) return null;
-
             const assetName = asset.get("symbol");
             const notCore = asset.get("id") !== "1.3.0";
             let {market} = assetUtils.parseDescription(asset.getIn(["options", "description"]));
@@ -408,15 +409,16 @@ class BalanceWrapper extends React.Component {
 
     static propTypes = {
         balances: ChainTypes.ChainObjectsList,
-        orders: ChainTypes.ChainObjectsList
+        orders: ChainTypes.ChainObjectsList,
     };
 
     static defaultProps = {
         balances: Immutable.List(),
-        orders: Immutable.List()
+        orders: Immutable.List(),
     };
 
     componentWillMount() {
+
         if (Apis.instance().chain_id.substr(0, 8) === "4018d784") { // Only fetch this when on BTS main net
             GatewayActions.fetchCoins();
             GatewayActions.fetchBridgeCoins();

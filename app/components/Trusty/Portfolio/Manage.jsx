@@ -27,7 +27,13 @@ class ManagePortfolio extends React.Component {
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 	}
+	ComponentWillRecieveProps(){
 
+		PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
+			console.log(portfolio)
+		})
+		
+	}
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
 		let renderedPortfolio = this.renderPortfolioList(portfolio.data);	
@@ -139,9 +145,6 @@ class ManagePortfolio extends React.Component {
 	}
 
 	render(){
-		
-		let portfolio = PortfolioStore.getConcatedPortfolio(this.props.account)
-		console.log(portfolio)
 
 		return (
 			<div className="trusty_portfolio_tabs">
