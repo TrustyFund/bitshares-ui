@@ -115,7 +115,6 @@ class PortfolioStore extends BaseStore {
                                 asset: asset.get("symbol"),
                                 share: 0,
                                 marketAsset: asset.get("symbol"),
-                                tradable: true,
                                 balanceID: b,
                                 balanceMap: balance
                             })    
