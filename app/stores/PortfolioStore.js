@@ -5,6 +5,7 @@ import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import MarketsActions from "actions/MarketsActions";
 import MarketsStore from "stores/MarketsStore";
+import Immutable from "immutable";
 
 let portfolioStorage = new ls("__trusty_portfolio__");
 
@@ -19,9 +20,11 @@ class PortfolioStore extends BaseStore {
             "decrementAsset",
             "isValid",
             "getBalances",
-            "getAssetPrices"
+            "getAssetPrices",
+            "getConcatedPortfolio"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
+        this.getConcatedPortfolio = this.getConcatedPortfolio.bind(this)
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
         this.incrementAsset = this.incrementAsset.bind(this);
         this.decrementAsset = this.decrementAsset.bind(this);
@@ -32,6 +35,7 @@ class PortfolioStore extends BaseStore {
     }
 
     getBalances(account){
+
         let account_balances = account.get("balances");
         let orders = account.get("orders", null);
         if (account_balances) {
@@ -43,9 +47,9 @@ class PortfolioStore extends BaseStore {
                 } else {
                     return true;
                 }
-            });
+            })
         }
-        console.log(account_balances);
+        return account_balances;
     }
 
     getPortfolio(){
@@ -71,6 +75,45 @@ class PortfolioStore extends BaseStore {
             portfolioStorage.set("portfolio",defaultPortfolio);
             return defaultPortfolio;
         }
+
+    }
+
+    getConcatedPortfolio(account){
+
+        let balances  = this.getBalances(account)
+        let activeBalaces = []
+
+        balances.forEach(b=> {
+            let balance = ChainStore.getObject(b)
+            if(this.getPortfolio().data) {
+                let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
+                if (balanceAsset) {
+                    let data = this.getPortfolio().data.filter(p=>{
+                        return p.asset==balanceAsset.get("symbol")
+                    })
+                    if(data.length) {
+                       
+                    } else {
+                        let asset_type = balance.get("asset_type");
+                        let asset = ChainStore.getObject(asset_type);
+
+                        if(asset) {
+                            activeBalaces.push({
+                                asset: asset.get("symbol"),
+                                share: 0
+                            })    
+                        }
+                    }  
+                }
+            } 
+        })
+
+        let data = activeBalaces.concat(this.getPortfolio().data)
+        return {
+            data,
+            map: data.map(b=>b.asset)
+        }
+
     }
 
     incrementAsset(asset){

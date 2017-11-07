@@ -206,9 +206,11 @@ class AccountOverview extends React.Component {
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
 
+            console.log(asset_type)
             let directMarketLink, settleLink, transferLink;
             let symbol = "";
             if (!asset) return null;
+            debugger
 
             const assetName = asset.get("symbol");
             const notCore = asset.get("id") !== "1.3.0";
@@ -388,7 +390,9 @@ class AccountOverview extends React.Component {
         }
 
         balances.sort(sortFunctions[this.state.sortKey]);
+
         return balances;
+
     }
 
     _toggleHiddenAssets() {

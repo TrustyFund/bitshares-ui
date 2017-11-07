@@ -139,6 +139,10 @@ class ManagePortfolio extends React.Component {
 	}
 
 	render(){
+		
+		let portfolio = PortfolioStore.getConcatedPortfolio(this.props.account)
+		console.log(portfolio)
+
 		return (
 			<div className="trusty_portfolio_tabs">
 				<Tabs>
