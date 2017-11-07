@@ -100,7 +100,9 @@ class PortfolioStore extends BaseStore {
                         if(asset) {
                             activeBalaces.push({
                                 asset: asset.get("symbol"),
-                                share: 0
+                                share: 0,
+                                marketAsset: asset.get("symbol"),
+                                tradable: true
                             })    
                         }
                     }  

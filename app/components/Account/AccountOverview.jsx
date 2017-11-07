@@ -210,7 +210,6 @@ class AccountOverview extends React.Component {
             let directMarketLink, settleLink, transferLink;
             let symbol = "";
             if (!asset) return null;
-            debugger
 
             const assetName = asset.get("symbol");
             const notCore = asset.get("id") !== "1.3.0";
