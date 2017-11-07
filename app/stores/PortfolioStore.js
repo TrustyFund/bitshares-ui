@@ -70,14 +70,14 @@ class PortfolioStore extends BaseStore {
 
         let defaultPortfolio = {
             data:[
-                {asset: "BTC",share: 60,marketAsset: "OPEN.BTC",tradable: true},
-                {asset: "ETH",share: 10,marketAsset: "OPEN.ETH",tradable: true},
-                {asset: "DASH",share: 5,marketAsset: "OPEN.DASH",tradable: true},
-                {asset: "LTC",share: 10,marketAsset: "OPEN.LTC",tradable: true},
-                {asset: "EOS",share: 4,marketAsset: "OPEN.EOS",tradable: true},
-                {asset: "STEEM",share: 4,marketAsset: "OPEN.STEEM",tradable: true},
-                {asset: "BTS",share: 4,marketAsset: "BTS",tradable: false},
-                {asset: "TRFND",share: 3,marketAsset: "TRFND",tradable: true}
+                {asset: "BTC",share: 60,marketAsset: "OPEN.BTC"},
+                {asset: "ETH",share: 10,marketAsset: "OPEN.ETH"},
+                {asset: "DASH",share: 5,marketAsset: "OPEN.DASH"},
+                {asset: "LTC",share: 10,marketAsset: "OPEN.LTC"},
+                {asset: "EOS",share: 4,marketAsset: "OPEN.EOS"},
+                {asset: "STEEM",share: 4,marketAsset: "OPEN.STEEM"},
+                {asset: "BTS",share: 4,marketAsset: "BTS"},
+                {asset: "TRFND",share: 3,marketAsset: "TRFND"}
             ],
             map: ["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]
         };
@@ -223,7 +223,7 @@ class PortfolioStore extends BaseStore {
             console.log("BASE",baseAsset);
 
             portfolio.data.forEach((asset) => {
-                if (asset.tradable){
+                if (asset.asset != "BTS"){
                     let quoteAsset = ChainStore.getAsset(asset.marketAsset);
                     console.log("QUOTE",asset.marketAsset,quoteAsset);
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
