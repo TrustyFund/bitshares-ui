@@ -49,8 +49,8 @@ class Trusty extends React.Component {
         let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
         this.state = {
             firstEnteredApp: false,
-            loading: true,
-            synced: ChainStore.subscribed,
+            loading: this._syncStatus(),
+            synced: this._syncStatus(),
             syncFail,
             theme: SettingsStore.getState().settings.get("themes"),
             isMobile: !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
@@ -75,6 +75,7 @@ class Trusty extends React.Component {
         }
         if (setState && synced !== this.state.synced) {
             this.setState({synced});
+            this.setState({loading: !synced});
         }
         return synced;
     }
@@ -267,8 +268,6 @@ class Trusty extends React.Component {
             content = (
                 <SyncError />
             );
-        } else if (this.state.loading) {
-            content = <div className="grid-frame vertical"><LoadingIndicator type={"trusty-owl"} /></div>;
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
         } else if (myAccountCount == 0 && authFreeRoutes()) {

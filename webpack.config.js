@@ -158,7 +158,7 @@ module.exports = function(env) {
                 "alt-container",
                 "alt-react",
                 "bignumber.js",
-                "bitsharesjs",
+                //"bitsharesjs",
                 "classnames",
                  "cookies-js",
                 "counterpart",
