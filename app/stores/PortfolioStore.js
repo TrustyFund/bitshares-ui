@@ -98,7 +98,6 @@ class PortfolioStore extends BaseStore {
         //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
         balances.forEach(b=> {
             let balance = ChainStore.getObject(b)
-           
             if(this.getPortfolio().data) {
                 let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
                 if (balanceAsset) {
@@ -123,7 +122,7 @@ class PortfolioStore extends BaseStore {
                         }
                     }  
                 }
-            } 
+            }      
         })
 
         let data = activeBalaces.concat(this.getPortfolio().data)
@@ -142,12 +141,12 @@ class PortfolioStore extends BaseStore {
                         let data = port.data[index]
                         data.assetMap = createMap(assets[0])
                         if(!data.balanceMap) {
-                            data.balanceID = 0;
+                            data.balanceID = "0";
                             data.balanceMap = createMap({
-                                id:0,
-                                owner: 0,
-                                asset_type: 0,
-                                balance: 0
+                                id:"0",
+                                owner: "0",
+                                asset_type: "0",
+                                balance: "0"
                             })
                         }
                     })  

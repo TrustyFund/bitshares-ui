@@ -108,12 +108,18 @@ class AccountOverview extends React.Component {
         let preferredUnit = "USD";
 
         let balances = [], openOrders = [];
+        console.log("portfolio",this.props.portfolio)
+        console.log("balance list", balanceList)
         balanceList.forEach( balance => {
-            console.log("portfolio",this.props.portfolio)
+        //this.props.portfolio && this.props.portfolio.data.forEach( balance => {
+            // if(!balance.balanceMap || !balance.balanceID || balance.balanceID == "0") return
+            // let balanceObject = balance.balanceMap
+            // let asset_type = balanceObject.get("asset_type")
+            // let asset = balance.assetMap;
+            // balance = balance.balanceID
             let balanceObject = ChainStore.getObject(balance);
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
-
 
             let assetInfoLinks;
             let marketLink, directMarketLink;
