@@ -33,7 +33,7 @@ class PortfolioStore extends BaseStore {
             "decrementAsset",
             "isValid",
             "getBalances",
-            "getAssetPrices",
+            "updatePortfolio",
             "getConcatedPortfolio"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
@@ -43,7 +43,7 @@ class PortfolioStore extends BaseStore {
         this.decrementAsset = this.decrementAsset.bind(this);
         this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
-        this.getAssetPrices = this.getAssetPrices.bind(this);
+        this.updatePortfolio = this.updatePortfolio.bind(this);
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
     }
 
@@ -152,6 +152,7 @@ class PortfolioStore extends BaseStore {
                 })
                 
             }).then(()=>{
+                portfolioStorage.set("portfolio",port);
                 resolve(port)
             })
         })
@@ -193,15 +194,12 @@ class PortfolioStore extends BaseStore {
         return this.summValid;
     }
 
-    getAssetPrices(){
+    updatePortfolio(account){
         ChainStore.subscribe(this.chainStoreUpdate);
-        this.requestChainStoreAssets();
-    }
-
-    requestChainStoreAssets(){
-        let portfolio = this.getPortfolio();
-        portfolio.data.forEach((asset) => {
-            let a = ChainStore.getAsset(asset.marketAsset);
+        this.getConcatedPortfolio(account).then((result) => {
+            result.data.forEach((asset) => {
+                let a = ChainStore.getAsset(asset.marketAsset);
+            });
         });
     }
 
@@ -219,16 +217,14 @@ class PortfolioStore extends BaseStore {
 
             let baseAsset = ChainStore.getAsset("BTS");
             let portfolio = this.getPortfolio();
-            console.log("BASE",baseAsset);
 
             portfolio.data.forEach((asset) => {
                 if (asset.asset != "BTS"){
                     let quoteAsset = ChainStore.getAsset(asset.marketAsset);
-                    console.log("QUOTE",asset.marketAsset,quoteAsset);
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
                         MarketsActions.getMarketStats(baseAsset,quoteAsset);
                         let stats = MarketsStore.getState().marketData;
-                        console.log("STATS",stats);
+                        console.log("STATS: ",quoteAsset.get("symbol"),stats);
                         MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
                     });  
                 }

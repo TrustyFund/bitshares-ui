@@ -70,7 +70,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioStore.getAssetPrices();
+		PortfolioStore.updatePortfolio(this.props.account);
 	}
 
 	renderShare(share,className){
