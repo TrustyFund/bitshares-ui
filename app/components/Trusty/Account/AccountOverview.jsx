@@ -104,6 +104,7 @@ class AccountOverview extends React.Component {
 
         let balances = []
         if(this.props.portfolio && this.props.portfolio.data.length) {
+
             this.props.portfolio.forEach(p=>{
 
                 let pair = ["BTS", p.assetShortName];
@@ -114,7 +115,7 @@ class AccountOverview extends React.Component {
                         </td>                  
                         <td style={{textAlign: "right"}}>
                             { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData} balance={balance} hide_asset />
-                                : hasBalance || hasOnOrder
+                                : p.balanceID == "0"
                                 ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
                                 : "0 BTS"
                             }

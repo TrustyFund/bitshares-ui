@@ -115,43 +115,54 @@ class PortfolioStore extends BaseStore {
 
     }
 
-    getConcatedPortfolio(account){
+    _getCurrentSharePercentage(amount){
+        let totalAmount = +localStorage.getItem("_trusty_total_value")
+        let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
+        return percent.toFixed(0)
+    }
 
+    getConcatedPortfolio(account){
+        portfolioStorage.set("portfolio",{});
         let balances  = this.getBalances(account)
         let activeBalaces = []
         //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
         console.log(balances)
+        let portfolioData = this.getPortfolio().data.slice()
         balances.forEach(b=> {
+
+
             let balance = ChainStore.getObject(b)
             let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
             if (balanceAsset) {
-                let data = this.getPortfolio().data.filter(p=>{
+
+                let data = portfolioData.filter(p=>{
                     return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
                 })
-                if(data.length) {
+
+                if(data.length) portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)
              
-                } else {
-                    let asset_type = balance.get("asset_type");
-                    let asset = ChainStore.getObject(asset_type);
-                    if(asset) {
-                        let s = asset.get("symbol")
-                        activeBalaces.push({
-                            balanceID: b,
-                            balanceMap: balance,
-                            assetShortName: ~s.search(/open/i)?s.substring(5):s,
-                            assetFullName: asset.get("symbol"), 
-                            futureShare: 0, 
-                            currentShare: 0, 
-                            ammount: 0, 
-                            priceBts:0
-                        })    
-                    }
-                }  
+                let asset_type = balance.get("asset_type");
+                let asset = ChainStore.getObject(asset_type);
+                if(asset) {
+                    let s = asset.get("symbol")
+                    let amount = Number(balance.get("balance"))
+                    activeBalaces.push({
+                        balanceID: b,
+                        balanceMap: balance,
+                        assetShortName: ~s.search(/open/i)?s.substring(5):s,
+                        assetFullName: asset.get("symbol"), 
+                        futureShare: 0, 
+                        currentShare: +this._getCurrentSharePercentage(amount), 
+                        amount, 
+                        priceBts:0
+                    })    
+                } 
+            
             }
            
         })
 
-        let data = activeBalaces.concat(this.getPortfolio().data)
+        let data = activeBalaces.concat(portfolioData)
 
         let port = {
             data,
@@ -167,18 +178,18 @@ class PortfolioStore extends BaseStore {
                         let bal = port.data[index]
                         bal.assetMap = createMap(assets[0])
                         if(!bal.balanceMap) {
-                            bal.balanceID = "0";
+                            bal.balanceID = null;
                             bal.balanceMap = createMap({
                                 id:"0",
                                 owner: "0",
                                 asset_type: "0",
                                 balance: "0"
                             })
+                            bal.amount = 0
+                            bal.currentShare =  0
                         }
                         if(!bal.futureShare) bal.futureShare = 0
-                        // balance.currentShare =  0, 
-                        // balance.ammount =  0, 
-                        // balance.priceBts = 0
+                        // bal.priceBts = 0
                     })  
                 })
                 
