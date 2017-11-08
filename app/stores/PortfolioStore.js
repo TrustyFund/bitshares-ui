@@ -70,14 +70,38 @@ class PortfolioStore extends BaseStore {
 
         let defaultPortfolio = {
             data:[
-                {asset: "BTC",share: 60,marketAsset: "OPEN.BTC"},
-                {asset: "ETH",share: 10,marketAsset: "OPEN.ETH"},
-                {asset: "DASH",share: 5,marketAsset: "OPEN.DASH"},
-                {asset: "LTC",share: 10,marketAsset: "OPEN.LTC"},
-                {asset: "EOS",share: 4,marketAsset: "OPEN.EOS"},
-                {asset: "STEEM",share: 4,marketAsset: "OPEN.STEEM"},
-                {asset: "BTS",share: 4,marketAsset: "BTS"},
-                {asset: "TRFND",share: 3,marketAsset: "TRFND"}
+                { assetShortName: "BTC",
+                  futureShare: 60,
+                  currentShare:0,
+                  assetFullName: "OPEN.BTC"},
+                { assetShortName: "ETH",
+                  futureShare: 10,
+                  currentShare:0,
+                  assetFullName: "OPEN.ETH"},
+                { assetShortName: "DASH",
+                  futureShare: 5,
+                  currentShare:0,
+                  assetFullName: "OPEN.DASH"},
+                { assetShortName: "LTC",
+                  futureShare: 10,
+                  currentShare:0,
+                  assetFullName: "OPEN.LTC"},
+                { assetShortName: "EOS",
+                  futureShare: 4,
+                  currentShare:0,
+                  assetFullName: "OPEN.EOS"},
+                { assetShortName: "STEEM",
+                  futureShare: 4,
+                  currentShare:0,
+                  assetFullName: "OPEN.STEEM"},
+                { assetShortName: "BTS",
+                  futureShare: 4,
+                  currentShare:0,
+                  assetFullName: "BTS"},
+                { assetShortName: "TRFND",
+                  futureShare: 3,
+                  currentshare:0,
+                  assetFullName: "TRFND"}
             ],
             map: ["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]
         };
@@ -96,63 +120,71 @@ class PortfolioStore extends BaseStore {
         let balances  = this.getBalances(account)
         let activeBalaces = []
         //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
+        console.log(balances)
         balances.forEach(b=> {
             let balance = ChainStore.getObject(b)
-            if(this.getPortfolio().data) {
-                let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
-                if (balanceAsset) {
-                    let data = this.getPortfolio().data.filter(p=>{
-                        return p.asset==balanceAsset.get("symbol")
-                    })
-                    if(data.length) {
-                       
-                    } else {
-                        let asset_type = balance.get("asset_type");
-                        let asset = ChainStore.getObject(asset_type);
-
-                        if(asset) {
-                            activeBalaces.push({
-                                asset: asset.get("symbol"),
-                                share: 0,
-                                marketAsset: asset.get("symbol"),
-                                balanceID: b,
-                                balanceMap: balance
-                            })    
-                        }
-                    }  
-                }
-            }      
+            let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
+            if (balanceAsset) {
+                let data = this.getPortfolio().data.filter(p=>{
+                    return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
+                })
+                if(data.length) {
+             
+                } else {
+                    let asset_type = balance.get("asset_type");
+                    let asset = ChainStore.getObject(asset_type);
+                    if(asset) {
+                        let s = asset.get("symbol")
+                        activeBalaces.push({
+                            balanceID: b,
+                            balanceMap: balance,
+                            assetShortName: ~s.search(/open/i)?s.substring(5):s,
+                            assetFullName: asset.get("symbol"), 
+                            futureShare: 0, 
+                            currentShare: 0, 
+                            ammount: 0, 
+                            priceBts:0
+                        })    
+                    }
+                }  
+            }
+           
         })
 
         let data = activeBalaces.concat(this.getPortfolio().data)
 
         let port = {
             data,
-            map: data.map(b=>b.asset)
+            map: data.map(b=>b.assetShortName)
         }
 
         return new Promise((resolve, reject)=>{
             Promise.resolve().then(()=>{
                 port.data.forEach((item, index)=>{
                     Apis.instance().db_api().exec("list_assets", [
-                        item.asset, 1
+                        item.assetShortName, 1
                     ]).then(assets => {
-                        let data = port.data[index]
-                        data.assetMap = createMap(assets[0])
-                        if(!data.balanceMap) {
-                            data.balanceID = "0";
-                            data.balanceMap = createMap({
+                        let bal = port.data[index]
+                        bal.assetMap = createMap(assets[0])
+                        if(!bal.balanceMap) {
+                            bal.balanceID = "0";
+                            bal.balanceMap = createMap({
                                 id:"0",
                                 owner: "0",
                                 asset_type: "0",
                                 balance: "0"
                             })
                         }
+                        if(!bal.futureShare) bal.futureShare = 0
+                        // balance.currentShare =  0, 
+                        // balance.ammount =  0, 
+                        // balance.priceBts = 0
                     })  
                 })
                 
             }).then(()=>{
                 portfolioStorage.set("portfolio",port);
+                console.log(port)
                 resolve(port)
             })
         })
@@ -161,8 +193,8 @@ class PortfolioStore extends BaseStore {
     incrementAsset(asset){
         let storedPortfolio = portfolioStorage.get("portfolio");
         let assetIndex = storedPortfolio.map.indexOf(asset)
-        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].share < 100){
-            storedPortfolio.data[assetIndex].share++; 
+        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].futureShare < 100){
+            storedPortfolio.data[assetIndex].futureShare++; 
             portfolioStorage.set("portfolio",storedPortfolio);
             return true;
         }
@@ -172,8 +204,8 @@ class PortfolioStore extends BaseStore {
     decrementAsset(asset){
         let storedPortfolio = portfolioStorage.get("portfolio");
         let assetIndex = storedPortfolio.map.indexOf(asset)
-        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].share > 0){
-            storedPortfolio.data[assetIndex].share--; 
+        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].futureShare > 0){
+            storedPortfolio.data[assetIndex].futureShare--; 
             portfolioStorage.set("portfolio",storedPortfolio);
             return true;
         }
@@ -184,7 +216,7 @@ class PortfolioStore extends BaseStore {
         let storedPortfolio = portfolioStorage.get("portfolio");
         let result = 0;
         storedPortfolio.data.forEach(current => {
-            result = result + current.share;
+            result = result + current.futureShare;
         });
         this.summValid = result == 100;
         return result;

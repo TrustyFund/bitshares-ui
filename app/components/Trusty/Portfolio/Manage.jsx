@@ -27,13 +27,15 @@ class ManagePortfolio extends React.Component {
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 	}
-	ComponentWillRecieveProps(){
+
+	componentWillReceiveProps(){
 
 		PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
 			console.log(portfolio)
 		})
 
 	}
+
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
 		let renderedPortfolio = this.renderPortfolioList(portfolio.data);	
@@ -103,14 +105,14 @@ class ManagePortfolio extends React.Component {
 			let name = "portfolio_item _" + i
 			let assetClass = this.getAssetClass.bind(this,asset);
 			portfolio.push(
-				<tr key={asset.asset}>
+				<tr key={asset.assetShortName}>
 					<td>
-						<div className={name}>{asset.asset}{arrow}</div>
+						<div className={name}>{asset.assetShortName}{arrow}</div>
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
 							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>- </a>
-							{this.renderShare(asset.share,assetClass(asset))}
+							{this.renderShare(asset.futureShare,assetClass(asset))}
 							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset)}> +</a>
 						</div>
 					</td>
@@ -133,13 +135,16 @@ class ManagePortfolio extends React.Component {
 	getAssetClass(asset){
 		let className = "normal";
 		let assetIndex = this.state.initPortfolio.map.indexOf(asset.asset);
-		let loadedShare = this.state.initPortfolio.data[assetIndex].share;
-		if (asset.share > loadedShare){
-			className = "greater";
-		}else if(asset.share < loadedShare){
-			className = "less";
-		}else{
-			className = "normal";
+		if(this.state.initPortfolio.data[assetIndex]) {
+			let loadedShare = this.state.initPortfolio.data[assetIndex].futureShare;
+			if (asset.futureShare > loadedShare){
+				className = "greater";
+			}else if(asset.futureShare < loadedShare){
+				className = "less";
+			}else{
+				className = "normal";
+			}
+			
 		}
 		return className;
 	}

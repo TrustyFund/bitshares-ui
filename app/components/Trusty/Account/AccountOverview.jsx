@@ -99,6 +99,48 @@ class AccountOverview extends React.Component {
         }
     }
 
+
+    _renderTrustyBalaces() {
+
+        let balances = []
+        if(this.props.portfolio && this.props.portfolio.data.length) {
+            this.props.portfolio.forEach(p=>{
+
+                let pair = ["BTS", p.assetShortName];
+                balances.push(
+                    <tr key={p.assetShortName} style={{maxWidth: "100rem"}}>
+                        <td style={{textAlign: "left"}}>
+                            {p.assetShortName}
+                        </td>                  
+                        <td style={{textAlign: "right"}}>
+                            { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData} balance={balance} hide_asset />
+                                : hasBalance || hasOnOrder
+                                ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
+                                : "0 BTS"
+                            }
+                        </td>
+                        <td style={{textAlign: "right"}}>
+                            { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData}  balance={balance} hide_asset /> :
+                              hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
+                        </td>
+                        <td>
+                            <MarketCard
+                                key={pair[0] + "_" + pair[1]}
+                                marketId={pair[1] + "_" + pair[0]}
+                                new={false}
+                                quote={pair[0]}
+                                base={pair[1]}
+                                invert={pair[2]}
+                                hide={false}
+                            />
+                        </td>
+                    </tr>
+                );
+            })
+            
+        }
+    }
+
     _renderBalances(balanceList, optionalAssets, visible) {
         const core_asset = ChainStore.getAsset("1.3.0");
         let {settings, hiddenAssets, orders} = this.props;
@@ -108,15 +150,8 @@ class AccountOverview extends React.Component {
         let preferredUnit = "USD";
 
         let balances = [], openOrders = [];
-        console.log("portfolio",this.props.portfolio)
-        console.log("balance list", balanceList)
         balanceList.forEach( balance => {
-        //this.props.portfolio && this.props.portfolio.data.forEach( balance => {
-            // if(!balance.balanceMap || !balance.balanceID || balance.balanceID == "0") return
-            // let balanceObject = balance.balanceMap
-            // let asset_type = balanceObject.get("asset_type")
-            // let asset = balance.assetMap;
-            // balance = balance.balanceID
+
             let balanceObject = ChainStore.getObject(balance);
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
