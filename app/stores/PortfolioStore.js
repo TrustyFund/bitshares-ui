@@ -9,6 +9,7 @@ import Immutable from "immutable";
 import AssetActions from 'actions/AssetActions';
 import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
+import utils from "common/utils";
 
 const createMap = (myObj) =>{
      return new Map(
@@ -115,10 +116,47 @@ class PortfolioStore extends BaseStore {
 
     }
 
-    _getCurrentSharePercentage(amount){
-        let totalAmount = +localStorage.getItem("_trusty_total_value")
-        let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
-        return percent.toFixed(0)   
+    _getCurrentShare(amount, fromAsset, percentage=false){
+
+        fromAsset = ChainStore.getObject(fromAsset)
+        let toAsset = ChainStore.getAsset("USD")
+
+        if(!toAsset) return 0
+        //console.log("------>", toAsset)
+        let marketStats = MarketsStore.getState().allMarketStats
+
+        let coreAsset = ChainStore.getAsset("1.3.0");
+        let toStats, fromStats;
+        let toID = toAsset.get("id");
+        let toSymbol = toAsset.get("symbol");
+        let fromID = fromAsset.get("id");
+        let fromSymbol = fromAsset.get("symbol");
+
+        // console.log("marketStats:", marketStats.toJS());
+        if (coreAsset && marketStats) {
+            let coreSymbol = coreAsset.get("symbol");
+            toStats = marketStats.get(toSymbol + "_" + coreSymbol);
+            fromStats = marketStats.get(fromSymbol + "_" + coreSymbol);
+        }
+
+        let price = utils.convertPrice(fromStats && fromStats.close ? fromStats.close :
+                                        fromID === "1.3.0" || fromAsset.has("bitasset") ? fromAsset : null,
+                                        toStats && toStats.close ? toStats.close :
+                                        (toID === "1.3.0" || toAsset.has("bitasset")) ? toAsset : null,
+                                        fromID,
+                                        toID);
+
+        let eqValue = price ? utils.convertValue(price, amount, fromAsset, toAsset) : null;
+        if(eqValue==null) return 0
+
+        if(percentage) {
+
+            let totalAmount = +localStorage.getItem("_trusty_total_value")
+            let percent = eqValue.toFixed(2) / totalAmount.toFixed(2) * 100
+            return percent.toFixed(0) 
+            
+        }
+ 
     }
 
     getConcatedPortfolio(account, marketData=null){
@@ -154,7 +192,7 @@ class PortfolioStore extends BaseStore {
                         assetShortName: ~s.search(/open/i)?s.substring(5):s,
                         assetFullName: asset.get("symbol"), 
                         futureShare: futureShare || 0, 
-                        currentShare: +this._getCurrentSharePercentage(amount), 
+                        currentShare: +this._getCurrentShare(amount, asset_type, true), 
                         amount, 
                     })    
                 } 

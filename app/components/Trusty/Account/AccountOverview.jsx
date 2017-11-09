@@ -119,7 +119,7 @@ class AccountOverview extends React.Component {
                             </td> 
                             :
                             <td style={{textAlign: "right"}}>
-                                { p.balanceID != null ? <BalanceValueComponent trustyPercentage={true} balance={p.balanceID} toAsset={preferredUnit}/> : "0%"}
+                                { p.balanceID != null ? <span>{p.currentShare}%</span> : "0%"}
                             </td>
                         }
 
