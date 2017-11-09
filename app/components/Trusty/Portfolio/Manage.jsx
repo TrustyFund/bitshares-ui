@@ -29,7 +29,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	componentWillReceiveProps(){
-
+		
 		PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
 			console.log(portfolio)
 		})

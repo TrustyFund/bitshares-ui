@@ -118,7 +118,7 @@ class PortfolioStore extends BaseStore {
     _getCurrentSharePercentage(amount){
         let totalAmount = +localStorage.getItem("_trusty_total_value")
         let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
-        return percent.toFixed(0)
+        return percent.toFixed(0)   
     }
 
     getConcatedPortfolio(account, marketData=null){
@@ -126,13 +126,13 @@ class PortfolioStore extends BaseStore {
         let balances  = this.getBalances(account)
         let activeBalaces = []
         //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
-        console.log(balances)
+
         let portfolioData = this.getPortfolio().data.slice()
         balances.forEach(b=> {
 
-
             let balance = ChainStore.getObject(b)
             let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
+
             if (balanceAsset) {
 
                 let data = portfolioData.filter(p=>{

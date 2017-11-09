@@ -80,7 +80,6 @@ class FormattedAsset extends React.Component {
             colorClass += " no-amount";
         }
 
-
         if(trustyPercentage) {
             let totalAmount = +localStorage.getItem("_trusty_total_value")
             let percent = amount.toFixed(2) / totalAmount.toFixed(2) * 100
