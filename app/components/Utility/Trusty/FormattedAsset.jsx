@@ -117,8 +117,6 @@ class FormattedAsset extends React.Component {
             />
             {this.props.assetInfo}
         </div>;
-
-
         let formattedNumber = this.props.exact_amount ? amount : amount / precision
         if(this.props.trfndPrice) formattedNumber = formattedNumber * this.props.trfndPrice
         return (

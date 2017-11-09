@@ -113,16 +113,10 @@ class AccountOverview extends React.Component {
                         <td style={{textAlign: "left"}}>
                             {p.assetShortName}
                         </td>
-                        { p.assetShortName == 'TRFND' ? 
-                            <td style={{textAlign: "right"}}>
-                                <BalanceComponent marketData={this.props.marketData} balance={p.balanceID} hide_asset />                  
-                            </td> 
-                            :
-                            <td style={{textAlign: "right"}}>
-                                { p.balanceID != null ? <span>{p.currentShare}%</span> : "0%"}
-                            </td>
-                        }
 
+                        <td style={{textAlign: "right"}}>
+                            { p.balanceID != null ? <span>{p.currentShare}%</span> : "0%"}
+                        </td>
                         { p.assetShortName == 'TRFND' ? 
                             <td style={{textAlign: "right"}}>
                                 <BalanceComponent marketData={this.props.marketData} balance={p.balanceID} hide_asset />                  
