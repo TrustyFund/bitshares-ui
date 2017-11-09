@@ -73,7 +73,7 @@ class FormattedAsset extends React.Component {
         let colorClass = color ? "facolor-" + color : "";
 
         let precision = utils.get_asset_precision(asset.precision);
-
+        
         let decimals = Math.max(0, asset.precision - decimalOffset);
 
         if (hide_amount) {

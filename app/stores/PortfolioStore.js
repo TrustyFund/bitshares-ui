@@ -122,7 +122,7 @@ class PortfolioStore extends BaseStore {
         let toAsset = ChainStore.getAsset("USD")
 
         if(!toAsset) return 0
-        //console.log("------>", toAsset)
+
         let marketStats = MarketsStore.getState().allMarketStats
 
         let coreAsset = ChainStore.getAsset("1.3.0");
@@ -147,16 +147,19 @@ class PortfolioStore extends BaseStore {
                                         toID);
 
         let eqValue = price ? utils.convertValue(price, amount, fromAsset, toAsset) : null;
+
         if(eqValue==null) return 0
 
         if(percentage) {
-
             let totalAmount = +localStorage.getItem("_trusty_total_value")
             let percent = eqValue.toFixed(2) / totalAmount.toFixed(2) * 100
             return percent.toFixed(0) 
-            
+        } else {
+            let asset = toAsset.toJS()
+            let precision = utils.get_asset_precision(asset.precision);
+            return (eqValue / precision).toFixed(0)
         }
- 
+
     }
 
     getConcatedPortfolio(account, marketData=null){
@@ -193,6 +196,7 @@ class PortfolioStore extends BaseStore {
                         assetFullName: asset.get("symbol"), 
                         futureShare: futureShare || 0, 
                         currentShare: +this._getCurrentShare(amount, asset_type, true), 
+                        bitUSDShare: +this._getCurrentShare(amount, asset_type),
                         amount, 
                     })    
                 } 
@@ -226,9 +230,9 @@ class PortfolioStore extends BaseStore {
                             })
                             bal.amount = 0
                             bal.currentShare =  0
+                            bal.bitUSDShare = 0
                         }
                         if(!bal.futureShare) bal.futureShare = 0
-                        // bal.priceBts = 0
                     })  
                 })
                 
