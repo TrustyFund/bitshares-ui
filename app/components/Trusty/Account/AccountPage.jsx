@@ -51,7 +51,9 @@ class AccountPage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-        PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
+        PortfolioStore
+            .getConcatedPortfolio(nextProps.account, nextProps.marketData)
+            .then(portfolio=>{
             this.setState({portfolio})
         })
 

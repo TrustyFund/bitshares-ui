@@ -121,7 +121,7 @@ class PortfolioStore extends BaseStore {
         return percent.toFixed(0)
     }
 
-    getConcatedPortfolio(account){
+    getConcatedPortfolio(account, marketData=null){
         portfolioStorage.set("portfolio",{});
         let balances  = this.getBalances(account)
         let activeBalaces = []
@@ -138,8 +138,10 @@ class PortfolioStore extends BaseStore {
                 let data = portfolioData.filter(p=>{
                     return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
                 })
-
-                if(data.length) portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)
+                let futureShare
+                if(data.length){
+                   futureShare = portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)[0].futureShare 
+                } 
              
                 let asset_type = balance.get("asset_type");
                 let asset = ChainStore.getObject(asset_type);
@@ -151,10 +153,9 @@ class PortfolioStore extends BaseStore {
                         balanceMap: balance,
                         assetShortName: ~s.search(/open/i)?s.substring(5):s,
                         assetFullName: asset.get("symbol"), 
-                        futureShare: 0, 
+                        futureShare: futureShare || 0, 
                         currentShare: +this._getCurrentSharePercentage(amount), 
                         amount, 
-                        priceBts:0
                     })    
                 } 
             

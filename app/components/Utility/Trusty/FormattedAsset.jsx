@@ -122,7 +122,6 @@ class FormattedAsset extends React.Component {
 
         let formattedNumber = this.props.exact_amount ? amount : amount / precision
         if(this.props.trfndPrice) formattedNumber = formattedNumber * this.props.trfndPrice
-
         return (
                 <span className={colorClass}>
                 { this.props.dollarShow ? <span style={{paddingRight: "10px"}}>$</span> : null }

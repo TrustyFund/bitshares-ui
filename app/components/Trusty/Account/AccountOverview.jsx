@@ -105,25 +105,33 @@ class AccountOverview extends React.Component {
         let balances = []
         if(this.props.portfolio && this.props.portfolio.data.length) {
 
-            this.props.portfolio.forEach(p=>{
-
+            this.props.portfolio.data.forEach(p=>{
+                let preferredUnit = "USD";
                 let pair = ["BTS", p.assetShortName];
-                balances.push(
+                p.assetShortName != 'USD' && balances.push(
                     <tr key={p.assetShortName} style={{maxWidth: "100rem"}}>
                         <td style={{textAlign: "left"}}>
                             {p.assetShortName}
-                        </td>                  
-                        <td style={{textAlign: "right"}}>
-                            { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData} balance={balance} hide_asset />
-                                : p.balanceID == "0"
-                                ? <BalanceValueComponent trustyPercentage={true} balance={balance} toAsset={preferredUnit}/> 
-                                : "0 BTS"
-                            }
                         </td>
-                        <td style={{textAlign: "right"}}>
-                            { ~s.search(/TRFND/i) ? <BalanceComponent marketData={this.props.marketData}  balance={balance} hide_asset /> :
-                              hasBalance || hasOnOrder ? <BalanceValueComponent balance={balance} toAsset={preferredUnit} hide_asset/> : null}
-                        </td>
+                        { p.assetShortName == 'TRFND' ? 
+                            <td style={{textAlign: "right"}}>
+                                <BalanceComponent marketData={this.props.marketData} balance={p.balanceID} hide_asset />                  
+                            </td> 
+                            :
+                            <td style={{textAlign: "right"}}>
+                                { p.balanceID != null ? <BalanceValueComponent trustyPercentage={true} balance={p.balanceID} toAsset={preferredUnit}/> : "0%"}
+                            </td>
+                        }
+
+                        { p.assetShortName == 'TRFND' ? 
+                            <td style={{textAlign: "right"}}>
+                                <BalanceComponent marketData={this.props.marketData} balance={p.balanceID} hide_asset />                  
+                            </td> 
+                            :
+                            <td style={{textAlign: "right"}}>
+                                { p.balanceID != null ? <BalanceValueComponent balance={p.balanceID} toAsset={preferredUnit} hide_asset/> : "0" }
+                            </td>
+                        }
                         <td>
                             <MarketCard
                                 key={pair[0] + "_" + pair[1]}
@@ -140,6 +148,8 @@ class AccountOverview extends React.Component {
             })
             
         }
+
+        return balances
     }
 
     _renderBalances(balanceList, optionalAssets, visible) {
@@ -413,7 +423,8 @@ class AccountOverview extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {includedBalances}
+                                {this._renderTrustyBalaces()}
+                                {/*includedBalances*/}
 
                                 {/* Open orders */}
                                 {hasOpenOrders ? <tr style={{backgroundColor: "transparent"}}><td style={{height: 20}} colSpan="4"></td></tr> : null}
