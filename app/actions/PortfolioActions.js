@@ -169,6 +169,10 @@ const countShares = (amount, fromAsset, percentage=false) => {
 
     let TRFNDPrice = 0
 
+
+
+    let formatValue = v => v < 1 ? Math.ceil(v) : Math.floor(v)
+
     if(fromAsset.get("symbol") == "TRFND") {
 
         let { combinedBids, highestBid } = MarketsStore.getState().marketData
@@ -183,12 +187,12 @@ const countShares = (amount, fromAsset, percentage=false) => {
         if(!totalBts) return 0
 
         let percent = ((p/totalBts)*100)
-        if(percentage) return percent.toFixed(0) 
+        if(percentage) return formatValue(percent)
 
         let totalAmount = +localStorage.getItem("_trusty_total_value")
         if(!totalAmount) return 0
 
-        return (totalAmount/100*percent).toFixed(0)  
+        return formatValue(totalAmount/100*percent)
 
     } 
 
@@ -196,11 +200,11 @@ const countShares = (amount, fromAsset, percentage=false) => {
         let totalAmount = +localStorage.getItem("_trusty_total_value")
         if(!totalAmount) return 0
         let percent = eqValue.toFixed(2) / totalAmount.toFixed(2) * 100
-        return percent.toFixed(0) 
+        return formatValue(percent)
     } else {
         let asset = toAsset.toJS()
         let precision = utils.get_asset_precision(asset.precision);
-        return (eqValue / precision).toFixed(0)
+        return formatValue(eqValue / precision)
     }
 }
 
