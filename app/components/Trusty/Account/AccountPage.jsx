@@ -100,7 +100,7 @@ class AccountPage extends React.Component {
                             backedCoins: this.props.backedCoins,
                             bridgeCoins: this.props.bridgeCoins,
                             marketData: this.props.marketData,
-                            portfolio: this.state.portfolio
+                            portfolioData: this.props.portfolioData
                         }
                     )}
                     </div>
@@ -138,6 +138,7 @@ export default connect(AccountPageStoreWrapper, {
             backedCoins: GatewayStore.getState().backedCoins,
             bridgeCoins: GatewayStore.getState().bridgeCoins, 
             marketData: MarketsStore.getState().marketData,
+            portfolioData: PortfolioStore.getState().data
         };
     }
 });

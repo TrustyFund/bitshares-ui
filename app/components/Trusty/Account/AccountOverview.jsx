@@ -103,8 +103,8 @@ class AccountOverview extends React.Component {
     _renderTrustyBalaces() {
 
         let balances = []
-        if(this.props.portfolio) {
-            this.props.portfolio.forEach(p=>{
+        if(this.props.portfolioData) {
+            this.props.portfolioData.forEach(p=>{
                 let preferredUnit = "USD";
                 let pair = ["BTS", p.assetShortName];
                 p.assetShortName != 'USD' && balances.push(

@@ -168,16 +168,16 @@ class Trusty extends React.Component {
     // }
     componentWillReceiveProps(nextProps, nextState){
 
-        PortfolioActions.concatPortfolio.defer()
-
-        console.log(PortfolioStore.getState().data)
-
         //update portfolio
         let { account } = this._getBalancesData()
+
+        PortfolioActions.concatPortfolio.defer(account)
+
+        console.log(PortfolioStore.getState().data)
       
-        account && PortfolioStore.concatPortfolio(account).then(portfolio=>{
-            console.log(portfolio)
-        })
+        // account && PortfolioStore.concatPortfolio(account).then(portfolio=>{
+        //     console.log(portfolio)
+        // })
 
         let check = path => ~this.props.location.pathname.indexOf(path)
         if(!__DEV__ && !check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
