@@ -14,6 +14,18 @@ import PortfolioStore from "stores/PortfolioStore"
 
 class PortfolioActions {
 
+    incrementAsset(asset){
+        return dispatch => {
+            dispatch({asset})
+        }
+    }
+
+    decrementAsset(asset){
+        return dispatch => {
+            dispatch({asset})
+        }
+    }
+
 	concatPortfolio(account){
         portfolioStorage.set("portfolio",{});
         let balances  = PortfolioStore.getBalances(account)
@@ -90,9 +102,20 @@ class PortfolioActions {
 	                })
 	                
 	            }).then(()=>{
+                    port.totalFutureShare = 0
+                    port.data.forEach(i=>{
+                        PortfolioStore.getState().data && PortfolioStore.getState().data.forEach(already=>{
+                            if(already.assetShortName == i.assetShortName) {
+                                i.futureShare = already.futureShare
+                            }
+                        })
+                        port.totalFutureShare += i.futureShare
+                    })
+
 	                portfolioStorage.set("portfolio",port);
 	                resolve(port)
 	                dispatch(port)
+
 	            })
 	        })
 		}

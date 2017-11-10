@@ -12,6 +12,7 @@ import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
 import PortfolioActions from "actions/PortfolioActions"
 
+
 const createMap = (myObj) =>{
      return new Map(
         Object
@@ -49,11 +50,14 @@ class PortfolioStore extends BaseStore {
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
 
         this.state = {
-            data: null
+            data: null,
+            totalPercentageFutureShare: 0
         }
 
         this.bindListeners({
             onConcatPortfolio: PortfolioActions.concatPortfolio,
+            onIncrementAsset: PortfolioActions.incrementAsset,
+            onDecrementAsset: PortfolioActions.decrementAsset
         })
     }
 
@@ -197,7 +201,8 @@ class PortfolioStore extends BaseStore {
     }
     onConcatPortfolio(portfolio){
         this.setState({
-            data: portfolio.data
+            data: portfolio.data,
+            totalPercentageFutureShare: portfolio.totalFutureShare
         })
     }
     concatPortfolio(account, marketData=null){
@@ -280,6 +285,25 @@ class PortfolioStore extends BaseStore {
                 resolve(port)
             })
         })
+    }
+    onIncrementAsset({asset}) {
+        let data = this.state.data.slice()
+        let totalPercentageFutureShare = 0
+        data.forEach(i=>{
+            if(i.assetShortName==asset) i.futureShare++
+            totalPercentageFutureShare+= i.futureShare
+        })
+        this.setState({data, totalPercentageFutureShare })
+    }
+
+    onDecrementAsset({asset}) {
+        let data = this.state.data.slice()
+        let totalPercentageFutureShare = 0
+        data.forEach(i=>{
+            if(i.assetShortName==asset) i.futureShare--
+            totalPercentageFutureShare+= i.futureShare
+        })
+        this.setState({data, totalPercentageFutureShare })
     }
 
     incrementAsset(asset){
