@@ -154,12 +154,26 @@ class PortfolioStore extends BaseStore {
         let TRFNDPrice = 0
 
         if(fromAsset.get("symbol") == "TRFND") {
+
             let { combinedBids, highestBid } = MarketsStore.getState().marketData
+
             TRFNDPrice = combinedBids.map(order=>order.getPrice())[0]
+
             let asset = fromAsset.toJS()
             let precision = utils.get_asset_precision(asset.precision);
             let p = (TRFNDPrice * (amount / precision))
-            return p.toFixed(2)          
+            let totalBts = localStorage.getItem("_trusty_bts_total_value")
+
+            if(!totalBts) return 0
+
+            let percent = ((p/totalBts)*100)
+            if(percentage) return percent.toFixed(0) 
+
+            let totalAmount = +localStorage.getItem("_trusty_total_value")
+            if(!totalAmount) return 0
+
+            return (totalAmount/100*percent).toFixed(0)  
+
         } 
 
         if(percentage) {
