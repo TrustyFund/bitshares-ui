@@ -37,7 +37,6 @@ class PortfolioStore extends BaseStore {
             "getBalances",
             "updatePortfolio",
             "concatPortfolio",
-            "getLocalPortfolio"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
         this.concatPortfolio = this.concatPortfolio.bind(this)
@@ -48,7 +47,6 @@ class PortfolioStore extends BaseStore {
         this.getBalances = this.getBalances.bind(this);
         this.updatePortfolio = this.updatePortfolio.bind(this);
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
-        this.getLocalPortfolio = this.getLocalPortfolio.bind(this);
 
         this.state = {
             data: null
@@ -282,10 +280,6 @@ class PortfolioStore extends BaseStore {
                 resolve(port)
             })
         })
-    }
-
-    getLocalPortfolio(){
-        return portfolioStorage.get("portfolio").data;
     }
 
     incrementAsset(asset){

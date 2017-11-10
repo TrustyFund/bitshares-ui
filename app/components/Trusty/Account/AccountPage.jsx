@@ -49,8 +49,6 @@ class AccountPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
-        this.setState({portfolio: PortfolioStore.getLocalPortfolio()})
         
         if (nextProps.quoteAsset && nextProps.baseAsset) {
             return this._subToMarket(nextProps);
