@@ -10,6 +10,7 @@ import AssetActions from 'actions/AssetActions';
 import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
+import PortfolioActions from "actions/PortfolioActions"
 
 const createMap = (myObj) =>{
      return new Map(
@@ -48,6 +49,14 @@ class PortfolioStore extends BaseStore {
         this.updatePortfolio = this.updatePortfolio.bind(this);
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
         this.getLocalPortfolio = this.getLocalPortfolio.bind(this);
+
+        this.state = {
+            data: null
+        }
+
+        this.bindListeners({
+            onConcatPortfolio: PortfolioActions.concatPortfolio,
+        })
     }
 
     getBalances(account){
@@ -188,7 +197,11 @@ class PortfolioStore extends BaseStore {
         }
 
     }
-
+    onConcatPortfolio(portfolio){
+        this.setState({
+            data: portfolio.data
+        })
+    }
     concatPortfolio(account, marketData=null){
         portfolioStorage.set("portfolio",{});
         let balances  = this.getBalances(account)

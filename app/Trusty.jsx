@@ -31,6 +31,8 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import Immutable from "immutable";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 
+import PortfolioActions from "actions/PortfolioActions"
+
 
 
 
@@ -165,6 +167,11 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
+
+        PortfolioActions.concatPortfolio.defer()
+
+        console.log(PortfolioStore.getState().data)
+
         //update portfolio
         let { account } = this._getBalancesData()
       
