@@ -115,12 +115,12 @@ class ManagePortfolio extends React.Component {
 	}
 
 	_incrementAsset(asset){
-		PortfolioStore.incrementAsset(asset.asset);
+		PortfolioStore.incrementAsset(asset.assetShortName);
 		this.forceUpdate();
 	}
 
 	_decrementAsset(asset){
-		PortfolioStore.decrementAsset(asset.asset);
+		PortfolioStore.decrementAsset(asset.assetShortName);
 		this.forceUpdate();
 	}
 

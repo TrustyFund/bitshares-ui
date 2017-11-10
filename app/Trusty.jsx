@@ -323,7 +323,7 @@ class Trusty extends React.Component {
                     />
                     <TransactionConfirm/>
                     {/*<WalletUnlockModal/>*/}
-                    {<div><TotalBalanceValue
+                    {<div style={{display: "none"}}><TotalBalanceValue
                         balances={accountBalances}
                         oreders={accountOrders}
                         debt={accountDebt}
