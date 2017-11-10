@@ -35,7 +35,6 @@ import PortfolioActions from "actions/PortfolioActions"
 
 
 
-
 /* pixel perfect helper */
 // import 'components/Trusty/pixel-glass'
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
