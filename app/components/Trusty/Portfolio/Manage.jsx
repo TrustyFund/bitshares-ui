@@ -28,14 +28,6 @@ class ManagePortfolio extends React.Component {
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 	}
 
-	componentWillReceiveProps(){
-		
-		PortfolioStore.getConcatedPortfolio(this.props.account).then(portfolio=>{
-			console.log(portfolio)
-		})
-
-	}
-
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
 		let renderedPortfolio = this.renderPortfolioList(portfolio.data);	

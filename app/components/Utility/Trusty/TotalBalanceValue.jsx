@@ -243,7 +243,9 @@ class TotalValue extends React.Component {
             totalsTip += `<tr><td>&nbsp;</td><td style="text-align: right;">${noDataSymbol} no data</td></tr>`;
 
         totalsTip += "</tbody></table>";
-        localStorage.setItem("_trusty_total_value", totalValue)
+        
+        this.props.toAsset.get("symbol") == "USD" ? localStorage.setItem("_trusty_total_value", totalValue) : localStorage.setItem("_trusty_bts_total_value", totalValue)
+
         if (!inHeader) {
             return(
                 <span>
@@ -265,8 +267,7 @@ TotalValue = BindToChainState(TotalValue, {keep_updating: true});
 
 class ValueStoreWrapper extends React.Component {
     render() {
-        let preferredUnit = "USD";
-
+        let preferredUnit = this.props.toAsset //|| "USD";
         return <TotalValue {...this.props} toAsset={preferredUnit}/>;
     }
 }
@@ -319,7 +320,7 @@ class TotalBalanceValue extends React.Component {
             }
         }
 
-        return <ValueStoreWrapper label={this.props.label} inHeader={inHeader} balances={amounts} openOrders={openOrders} debt={debt} collateral={collateral} fromAssets={assets}/>;
+        return <ValueStoreWrapper toAsset={this.props.toAsset} label={this.props.label} inHeader={inHeader} balances={amounts} openOrders={openOrders} debt={debt} collateral={collateral} fromAssets={assets}/>;
     }
 }
 TotalBalanceValue = BindToChainState(TotalBalanceValue, {keep_updating: true});

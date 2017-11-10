@@ -103,9 +103,8 @@ class AccountOverview extends React.Component {
     _renderTrustyBalaces() {
 
         let balances = []
-        if(this.props.portfolio && this.props.portfolio.data.length) {
-
-            this.props.portfolio.data.forEach(p=>{
+        if(this.props.portfolio) {
+            this.props.portfolio.forEach(p=>{
                 let preferredUnit = "USD";
                 let pair = ["BTS", p.assetShortName];
                 p.assetShortName != 'USD' && balances.push(
@@ -113,7 +112,6 @@ class AccountOverview extends React.Component {
                         <td style={{textAlign: "left"}}>
                             {p.assetShortName}
                         </td>
-
                         <td style={{textAlign: "right"}}>
                             { p.balanceID != null ? <span>{p.currentShare}%</span> : "0%"}
                         </td>
@@ -367,6 +365,7 @@ class AccountOverview extends React.Component {
                 balances={totalBalanceList}
                 openOrders={orders}
                 debt={debt}
+                toAsset={"USD"}
                 collateral={collateral}
             /> : false;
 

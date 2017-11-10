@@ -35,7 +35,6 @@ class AccountPage extends React.Component {
     }
 
     componentWillMount(){
-
         if (this.props.quoteAsset.toJS && this.props.baseAsset.toJS) {
             this._subToMarket(this.props);  
         } 
@@ -51,12 +50,8 @@ class AccountPage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-        PortfolioStore
-            .getConcatedPortfolio(nextProps.account, nextProps.marketData)
-            .then(portfolio=>{
-            this.setState({portfolio})
-        })
-
+        this.setState({portfolio: PortfolioStore.getLocalPortfolio()})
+        
         if (nextProps.quoteAsset && nextProps.baseAsset) {
             return this._subToMarket(nextProps);
         }

@@ -23,9 +23,14 @@ import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
+import PortfolioStore from "stores/PortfolioStore";
 
 import WalletDb from "stores/WalletDb";
 import WalletUnlockStore from "stores/WalletUnlockStore";
+
+import Immutable from "immutable";
+import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
+
 
 
 
@@ -160,9 +165,14 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
+        //update portfolio
+        let { account } = this._getBalancesData()
+      
+        account && PortfolioStore.concatPortfolio(account).then(portfolio=>{
+            console.log(portfolio)
+        })
 
         let check = path => ~this.props.location.pathname.indexOf(path)
-
         if(!__DEV__ && !check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
             this.props.router.push("/unlock")
            return 
@@ -188,7 +198,20 @@ class Trusty extends React.Component {
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
     }
+
+    _getBalancesData(){
+        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"))
+        return {
+            account,
+            accountBalances: account ? PortfolioStore.getBalances(account) : Immutable.List(),
+            accountOrders: account ? account.get("orders", null) : Immutable.List(),
+            accountDebt: {},
+            accountCollateral: 0
+        }
+    }
     render() {
+
+        let { accountBalances, accountOrders, accountDebt, accountCollateral } = this._getBalancesData()
         
         let {theme} = this.state;
         let content = null;
@@ -300,6 +323,13 @@ class Trusty extends React.Component {
                     />
                     <TransactionConfirm/>
                     {/*<WalletUnlockModal/>*/}
+                    {<div><TotalBalanceValue
+                        balances={accountBalances}
+                        oreders={accountOrders}
+                        debt={accountDebt}
+                        toAsset={"1.3.0"}
+                        collateral={accountCollateral}
+                    /></div>}
                 </div>
             </div>
         );

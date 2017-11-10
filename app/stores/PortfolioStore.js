@@ -35,10 +35,11 @@ class PortfolioStore extends BaseStore {
             "isValid",
             "getBalances",
             "updatePortfolio",
-            "getConcatedPortfolio"
+            "concatPortfolio",
+            "getLocalPortfolio"
         );
         this.getPortfolio = this.getPortfolio.bind(this);
-        this.getConcatedPortfolio = this.getConcatedPortfolio.bind(this)
+        this.concatPortfolio = this.concatPortfolio.bind(this)
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
         this.incrementAsset = this.incrementAsset.bind(this);
         this.decrementAsset = this.decrementAsset.bind(this);
@@ -46,6 +47,7 @@ class PortfolioStore extends BaseStore {
         this.getBalances = this.getBalances.bind(this);
         this.updatePortfolio = this.updatePortfolio.bind(this);
         this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
+        this.getLocalPortfolio = this.getLocalPortfolio.bind(this);
     }
 
     getBalances(account){
@@ -162,6 +164,7 @@ class PortfolioStore extends BaseStore {
 
         if(percentage) {
             let totalAmount = +localStorage.getItem("_trusty_total_value")
+            if(!totalAmount) return 0
             let percent = eqValue.toFixed(2) / totalAmount.toFixed(2) * 100
             return percent.toFixed(0) 
         } else {
@@ -172,13 +175,14 @@ class PortfolioStore extends BaseStore {
 
     }
 
-    getConcatedPortfolio(account, marketData=null){
+    concatPortfolio(account, marketData=null){
         portfolioStorage.set("portfolio",{});
         let balances  = this.getBalances(account)
         let activeBalaces = []
         //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
 
         let portfolioData = this.getPortfolio().data.slice()
+
         balances.forEach(b=> {
 
             let balance = ChainStore.getObject(b)
@@ -207,7 +211,7 @@ class PortfolioStore extends BaseStore {
                         futureShare: futureShare || 0, 
                         currentShare: +this._getCurrentShare(amount, asset_type, true), 
                         bitUSDShare: +this._getCurrentShare(amount, asset_type),
-                        amount, 
+                        amount,
                     })    
                 } 
             
@@ -248,10 +252,13 @@ class PortfolioStore extends BaseStore {
                 
             }).then(()=>{
                 portfolioStorage.set("portfolio",port);
-                console.log(port)
                 resolve(port)
             })
         })
+    }
+
+    getLocalPortfolio(){
+        return portfolioStorage.get("portfolio").data;
     }
 
     incrementAsset(asset){
@@ -292,7 +299,7 @@ class PortfolioStore extends BaseStore {
 
     updatePortfolio(account){
         ChainStore.subscribe(this.chainStoreUpdate);
-        this.getConcatedPortfolio(account).then((result) => {
+        this.concatPortfolio(account).then((result) => {
             result.data.forEach((asset) => {
                 let a = ChainStore.getAsset(asset.marketAsset);
             });
