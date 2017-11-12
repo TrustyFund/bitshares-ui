@@ -40,8 +40,6 @@ class PortfolioStore extends BaseStore {
 
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
-        this.incrementAsset = this.incrementAsset.bind(this);
-        this.decrementAsset = this.decrementAsset.bind(this);
         this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
         this.updatePortfolio = this.updatePortfolio.bind(this);
