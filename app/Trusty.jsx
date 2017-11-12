@@ -17,7 +17,6 @@ import MobileMenu from "components/Layout/MobileMenu";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
-//import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 import Landing from "components/Trusty/Landing/Landing";
@@ -172,14 +171,14 @@ class Trusty extends React.Component {
 
         PortfolioActions.concatPortfolio.defer(account)
 
-        console.log(PortfolioStore.getState().data)
+        //console.log(PortfolioStore.getState().data)
       
         // account && PortfolioStore.concatPortfolio(account).then(portfolio=>{
         //     console.log(portfolio)
         // })
 
         let check = path => ~this.props.location.pathname.indexOf(path)
-        if(!__DEV__ && !check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
+        if(!check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
             this.props.router.push("/unlock")
            return 
         } 
@@ -328,7 +327,6 @@ class Trusty extends React.Component {
                         }}
                     />
                     <TransactionConfirm/>
-                    {/*<WalletUnlockModal/>*/}
                     {<div style={{display: "none"}}><TotalBalanceValue
                         balances={accountBalances}
                         oreders={accountOrders}

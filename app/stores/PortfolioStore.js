@@ -33,8 +33,6 @@ class PortfolioStore extends BaseStore {
         this._export(
             "getPortfolio",
             "getTotalPercentage",
-            "incrementAsset",
-            "decrementAsset",
             "isValid",
             "getBalances",
             "updatePortfolio",
@@ -153,28 +151,6 @@ class PortfolioStore extends BaseStore {
             totalPercentageFutureShare+= i.futureShare
         })
         this.setState({data, totalPercentageFutureShare })
-    }
-
-    incrementAsset(asset){
-        let storedPortfolio = portfolioStorage.get("portfolio");
-        let assetIndex = storedPortfolio.map.indexOf(asset)
-        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].futureShare < 100){
-            storedPortfolio.data[assetIndex].futureShare++; 
-            portfolioStorage.set("portfolio",storedPortfolio);
-            return true;
-        }
-        return false;
-    }
-
-    decrementAsset(asset){
-        let storedPortfolio = portfolioStorage.get("portfolio");
-        let assetIndex = storedPortfolio.map.indexOf(asset)
-        if (assetIndex >= 0 && storedPortfolio.data[assetIndex].futureShare > 0){
-            storedPortfolio.data[assetIndex].futureShare--; 
-            portfolioStorage.set("portfolio",storedPortfolio);
-            return true;
-        }
-        return false;
     }
 
     getTotalPercentage(){
