@@ -26,7 +26,6 @@ class ManagePortfolio extends React.Component {
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
-		this.updatePortfolio = this.updatePortfolio.bind(this);
 	}
 
 	renderManualTab(){
@@ -65,7 +64,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioStore.updatePortfolio(this.props.account);
+		PortfolioActions.updatePortfolio();
 	}
 
 	renderShare(share,className){
@@ -116,15 +115,11 @@ class ManagePortfolio extends React.Component {
 	}
 
 	_incrementAsset(asset){
-		PortfolioActions.incrementAsset(asset.assetShortName)
-		// PortfolioStore.incrementAsset(asset.assetShortName);
-		// this.forceUpdate();
+		PortfolioActions.incrementAsset(asset.assetShortName);
 	}
 
 	_decrementAsset(asset){
-		PortfolioActions.decrementAsset(asset.assetShortName)
-		// PortfolioStore.decrementAsset(asset.assetShortName);
-		// this.forceUpdate();
+		PortfolioActions.decrementAsset(asset.assetShortName);
 	}
 
 	getAssetClass(asset){

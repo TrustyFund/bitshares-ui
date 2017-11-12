@@ -35,15 +35,12 @@ class PortfolioStore extends BaseStore {
             "getTotalPercentage",
             "isValid",
             "getBalances",
-            "updatePortfolio",
         );
 
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getTotalPercentage = this.getTotalPercentage.bind(this);
         this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
-        this.updatePortfolio = this.updatePortfolio.bind(this);
-        this.chainStoreUpdate = this.chainStoreUpdate.bind(this);
 
         this.state = {
             data: null,
@@ -53,7 +50,8 @@ class PortfolioStore extends BaseStore {
         this.bindListeners({
             onConcatPortfolio: PortfolioActions.concatPortfolio,
             onIncrementAsset: PortfolioActions.incrementAsset,
-            onDecrementAsset: PortfolioActions.decrementAsset
+            onDecrementAsset: PortfolioActions.decrementAsset,
+            onUpdatePortfolio: PortfolioActions.updatePortfolio,
         })
     }
 
@@ -165,42 +163,8 @@ class PortfolioStore extends BaseStore {
         return this.summValid;
     }
 
-    updatePortfolio(account){
-        ChainStore.subscribe(this.chainStoreUpdate);
-        // this.concatPortfolio(account).then((result) => {
-        //     result.data.forEach((asset) => {
-        //         let a = ChainStore.getAsset(asset.marketAsset);
-        //     });
-        // });
-    }
-
-    chainStoreUpdate(){
-        let portfolio = this.getPortfolio();
-        let assetsFetchComplite = true;
-        portfolio.data.forEach((asset)=>{
-            if (!ChainStore.assets_by_symbol.has(asset.marketAsset)){
-                assetsFetchComplite = false;
-            }
-        });
-        
-        if (assetsFetchComplite){
-            ChainStore.unsubscribe(this.chainStoreUpdate);
-
-            let baseAsset = ChainStore.getAsset("BTS");
-            let portfolio = this.getPortfolio();
-
-            portfolio.data.forEach((asset) => {
-                if (asset.asset != "BTS"){
-                    let quoteAsset = ChainStore.getAsset(asset.marketAsset);
-                    MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
-                        MarketsActions.getMarketStats(baseAsset,quoteAsset);
-                        let stats = MarketsStore.getState().marketData;
-                        console.log("STATS: ",quoteAsset.get("symbol"),stats);
-                        MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
-                    });  
-                }
-            });
-        }
+    onUpdatePortfolio(){
+        console.log("UPDATE DONE")
     }
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");

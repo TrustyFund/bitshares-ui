@@ -16,13 +16,37 @@ class PortfolioActions {
 
     incrementAsset(asset){
         return dispatch => {
-            dispatch({asset})
+            dispatch({asset});
         }
     }
 
     decrementAsset(asset){
         return dispatch => {
-            dispatch({asset})
+            dispatch({asset});
+        }
+    }
+
+    updatePortfolio(){
+        let portfolio = PortfolioStore.getState().data;
+
+        console.log("DATA",portfolio);
+
+        let baseAsset = ChainStore.getAsset("BTS");
+        console.log("BASE",baseAsset);
+        portfolio.forEach((asset) => {
+            if (asset.assetFullName != "BTS"){
+                let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
+                MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
+                    MarketsActions.getMarketStats(baseAsset,quoteAsset);
+                    let stats = MarketsStore.getState().marketData;
+                    console.log("ASSET",asset.assetFullName,stats);
+                    MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
+                });  
+            }
+        });
+
+        return dispatch => {
+            dispatch();
         }
     }
 
@@ -83,6 +107,7 @@ class PortfolioActions {
 	                    Apis.instance().db_api().exec("list_assets", [
 	                        item.assetShortName, 1
 	                    ]).then(assets => {
+                            ChainStore._updateObject(assets[0], false);
 	                        let bal = port.data[index]
 	                        bal.assetMap = createMap(assets[0])
 	                        if(!bal.balanceMap) {
