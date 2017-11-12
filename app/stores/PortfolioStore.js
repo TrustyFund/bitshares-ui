@@ -73,9 +73,7 @@ class PortfolioStore extends BaseStore {
     }
 
     getPortfolio(){
-        let storedPortfolio = portfolioStorage.get("portfolio");
-
-        let defaultPortfolio = {
+        return {
             data:[
                 { assetShortName: "BTC",
                   futureShare: 60,
@@ -112,14 +110,6 @@ class PortfolioStore extends BaseStore {
             ],
             map: ["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]
         };
-
-        if (storedPortfolio.data && storedPortfolio.data.length > 0){
-            return storedPortfolio;
-        }else{
-            portfolioStorage.set("portfolio",defaultPortfolio);
-            return defaultPortfolio;
-        }
-
     }
 
     onConcatPortfolio(portfolio){
