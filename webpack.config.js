@@ -62,7 +62,6 @@ module.exports = function(env) {
             __BASE_URL__: JSON.stringify(baseUrl),
             __UI_API__: JSON.stringify(env.apiUrl || "https://ui.bitshares.eu/api"),
             __TESTNET__: !!env.testnet,
-            __DEV__: !env.production
         })
     ];
 
