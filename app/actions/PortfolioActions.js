@@ -27,6 +27,7 @@ class PortfolioActions {
     }
 
     updatePortfolio(){
+        let statsCallbacks = [];
         let portfolio = PortfolioStore.getState().data;
 
         console.log("DATA",portfolio);
@@ -36,17 +37,21 @@ class PortfolioActions {
         portfolio.forEach((asset) => {
             if (asset.assetFullName != "BTS"){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-                MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
-                    MarketsActions.getMarketStats(baseAsset,quoteAsset);
-                    let stats = MarketsStore.getState().marketData;
-                    console.log("ASSET",asset.assetFullName,stats);
-                    MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
-                });  
+                statsCallbacks.push(
+                    MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
+                        MarketsActions.getMarketStats(baseAsset,quoteAsset);
+                        let stats = MarketsStore.getState().marketData;
+                        console.log("ASSET",asset.assetFullName,stats);
+                        MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
+                    })
+                );
             }
         });
 
         return dispatch => {
-            dispatch();
+            Promise.all(statsCallbacks).then(function() {
+                dispatch();
+            });
         }
     }
 
