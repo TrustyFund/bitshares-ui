@@ -167,9 +167,13 @@ class Trusty extends React.Component {
     componentWillReceiveProps(nextProps, nextState){
 
         //update portfolio
-        let { account } = this._getBalancesData()
+        let { account } = this._getBalancesData();
 
-        PortfolioActions.concatPortfolio.defer(account)
+        if (account){
+            PortfolioActions.concatPortfolio.defer(account);
+        }
+
+        
 
         //console.log(PortfolioStore.getState().data)
       
@@ -205,11 +209,11 @@ class Trusty extends React.Component {
     }
 
     _getBalancesData(){
-        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"))
+        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"));
         return {
             account,
-            accountBalances: account ? PortfolioStore.getBalances(account) : Immutable.List(),
-            accountOrders: account ? account.get("orders", null) : Immutable.List(),
+            accountBalances: (account) ? PortfolioStore.getBalances(account) : Immutable.List(),
+            accountOrders: (account) ? account.get("orders", null) : Immutable.List(),
             accountDebt: {},
             accountCollateral: 0
         }
