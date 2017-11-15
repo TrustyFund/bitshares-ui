@@ -52,10 +52,13 @@ class PortfolioActions {
                         orders.push(new LimitOrder(result, assets, quoteAsset.get("id")));
                     });
 
+                    let bids = this.getBids(orders);
+                    let asks = this.getAsks(orders);
+
                     console.log("STATS FOR " + quoteAsset.get("symbol"));
-                    console.log("BIDS:",this.getBids(orders));
-                    console.log("ASKS:",this.getAsks(orders));
-                    
+                    console.log("BIDS (",bids.length,"):",bids);
+                    console.log("ASKS (",asks.length,"):",asks);
+                    console.log("TOTAL:",asks.length+bids.length);
                 });
             }
         });
