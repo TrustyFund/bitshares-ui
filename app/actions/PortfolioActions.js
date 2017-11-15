@@ -209,7 +209,7 @@ const countShares = (amount, fromAsset, percentage=false) => {
 
 
 
-    let formatValue = v => v < 1 ? Math.ceil(v) : Math.floor(v)
+    let formatValue = v => v < 1 ? Math.ceil(v) : Math.floor(v) || 0
 
     if(fromAsset.get("symbol") == "TRFND") {
 
