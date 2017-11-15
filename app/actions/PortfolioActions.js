@@ -10,7 +10,7 @@ import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
 import PortfolioStore from "stores/PortfolioStore"
-
+import {LimitOrder} from "common/MarketClasses";
 
 class PortfolioActions {
 
@@ -40,14 +40,21 @@ class PortfolioActions {
 
             if (asset.assetFullName != "BTS"){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-                Apis.instance().db_api().exec("get_limit_orders", [
-                                baseAsset.get("id"), quoteAsset.get("id"), 100
-                ]).then((result)=>{
-                    if (result.length <= 1){
-                        console.log("POOR FOR",baseAsset.get("id"), quoteAsset.get("id"),quoteAsset.get("symbol"));
-                    }else{
-                        console.log("STATS RESULT FOR " + quoteAsset.get("symbol") ,result);
-                    }
+                let assets = {
+                    [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
+                    [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
+                };
+
+                Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 100 ])
+                .then((results)=>{
+                    let orders = [];
+                    results.forEach((result) => {
+                        orders.push(new LimitOrder(result, assets, quoteAsset.get("id")));
+                    });
+
+                    console.log("STATS FOR " + quoteAsset.get("symbol"));
+                    console.log("BIDS:",this.getBids(orders));
+                    console.log("ASKS:",this.getAsks(orders));
                     
                 });
             }
@@ -74,6 +81,48 @@ class PortfolioActions {
                 dispatch();
             });
         }
+    }
+
+    getBids(orderArray){
+        let bids = orderArray.filter(a => {
+            return a.isBid();
+        }).sort((a, b) => {
+            return a.getPrice() - b.getPrice();
+        }).map(order => {
+            return order;
+        });
+
+        // Sum bids at same price
+        if (bids.length > 1) {
+            for (let i = bids.length - 2; i >= 0; i--) {
+                if (bids[i].getPrice() === bids[i + 1].getPrice()) {
+                    bids[i] = bids[i].sum(bids[i + 1]);
+                    bids.splice(i + 1, 1);
+                }
+            }
+        }
+        return bids;        
+    }
+
+    getAsks(orderArray){
+        let asks = orderArray.filter(a => {
+            return !a.isBid();
+        }).sort((a, b) => {
+            return a.getPrice() - b.getPrice();
+        }).map(order => {
+            return order;
+        });
+
+        // Sum asks at same price
+        if (asks.length > 1) {
+            for (let i = asks.length - 2; i >= 0; i--) {
+                if (asks[i].getPrice() === asks[i + 1].getPrice()) {
+                    asks[i] = asks[i].sum(asks[i + 1]);
+                    asks.splice(i + 1, 1);
+                }
+            }
+        }
+        return asks;
     }
 
 	concatPortfolio(account){
