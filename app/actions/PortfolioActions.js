@@ -40,14 +40,16 @@ class PortfolioActions {
 
             if (asset.assetFullName != "BTS"){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-                statsCallbacks.push(
-                    MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
-                        MarketsActions.getMarketStats.defer(baseAsset,quoteAsset);
-                        let stats = MarketsStore.getState().marketData;
-                        console.log("Market stats:",stats);
-                        MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
-                    })
-                );
+                Apis.instance().db_api().exec("get_limit_orders", [
+                                baseAsset.get("id"), quoteAsset.get("id"), 100
+                ]).then((result)=>{
+                    if (result.length <= 1){
+                        console.log("POOR FOR",baseAsset.get("id"), quoteAsset.get("id"),quoteAsset.get("symbol"));
+                    }else{
+                        console.log("STATS RESULT FOR " + quoteAsset.get("symbol") ,result);
+                    }
+                    
+                });
             }
         });
 
@@ -105,7 +107,7 @@ class PortfolioActions {
                         balanceID: b,
                         balanceMap: balance,
                         assetShortName: ~s.search(/open/i)?s.substring(5):s,
-                        assetFullName: asset.get("symbol"), 
+                        assetFullName: s, 
                         futureShare: futureShare || 0, 
                         currentShare: +countShares(amount, asset_type, true), 
                         bitUSDShare: +countShares(amount, asset_type),
