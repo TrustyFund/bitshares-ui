@@ -9,7 +9,9 @@ import AssetActions from 'actions/AssetActions';
 import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
-import PortfolioStore from "stores/PortfolioStore"
+import PortfolioStore from "stores/PortfolioStore";
+import WalletApi from "api/WalletApi";
+import WalletDb from "stores/WalletDb";
 import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 
@@ -28,6 +30,8 @@ class PortfolioActions {
     }
 
     updatePortfolio(account){
+        //ВОТ ЗДЕСЬ НУЖНО ВСТАВИТЬ АНЛОК АККАУНТА ПОПАПОМ
+
         let portfolio = PortfolioStore.getState().data;
         let baseAsset = ChainStore.getAsset("BTS");
         let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
@@ -84,7 +88,23 @@ class PortfolioActions {
 
         return dispatch => {
             Promise.all(ordersCallbacks).then(function(orders) {
-                console.log("ORDERS",orders);
+                var tr = WalletApi.new_transaction();
+                orders.forEach((order)=>{
+                    order.setExpiration();
+                    order = order.toObject();
+                    tr.add_type_operation("limit_order_create", order);
+                });
+
+
+
+                return WalletDb.process_transaction(tr, null, true).then(result => {
+                    console.log("RESULT WALLETDB",result);
+                    return true;
+                })
+                .catch(error => {
+                    console.log("order error:", error);
+                    return {error};
+                });
                 dispatch();
             });
         }
