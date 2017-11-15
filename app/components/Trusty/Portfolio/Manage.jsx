@@ -64,7 +64,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioActions.updatePortfolio(this.props.account);
+		PortfolioActions.updatePortfolio(this.props.account ,this.props.router);
 	}
 
 	renderShare(share,className){

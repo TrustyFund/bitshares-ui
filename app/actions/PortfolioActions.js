@@ -15,6 +15,9 @@ import WalletDb from "stores/WalletDb";
 import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 
+
+import WalletUnlockStore from "stores/WalletUnlockStore"
+
 class PortfolioActions {
 
     incrementAsset(asset){
@@ -29,8 +32,13 @@ class PortfolioActions {
         }
     }
 
-    updatePortfolio(account){
+    updatePortfolio(account, router){
         //ВОТ ЗДЕСЬ НУЖНО ВСТАВИТЬ АНЛОК АККАУНТА ПОПАПОМ
+
+        if(WalletUnlockStore.getState().locked) {
+            router.push('/unlock')
+            return dispatch => dispatch()
+        }
 
         let portfolio = PortfolioStore.getState().data;
         let baseAsset = ChainStore.getAsset("BTS");

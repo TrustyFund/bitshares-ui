@@ -161,7 +161,7 @@ class WalletUnlockModal extends React.Component {
             WalletUnlockActions.change()
 
             this.setState({password_input_reset: Date.now(), password_error: false});
-            this.props.router.push("/home")
+            this.props.router.push("/manage")
         }
         return false;
     }
