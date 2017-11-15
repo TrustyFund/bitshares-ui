@@ -10,7 +10,8 @@ import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
 import PortfolioStore from "stores/PortfolioStore"
-
+import {LimitOrder} from "common/MarketClasses";
+import marketUtils from "common/market_utils";
 
 class PortfolioActions {
 
@@ -40,16 +41,27 @@ class PortfolioActions {
 
             if (asset.assetFullName != "BTS"){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-                Apis.instance().db_api().exec("get_limit_orders", [
-                                baseAsset.get("id"), quoteAsset.get("id"), 100
-                ]).then((result)=>{
-                    if (result.length <= 1){
-                        console.log("POOR FOR",baseAsset.get("id"), quoteAsset.get("id"),quoteAsset.get("symbol"));
-                    }else{
-                        console.log("STATS RESULT FOR " + quoteAsset.get("symbol") ,result);
-                    }
-                    
-                });
+                let assets = {
+                    [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
+                    [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
+                };
+
+                statsCallbacks.push(
+                    Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 50 ])
+                    .then((results)=>{
+                        let orders = [];
+                        results.forEach((result) => {
+                            orders.push(new LimitOrder(result, assets, quoteAsset.get("id")));
+                        });
+                        let bids = marketUtils.getBids(orders);
+                        let asks = marketUtils.getAsks(orders);
+
+                        console.log("STATS FOR " + quoteAsset.get("symbol"));
+                        console.log("BIDS (",bids.length,"):",bids);
+                        console.log("ASKS (",asks.length,"):",asks);
+                        console.log("TOTAL:",asks.length+bids.length);
+                    })
+                );
             }
         });
 
@@ -75,6 +87,8 @@ class PortfolioActions {
             });
         }
     }
+
+    
 
 	concatPortfolio(account){
         portfolioStorage.set("portfolio",{});

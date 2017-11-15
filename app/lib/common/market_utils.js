@@ -358,6 +358,48 @@ const MarketUtils = {
         const marketID = quoteID > baseID ? `${quote.get("symbol")}_${base.get("symbol")}` : `${base.get("symbol")}_${quote.get("symbol")}`;
 
         return {baseID, quoteID, marketID, first: quoteID > baseID ? quote : base, second: quoteID > baseID ? base : quote};
+    },
+
+    getBids(orderArray){
+        let bids = orderArray.filter(a => {
+            return a.isBid();
+        }).sort((a, b) => {
+            return a.getPrice() - b.getPrice();
+        }).map(order => {
+            return order;
+        });
+
+        // Sum bids at same price
+        if (bids.length > 1) {
+            for (let i = bids.length - 2; i >= 0; i--) {
+                if (bids[i].getPrice() === bids[i + 1].getPrice()) {
+                    bids[i] = bids[i].sum(bids[i + 1]);
+                    bids.splice(i + 1, 1);
+                }
+            }
+        }
+        return bids;        
+    },
+
+    getAsks(orderArray){
+        let asks = orderArray.filter(a => {
+            return !a.isBid();
+        }).sort((a, b) => {
+            return a.getPrice() - b.getPrice();
+        }).map(order => {
+            return order;
+        });
+
+        // Sum asks at same price
+        if (asks.length > 1) {
+            for (let i = asks.length - 2; i >= 0; i--) {
+                if (asks[i].getPrice() === asks[i + 1].getPrice()) {
+                    asks[i] = asks[i].sum(asks[i + 1]);
+                    asks.splice(i + 1, 1);
+                }
+            }
+        }
+        return asks;
     }
 };
 
