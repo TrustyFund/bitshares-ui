@@ -168,30 +168,16 @@ class Trusty extends React.Component {
 
         //update portfolio
         let { account } = this._getBalancesData();
+        let pathname = this.props.location.pathname;
+
+        if (account && pathname == "/"){
+            this.props.router.push("/home");
+        }
+        
 
         if (account){
             PortfolioActions.concatPortfolio.defer(account);
         }
-
-        
-
-        //console.log(PortfolioStore.getState().data)
-      
-        // account && PortfolioStore.concatPortfolio(account).then(portfolio=>{
-        //     console.log(portfolio)
-        // })
-
-        let check = path => ~this.props.location.pathname.indexOf(path)
-        if(!check("unlock") && this.props.walletLocked && AccountStore.getMyAccounts().length) {
-            //this.props.router.push("/unlock")
-           //return 
-        } 
-
-        // if(AccountStore.getMyAccounts().length && !this.state.firstEnteredApp) {
-        //     this.setState({firstEnteredApp: true})
-        //     this.props.router.push(`/home`)
-        //     return
-        // }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
@@ -267,7 +253,6 @@ class Trusty extends React.Component {
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
-                    {/*<Header />*/}
                     { header }
                     <div className="trusty_header_fake">{header}</div>
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
@@ -307,7 +292,7 @@ class Trusty extends React.Component {
         } else if (myAccountCount == 0 && !authFreeRoutes()) {
             content = <Landing type={"trusty-owl"} />
         } else {
-            content = isLanding ? this.props.children : grid(this.props.children)
+            content = grid(this.props.children);
         }
 
         return (

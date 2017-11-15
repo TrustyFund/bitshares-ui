@@ -33,8 +33,6 @@ class PortfolioActions {
     }
 
     updatePortfolio(account, router){
-        //ВОТ ЗДЕСЬ НУЖНО ВСТАВИТЬ АНЛОК АККАУНТА ПОПАПОМ
-
         if(WalletUnlockStore.getState().locked) {
             router.push('/unlock')
             return dispatch => dispatch()
