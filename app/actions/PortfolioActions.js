@@ -27,18 +27,19 @@ class PortfolioActions {
     }
 
     updatePortfolio(){
+        let portfolio = PortfolioStore.getState().data;
+        let baseAsset = ChainStore.getAsset("BTS");
+        let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
+        let futurePortfolio = [];
+
         let statsCallbacks = [];
         let statsObjects = [];
 
-        let portfolio = PortfolioStore.getState().data;
-        let baseAsset = ChainStore.getAsset("BTS");
-
-        console.log("portfolio",portfolio);
-
         portfolio.forEach((asset) => {
-            console.log("FOREACH ELEM",asset.assetFullName,asset);
-            if (asset.assetFullName != "BTS"){
+            asset.btsCountToFuture = Math.floor((baseBalance / 100) * asset.futureShare);
+            futurePortfolio.push(asset);
 
+            if (asset.assetFullName != "BTS"){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 statsCallbacks.push(
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
@@ -49,6 +50,12 @@ class PortfolioActions {
                 );
             }
         });
+
+        var sumPortBalance = 0; 
+        futurePortfolio.forEach((asset)=>{
+            sumPortBalance += asset.btsCountToFuture;
+        });
+        console.log("BTS BALANCE:",baseBalance,"SUMM PORT BALANCE",sumPortBalance);
 
         return dispatch => {
             Promise.all(statsCallbacks).then(function() {
@@ -62,7 +69,7 @@ class PortfolioActions {
         let balances  = PortfolioStore.getBalances(account)
         let activeBalaces = []
 
-        let portfolioData = PortfolioStore.getPortfolio().slice()
+        let portfolioData = PortfolioStore.getPortfolio().data.slice()
 
         balances.forEach(b=> {
 

@@ -32,14 +32,10 @@ class PortfolioStore extends BaseStore {
 
         this._export(
             "getPortfolio",
-            "getTotalPercentage",
-            "isValid",
             "getBalances",
         );
 
         this.getPortfolio = this.getPortfolio.bind(this);
-        this.getTotalPercentage = this.getTotalPercentage.bind(this);
-        this.isValid = this.isValid.bind(this);
         this.getBalances = this.getBalances.bind(this);
 
         this.state = {
@@ -73,7 +69,8 @@ class PortfolioStore extends BaseStore {
     }
 
     getPortfolio(){
-        return [
+        return {
+          data: [
                 { assetShortName: "BTC",
                   futureShare: 60,
                   currentShare:0,
@@ -106,7 +103,8 @@ class PortfolioStore extends BaseStore {
                   futureShare: 3,
                   currentshare:0,
                   assetFullName: "TRFND"}
-            ];
+            ],
+            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]};
     }
 
     onConcatPortfolio(portfolio){
@@ -134,20 +132,6 @@ class PortfolioStore extends BaseStore {
             totalPercentageFutureShare+= i.futureShare
         })
         this.setState({data, totalPercentageFutureShare })
-    }
-
-    getTotalPercentage(){
-        let storedPortfolio = portfolioStorage.get("portfolio");
-        let result = 0;
-        storedPortfolio.data.forEach(current => {
-            result = result + current.futureShare;
-        });
-        this.summValid = result == 100;
-        return result;
-    }	
-
-    isValid(){
-        return this.summValid;
     }
 
     onUpdatePortfolio(){

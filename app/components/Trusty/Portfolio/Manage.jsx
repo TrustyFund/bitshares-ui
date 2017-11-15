@@ -31,7 +31,6 @@ class ManagePortfolio extends React.Component {
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
 		let renderedPortfolio = this.renderPortfolioList(this.props.portfolioData);	
-		let total = PortfolioStore.getTotalPercentage();	
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -81,7 +80,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	getButtonClass(){
-		return (PortfolioStore.isValid()) ? "wide" : "disabled wide";
+		return (this.props.porfolioTotalShare == 100) ? "wide" : "disabled wide";
 	}
 
 	renderPortfolioList(assetList = [] ){
@@ -93,9 +92,8 @@ class ManagePortfolio extends React.Component {
 		)
 		if(assetList == null) return null;
 
-		if (assetList.length > 0 && !this.state.initPortfolio){
+		if (assetList.length > 0 && !this.state.initPortfolio || this.state.initPortfolio.length < assetList.length){
 			this.state.initPortfolio = assetList;
-			console.log("SETINIT",assetList);
 		}
 		//TODO: сделать сдесь ссылку на описание Ассета
 		assetList.forEach( (asset, i) => {
