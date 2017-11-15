@@ -16,8 +16,6 @@ import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 
 
-import WalletUnlockStore from "stores/WalletUnlockStore"
-
 class PortfolioActions {
 
     incrementAsset(asset){
@@ -37,7 +35,6 @@ class PortfolioActions {
             router.push('/unlock')
             return dispatch => dispatch()
         }
-
         let portfolio = PortfolioStore.getState().data;
         let baseAsset = ChainStore.getAsset("BTS");
         let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
