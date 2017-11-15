@@ -130,7 +130,7 @@ class PortfolioActions {
 	            Promise.resolve().then(()=>{
 	                port.data.forEach((item, index)=>{
 	                    Apis.instance().db_api().exec("list_assets", [
-	                        item.assetShortName, 1
+	                        item.assetFullName, 1
 	                    ]).then(assets => {
                             ChainStore._updateObject(assets[0], false);
 	                        let bal = port.data[index];
