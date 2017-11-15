@@ -27,7 +27,7 @@ class PortfolioActions {
     }
 
     updatePortfolio(){
-        let portfolio = PortfolioStore.getState().data;
+        let portfolio = PortfolioStore.getState().data.slice();
         let baseAsset = ChainStore.getAsset("BTS");
         let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
         let futurePortfolio = [];
