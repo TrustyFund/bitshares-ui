@@ -75,7 +75,6 @@ class WalletUnlockModal extends React.Component {
     }
 
     componentDidMount() {
-
         this._toggleLock()
         // ZfApi.subscribe(this.props.modalId, (name, msg) => {
         //     if(name !== this.props.modalId)
@@ -161,7 +160,7 @@ class WalletUnlockModal extends React.Component {
             WalletUnlockActions.change()
 
             this.setState({password_input_reset: Date.now(), password_error: false});
-            this.props.router.push("/manage")
+            this.props.router.push(this.props.location.query.back || "/home")
         }
         return false;
     }

@@ -253,7 +253,7 @@ class Trusty extends React.Component {
         let isProfilePage = AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
         let header = (
             <div className="trusty_header">
-                { ~this.props.location.pathname.indexOf("unlock") ? null : isProfilePage 
+                {  isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
                         <Icon name="trusty_arrow_back"/>

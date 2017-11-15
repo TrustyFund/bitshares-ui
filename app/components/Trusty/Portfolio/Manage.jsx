@@ -10,6 +10,7 @@ import BindToChainState from "components/Utility/BindToChainState";
 import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import PortfolioActions from "actions/PortfolioActions"
+import { unlockAction } from "components/Trusty/utils"
 
 class ManagePortfolio extends React.Component {
 
@@ -27,6 +28,10 @@ class ManagePortfolio extends React.Component {
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
+	}
+
+	componentWillMount() {
+		unlockAction(this.props.router, this.props.location.pathname)
 	}
 
 	renderManualTab(){
