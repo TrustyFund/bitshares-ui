@@ -10,7 +10,7 @@ import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
 import PortfolioStore from "stores/PortfolioStore"
-import {LimitOrder} from "common/MarketClasses";
+import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 
 class PortfolioActions {
@@ -27,62 +27,64 @@ class PortfolioActions {
         }
     }
 
-    updatePortfolio(){
+    updatePortfolio(account){
         let portfolio = PortfolioStore.getState().data;
         let baseAsset = ChainStore.getAsset("BTS");
         let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
-        let futurePortfolio = [];
 
-        let statsCallbacks = [];
+        let ordersCallbacks = [];
 
         portfolio.forEach((asset) => {
-            asset.btsCountToFuture = Math.floor((baseBalance / 100) * asset.futureShare);
-            futurePortfolio.push(asset);
+            asset.btsCountToSell = Math.floor((baseBalance / 100) * asset.futureShare);
 
-            if (asset.assetFullName != "BTS"){
+            if (asset.assetFullName != "BTS" && asset.btsCountToSell){
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 let assets = {
                     [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
                     [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
                 };
 
-                statsCallbacks.push(
+                ordersCallbacks.push(
                     Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 50 ])
                     .then((results)=>{
                         let orders = [];
                         results.forEach((result) => {
-                            orders.push(new LimitOrder(result, assets, quoteAsset.get("id")));
+                            let order = new LimitOrder(result, assets, quoteAsset.get("id"));
+                            orders.push(order);
                         });
-                        let bids = marketUtils.getBids(orders);
+                        //let bids = marketUtils.getBids(orders);
                         let asks = marketUtils.getAsks(orders);
 
-                        console.log("STATS FOR " + quoteAsset.get("symbol"));
-                        console.log("BIDS (",bids.length,"):",bids);
-                        console.log("ASKS (",asks.length,"):",asks);
-                        console.log("TOTAL:",asks.length+bids.length);
+                        let totalBtsAsk = 0;
+                        for (let i = 0; i < asks.length; i++){
+                            let ask = asks[i];
+                            let forSale = ask.totalToReceive({noCache: true});
+                            totalBtsAsk += forSale.amount;
+                            if (totalBtsAsk >= asset.btsCountToSell){
+                                forSale.amount = asset.btsCountToSell;
+                                let toReceive = forSale.times(ask.sellPrice());
+
+                                let order = new LimitOrderCreate({
+                                    for_sale: forSale,
+                                    to_receive: toReceive,
+                                    seller: account.get("id"),
+                                    fee: {
+                                        asset_id: baseAsset.get("id"),
+                                        amount: 0
+                                    }
+                                });
+
+                                return order;
+                            }
+                        }
                     })
                 );
             }
         });
 
         return dispatch => {
-            Promise.all(statsCallbacks).then(function() {
-                console.log("FUTURE");
-                let sumWithoutBts = 0;
-                let btsInBtsFuture = 0;
-                futurePortfolio.forEach((asset)=>{
-                    if (asset.futureShare && asset.assetFullName != "BTS"){
-                        sumWithoutBts += asset.btsCountToFuture;
-                        console.log("Asset:",asset.assetFullName);
-                        console.log("BTS ammount:",asset.btsCountToFuture);
-                    }                
-                    if (asset.assetFullName == "BTS"){
-                        btsInBtsFuture = asset.btsCountToFuture;
-                    }
-                });
-                console.log("Without BTS:",sumWithoutBts);
-                console.log("With BTS:",sumWithoutBts + btsInBtsFuture);
-                console.log("BASE BALANCE:",baseBalance);
+            Promise.all(ordersCallbacks).then(function(orders) {
+                console.log("ORDERS",orders);
                 dispatch();
             });
         }

@@ -345,12 +345,8 @@ class MarketsActions {
     }
 
     createLimitOrder2(order) {
+        console.log("CREATE LIMIT ORDER 2");
         var tr = WalletApi.new_transaction();
-
-        // let feeAsset = ChainStore.getAsset(fee_asset_id);
-        // if( feeAsset.getIn(["options", "core_exchange_rate", "base", "asset_id"]) === "1.3.0" && feeAsset.getIn(["options", "core_exchange_rate", "quote", "asset_id"]) === "1.3.0" ) {
-        //     fee_asset_id = "1.3.0";
-        // }
 
         order.setExpiration();
         order = order.toObject();
@@ -358,6 +354,7 @@ class MarketsActions {
         tr.add_type_operation("limit_order_create", order);
 
         return WalletDb.process_transaction(tr, null, true).then(result => {
+            console.log("RESULT WALLETDB",result);
             return true;
         })
         .catch(error => {
