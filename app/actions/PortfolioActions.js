@@ -28,20 +28,22 @@ class PortfolioActions {
 
     updatePortfolio(){
         let statsCallbacks = [];
+        let statsObjects = [];
+
         let portfolio = PortfolioStore.getState().data;
-
-        console.log("DATA",portfolio);
-
         let baseAsset = ChainStore.getAsset("BTS");
-        console.log("BASE",baseAsset);
+
+        console.log("portfolio",portfolio);
+
         portfolio.forEach((asset) => {
+            console.log("FOREACH ELEM",asset.assetFullName,asset);
             if (asset.assetFullName != "BTS"){
+
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 statsCallbacks.push(
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
                         MarketsActions.getMarketStats(baseAsset,quoteAsset);
                         let stats = MarketsStore.getState().marketData;
-                        console.log("ASSET",asset.assetFullName,stats);
                         MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
                     })
                 );
@@ -59,9 +61,8 @@ class PortfolioActions {
         portfolioStorage.set("portfolio",{});
         let balances  = PortfolioStore.getBalances(account)
         let activeBalaces = []
-        //balances list Map { _root: { entries:[["1.3.0": "2.5.1315326" ]]} }
 
-        let portfolioData = PortfolioStore.getPortfolio().data.slice()
+        let portfolioData = PortfolioStore.getPortfolio().slice()
 
         balances.forEach(b=> {
 

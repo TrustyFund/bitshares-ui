@@ -73,8 +73,7 @@ class PortfolioStore extends BaseStore {
     }
 
     getPortfolio(){
-        return {
-            data:[
+        return [
                 { assetShortName: "BTC",
                   futureShare: 60,
                   currentShare:0,
@@ -107,9 +106,7 @@ class PortfolioStore extends BaseStore {
                   futureShare: 3,
                   currentshare:0,
                   assetFullName: "TRFND"}
-            ],
-            map: ["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]
-        };
+            ];
     }
 
     onConcatPortfolio(portfolio){

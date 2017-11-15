@@ -22,7 +22,7 @@ class ManagePortfolio extends React.Component {
 
 		this.state = {
 			valid: false,
-			initPortfolio: PortfolioStore.getPortfolio()
+			initPortfolio: false
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
@@ -30,7 +30,7 @@ class ManagePortfolio extends React.Component {
 
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
-		let renderedPortfolio = this.renderPortfolioList(this.props.portfolioData/*portfolio.data*/);	
+		let renderedPortfolio = this.renderPortfolioList(this.props.portfolioData);	
 		let total = PortfolioStore.getTotalPercentage();	
 		return (
 			<TabContent for="tab1">
@@ -84,19 +84,24 @@ class ManagePortfolio extends React.Component {
 		return (PortfolioStore.isValid()) ? "wide" : "disabled wide";
 	}
 
-	renderPortfolioList(assetList=[]){
-		let portfolio = [];
+	renderPortfolioList(assetList = [] ){
+		let renderPortfolio = [];
 		let arrow = (
 			<span className="trusty_portfolio_arrow">
 				<Icon name="trusty_portfolio_arrow_right"/>
 			</span>
 		)
-		if(assetList == null) return null
+		if(assetList == null) return null;
+
+		if (assetList.length > 0 && !this.state.initPortfolio){
+			this.state.initPortfolio = assetList;
+			console.log("SETINIT",assetList);
+		}
 		//TODO: сделать сдесь ссылку на описание Ассета
 		assetList.forEach( (asset, i) => {
 			let name = "portfolio_item _" + i
 			let assetClass = this.getAssetClass.bind(this,asset);
-			portfolio.push(
+			renderPortfolio.push(
 				<tr key={asset.assetShortName}>
 					<td>
 						<div className={name}>{asset.assetShortName}{arrow}</div>
@@ -104,14 +109,14 @@ class ManagePortfolio extends React.Component {
 					<td>
 						<div className={cname(name, {"_red": false })}>
 							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>- </a>
-							{this.renderShare(asset.futureShare,assetClass(asset))}
+							{this.renderShare(asset.futureShare,assetClass())}
 							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset)}> +</a>
 						</div>
 					</td>
 				</tr>
 			)
 		});
-		return portfolio
+		return renderPortfolio
 	}
 
 	_incrementAsset(asset){
@@ -123,18 +128,18 @@ class ManagePortfolio extends React.Component {
 	}
 
 	getAssetClass(asset){
+		let initAsset = this.state.initPortfolio.filter((filterAsset)=> filterAsset.assetFullName == asset.assetFullName)[0];
+		if (!initAsset) return "normal";
+
+		let initShare = initAsset.futureShare;
+
 		let className = "normal";
-		let assetIndex = this.state.initPortfolio.map.indexOf(asset.asset);
-		if(this.state.initPortfolio.data[assetIndex]) {
-			let loadedShare = this.state.initPortfolio.data[assetIndex].futureShare;
-			if (asset.futureShare > loadedShare){
-				className = "greater";
-			}else if(asset.futureShare < loadedShare){
-				className = "less";
-			}else{
-				className = "normal";
-			}
-			
+		if (asset.futureShare > initShare){
+			className = "greater";
+		}else if(asset.futureShare < initShare){
+			className = "less";
+		}else{
+			className = "normal";
 		}
 		return className;
 	}
