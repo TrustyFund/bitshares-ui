@@ -33,7 +33,6 @@ class PortfolioActions {
         let futurePortfolio = [];
 
         let statsCallbacks = [];
-        let statsObjects = [];
 
         portfolio.forEach((asset) => {
             asset.btsCountToFuture = Math.floor((baseBalance / 100) * asset.futureShare);
@@ -43,22 +42,33 @@ class PortfolioActions {
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 statsCallbacks.push(
                     MarketsActions.subscribeMarket(baseAsset, quoteAsset, 20).then(()=>{
-                        MarketsActions.getMarketStats(baseAsset,quoteAsset);
+                        MarketsActions.getMarketStats.defer(baseAsset,quoteAsset);
                         let stats = MarketsStore.getState().marketData;
+                        console.log("Market stats:",stats);
                         MarketsActions.unSubscribeMarket(quoteAsset,baseAsset);
                     })
                 );
             }
         });
 
-        var sumPortBalance = 0; 
-        futurePortfolio.forEach((asset)=>{
-            sumPortBalance += asset.btsCountToFuture;
-        });
-        console.log("BTS BALANCE:",baseBalance,"SUMM PORT BALANCE",sumPortBalance);
-
         return dispatch => {
             Promise.all(statsCallbacks).then(function() {
+                console.log("FUTURE");
+                let sumWithoutBts = 0;
+                let btsInBtsFuture = 0;
+                futurePortfolio.forEach((asset)=>{
+                    if (asset.futureShare && asset.assetFullName != "BTS"){
+                        sumWithoutBts += asset.btsCountToFuture;
+                        console.log("Asset:",asset.assetFullName);
+                        console.log("BTS ammount:",asset.btsCountToFuture);
+                    }                
+                    if (asset.assetFullName == "BTS"){
+                        btsInBtsFuture = asset.btsCountToFuture;
+                    }
+                });
+                console.log("Without BTS:",sumWithoutBts);
+                console.log("With BTS:",sumWithoutBts + btsInBtsFuture);
+                console.log("BASE BALANCE:",baseBalance);
                 dispatch();
             });
         }
@@ -121,8 +131,8 @@ class PortfolioActions {
 	                        item.assetShortName, 1
 	                    ]).then(assets => {
                             ChainStore._updateObject(assets[0], false);
-	                        let bal = port.data[index]
-	                        bal.assetMap = createMap(assets[0])
+	                        let bal = port.data[index];
+	                        bal.assetMap = createMap(assets[0]);
 	                        if(!bal.balanceMap) {
 	                            bal.balanceID = null;
 	                            bal.balanceMap = createMap({
@@ -131,29 +141,28 @@ class PortfolioActions {
 	                                asset_type: "0",
 	                                balance: "0"
 	                            })
-	                            bal.amount = 0
-	                            bal.currentShare =  0
-	                            bal.bitUSDShare = 0
+	                            bal.amount = 0;
+	                            bal.currentShare =  0;
+	                            bal.bitUSDShare = 0;
 	                        }
-	                        if(!bal.futureShare) bal.futureShare = 0
+	                        if(!bal.futureShare) bal.futureShare = 0;
 	                    })  
 	                })
 	                
 	            }).then(()=>{
-                    port.totalFutureShare = 0
+                    port.totalFutureShare = 0;
                     port.data.forEach(i=>{
                         PortfolioStore.getState().data && PortfolioStore.getState().data.forEach(already=>{
                             if(already.assetShortName == i.assetShortName) {
-                                i.futureShare = already.futureShare
+                                i.futureShare = already.futureShare;
                             }
                         })
-                        port.totalFutureShare += i.futureShare
+                        port.totalFutureShare += i.futureShare;
                     })
 
 	                portfolioStorage.set("portfolio",port);
-	                resolve(port)
-	                dispatch(port)
-
+	                resolve(port);
+	                dispatch(port);
 	            })
 	        })
 		}
