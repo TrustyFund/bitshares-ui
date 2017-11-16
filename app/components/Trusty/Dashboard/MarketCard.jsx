@@ -81,6 +81,7 @@ class MarketCard extends React.Component {
         let {hide, isLowVolume, base, quote, marketStats} = this.props;
         if (isLowVolume || hide) return null;
 
+
         function getImageName(asset) {
             let symbol = asset.get("symbol");
             if (symbol === "OPEN.BTC") return symbol;

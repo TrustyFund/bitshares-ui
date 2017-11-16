@@ -106,7 +106,7 @@ class AccountOverview extends React.Component {
         if(this.props.portfolioData) {
             this.props.portfolioData.forEach(p=>{
                 let preferredUnit = "USD";
-                let pair = ["BTS", p.assetShortName];
+                let pair = ["BTS", p.assetFullName];
                 p.assetShortName != 'USD' && balances.push(
                     <tr key={p.assetShortName} style={{maxWidth: "100rem"}}>
                         <td style={{textAlign: "left"}}>

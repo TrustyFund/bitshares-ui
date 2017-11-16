@@ -46,7 +46,7 @@ class MarketsActions {
             let endDate = new Date();
             let startDateShort = new Date();
             endDate.setDate(endDate.getDate() + 1);
-            startDateShort = new Date(startDateShort.getTime() - 3600 * 50 * 1000);
+            startDateShort = new Date(startDateShort.getTime() - 3600 * 24 * 7 * 1000);
 
             let refresh = false;
 
