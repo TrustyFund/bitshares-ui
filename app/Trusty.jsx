@@ -221,10 +221,10 @@ class Trusty extends React.Component {
             }
             return title
         }  
-     
+        console.log(1111)
         let isProfilePage = AccountStore.getMyAccounts().length && this.props.location.pathname.indexOf("home") != -1
         let header = (
-            <div className="trusty_header">
+            <div className="trusty_header" onClick={ isProfilePage ? null : this._navigateBackAction.bind(this)}>
                 {  isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
@@ -239,8 +239,8 @@ class Trusty extends React.Component {
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
-                    { header }
-                    <div className="trusty_header_fake">{header}</div>
+                    { this.props.location.pathname == "/landing" ? null:header }
+                    { this.props.location.pathname == "/landing" ? null:<div className="trusty_header_fake">{header}</div> } 
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
