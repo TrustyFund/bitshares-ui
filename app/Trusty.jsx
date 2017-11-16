@@ -87,7 +87,6 @@ class Trusty extends React.Component {
 
     componentWillUnmount() {
         NotificationStore.unlisten(this._onNotificationChange);
-        SettingsStore.unlisten(this._onSettingsChange);
         ChainStore.unsubscribe(this._chainStoreSub);
     }
 
@@ -109,7 +108,6 @@ class Trusty extends React.Component {
     _setListeners() {
         try {
             NotificationStore.listen(this._onNotificationChange.bind(this));
-            SettingsStore.listen(this._onSettingsChange);
             ChainStore.subscribe(this._chainStoreSub);
             AccountStore.tryToSetCurrentAccount();
         } catch(e) {
@@ -149,16 +147,6 @@ class Trusty extends React.Component {
         if (this.refs.notificationSystem) this.refs.notificationSystem.addNotification(notification);
     }
 
-    _onSettingsChange() {
-        let {settings, viewSettings} = SettingsStore.getState();
-        if (settings.get("themes") !== this.state.theme) {
-            this.setState({
-                theme: settings.get("themes")
-            });
-        }
-
-    }
-
     // /** Non-static, used by passing notificationSystem via react Component refs */
     // _addNotification(params) {
     //     console.log("add notification:", this.refs, params);
@@ -168,12 +156,10 @@ class Trusty extends React.Component {
 
         //update portfolio
         let { account } = this._getBalancesData();
-        let pathname = this.props.location.pathname;
-
+        let pathname = this.props.location.pathname;   
         if (account && pathname == "/"){
             this.props.router.push("/home");
         }
-        
 
         if (account){
             PortfolioActions.concatPortfolio.defer(account);

@@ -14,6 +14,7 @@ import WalletApi from "api/WalletApi";
 import WalletDb from "stores/WalletDb";
 import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
+import WalletUnlockStore from "stores/WalletUnlockStore";
 
 
 class PortfolioActions {
@@ -80,7 +81,7 @@ class PortfolioActions {
                                         amount: 0
                                     }
                                 });
-
+                                console.log("ORDER FOR " + asset.assetFullName,order,asks,i);
                                 return order;
                             }
                         }
