@@ -36,6 +36,9 @@ class PortfolioActions {
             router.push('/unlock')
             return dispatch => dispatch()
         }
+
+        PortfolioStore.setLoading();
+
         let portfolio = PortfolioStore.getState().data;
         let baseAsset = ChainStore.getAsset("BTS");
         let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
@@ -45,7 +48,8 @@ class PortfolioActions {
         portfolio.forEach((asset) => {
             asset.btsCountToSell = Math.floor((baseBalance / 100) * asset.futureShare);
 
-            if (asset.assetFullName != "BTS" && asset.btsCountToSell){
+            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "EOS"){
+                console.log("ASSET",asset)
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 let assets = {
                     [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
@@ -91,23 +95,24 @@ class PortfolioActions {
         });
 
         return dispatch => {
-            Promise.all(ordersCallbacks).then(function(orders) {
+            return Promise.all(ordersCallbacks).then(function(orders) {
                 var tr = WalletApi.new_transaction();
                 orders.forEach((order)=>{
+                    console.log("ORDER",order);
                     order.setExpiration();
                     order = order.toObject();
                     tr.add_type_operation("limit_order_create", order);
                 });
 
-                return WalletDb.process_transaction(tr, null, true).then(result => {
-                    console.log("RESULT WALLETDB",result);
-                    return true;
+
+                WalletDb.process_transaction(tr, null, true).then(result => {
+                    console.log("DONE TRANSACTION",result);
+                    dispatch();
                 })
                 .catch(error => {
                     console.log("order error:", error);
                     return {error};
                 });
-                dispatch();
             });
         }
     }
