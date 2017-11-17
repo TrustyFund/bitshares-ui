@@ -13,6 +13,9 @@ import utils from "common/utils";
 import PortfolioActions from "actions/PortfolioActions"
 
 
+const defaultLoading = {update: true};
+
+
 const createMap = (myObj) =>{
      return new Map(
         Object
@@ -33,14 +36,17 @@ class PortfolioStore extends BaseStore {
         this._export(
             "getPortfolio",
             "getBalances",
+            "setLoading"
         );
 
         this.getPortfolio = this.getPortfolio.bind(this);
         this.getBalances = this.getBalances.bind(this);
+        this.setLoading = this.setLoading.bind(this);
 
         this.state = {
             data: null,
-            totalPercentageFutureShare: 0
+            totalPercentageFutureShare: 0,
+            loading: defaultLoading
         }
 
         this.bindListeners({
@@ -110,32 +116,39 @@ class PortfolioStore extends BaseStore {
     onConcatPortfolio(portfolio){
         this.setState({
             data: portfolio.data,
-            totalPercentageFutureShare: portfolio.totalFutureShare
+            totalPercentageFutureShare: portfolio.totalFutureShare,
+            loading: defaultLoading
         })
     }
 
     onIncrementAsset({asset}) {
         let data = this.state.data.slice()
         let totalPercentageFutureShare = 0
+        let loading = defaultLoading
         data.forEach(i=>{
             if(i.assetShortName==asset) i.futureShare++
             totalPercentageFutureShare+= i.futureShare
         })
-        this.setState({data, totalPercentageFutureShare })
+        this.setState({data, totalPercentageFutureShare, loading})
     }
 
     onDecrementAsset({asset}) {
         let data = this.state.data.slice()
         let totalPercentageFutureShare = 0
+        let loading = defaultLoading
         data.forEach(i=>{
             if(i.assetShortName==asset) i.futureShare--
             totalPercentageFutureShare+= i.futureShare
         })
-        this.setState({data, totalPercentageFutureShare })
+        this.setState({data, totalPercentageFutureShare, loading})
+    }
+
+    setLoading(){
+      this.state.loading = {update: true};
     }
 
     onUpdatePortfolio(){
-        console.log("UPDATE DONE")
+      this.state.loading.update = false;
     }
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");

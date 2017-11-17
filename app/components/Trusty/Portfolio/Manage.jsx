@@ -23,10 +23,12 @@ class ManagePortfolio extends React.Component {
 
 		this.state = {
 			valid: false,
-			initPortfolio: false
+			initPortfolio: false,
+			currentPortfolio: false
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
+		this.onChange = this.onChange.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 	}
 
@@ -34,9 +36,21 @@ class ManagePortfolio extends React.Component {
 		unlockAction(this.props.router, this.props.location.pathname)
 	}
 
+	componentDidMount() {
+		PortfolioStore.listen(this.onChange);
+	}
+
+	componentWillUnmount() {
+		PortfolioStore.unlisten(this.onChange);
+	}
+
+	onChange(storeState) {
+		this.state.currentPortfolio = storeState;
+	}
+
 	renderManualTab(){
 		let portfolio = PortfolioStore.getPortfolio();
-		let renderedPortfolio = this.renderPortfolioList(this.props.portfolioData);	
+		let renderedPortfolio = this.renderPortfolioList(this.state.currentPortfolio.data);	
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -55,7 +69,7 @@ class ManagePortfolio extends React.Component {
 					{renderedPortfolio}
 					<tr>
 						<td></td>
-						<td>{this.renderTotalShare(this.props.porfolioTotalShare)}</td>
+						<td>{this.renderTotalShare(this.state.currentPortfolio.totalPercentageFutureShare)}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -69,7 +83,9 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioActions.updatePortfolio(this.props.account ,this.props.router);
+		PortfolioActions.updatePortfolio(this.props.account ,this.props.router).then((result)=>{
+			console.log("RESULT",result);
+		})
 	}
 
 	renderShare(share,className){
