@@ -99,8 +99,6 @@ class PortfolioActions {
                     tr.add_type_operation("limit_order_create", order);
                 });
 
-
-
                 return WalletDb.process_transaction(tr, null, true).then(result => {
                     console.log("RESULT WALLETDB",result);
                     return true;
