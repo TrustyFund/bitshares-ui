@@ -12,20 +12,7 @@ import {Apis} from "bitsharesjs-ws";
 import utils from "common/utils";
 import PortfolioActions from "actions/PortfolioActions"
 
-
 const defaultLoading = {update: true};
-
-
-const createMap = (myObj) =>{
-     return new Map(
-        Object
-            .keys(myObj)
-            .map(
-                key => [key, myObj[key]]
-            )
-    )
-}
-
 let portfolioStorage = new ls("__trusty_portfolio__");
 
 class PortfolioStore extends BaseStore {

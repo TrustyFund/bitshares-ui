@@ -26,7 +26,8 @@ import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
 import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
 import MarketCard from "components/Trusty/Dashboard/MarketCard";
-
+import PortfolioStore from "stores/PortfolioStore";
+import { connect } from "alt-react";
 
 class AccountOverview extends React.Component {
 
@@ -103,8 +104,8 @@ class AccountOverview extends React.Component {
     _renderTrustyBalaces() {
 
         let balances = []
-        if(this.props.portfolioData) {
-            this.props.portfolioData.forEach(p=>{
+        if(this.props.trustyPortfolio.length) {
+            this.props.trustyPortfolio.forEach(p=>{
                 let preferredUnit = "USD";
                 let pair = ["BTS", p.assetFullName];
                 p.assetShortName != 'USD' && balances.push(
@@ -443,7 +444,20 @@ class AccountOverview extends React.Component {
     }
 }
 
-AccountOverview = BindToChainState(AccountOverview);
+
+let AccountOverviewConnect  = connect(AccountOverview, {
+    listenTo() {
+        return [PortfolioStore];
+    },
+    getProps() {
+        return {
+            trustyPortfolio: PortfolioStore.getState().data,
+        };
+    }
+});
+
+
+AccountOverview = BindToChainState(AccountOverviewConnect);
 
 class BalanceWrapper extends React.Component {
 
@@ -488,6 +502,7 @@ class BalanceWrapper extends React.Component {
         );
     };
 }
+
 
 export default BindToChainState(BalanceWrapper);
 

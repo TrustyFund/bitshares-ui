@@ -215,7 +215,7 @@ class WalletUnlockModal extends React.Component {
                     <div className="trusty_full_width_button_colored" onClick={this.onPasswordEnter}>
                         unlock account
                     </div>
-                    <div className="_logo_owl"><Icon name="trusty_owl_small_logo" /></div>
+                    <div className="_logo_owl" style={{ display: "none" }}><Icon name="trusty_owl_small_logo" /></div>
                     {/* <div onClick={this._toggleLoginType.bind(this)} className="button small outline float-right"><Translate content="wallet.switch_model_password" /></div> */}
                 </div>
             </form>

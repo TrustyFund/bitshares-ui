@@ -12,7 +12,7 @@ import accountUtils from "common/account_utils";
 import AccountOverview from "./AccountOverview";
 import MarketsStore from "stores/MarketsStore";
 import MarketsActions from "actions/MarketsActions";
-import PortfolioStore from "stores/PortfolioStore";
+
 
 class AccountPage extends React.Component {
 
@@ -97,8 +97,7 @@ class AccountPage extends React.Component {
                             orders: account.get("orders", null),
                             backedCoins: this.props.backedCoins,
                             bridgeCoins: this.props.bridgeCoins,
-                            marketData: this.props.marketData,
-                            portfolioData: this.props.portfolioData
+                            marketData: this.props.marketData
                         }
                     )}
                     </div>
@@ -121,7 +120,7 @@ class AccountPageStoreWrapper extends React.Component {
 
 export default connect(AccountPageStoreWrapper, {
     listenTo() {
-        return [AccountStore, SettingsStore, WalletUnlockStore, GatewayStore,MarketsStore];
+        return [AccountStore, SettingsStore, WalletUnlockStore, GatewayStore, MarketsStore];
     },
     getProps() {
         return {
@@ -136,7 +135,6 @@ export default connect(AccountPageStoreWrapper, {
             backedCoins: GatewayStore.getState().backedCoins,
             bridgeCoins: GatewayStore.getState().bridgeCoins, 
             marketData: MarketsStore.getState().marketData,
-            portfolioData: PortfolioStore.getState().data
         };
     }
 });

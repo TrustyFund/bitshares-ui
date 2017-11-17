@@ -18,6 +18,8 @@ import { ChainStore } from "bitsharesjs/es";
 import { getConversionJson } from "common/blockTradesMethods";
 import Icon from 'components/Icon/Icon';
 import $ from 'jquery'
+import { Link } from 'react-router'
+import ClipboardButton from 'react-clipboard.js'
 
 import TrustyInput from 'components/Trusty/Forms/TrustyInput';
 import TrustyWithdraw from './TrustyWithdraw';
@@ -442,6 +444,9 @@ class BlockTradesBridgeDepositRequest extends React.Component {
             allowed_mappings_for_conversion: null,
             conversion_memo: null
         };
+
+        this._onSuccess = this._onSuccess.bind(this);
+        this._getText = this._getText.bind(this);
     }
 
 	urlConnection(checkUrl, state_coin_info)
@@ -1143,7 +1148,22 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 console.log($("#width_tmp_option").width())
                 $(this).width($("#width_tmp_option").width() + 4);  
         });
-    }   
+    }  
+
+    _onSuccess(a) {
+        alert("address copied")
+        localStorage.setItem("_trusty_copyed_address", this._getText())
+    }
+ 
+    _getText() {
+        let el = document.body.querySelector("._clipboard_value")
+        let content = el.textContent
+        let t = "blocktrades with memo "
+        if(content.indexOf(t)!=-1){
+           content = content.split("").splice(t.length).join("")
+        } 
+        return content;
+    } 
 
     render() {
 
@@ -1273,6 +1293,16 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                         </div>*/}
                         <p className="trusty_help_text _yellow">Please send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
                         <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
+
+                        <ClipboardButton option-text={this._getText} onSuccess={this._onSuccess} component="button" className="trusty_wide_btn">
+                            copy address
+                        </ClipboardButton>
+                        <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you complete payment</p>
+                        <div className="trusty_inline_buttons">
+                            <Link to="/home" className="b_left"><button>Confirm</button></Link>
+                            <Link to="/home" className="b_right"><button >Cancel</button></Link>
+                        </div>
+                        <p className="trusty_ps_text">Payment getaway service is provided by<br/> Openledger.io, at 0% fee</p>
                     </div>
                     )
 
