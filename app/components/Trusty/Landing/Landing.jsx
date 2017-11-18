@@ -47,9 +47,9 @@ let slides = [
             require('./vendor/img_glb_netwk09.png')
         ],
         image: require('./vendor/img_global_network.png'),
-        title: "3 min. To Create A<br> Decentralized Account",
+        title: "Easy To Create A<br> Decentralized Account",
         text: `
-        Click Signup, enter password<br> and your account will be secured<br> by the immutable<br> BitShares blockchain. <br> Only you have the private key`
+        Click Signup, create password<br> and account will be secured by <br> the immutable BitShares <br> blockchain. You own the private key`
     },
     {
         id:3,
@@ -66,7 +66,7 @@ let slides = [
             require('./vendor/img_wallets_1g.png'),
             require('./vendor/img_wallets_1h.png'),
         ],
-        title: "Many Methods To<br>Deposit Any Currency",
+        title: "Deposit Fiat<br>Or Cryptocurrencies",
         text: `
         Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at the best exchange rate`
     },
@@ -95,7 +95,7 @@ let slides = [
         image: require('./vendor/img_index.png'),
         title: "One-Click<br>To Fix Your Income In USD",
         text: `
-        Fix your income to wait out price<br> hyper volatility. One-Click and<br> your funds are all in<br> USD, EUR, CNY, Gold, etc.
+        Fix your income to wait out price<br> hyper volatility. Just click to<br> transfer your funds in<br> USD, EUR, CNY, Gold, etc.
         `
     },
     {
@@ -113,9 +113,9 @@ let slides = [
             require('./vendor/img_wallets_2g.png'),
             require('./vendor/img_wallets_2h.png'),
         ],
-        title: "Deposit Fiat<br> Or Cryptocurrencies",
+        title: "Withdraw Fiat<br> Or Cryptocurrencies",
         text: `
-        Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to any wallet
+        Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to crypto wallet
         `
     },
 
