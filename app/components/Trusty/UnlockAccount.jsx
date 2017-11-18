@@ -135,7 +135,8 @@ class WalletUnlockModal extends React.Component {
     onPasswordEnter(e) {
         const {passwordLogin} = this.props;
         e.preventDefault();
-        const password = this.refs.password_input.value() 
+        let devPassword = __DEV__ ? localStorage.getItem("trusty_dev_fast_unlock_password") : null
+        const password =  devPassword ? devPassword : this.refs.password_input.value() 
         const account = passwordLogin ? this.state.account && this.state.account.get("name") : null;
         this.setState({password_error: null});
         console.log(password)
@@ -158,7 +159,7 @@ class WalletUnlockModal extends React.Component {
             ZfApi.publish(this.props.modalId, "close");
             this.props.resolve();
             WalletUnlockActions.change()
-
+            __DEV__ && localStorage.setItem("trusty_dev_fast_unlock_password", password)
             this.setState({password_input_reset: Date.now(), password_error: false});
             this.props.router.push(this.props.location.query.back || "/home")
         }
