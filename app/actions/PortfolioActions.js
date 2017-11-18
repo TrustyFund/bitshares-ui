@@ -48,7 +48,7 @@ class PortfolioActions {
         portfolio.forEach((asset) => {
             asset.btsCountToSell = Math.floor((baseBalance / 100) * asset.futureShare);
 
-            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "EOS"){
+            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "LTC"){
                 console.log("ASSET",asset)
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 let assets = {
@@ -85,7 +85,8 @@ class PortfolioActions {
                                         amount: 0
                                     }
                                 });
-                                console.log("ORDER FOR " + asset.assetFullName,order,asks,i);
+                                order.type = "buy";
+                                console.log("ORDER FOR " + asset.assetFullName,order);
                                 return order;
                             }
                         }
@@ -96,16 +97,25 @@ class PortfolioActions {
 
         return dispatch => {
             return Promise.all(ordersCallbacks).then(function(orders) {
-                var tr = WalletApi.new_transaction();
+                var buyTransaction = WalletApi.new_transaction();
                 orders.forEach((order)=>{
-                    console.log("ORDER",order);
                     order.setExpiration();
-                    order = order.toObject();
-                    tr.add_type_operation("limit_order_create", order);
+                    if (order.type == "buy"){
+                        order = order.toObject();
+                        buyTransaction.add_type_operation("limit_order_create", order);
+                    }
                 });
 
+                //Вот в этот момент нужно вызвать кастомный экран подтверждения на котором будет список операций (orders)
+                //Пока что там можно просто вывести их в строчку по паре полей (желтым шрифтом как на accontoverview)
+                //Соответствено на экране будет input для пароля, потом список операций, потом две кнопки Approve, Deny
+                //Ессли выбрано Approve то исполняется код который дальше, если нет - то dispatch("canceled")
+                //Нужно убрать анлок на входе в manage чтобы начать.
+                //Строка в формате: Покупаем X {AssetName} За Y BTS (order.type == "buy")
+                //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
 
-                WalletDb.process_transaction(tr, null, true).then(result => {
+
+                WalletDb.process_transaction(buyTransaction, null, true).then(result => {
                     console.log("DONE TRANSACTION",result);
                     dispatch();
                 })
