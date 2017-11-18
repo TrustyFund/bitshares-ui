@@ -111,6 +111,8 @@ class PortfolioActions {
                 //Соответствено на экране будет input для пароля, потом список операций, потом две кнопки Approve, Deny
                 //Ессли выбрано Approve то исполняется код который дальше, если нет - то dispatch("canceled")
                 //Нужно убрать анлок на входе в manage чтобы начать.
+                //Строка в формате: Покупаем X {AssetName} За Y BTS (order.type == "buy")
+                //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
 
 
                 WalletDb.process_transaction(buyTransaction, null, true).then(result => {
