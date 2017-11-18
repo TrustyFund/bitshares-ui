@@ -48,7 +48,7 @@ class PortfolioActions {
         portfolio.forEach((asset) => {
             asset.btsCountToSell = Math.floor((baseBalance / 100) * asset.futureShare);
 
-            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "EOS"){
+            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "LTC"){
                 console.log("ASSET",asset)
                 let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
                 let assets = {

@@ -35,7 +35,7 @@ class WalletDb extends BaseStore {
         super()
         this.state = { wallet: null, saving_keys: false }
         // Confirm only works when there is a UI (this is for mocha unit tests)
-        this.confirm_transactions = false
+        this.confirm_transactions = true
         ChainStore.subscribe(this.checkNextGeneratedKey.bind(this))
         this.generateNextKey_pubcache = []
         // WalletDb use to be a plan old javascript class (not an Alt store) so
