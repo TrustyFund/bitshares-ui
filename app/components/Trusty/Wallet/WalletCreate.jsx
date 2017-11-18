@@ -185,7 +185,7 @@ class CreateNewWallet extends Component {
 											</button>*/}
 											
 										</div>
-										<p className="_tooltip_p" style={{textAlign:"center", marginTop: 0 }}>{underButtonsText}</p>
+										<p className="_tooltip_p" style={{textAlign:"center" }}>{underButtonsText}</p>
 										<div className="_bottom_button" onClick={this.onBack.bind(this)}><span>Sign up with new account</span></div>
 
 								</div>
