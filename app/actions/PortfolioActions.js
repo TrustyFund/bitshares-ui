@@ -130,54 +130,18 @@ class PortfolioActions {
     
 
 	concatPortfolio(account){
+
         portfolioStorage.set("portfolio",{});
-        let balances  = PortfolioStore.getBalances(account)
-        let activeBalaces = []
 
         let portfolioData = PortfolioStore.getPortfolio().data.slice()
 
-        balances.forEach(b=> {
-
-            let balance = ChainStore.getObject(b)
-            let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
-
-            if (balanceAsset) {
-
-                let data = portfolioData.filter(p=>{
-                    return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
-                })
-                let futureShare
-                if(data.length){
-                   futureShare = portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)[0].futureShare 
-                } 
-             
-                let asset_type = balance.get("asset_type");
-                let asset = ChainStore.getObject(asset_type);
-                if(asset) {
-                    let s = asset.get("symbol")
-                    let amount = Number(balance.get("balance"))
-                    activeBalaces.push({
-                        balanceID: b,
-                        balanceMap: balance,
-                        assetShortName: ~s.search(/open/i)?s.substring(5):s,
-                        assetFullName: s, 
-                        futureShare: futureShare || 0, 
-                        currentShare: +countShares(amount, asset_type, true), 
-                        bitUSDShare: +countShares(amount, asset_type),
-                        amount,
-                    })    
-                } 
-            
-            }
-           
-        })
-
-        let data = activeBalaces.concat(portfolioData)
+        let data = getActivePortfolio(account, portfolioData).concat(portfolioData)
 
         let port = {
             data,
             map: data.map(b=>b.assetShortName)
         }
+
 		return dispatch =>{
 	        return new Promise((resolve, reject)=>{
 	            Promise.resolve().then(()=>{
@@ -307,6 +271,51 @@ const countShares = (amount, fromAsset, percentage=false) => {
         let precision = utils.get_asset_precision(asset.precision);
         return formatValue(eqValue / precision)
     }
+}
+
+let getActivePortfolio = (account, portfolioData)=>{
+
+    let balances  = PortfolioStore.getBalances(account)
+
+    let activeBalaces = []
+
+    balances.forEach(b=> {
+
+        let balance = ChainStore.getObject(b)
+        let balanceAsset = ChainStore.getObject(balance.get("asset_type"))
+
+        if (balanceAsset) {
+
+            let data = portfolioData.filter(p=>{
+                return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
+            })
+            let futureShare
+            if(data.length){
+               futureShare = portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)[0].futureShare 
+            } 
+            let asset_type = balance.get("asset_type");
+            let asset = ChainStore.getObject(asset_type);
+            if(asset) {
+                let s = asset.get("symbol")
+                let amount = Number(balance.get("balance"))
+                activeBalaces.push({
+                    balanceID: b,
+                    balanceMap: balance,
+                    assetShortName: ~s.search(/open/i)?s.substring(5):s,
+                    assetFullName: s, 
+                    futureShare: futureShare || 0, 
+                    currentShare: +countShares(amount, asset_type, true), 
+                    bitUSDShare: +countShares(amount, asset_type),
+                    amount,
+                })    
+            } 
+        
+        }
+       
+    })
+
+    return activeBalaces
+
 }
 
 export default alt.createActions(PortfolioActions)
