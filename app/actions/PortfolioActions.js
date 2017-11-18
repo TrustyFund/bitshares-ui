@@ -31,105 +31,138 @@ class PortfolioActions {
         }
     }
 
-    updatePortfolio(account, router){
-        if(WalletUnlockStore.getState().locked) {
-            router.push('/unlock')
-            return dispatch => dispatch()
-        }
-
-        PortfolioStore.setLoading();
-
-        let portfolio = PortfolioStore.getState().data;
-        let baseAsset = ChainStore.getAsset("BTS");
-        let baseBalance = portfolio.filter((filterAsset) => filterAsset.assetShortName == "BTS")[0].amount;
-
-        let ordersCallbacks = [];
-
+    getNeedleSumsFromPortfolio(portfolio){
+        let sells = [];
+        let buys = [];
         portfolio.forEach((asset) => {
-            asset.btsCountToSell = Math.floor((baseBalance / 100) * asset.futureShare);
+            if (asset.futureShare > asset.currentShare){
+                asset.type = "buy";
+            }else if(asset.futureShare < asset.currentShare){
+                asset.type = "sell";
+                console.log("TO SELL",asset)
+                if (asset.futureShare == 0){
+                    asset.amountToSell = asset.amount;
+                }else{
+                    let fullAmmountInCurrent = Math.floor(asset.amount * 100 / asset.currentShare);
+                    let amountInFuture = Math.floor(fullAmmountInCurrent * asset.futureShare / 100);
+                    let otherPortfolioAmount = fullAmmountInCurrent - asset.amount;
+                    let amountToSell = fullAmmountInCurrent - otherPortfolioAmount - amountInFuture;
+                    asset.amountToSell = amountToSell;
+                }
+            }else{
+                asset.type = "none";
+            }
+        });
+        return portfolio;
+    }
 
-            if (asset.assetFullName != "BTS" && asset.btsCountToSell && asset.assetShortName == "LTC"){
-                console.log("ASSET",asset)
-                let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-                let assets = {
-                    [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
-                    [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
-                };
+    makeSellOrderCallback(asset,baseAsset,accountID){
+        let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
+        
+        return this.getMarktOrders(baseAsset,quoteAsset,"bids").then((bids)=>{
+            let totalWants = 0;
+            for (let i = 0; i < bids.length; i++){
+                let bid = bids[i];
+                let theyWants = bid.totalToReceive({noCache: true});
+                totalWants += theyWants.amount;
+                if (totalWants >= asset.amountToSell){
 
-                ordersCallbacks.push(
-                    Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 50 ])
-                    .then((results)=>{
-                        let orders = [];
-                        results.forEach((result) => {
-                            let order = new LimitOrder(result, assets, quoteAsset.get("id"));
-                            orders.push(order);
-                        });
-                        //let bids = marketUtils.getBids(orders);
-                        let asks = marketUtils.getAsks(orders);
+                    theyWants.amount = asset.amountToSell;
+                    let weReceive = theyWants.times(bid.sellPrice());
 
-                        let totalBtsAsk = 0;
-                        for (let i = 0; i < asks.length; i++){
-                            let ask = asks[i];
-                            let forSale = ask.totalToReceive({noCache: true});
-                            totalBtsAsk += forSale.amount;
-                            if (totalBtsAsk >= asset.btsCountToSell){
-                                forSale.amount = asset.btsCountToSell;
-                                let toReceive = forSale.times(ask.sellPrice());
-
-                                let order = new LimitOrderCreate({
-                                    for_sale: forSale,
-                                    to_receive: toReceive,
-                                    seller: account.get("id"),
-                                    fee: {
-                                        asset_id: baseAsset.get("id"),
-                                        amount: 0
-                                    }
-                                });
-                                order.type = "buy";
-                                console.log("ORDER FOR " + asset.assetFullName,order);
-                                return order;
-                            }
+                    let order = new LimitOrderCreate({
+                        for_sale: theyWants,
+                        to_receive: weReceive,
+                        seller: accountID,
+                        fee: {
+                            asset_id: baseAsset.get("id"),
+                            amount: 0
                         }
-                    })
-                );
+                    });
+                    order.type = "sell";
+                    //console.log("ORDER FOR " + asset.assetFullName,asset,order);
+                    return order;
+                }
+            }
+        });
+
+    }
+
+
+    getMarktOrders(baseAsset,quoteAsset,type = "bids"){
+        let assets = {
+            [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
+            [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
+        };
+        return Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 50 ])
+        .then((results)=>{
+            let orders = [];
+            results.forEach((result) => {
+                let order = new LimitOrder(result, assets, quoteAsset.get("id"));
+                orders.push(order);
+            });
+            return (type == "bids") ? marketUtils.getBids(orders) : marketUtils.getAsks(orders);
+        });
+    }
+
+
+
+    updatePortfolio(account, router){
+
+                    
+        PortfolioStore.setLoading();
+        let port = PortfolioStore.getState().data;
+        let portfolio = this.getNeedleSumsFromPortfolio(port);
+        console.log("PORTFOLIO",portfolio)
+        let baseAsset = ChainStore.getAsset("BTS");
+        let ordersCallbacks = [];
+        
+        portfolio.forEach((asset)=>{
+            if (asset.type == "sell"){
+                if (asset.assetFullName != baseAsset.get("symbol")){
+                    ordersCallbacks.push(this.makeSellOrderCallback(asset,baseAsset,account.get("id")));
+                }
             }
         });
 
         return dispatch => {
             return Promise.all(ordersCallbacks).then(function(orders) {
                 var buyTransaction = WalletApi.new_transaction();
+                var sellTransaction = WalletApi.new_transaction();
+                let sellCount = 0,buyCount = 0;
                 orders.forEach((order)=>{
                     order.setExpiration();
                     if (order.type == "buy"){
                         order = order.toObject();
                         buyTransaction.add_type_operation("limit_order_create", order);
+                        buyCount++;
+                    }
+                    if (order.type == "sell"){
+                        order = order.toObject();
+                        sellTransaction.add_type_operation("limit_order_create", order);
+                        sellCount++;
                     }
                 });
 
-                //Вот в этот момент нужно вызвать кастомный экран подтверждения на котором будет список операций (orders)
-                //Пока что там можно просто вывести их в строчку по паре полей (желтым шрифтом как на accontoverview)
-                //Соответствено на экране будет input для пароля, потом список операций, потом две кнопки Approve, Deny
-                //Ессли выбрано Approve то исполняется код который дальше, если нет - то dispatch("canceled")
-                //Нужно убрать анлок на входе в manage чтобы начать.
-                //Строка в формате: Покупаем X {AssetName} За Y BTS (order.type == "buy")
-                //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
-
-
-                WalletDb.process_transaction(buyTransaction, null, true).then(result => {
-                    console.log("DONE TRANSACTION",result);
-                    dispatch();
-                })
-                .catch(error => {
-                    console.log("order error:", error);
-                    return {error};
-                });
+                if (sellCount){
+                    WalletDb.process_transaction(sellTransaction, null, true).then(result => {
+                        console.log("DONE TRANSACTION",result);
+                        dispatch();
+                    })
+                    .catch(error => {
+                        console.log("order error:", error);
+                        return {error};
+                    });
+                }else{
+                    dispatch(0);
+                }
             });
         }
     }
 
     
 
-	concatPortfolio(account){
+    concatPortfolio(account){
         portfolioStorage.set("portfolio",{});
         let balances  = PortfolioStore.getBalances(account)
         let activeBalaces = []
@@ -178,33 +211,33 @@ class PortfolioActions {
             data,
             map: data.map(b=>b.assetShortName)
         }
-		return dispatch =>{
-	        return new Promise((resolve, reject)=>{
-	            Promise.resolve().then(()=>{
-	                port.data.forEach((item, index)=>{
-	                    Apis.instance().db_api().exec("list_assets", [
-	                        item.assetFullName, 1
-	                    ]).then(assets => {
+        return dispatch =>{
+            return new Promise((resolve, reject)=>{
+                Promise.resolve().then(()=>{
+                    port.data.forEach((item, index)=>{
+                        Apis.instance().db_api().exec("list_assets", [
+                            item.assetFullName, 1
+                        ]).then(assets => {
                             ChainStore._updateObject(assets[0], false);
-	                        let bal = port.data[index];
-	                        bal.assetMap = createMap(assets[0]);
-	                        if(!bal.balanceMap) {
-	                            bal.balanceID = null;
-	                            bal.balanceMap = createMap({
-	                                id:"0",
-	                                owner: "0",
-	                                asset_type: "0",
-	                                balance: "0"
-	                            })
-	                            bal.amount = 0;
-	                            bal.currentShare =  0;
-	                            bal.bitUSDShare = 0;
-	                        }
-	                        if(!bal.futureShare) bal.futureShare = 0;
-	                    })  
-	                })
-	                
-	            }).then(()=>{
+                            let bal = port.data[index];
+                            bal.assetMap = createMap(assets[0]);
+                            if(!bal.balanceMap) {
+                                bal.balanceID = null;
+                                bal.balanceMap = createMap({
+                                    id:"0",
+                                    owner: "0",
+                                    asset_type: "0",
+                                    balance: "0"
+                                })
+                                bal.amount = 0;
+                                bal.currentShare =  0;
+                                bal.bitUSDShare = 0;
+                            }
+                            if(!bal.futureShare) bal.futureShare = 0;
+                        })  
+                    })
+                    
+                }).then(()=>{
                     port.totalFutureShare = 0;
                     port.data.forEach(i=>{
                         PortfolioStore.getState().data && PortfolioStore.getState().data.forEach(already=>{
@@ -215,12 +248,12 @@ class PortfolioActions {
                         port.totalFutureShare += i.futureShare;
                     })
 
-	                portfolioStorage.set("portfolio",port);
-	                resolve(port);
-	                dispatch(port);
-	            })
-	        })
-		}
+                    portfolioStorage.set("portfolio",port);
+                    resolve(port);
+                    dispatch(port);
+                })
+            })
+        }
     }
 }
 
