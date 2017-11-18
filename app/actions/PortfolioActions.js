@@ -213,7 +213,6 @@ class PortfolioActions {
     }
 }
 
-//H E L P S
 let portfolioStorage = new ls("__trusty_portfolio__");
 
 const createMap = (myObj) =>{
