@@ -41,12 +41,12 @@ class PasswordInput extends Component {
     }
 
     clear() {
-        this.refs.password.value = "";
+        if(this.refs.password) this.refs.password.value = "";
         if(this.props.confirmation) this.refs.confirm_password.value = "";
     }
 
     focus() {
-        this.refs.password.focus();
+        if(this.refs.password) this.refs.password.focus();
     }
 
     valid() {
