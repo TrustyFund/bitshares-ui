@@ -31,7 +31,7 @@ class TrustyInput extends React.Component {
   		this.setOpened = this.setOpened.bind(this)
   }
 
-  handleChange(event) {
+  	handleChange(event) {
 	  this.setState({
 	    value: event.target.value
 	  });
@@ -44,45 +44,52 @@ class TrustyInput extends React.Component {
 	}
 
 	labelClick(){
-		console.log(this.props)
 		this.setState({ opened: !this.state.opened})
 		//if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
 	}
 
-  componentDidMount(){
-  	if(this.props.isOpen) this.setOpened(true)
-  	if(this.onchange) this.onchange.remove()
-  }
+	componentDidMount(){
+	  	if(this.props.isOpen) this.setOpened(true)
+	  	if(this.onchange) this.onchange.remove()
+	}
 
 	_nullField(){
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
 		if(input) { input.value = ""; input.focus() }
 	}
+	componentWillUnmount(){
+		if(this.blur) this.blur.remove()
+	}
 
 	componentDidUpdate(){
-
+		
 		let input = this.refs.inputWrap.querySelector(this.props.textArea ? 'textarea':'input')
+
 		if(input!==null && this.state.opened){
 			if(this.state.focused) return 
 			this.setState({focused: true})
+
 			input.focus()
-			if(this.onchange) return 
+
+			if(!this.blur) {
+				this.blur = listen( input,"blur",e=>{
+					if(!input.value) {
+						this.setOpened(false)
+						this.setState({focused: false })
+						this.blur.remove()
+						this.blur = null
+					} 
+				})
+			}
+
 			// this.onchange = listen(input, "keydown",()=>{
 			// 	this.setState({isEmpty: input.value.length == 0})
 			// })
 		}
 
-		// if(this.blur) this.blur.remove()
-		// if( input )  {
-		// 	this.blur = listen( input,"blur",e=>{
-		// 		this.setOpened(false)
-		// 	})
-		// }
-
 		//let value = this.props.textArea ? input.textContent : input.value
 		//console.log(value)
 		//if(!value) { this.setState({showClose: false}) } else { this.setState({showClose: true}) }
-
 	}
 
 	render(){
