@@ -144,6 +144,15 @@ class PortfolioActions {
                     }
                 });
 
+                //Вот в этот момент нужно вызвать кастомный экран подтверждения на котором будет список операций (orders)
+                //Пока что там можно просто вывести их в строчку по паре полей (желтым шрифтом как на accontoverview)
+                //Соответствено на экране будет input для пароля, потом список операций, потом две кнопки Approve, Deny
+                //Ессли выбрано Approve то исполняется код который дальше, если нет - то dispatch("canceled")
+                //Нужно убрать анлок на входе в manage чтобы начать.
+                //Строка в формате: Покупаем X {AssetName} За Y BTS (order.type == "buy")
+                //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
+
+
                 if (sellCount){
                     WalletDb.process_transaction(sellTransaction, null, true).then(result => {
                         console.log("DONE TRANSACTION",result);
@@ -163,7 +172,7 @@ class PortfolioActions {
     
 
     concatPortfolio(account){
-        
+
         portfolioStorage.set("portfolio",{});
 
         let portfolioData = PortfolioStore.getPortfolio().data.slice()
