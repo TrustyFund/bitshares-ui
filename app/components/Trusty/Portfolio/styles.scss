@@ -217,6 +217,28 @@
 	color: #ff3030;
 }
 
+.trusty_inline_button_reverse{
+	text-align: center;
+
+	button {
+		font-family: Gotham_Pro_Medium;
+		display: inline-block;
+		width: 70vw;
+		margin: initial !important;
+		background-color: Transparent;
+    	background-repeat:no-repeat;
+    	border: 1px solid white;
+		height: 50px;
+		color: white;
+	}
+
+	.disabled{
+	    opacity: 0.5;
+	    cursor: default;
+	    pointer-events: none;
+	}
+}
+
 .trusty_inline_button{
 	text-align: center;
 

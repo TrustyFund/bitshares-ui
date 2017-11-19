@@ -16,6 +16,17 @@ import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 
+let portfolioStorage = new ls("__trusty_portfolio__");
+
+const createMap = (myObj) =>{
+     return new Map(
+        Object
+            .keys(myObj)
+            .map(
+                key => [key, myObj[key]]
+            )
+    )
+}
 
 class PortfolioActions {
 
@@ -34,12 +45,10 @@ class PortfolioActions {
     getNeedleSumsFromPortfolio(portfolio){
         let sells = [];
         let buys = [];
-        let portfolio_total_base = 0
-        portfolio.forEach((asset) => {
+        portfolio.data.forEach((asset) => {
             if (asset.futureShare > asset.currentShare){
                 asset.type = "buy";
-                asset.amountToSell = Math.floor(portfolio_total_base * asset.futureShare)
-
+                asset.amountToSellBase = Math.floor(portfolio.totalBaseValue * asset.futureShare / 100);
             }else if(asset.futureShare < asset.currentShare){
                 asset.type = "sell";
                 if (asset.futureShare == 0){
@@ -58,10 +67,41 @@ class PortfolioActions {
         return portfolio;
     }
 
+    makeBuyOrderCallback(asset,baseAsset,accountID){
+        let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
+
+        return this.getMarketOrders(baseAsset,quoteAsset,"asks").then((asks)=>{
+            let totalWants = 0;
+            for (let i = 0; i < asks.length; i++){
+                let ask = asks[i];
+                let theyWants = ask.totalToReceive({noCache: true});
+                totalWants += theyWants.amount;
+                if (totalWants >= asset.amountToSellBase){
+
+                    theyWants.amount = asset.amountToSellBase;
+                    let weReceive = theyWants.times(ask.sellPrice());
+
+                    let order = new LimitOrderCreate({
+                        for_sale: theyWants,
+                        to_receive: weReceive,
+                        seller: accountID,
+                        fee: {
+                            asset_id: baseAsset.get("id"),
+                            amount: 0
+                        }
+                    });
+                    order.type = "buy";
+                    console.log("ORDER FOR " + asset.assetFullName,asset,order);
+                    return order;
+                }
+            }
+        });
+    }
+
     makeSellOrderCallback(asset,baseAsset,accountID){
         let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
         
-        return this.getMarktOrders(baseAsset,quoteAsset,"bids").then((bids)=>{
+        return this.getMarketOrders(baseAsset,quoteAsset,"bids").then((bids)=>{
             let totalWants = 0;
             for (let i = 0; i < bids.length; i++){
                 let bid = bids[i];
@@ -82,7 +122,7 @@ class PortfolioActions {
                         }
                     });
                     order.type = "sell";
-                    //console.log("ORDER FOR " + asset.assetFullName,asset,order);
+                    console.log("ORDER FOR " + asset.assetFullName,asset,order);
                     return order;
                 }
             }
@@ -91,7 +131,7 @@ class PortfolioActions {
     }
 
 
-    getMarktOrders(baseAsset,quoteAsset,type = "bids"){
+    getMarketOrders(baseAsset,quoteAsset,type = "bids"){
         let assets = {
             [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
             [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
@@ -111,18 +151,26 @@ class PortfolioActions {
 
     updatePortfolio(account, router){
 
-                    
+        if(WalletUnlockStore.getState().locked) {
+            router.push('/unlock')
+            return dispatch => dispatch()
+        }
+
         PortfolioStore.setLoading();
-        let port = PortfolioStore.getState().data;
-        let portfolio = this.getNeedleSumsFromPortfolio(port);
-        console.log("PORTFOLIO",portfolio)
+        let portfolio = PortfolioStore.getState();
+        let summedportfolio = this.getNeedleSumsFromPortfolio(portfolio);
         let baseAsset = ChainStore.getAsset("BTS");
         let ordersCallbacks = [];
         
-        portfolio.forEach((asset)=>{
+        summedportfolio.data.forEach((asset)=>{
             if (asset.type == "sell"){
                 if (asset.assetFullName != baseAsset.get("symbol")){
                     ordersCallbacks.push(this.makeSellOrderCallback(asset,baseAsset,account.get("id")));
+                }
+            }
+            if (asset.type == "buy"){
+                if (asset.assetFullName != baseAsset.get("symbol")){
+                    ordersCallbacks.push(this.makeBuyOrderCallback(asset,baseAsset,account.get("id")));
                 }
             }
         });
@@ -155,8 +203,8 @@ class PortfolioActions {
                 //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
 
 
-                if (sellCount){
-                    WalletDb.process_transaction(sellTransaction, null, true).then(result => {
+                if (buyCount){
+                    WalletDb.process_transaction(buyTransaction, null, true).then(result => {
                         console.log("DONE TRANSACTION",result);
                         dispatch();
                     })
@@ -171,7 +219,11 @@ class PortfolioActions {
         }
     }
 
-    
+    suggestPortfolio(){
+        let portfolio = PortfolioStore.getState().data;
+
+
+    }
 
     concatPortfolio(account){
         
@@ -180,24 +232,25 @@ class PortfolioActions {
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let portfolioData = defaultPortfolio.data.slice();
         let baseSymbol = defaultPortfolio.base;
+        let futureMode = PortfolioStore.getState().futureMode;
 
         let {data,totalBaseValue} = getActivePortfolio(account, portfolioData, baseSymbol);
 
         let portfolio = {
-            data: data.concat(portfolioData),
+            data: data,
             totalBaseValue: totalBaseValue,
             base: baseSymbol,
             map: data.map(b=>b.assetShortName)
         }
+
         return dispatch =>{
             return new Promise((resolve, reject)=>{
                 Promise.resolve().then(()=>{
-                    portfolio.data.forEach((item, index)=>{
+                    portfolio.data.forEach((bal)=>{
                         Apis.instance().db_api().exec("list_assets", [
-                            item.assetFullName, 1
+                            bal.assetFullName, 1
                         ]).then(assets => {
                             ChainStore._updateObject(assets[0], false);
-                            let bal = portfolio.data[index];
                             bal.assetMap = createMap(assets[0]);
                             if(!bal.balanceMap) {
                                 bal.balanceID = null;
@@ -212,7 +265,10 @@ class PortfolioActions {
                                 bal.currentShare =  0;
                                 bal.bitUSDShare = 0;
                             }
-                            if(!bal.futureShare) bal.futureShare = 0;
+
+                            if (!bal.futureShare){
+                                bal.futureShare = 0;
+                            }
                         })  
                     })
                 }).then(()=>{
@@ -234,19 +290,8 @@ class PortfolioActions {
         }
     }
 }
-let portfolioStorage = new ls("__trusty_portfolio__");
 
-const createMap = (myObj) =>{
-     return new Map(
-        Object
-            .keys(myObj)
-            .map(
-                key => [key, myObj[key]]
-            )
-    )
-}
-
-const countEqvValue = (amount,from,to) => {
+let countEqvValue = (amount,from,to) => {
     let fromAsset = ChainStore.getAsset(from);
     let toAsset = ChainStore.getAsset(to);
 
@@ -277,9 +322,12 @@ const countEqvValue = (amount,from,to) => {
     return price ? Math.floor(utils.convertValue(price, amount, fromAsset, toAsset)): 0;
 }
 
-let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
 
-    let balances  = PortfolioStore.getBalances(account)
+let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
+    
+
+    let balances  = PortfolioStore.getBalances(account);
+    let futureMode = PortfolioStore.getState().futureMode;
     let activeBalaces = []
     let totalBaseValue = 0;
 
@@ -298,7 +346,6 @@ let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
            
             let symbol = balanceAsset.get("symbol")
             let amount = Number(balanceObject.get("balance"));
-
             let eqValue = countEqvValue(amount,symbol,baseSymbol);
             let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
             totalBaseValue += eqValue;
@@ -308,7 +355,7 @@ let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
                 balanceMap: balance,
                 assetShortName: ~symbol.search(/open/i) ? symbol.substring(5) : symbol,
                 assetFullName: symbol, 
-                futureShare: futureShare, 
+                futureShare: futureShare,
                 baseEqValue: eqValue,
                 bitUSDShare: eqUsdValue,
                 amount: amount
@@ -320,7 +367,7 @@ let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
         balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
     });
 
-    return {data:activeBalaces,totalBaseValue: totalBaseValue}
+    return {data:activeBalaces.concat(portfolioData),totalBaseValue: totalBaseValue}
 
 }
 

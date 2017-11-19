@@ -337,6 +337,23 @@ div.trusty_full_width_button_colored {
 	}
 }
 
+.trusty_inline_button_reverse{
+
+	text-align: center;
+
+	button {
+		font-family: Gotham_Pro_Medium;
+		display: inline-block;
+		width: 70vw;
+		margin: initial !important;
+		height: 50px;
+
+		&.wide {
+			width: 92vw;
+		}
+	}
+}
+
 .trusty_inline_buttons {
 	display: block !important;
 	text-align: center;
