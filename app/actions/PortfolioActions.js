@@ -174,18 +174,22 @@ class PortfolioActions {
     
 
     concatPortfolio(account){
-        console.log("concat")
+        
         portfolioStorage.set("portfolio",{});
 
-        let portfolioData = PortfolioStore.getDefaultPortfolio().data.slice()
+        let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
+        let portfolioData = defaultPortfolio.data.slice();
+        let baseSymbol = defaultPortfolio.base;
 
-        let data = getActivePortfolio(account, portfolioData).concat(portfolioData)
+        let {data,totalBaseValue} = getActivePortfolio(account, portfolioData, baseSymbol)
+
 
         let portfolio = {
-            data,
+            data: data.concat(portfolioData),
+            totalBaseValue: totalBaseValue,
+            base: baseSymbol,
             map: data.map(b=>b.assetShortName)
         }
-
         return dispatch =>{
             return new Promise((resolve, reject)=>{
                 Promise.resolve().then(()=>{
@@ -204,6 +208,7 @@ class PortfolioActions {
                                     asset_type: "0",
                                     balance: "0"
                                 })
+                                bal.baseEqValue = 0;
                                 bal.amount = 0;
                                 bal.currentShare =  0;
                                 bal.bitUSDShare = 0;
@@ -246,38 +251,7 @@ const countEqvValue = (amount,from,to) => {
     let fromAsset = ChainStore.getAsset(from);
     let toAsset = ChainStore.getAsset(to);
 
-    let marketStats = MarketsStore.getState().allMarketStats
-
-    let coreAsset = ChainStore.getAsset("1.3.0");
-    let toStats, fromStats;
-    let toID = toAsset.get("id");
-    let toSymbol = toAsset.get("symbol");
-    let fromID = fromAsset.get("id");
-    let fromSymbol = fromAsset.get("symbol");
-
-    if (coreAsset && marketStats) {
-        let coreSymbol = coreAsset.get("symbol");
-        toStats = marketStats.get(toSymbol + "_" + coreSymbol);
-        fromStats = marketStats.get(fromSymbol + "_" + coreSymbol);
-    }
-
-    let price = utils.convertPrice(fromStats && fromStats.close ? fromStats.close :
-                                    fromID === "1.3.0" || fromAsset.has("bitasset") ? fromAsset : null,
-                                    toStats && toStats.close ? toStats.close :
-                                    (toID === "1.3.0" || toAsset.has("bitasset")) ? toAsset : null,
-                                    fromID,
-                                    toID);
-
-    let eqValue = price ? utils.convertValue(price, amount, fromAsset, toAsset) : 0;
-    return countEqvValue;
-}
-
-const countShares = (amount, fromAsset, percentage=false) => {
-
-    fromAsset = ChainStore.getObject(fromAsset)
-    let toAsset = ChainStore.getAsset("USD")
-
-    if(!toAsset) return 0
+    if(!toAsset || !fromAsset) return 0
 
     let marketStats = MarketsStore.getState().allMarketStats
 
@@ -301,55 +275,14 @@ const countShares = (amount, fromAsset, percentage=false) => {
                                     fromID,
                                     toID);
 
-    let eqValue = price ? utils.convertValue(price, amount, fromAsset, toAsset) : 0;
-
-
-    let TRFNDPrice = 0
-
-
-
-    let formatValue = v => v < 1 ? Math.ceil(v) : Math.floor(v) || 0
-
-    if(fromAsset.get("symbol") == "TRFND") {
-
-        let { combinedBids, highestBid } = MarketsStore.getState().marketData
-
-        TRFNDPrice = combinedBids.map(order=>order.getPrice())[0]
-
-        let asset = fromAsset.toJS()
-        let precision = utils.get_asset_precision(asset.precision);
-        let p = (TRFNDPrice * (amount / precision))
-        let totalBts = localStorage.getItem("_trusty_bts_total_value")
-
-        if(!totalBts) return 0
-
-        let percent = ((p/totalBts)*100)
-        if(percentage) return formatValue(percent)
-
-        let totalAmount = +localStorage.getItem("_trusty_total_value")
-        if(!totalAmount) return 0
-
-        return formatValue(totalAmount/100*percent)
-
-    } 
-
-    if(percentage) {
-        let totalAmount = +localStorage.getItem("_trusty_total_value")
-        if(!totalAmount) return 0
-        let percent = eqValue.toFixed(2) / totalAmount.toFixed(2) * 100
-        return formatValue(percent)
-    } else {
-        let asset = toAsset.toJS()
-        let precision = utils.get_asset_precision(asset.precision);
-        return formatValue(eqValue / precision)
-    }
+    return price ? Math.floor(utils.convertValue(price, amount, fromAsset, toAsset)): 0;
 }
 
-let getActivePortfolio = (account, portfolioData)=>{
+let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
 
     let balances  = PortfolioStore.getBalances(account)
-
     let activeBalaces = []
+    let totalBaseValue = 0;
 
     balances.forEach(balance => {
 
@@ -367,21 +300,28 @@ let getActivePortfolio = (account, portfolioData)=>{
             let symbol = balanceAsset.get("symbol")
             let amount = Number(balanceObject.get("balance"));
 
+            let eqValue = countEqvValue(amount,symbol,"BTS");
+            let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
+            totalBaseValue += eqValue;
+
             activeBalaces.push({
                 balanceID: balance,
                 balanceMap: balance,
                 assetShortName: ~symbol.search(/open/i) ? symbol.substring(5) : symbol,
                 assetFullName: symbol, 
                 futureShare: futureShare, 
-                currentShare: +countShares(amount, asset_type, true), 
-                bitUSDShare: +countShares(amount, asset_type),
+                baseEqValue: eqValue,
+                bitUSDShare: eqUsdValue,
                 amount: amount
             });
         }
-       
-    })
+    });
 
-    return activeBalaces
+    activeBalaces.forEach((balance)=>{
+        balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
+    });
+
+    return {data:activeBalaces,totalBaseValue: totalBaseValue}
 
 }
 

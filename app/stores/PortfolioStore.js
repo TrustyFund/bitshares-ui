@@ -97,7 +97,9 @@ class PortfolioStore extends BaseStore {
                   currentshare:0,
                   assetFullName: "TRFND"}
             ],
-            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]};
+            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"],
+            base: "BTS"
+        };
     }
 
 
