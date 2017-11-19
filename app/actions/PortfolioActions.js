@@ -167,6 +167,7 @@ class PortfolioActions {
                 if (sellCount){
                     dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess })
                 }else{
+                    alert("no sell count")
                     dispatch(0);
                 }
 

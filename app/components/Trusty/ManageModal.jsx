@@ -103,7 +103,7 @@ class ManageModal extends React.Component {
 	}
 
 	render(){
-        
+
         let orders = <div className="trusty_profile_incoming_depositis"> { this.state.orders.map((o,i)=><p key={i} className="_yellow">{o.type + " " + o.amount_for_sale.amount}</p>) } </div>
 	    return (
 
@@ -136,7 +136,7 @@ class ManageModal extends React.Component {
 
             <div className="trusty_inline_buttons">
                <button disabled={this.props.locked} onClick={this.transactionProcess} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
-               <button>Deny</button>
+               <button onClick={()=>{ZfApi.publish("trusty_manage_modal","close")}}>Deny</button>
             </div>
 
         </BaseModal>
