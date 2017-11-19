@@ -103,9 +103,8 @@ class ManageModal extends React.Component {
 	}
 
 	render(){
-
-
-        let orders = <div> { this.state.orders.map((o,i)=><span key={i}>{o.type}</span>) } </div>
+        
+        let orders = <div className="trusty_profile_incoming_depositis"> { this.state.orders.map((o,i)=><p key={i} className="_yellow">{o.type + " " + o.amount_for_sale.amount}</p>) } </div>
 	    return (
 
 	    <BaseModal ref={"model"} id={this.props.modalId} ref="modal" overlay={true} overlayClose={false}>
