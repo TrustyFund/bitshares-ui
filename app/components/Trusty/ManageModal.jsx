@@ -56,8 +56,6 @@ class ManageModal extends React.Component {
 
 	onPasswordEnter(e) {
 
-		console.log(e)
-
 		const {passwordLogin} = this.props;
 
         e.preventDefault();
@@ -125,7 +123,7 @@ class ManageModal extends React.Component {
 
                 <PasswordInput
                     ref="password_input"
-                    onKeyDown={this.onPasswordEnter}
+                    onKeyUp={this.onPasswordEnter}
                     onEnter={this.onPasswordEnter}
                     key={this.state.password_input_reset}
                     wrongPassword={this.state.password_error}
@@ -137,15 +135,10 @@ class ManageModal extends React.Component {
 
             { orders }
 
-
             <div className="trusty_inline_buttons">
                <button disabled={this.props.locked} onClick={this.transactionProcess} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
                <button>Deny</button>
             </div>
-
-
-
-
 
         </BaseModal>
 

@@ -105,6 +105,7 @@ class PasswordInput extends Component {
                     autoComplete="off"
                     onChange={this.handleChange}
                     onKeyDown={this.onKeyDown}
+                    onKeyUp={ this.props.onKeyUp || null }
                 />
 
         let confirmInput =  <input
