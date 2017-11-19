@@ -21,12 +21,12 @@ class PortfolioStore extends BaseStore {
         this.summValid = false;
 
         this._export(
-            "getPortfolio",
+            "getDefaultPortfolio",
             "getBalances",
             "setLoading"
         );
 
-        this.getPortfolio = this.getPortfolio.bind(this);
+        this.getDefaultPortfolio = this.getDefaultPortfolio.bind(this);
         this.getBalances = this.getBalances.bind(this);
         this.setLoading = this.setLoading.bind(this);
 
@@ -61,7 +61,7 @@ class PortfolioStore extends BaseStore {
         return account_balances;
     }
 
-    getPortfolio(){
+    getDefaultPortfolio(){
         return {
           data: [
                 { assetShortName: "BTC",
@@ -97,8 +97,11 @@ class PortfolioStore extends BaseStore {
                   currentshare:0,
                   assetFullName: "TRFND"}
             ],
-            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"]};
+            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"],
+            base: "BTS"
+        };
     }
+
 
     onConcatPortfolio(portfolio){
         this.setState({
@@ -137,5 +140,7 @@ class PortfolioStore extends BaseStore {
     onUpdatePortfolio(){
       this.state.loading.update = false;
     }
+
+
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");

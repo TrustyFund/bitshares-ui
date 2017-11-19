@@ -52,7 +52,6 @@ class ManagePortfolio extends React.Component {
 	}
 
 	renderManualTab(){
-		let portfolio = PortfolioStore.getPortfolio();
 		let renderedPortfolio = this.renderPortfolioList(this.state.currentPortfolio.data);	
 		return (
 			<TabContent for="tab1">
