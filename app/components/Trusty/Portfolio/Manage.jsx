@@ -73,7 +73,10 @@ class ManagePortfolio extends React.Component {
 					</tbody>
 				</table>
 				<br/>
-				<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
+				<div className="trusty_inline_button_reverse">
+		            <button className={this.getButtonClass()} onClick={this.suggestPortfolio}>SUGGEST PORTFOLIO</button>                        
+		        </div>
+		        <br/>
 				<div className="trusty_inline_button">
 		            <button className={this.getButtonClass()} onClick={this.updatePortfolio}>UPDATE PORTFOLIO</button>                        
 		        </div>
@@ -82,11 +85,11 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
+		PortfolioActions.updatePortfolio(this.props.account ,this.props.router);
+	}
 
-		PortfolioActions.updatePortfolio(this.props.account ,this.props.router).then((result)=>{
-			console.log("RESULT",result);
-		})
-
+	suggestPortfolio(){
+		PortfolioActions.suggestPortfolio();
 	}
 
 	renderShare(share,className){

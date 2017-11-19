@@ -97,7 +97,6 @@ class WalletDb extends BaseStore {
     }
 
     process_transaction(tr, signer_pubkeys, broadcast, extra_keys = []) {
-        console.log("PROCESS TRANSACTION");
         const passwordLogin = SettingsStore.getState().settings.get("passwordLogin");
 
         if(!passwordLogin && Apis.instance().chain_id !== this.state.wallet.chain_id)

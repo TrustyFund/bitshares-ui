@@ -33,7 +33,9 @@ class PortfolioStore extends BaseStore {
         this.state = {
             data: null,
             totalPercentageFutureShare: 0,
-            loading: defaultLoading
+            loading: defaultLoading,
+            futureMode: false,
+            totalBaseValue: 0
         }
 
         this.bindListeners({
@@ -107,7 +109,8 @@ class PortfolioStore extends BaseStore {
         this.setState({
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,
-            loading: defaultLoading
+            loading: defaultLoading,
+            totalBaseValue: portfolio.totalBaseValue
         })
     }
 
