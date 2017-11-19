@@ -181,8 +181,7 @@ class PortfolioActions {
         let portfolioData = defaultPortfolio.data.slice();
         let baseSymbol = defaultPortfolio.base;
 
-        let {data,totalBaseValue} = getActivePortfolio(account, portfolioData, baseSymbol)
-
+        let {data,totalBaseValue} = getActivePortfolio(account, portfolioData, baseSymbol);
 
         let portfolio = {
             data: data.concat(portfolioData),
@@ -300,7 +299,7 @@ let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
             let symbol = balanceAsset.get("symbol")
             let amount = Number(balanceObject.get("balance"));
 
-            let eqValue = countEqvValue(amount,symbol,"BTS");
+            let eqValue = countEqvValue(amount,symbol,baseSymbol);
             let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
             totalBaseValue += eqValue;
 
