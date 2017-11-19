@@ -10,8 +10,9 @@ import BindToChainState from "components/Utility/BindToChainState";
 import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import PortfolioActions from "actions/PortfolioActions"
-import ZfApi from "react-foundation-apps/src/utils/foundation-api";
+
 import ManageModal from "components/Trusty/ManageModal";
+
 
 
 
@@ -27,7 +28,7 @@ class ManagePortfolio extends React.Component {
 		this.state = {
 			valid: false,
 			initPortfolio: false,
-			currentPortfolio: false
+			currentPortfolio: false,
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
@@ -45,10 +46,6 @@ class ManagePortfolio extends React.Component {
 
 	onChange(storeState) {
 		this.state.currentPortfolio = storeState;
-	}
-
-	openTransactions(){
-		ZfApi.publish("trusty_manage_modal", "toggle");
 	}
 
 	renderManualTab(){
@@ -78,16 +75,18 @@ class ManagePortfolio extends React.Component {
 				<br/>
 				<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
 				<div className="trusty_inline_button">
-		            <button className={this.getButtonClass()} onClick={/*this.updatePortfolio*/this.openTransactions}>UPDATE PORTFOLIO</button>                        
+		            <button className={this.getButtonClass()} onClick={this.updatePortfolio}>UPDATE PORTFOLIO</button>                        
 		        </div>
 			</TabContent>
 		);
 	}
 
 	updatePortfolio(){
+
 		PortfolioActions.updatePortfolio(this.props.account ,this.props.router).then((result)=>{
 			console.log("RESULT",result);
 		})
+
 	}
 
 	renderShare(share,className){

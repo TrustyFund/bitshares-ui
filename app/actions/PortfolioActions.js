@@ -16,7 +16,6 @@ import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 
-
 class PortfolioActions {
 
     incrementAsset(asset){
@@ -154,8 +153,7 @@ class PortfolioActions {
                 //Строка в формате: Покупаем X {AssetName} За Y BTS (order.type == "buy")
                 //                  Покупаем X BTS за Y {AssetName} (order.type == "sell" - но его пока нет, я добавлю в процессе)
 
-
-                if (sellCount){
+                let transactionProcess = () => {
                     WalletDb.process_transaction(sellTransaction, null, true).then(result => {
                         console.log("DONE TRANSACTION",result);
                         dispatch();
@@ -164,9 +162,14 @@ class PortfolioActions {
                         console.log("order error:", error);
                         return {error};
                     });
+                }
+
+                if (sellCount){
+                    dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess })
                 }else{
                     dispatch(0);
                 }
+
             });
         }
     }
@@ -298,7 +301,6 @@ let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
            
             let symbol = balanceAsset.get("symbol")
             let amount = Number(balanceObject.get("balance"));
-
             let eqValue = countEqvValue(amount,symbol,baseSymbol);
             let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
             totalBaseValue += eqValue;

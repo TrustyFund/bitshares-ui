@@ -12,6 +12,9 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import {Apis} from "bitsharesjs-ws";
 import classnames from 'classnames'
 
+import {dispatcher} from "components/Trusty/utils";
+
+
 
 class ManageModal extends React.Component {
 
@@ -20,6 +23,7 @@ class ManageModal extends React.Component {
 		super()
 		this.onPasswordEnter = this.onPasswordEnter.bind(this)
 		this.state = {
+            orders: [],
             password_error: null,
             password_input_reset: Date.now(),
         }
@@ -91,9 +95,19 @@ class ManageModal extends React.Component {
 
 	componentDidMount(){
 		this.startComponent()
+        dispatcher.register(({orders,type,transactionProcess})=>{
+            if(type=="trusty_manage_modal"){
+                ZfApi.publish("trusty_manage_modal", "toggle");
+                this.setState({orders})
+                this.transactionProcess = transactionProcess;
+            }
+        })
 	}
 
 	render(){
+
+
+        let orders = <div> { this.state.orders.map(o=><span>{o.type}</span>) } </div>
 	    return (
 
 	    <BaseModal ref={"model"} id={this.props.modalId} ref="modal" overlay={true} overlayClose={false}>
@@ -121,10 +135,16 @@ class ManageModal extends React.Component {
 
             </form>
 
+            { orders }
+
+
             <div className="trusty_inline_buttons">
-               <button disabled={this.props.locked} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
+               <button disabled={this.props.locked} onClick={this.transactionProcess} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
                <button>Deny</button>
             </div>
+
+
+
 
 
         </BaseModal>
