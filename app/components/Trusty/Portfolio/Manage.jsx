@@ -10,6 +10,10 @@ import BindToChainState from "components/Utility/BindToChainState";
 import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import PortfolioActions from "actions/PortfolioActions"
+import ZfApi from "react-foundation-apps/src/utils/foundation-api";
+import ManageModal from "components/Trusty/ManageModal";
+
+
 
 class ManagePortfolio extends React.Component {
 
@@ -43,6 +47,10 @@ class ManagePortfolio extends React.Component {
 		this.state.currentPortfolio = storeState;
 	}
 
+	openTransactions(){
+		ZfApi.publish("trusty_manage_modal", "toggle");
+	}
+
 	renderManualTab(){
 		let renderedPortfolio = this.renderPortfolioList(this.state.currentPortfolio.data);	
 		return (
@@ -70,7 +78,7 @@ class ManagePortfolio extends React.Component {
 				<br/>
 				<h5 style={{textAlign: "center"}}>Structure above is calculated as<br/> average of all Trusty users</h5>
 				<div className="trusty_inline_button">
-		            <button className={this.getButtonClass()} onClick={this.updatePortfolio}>UPDATE PORTFOLIO</button>                        
+		            <button className={this.getButtonClass()} onClick={/*this.updatePortfolio*/this.openTransactions}>UPDATE PORTFOLIO</button>                        
 		        </div>
 			</TabContent>
 		);
@@ -174,6 +182,8 @@ class ManagePortfolio extends React.Component {
 					    <TabContent for="tab3">/* content for tab #3 */</TabContent>
 				    </div>
 				</Tabs>
+
+				<ManageModal id="trusty_manage_modal"/>
 			</div>
         );
 	}
