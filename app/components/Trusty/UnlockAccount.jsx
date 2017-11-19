@@ -76,29 +76,12 @@ class WalletUnlockModal extends React.Component {
 
     componentDidMount() {
         this._toggleLock()
-        // ZfApi.subscribe(this.props.modalId, (name, msg) => {
-        //     if(name !== this.props.modalId)
-        //         return;
-        //     if(msg === "close") {
-        //         //if(this.props.reject) this.props.reject()
-        //         WalletUnlockActions.cancel();
-        //     } else if (msg === "open") {
-        //         if (!this.props.passwordLogin) {
-        //             if (this.refs.password_input) {
-        //                 this.refs.password_input.clear();
-        //                 this.refs.password_input.focus();
-        //             }
-        //             if(WalletDb.getWallet() && Apis.instance().chain_id !== WalletDb.getWallet().chain_id) {
-        //                 notify.error("This wallet was intended for a different block-chain; expecting " +
-        //                     WalletDb.getWallet().chain_id.substring(0,4).toUpperCase() + ", but got " +
-        //                     Apis.instance().chain_id.substring(0,4).toUpperCase());
-        //                 ZfApi.publish(this.props.modalId, "close");
-        //                 return;
-        //             }
-        //         }
-        //     }
-        // });
 
+        this._start()
+
+    }
+
+    _start() {
         if (!this.props.passwordLogin) {
             if (this.refs.password_input) {
                 this.refs.password_input.clear();
