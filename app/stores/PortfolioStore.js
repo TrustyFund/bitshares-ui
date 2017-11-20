@@ -34,12 +34,11 @@ class PortfolioStore extends BaseStore {
             data: null,
             totalPercentageFutureShare: 0,
             loading: defaultLoading,
-            futureMode: false,
             totalBaseValue: 0
         }
 
         this.bindListeners({
-            onConcatPortfolio: PortfolioActions.concatPortfolio,
+            onCompilePortfolio: PortfolioActions.compilePortfolio,
             onIncrementAsset: PortfolioActions.incrementAsset,
             onDecrementAsset: PortfolioActions.decrementAsset,
             onUpdatePortfolio: PortfolioActions.updatePortfolio,
@@ -65,47 +64,48 @@ class PortfolioStore extends BaseStore {
 
     getDefaultPortfolio(){
         return {
+          base: "BTS",
           data: [
-                { assetShortName: "BTC",
-                  futureShare: 60,
-                  currentShare:0,
-                  assetFullName: "OPEN.BTC"},
-                { assetShortName: "ETH",
-                  futureShare: 10,
-                  currentShare:0,
-                  assetFullName: "OPEN.ETH"},
-                { assetShortName: "DASH",
-                  futureShare: 5,
-                  currentShare:0,
-                  assetFullName: "OPEN.DASH"},
-                { assetShortName: "LTC",
-                  futureShare: 10,
-                  currentShare:0,
-                  assetFullName: "OPEN.LTC"},
-                { assetShortName: "EOS",
-                  futureShare: 4,
-                  currentShare:0,
-                  assetFullName: "OPEN.EOS"},
-                { assetShortName: "STEEM",
-                  futureShare: 4,
-                  currentShare:0,
-                  assetFullName: "OPEN.STEEM"},
-                { assetShortName: "BTS",
-                  futureShare: 4,
-                  currentShare:0,
-                  assetFullName: "BTS"},
-                { assetShortName: "TRFND",
-                  futureShare: 3,
-                  currentshare:0,
-                  assetFullName: "TRFND"}
-            ],
-            map:["BTC","ETH","DASH","LTC","EOS","STEEM","BTS","TRFND"],
-            base: "BTS"
-        };
+            {
+              asset: "OPEN.BTC",
+              share: 60,
+            },
+            {
+              asset: "OPEN.ETH",
+              share: 10,
+            },
+            {
+              asset: "OPEN.DASH",
+              share: 5,
+            },
+            {
+              asset: "OPEN.LTC",
+              share: 10,
+            },
+            {
+              asset: "OPEN.EOS",
+              share: 4,
+            },
+            {
+              asset: "OPEN.STEEM",
+              share: 4,
+            },
+            {
+              asset: "BTS",
+              share: 4,
+            },
+            {
+              asset: "TRFND",
+              share: 3,
+            },
+
+          ]
+        }
     }
 
 
-    onConcatPortfolio(portfolio){
+    onCompilePortfolio(portfolio){
+        console.log("COMPILE",portfolio);
         this.setState({
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,

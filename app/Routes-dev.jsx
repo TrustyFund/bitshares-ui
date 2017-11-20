@@ -7,7 +7,7 @@ import App from "./Trusty";
 // Components imported here for react hot loader (does not work with async route loading)
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import AccountPage from "./components/Trusty/Account/AccountPage";
-import AccountOverview from "./components/Trusty/Account/AccountOverview";
+
 import TermsOfUse from "./components/Trusty/Account/TermsOfUse";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import { WalletCreate , CreateWalletFromBrainkey } from "./components/Trusty/Wallet/WalletCreate";
@@ -29,16 +29,12 @@ const routes = (
     <Route path="/" component={App} onEnter={willTransitionTo}>
         <Route path="/signup" component={CreateAccount}/>
         <Route path="/landing" component={Landing}/>
-        <Route path="/home" component={AccountPage}>
-            <IndexRoute component={AccountOverview}/>
-            <Route path="overview" component={AccountOverview} />
-        </Route>
+        <Route path="/home" component={AccountPage} />
         <Route path="/backup" component={Backup} />
         <Route path="/manage" component={ManagePortfolio} />
         <Route path="/withdraw" component={Withdraw} />
         <Route path="/deposit" component={Deposit} />
         <Route path="/terms-of-use" component={TermsOfUse} />
-        <Route path="/dashboard" component={AccountOverview}/>
         <Route path="/create-wallet-brainkey" component={CreateWalletFromBrainkey} />
         <Route path="/unlock" component={UnlockAccount} />
         <Route path="/init-error" component={InitError} />

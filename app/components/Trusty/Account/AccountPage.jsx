@@ -12,6 +12,9 @@ import accountUtils from "common/account_utils";
 import AccountOverview from "./AccountOverview";
 import MarketsStore from "stores/MarketsStore";
 import MarketsActions from "actions/MarketsActions";
+import PortfolioActions from "actions/PortfolioActions"
+
+import {ChainStore} from "bitsharesjs/es";
 
 
 class AccountPage extends React.Component {
@@ -38,6 +41,9 @@ class AccountPage extends React.Component {
         if (this.props.quoteAsset.toJS && this.props.baseAsset.toJS) {
             this._subToMarket(this.props);  
         } 
+        if (typeof this.props.account != "undefined"){
+            PortfolioActions.compilePortfolio.defer(this.props.account);
+        }
     }
     componentDidMount() {
         if (this.props.account && AccountStore.isMyAccount(this.props.account)) {
@@ -49,20 +55,18 @@ class AccountPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        
+        console.log("RECEIVE PROPS")
         if (nextProps.quoteAsset && nextProps.baseAsset) {
             return this._subToMarket(nextProps);
         }
-        
+        PortfolioActions.compilePortfolio.defer(this.props.account);
+
     }
 
     _subToMarket(props, newBucketSize) {
         let { quoteAsset, bucketSize, baseAsset } = props;
         if (newBucketSize) {
             bucketSize = newBucketSize;
-        }
-        if (quoteAsset.get("id") && baseAsset.get("id")) {
-            MarketsActions.subscribeMarket.defer(baseAsset, quoteAsset, bucketSize);
         }
     }
 
@@ -72,6 +76,16 @@ class AccountPage extends React.Component {
 
         let isMyAccount = AccountStore.isMyAccount(account);
 
+        let balances = account.get("balances", null);
+        let orders = account.get("orders", null);
+
+        balances.forEach((balance)=>{
+            let balanceObject = ChainStore.getObject(balance)
+            let asset_type = balanceObject.get("asset_type");
+            let balanceAsset = ChainStore.getObject(asset_type);
+            //console.log("BALANCE: ",balanceObject,asset_type)
+        });
+
         return (
             <div className="grid-block page-layout">
                 <div className="grid-block main-content" style={{paddingTop: "0px"}}>
@@ -80,26 +94,7 @@ class AccountPage extends React.Component {
                             <Link to="/deposit" style={{marginRight: "7px"}}><button>DEPOSIT</button></Link>
                             <Link to="/withdraw" style={{marginLeft: "7px"}}><button>WITHDRAW</button></Link>
                         </div>
-                    {this.props.children}
-                    {React.cloneElement(
-                        React.Children.only(this.props.children),
-                        {
-                            account_name,
-                            linkedAccounts,
-                            searchAccounts,
-                            settings,
-                            wallet_locked,
-                            account,
-                            isMyAccount,
-                            hiddenAssets,
-                            contained: true,
-                            balances: account.get("balances", null),
-                            orders: account.get("orders", null),
-                            backedCoins: this.props.backedCoins,
-                            bridgeCoins: this.props.bridgeCoins,
-                            marketData: this.props.marketData
-                        }
-                    )}
+                        <AccountOverview balances={balances} orders={orders} {...this.props}/>
                     </div>
                 </div>
             </div>

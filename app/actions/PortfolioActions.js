@@ -68,7 +68,7 @@ class PortfolioActions {
         return portfolio;
     }
 
-    //Yes, this function makes Orders for Sell and Buy calculations
+    //Yes, this function makes Orders for Sell and Summzz calculations
     makeOrderCallback(asset,baseAsset,accountID, type){
         let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
 
@@ -82,6 +82,7 @@ class PortfolioActions {
 
                     theyWants.amount = asset.amountToSell;
                     let weReceive = theyWants.times(marketOrder.sellPrice());
+                    
 
                     let order = new LimitOrderCreate({
                         for_sale: theyWants,
@@ -93,7 +94,12 @@ class PortfolioActions {
                         }
                     });
                     order.type = type;
-                    console.log("ORDER " + type + " FOR " + asset.assetFullName,asset,order);
+                    if (type == "sell"){
+                        console.log("ORDER " + type + " FOR " + asset.assetFullName,order);
+                        console.log("market",marketOrder)
+                        console.log("theyWants",theyWants)
+                        console.log("weReceive",weReceive)
+                    }
                     return order;
                 }
             }
@@ -129,6 +135,7 @@ class PortfolioActions {
             if (asset.assetFullName != baseAsset.get("symbol") && asset.type != "none"){
                 ordersCallbacks.push(this.makeOrderCallback(asset,baseAsset,account.get("id"),asset.type));
             }
+
         });
 
         return dispatch => {
@@ -177,20 +184,18 @@ class PortfolioActions {
 
     suggestPortfolio(){
         let portfolio = PortfolioStore.getState().data;
-
+        let defaultPortfolio = PortfolioStore.getDefaultPortfolio(); 
 
     }
 
-    concatPortfolio(account){
+    compilePortfolio(account){
         
         portfolioStorage.set("portfolio",{});
 
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
-        let portfolioData = defaultPortfolio.data.slice();
         let baseSymbol = defaultPortfolio.base;
-        let futureMode = PortfolioStore.getState().futureMode;
 
-        let {data,totalBaseValue} = getActivePortfolio(account, portfolioData, baseSymbol);
+        let {data,totalBaseValue} = getBalancePortfolio(account, baseSymbol);
 
         let portfolio = {
             data: data,
@@ -202,32 +207,6 @@ class PortfolioActions {
         return dispatch =>{
             return new Promise((resolve, reject)=>{
                 Promise.resolve().then(()=>{
-                    portfolio.data.forEach((bal)=>{
-                        Apis.instance().db_api().exec("list_assets", [
-                            bal.assetFullName, 1
-                        ]).then(assets => {
-                            ChainStore._updateObject(assets[0], false);
-                            bal.assetMap = createMap(assets[0]);
-                            if(!bal.balanceMap) {
-                                bal.balanceID = null;
-                                bal.balanceMap = createMap({
-                                    id:"0",
-                                    owner: "0",
-                                    asset_type: "0",
-                                    balance: "0"
-                                })
-                                bal.baseEqValue = 0;
-                                bal.amount = 0;
-                                bal.currentShare =  0;
-                                bal.bitUSDShare = 0;
-                            }
-
-                            if (!bal.futureShare){
-                                bal.futureShare = 0;
-                            }
-                        })  
-                    })
-                }).then(()=>{
                     portfolio.totalFutureShare = 0;
                     portfolio.data.forEach(i=>{
                         PortfolioStore.getState().data && PortfolioStore.getState().data.forEach(already=>{
@@ -245,6 +224,47 @@ class PortfolioActions {
             })
         }
     }
+}
+
+let getBalancePortfolio = (account, baseSymbol)=>{
+    
+
+    let balances  = PortfolioStore.getBalances(account);
+    let futureMode = PortfolioStore.getState().futureMode;
+    let activeBalaces = []
+    let totalBaseValue = 0;
+
+    balances.forEach(balance => {
+       
+        let balanceObject = ChainStore.getObject(balance)
+        let asset_type = balanceObject.get("asset_type");
+        let balanceAsset = ChainStore.getObject(asset_type);
+
+        if (balanceAsset) {
+            let symbol = balanceAsset.get("symbol")
+            let amount = Number(balanceObject.get("balance"));
+            let eqValue = countEqvValue(amount,symbol,baseSymbol);
+            let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
+            totalBaseValue += eqValue;
+
+            activeBalaces.push({
+                balanceID: balance,
+                balanceMap: balance,
+                assetShortName: ~symbol.search(/open/i) ? symbol.substring(5) : symbol,
+                assetFullName: symbol, 
+                baseEqValue: eqValue,
+                bitUSDShare: eqUsdValue,
+                amount: amount
+            });
+        }
+    });
+
+    activeBalaces.forEach((balance)=>{
+        balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
+        balance.futureShare = balance.currentShare;
+    });
+
+    return {data:activeBalaces,totalBaseValue: totalBaseValue}
 }
 
 let countEqvValue = (amount,from,to) => {
@@ -276,55 +296,6 @@ let countEqvValue = (amount,from,to) => {
                                     toID);
 
     return price ? Math.floor(utils.convertValue(price, amount, fromAsset, toAsset)): 0;
-}
-
-
-let getActivePortfolio = (account, portfolioData,baseSymbol)=>{
-    
-
-    let balances  = PortfolioStore.getBalances(account);
-    let futureMode = PortfolioStore.getState().futureMode;
-    let activeBalaces = []
-    let totalBaseValue = 0;
-
-    balances.forEach(balance => {
-
-        let balanceObject = ChainStore.getObject(balance)
-        let asset_type = balanceObject.get("asset_type");
-        let balanceAsset = ChainStore.getObject(asset_type);
-
-        if (balanceAsset) {
-
-            let data = portfolioData.filter(p=>{
-                return p.assetShortName==balanceAsset.get("symbol") || p.assetFullName==balanceAsset.get("symbol")
-            })
-            let futureShare = (data.length) ? portfolioData.splice(portfolioData.findIndex(i=>i.assetFullName==data[0].assetFullName), 1)[0].futureShare : 0;
-           
-            let symbol = balanceAsset.get("symbol")
-            let amount = Number(balanceObject.get("balance"));
-            let eqValue = countEqvValue(amount,symbol,baseSymbol);
-            let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
-            totalBaseValue += eqValue;
-
-            activeBalaces.push({
-                balanceID: balance,
-                balanceMap: balance,
-                assetShortName: ~symbol.search(/open/i) ? symbol.substring(5) : symbol,
-                assetFullName: symbol, 
-                futureShare: futureShare,
-                baseEqValue: eqValue,
-                bitUSDShare: eqUsdValue,
-                amount: amount
-            });
-        }
-    });
-
-    activeBalaces.forEach((balance)=>{
-        balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
-    });
-
-    return {data:activeBalaces.concat(portfolioData),totalBaseValue: totalBaseValue}
-
 }
 
 export default alt.createActions(PortfolioActions)

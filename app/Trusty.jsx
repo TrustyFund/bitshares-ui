@@ -30,7 +30,6 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import Immutable from "immutable";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 
-import PortfolioActions from "actions/PortfolioActions"
 
 
 
@@ -155,14 +154,10 @@ class Trusty extends React.Component {
     componentWillReceiveProps(nextProps, nextState){
 
         //update portfolio
-        let { account } = this._getBalancesData();
         let pathname = this.props.location.pathname;   
+        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"));
         if (account && pathname == "/"){
             this.props.router.push("/home");
-        }
-
-        if (account){
-            PortfolioActions.concatPortfolio.defer(account);
         }
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
@@ -179,21 +174,7 @@ class Trusty extends React.Component {
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
     }
-
-    _getBalancesData(){
-        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"));
-        return {
-            account,
-            accountBalances: (account) ? PortfolioStore.getBalances(account) : Immutable.List(),
-            accountOrders: (account) ? account.get("orders", null) : Immutable.List(),
-            accountDebt: {},
-            accountCollateral: 0
-        }
-    }
     render() {
-
-        let { accountBalances, accountOrders, accountDebt, accountCollateral } = this._getBalancesData()
-        
         let {theme} = this.state;
         let content = null;
         let pathname = this.props.location.pathname;
@@ -301,14 +282,6 @@ class Trusty extends React.Component {
                             }
                         }}
                     />
-                    <TransactionConfirm/>
-                    {<div style={{display: "none"}}><TotalBalanceValue
-                        balances={accountBalances}
-                        oreders={accountOrders}
-                        debt={accountDebt}
-                        toAsset={"1.3.0"}
-                        collateral={accountCollateral}
-                    /></div>}
                 </div>
             </div>
         );
