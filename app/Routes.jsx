@@ -37,14 +37,7 @@ const routes = (
 
         <Route path="/home" getComponent={(location, cb) => {
             System.import("components/Trusty/Account/AccountPage").then(loadRoute(cb)).catch(errorLoading);
-        }}>
-            <IndexRoute getComponent={(location, cb) => {
-                System.import("components/Trusty/Account/AccountOverview").then(loadRoute(cb)).catch(errorLoading);
-            }}/>
-            <Route path="/overview" getComponent={(location, cb) => {
-                System.import("components/Trusty/Account/AccountOverview").then(loadRoute(cb)).catch(errorLoading);
-            }}/>
-        </Route>
+        }}/>
 
         <Route path="/withdraw" getComponent={(location, cb) => {
             System.import("components/Trusty/Account/Withdraw").then(loadRoute(cb)).catch(errorLoading);
