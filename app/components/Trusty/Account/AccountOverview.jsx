@@ -131,6 +131,7 @@ class AccountOverview extends React.Component {
 
         let includedOrders;
 
+
         let totalBalance = (<span>${this.props.trustyPortfolio.totalUSDShare}</span>)
 
 
@@ -141,7 +142,7 @@ class AccountOverview extends React.Component {
                         <br/>
                         <div className="trusty_total_funds">
                             {
-                                totalBalance 
+                                this.props.trustyPortfolio.totalUSDShare 
                                 ?
                                     <div>
                                         <p>{this.props.account_name} TOTAL FUNDS</p>
@@ -152,7 +153,7 @@ class AccountOverview extends React.Component {
                             }
                         </div> 
                         {
-                            totalBalance ? (
+                            this.props.trustyPortfolio.totalUSDShare ? (
                                 <RecentTransactions
                                     accountsList={Immutable.fromJS([account.get("id")])}
                                     compactView={true}
@@ -165,7 +166,7 @@ class AccountOverview extends React.Component {
                             ) : null
                         }
                         {
-                            totalBalance ? <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button> : null
+                            this.props.trustyPortfolio.totalUSDShare ? <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button> : null
                         }
                         <table className="table trusty_table">
                             <thead>
