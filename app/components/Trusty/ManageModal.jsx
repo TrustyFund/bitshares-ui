@@ -31,7 +31,7 @@ class ManageModal extends React.Component {
 
         dispatcher.register(({orders,type,transactionProcess})=>{
             if(type=="trusty_manage_modal"){
-                ZfApi.publish("trusty_manage_modal", "toggle");
+                ZfApi.publish("trusty_manage_modal", "open");
                 this.setState({orders})
                 this.transactionProcess = transactionProcess;
             }
