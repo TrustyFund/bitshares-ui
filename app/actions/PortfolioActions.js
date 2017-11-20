@@ -42,7 +42,8 @@ class PortfolioActions {
         }
     }
 
-    getNeedleSumsFromPortfolio(portfolio){
+
+    calculateSums(portfolio){
         let sells = [];
         let buys = [];
         portfolio.data.forEach((asset) => {
@@ -67,6 +68,7 @@ class PortfolioActions {
         return portfolio;
     }
 
+    //Yes, this function makes Orders for Sell and Buy calculations
     makeOrderCallback(asset,baseAsset,accountID, type){
         let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
 
@@ -119,11 +121,11 @@ class PortfolioActions {
     updatePortfolio(account, router){
         PortfolioStore.setLoading();
         let portfolio = PortfolioStore.getState();
-        let summedportfolio = this.getNeedleSumsFromPortfolio(portfolio);
+        let calculated = this.calculateSums(portfolio);
         let baseAsset = ChainStore.getAsset("BTS");
         let ordersCallbacks = [];
         
-        summedportfolio.data.forEach((asset)=>{
+        calculated.data.forEach((asset)=>{
             if (asset.assetFullName != baseAsset.get("symbol")){
                 ordersCallbacks.push(this.makeOrderCallback(asset,baseAsset,account.get("id"),asset.type));
             }
