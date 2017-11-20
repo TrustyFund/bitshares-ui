@@ -22,6 +22,7 @@ class ManagePortfolio extends React.Component {
         account: ChainTypes.ChainAccount.isRequired,
     };
 
+    
 	constructor(){
 		super();
 
@@ -38,6 +39,9 @@ class ManagePortfolio extends React.Component {
 
 	componentDidMount() {
 		PortfolioStore.listen(this.onChange);
+		if (typeof this.props.account != "undefined"){
+            PortfolioActions.compilePortfolio.defer(this.props.account);
+        }
 	}
 
 	componentWillUnmount() {

@@ -32,9 +32,6 @@ import { connect } from "alt-react";
 
 
 class AccountOverview extends React.Component {
-
-
-
     static propTypes = {
         balanceAssets: ChainTypes.ChainAssetsList,
     };

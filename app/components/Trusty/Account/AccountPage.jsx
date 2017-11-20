@@ -55,11 +55,9 @@ class AccountPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("RECEIVE PROPS")
         if (nextProps.quoteAsset && nextProps.baseAsset) {
             return this._subToMarket(nextProps);
         }
-        PortfolioActions.compilePortfolio.defer(this.props.account);
 
     }
 
