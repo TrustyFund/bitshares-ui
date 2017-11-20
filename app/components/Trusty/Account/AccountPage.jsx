@@ -35,15 +35,22 @@ class AccountPage extends React.Component {
 
         this._subToMarket = this._subToMarket.bind(this);
         this.state = {portfolio: null}
+        this.update = this.update.bind(this);
+    }
+
+    update(){
+        PortfolioActions.compilePortfolio.defer(this.props.account);
+    }
+
+    componentWillUnmount() {
+        ChainStore.unsubscribe(this.update);
     }
 
     componentWillMount(){
         if (this.props.quoteAsset.toJS && this.props.baseAsset.toJS) {
             this._subToMarket(this.props);  
         } 
-        if (typeof this.props.account != "undefined"){
-            PortfolioActions.compilePortfolio.defer(this.props.account);
-        }
+        ChainStore.subscribe(this.update);
     }
     componentDidMount() {
         if (this.props.account && AccountStore.isMyAccount(this.props.account)) {
