@@ -51,18 +51,6 @@ class AccountOverview extends React.Component {
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (
-            !utils.are_equal_shallow(nextProps.balanceAssets, this.props.balanceAssets) ||
-            !utils.are_equal_shallow(nextProps.backedCoins, this.props.backedCoins) ||
-            !utils.are_equal_shallow(nextProps.balances, this.props.balances) ||
-            nextProps.account !== this.props.account ||
-            nextProps.settings !== this.props.settings ||
-            nextProps.hiddenAssets !== this.props.hiddenAssets ||
-            !utils.are_equal_shallow(nextState, this.state)
-        );
-    }
-
     _onSettleAsset(id, e) {
         e.preventDefault();
         this.setState({
