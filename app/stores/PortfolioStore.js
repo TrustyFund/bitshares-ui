@@ -13,7 +13,6 @@ import utils from "common/utils";
 import PortfolioActions from "actions/PortfolioActions"
 
 const defaultLoading = {update: true};
-let portfolioStorage = new ls("__trusty_portfolio__");
 
 class PortfolioStore extends BaseStore {
 	constructor() {
@@ -91,7 +90,8 @@ class PortfolioStore extends BaseStore {
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,
             loading: defaultLoading,
-            totalBaseValue: portfolio.totalBaseValue
+            totalBaseValue: portfolio.totalBaseValue,
+            totalUSDShare: portfolio.totalUSDShare
         })
     }
 

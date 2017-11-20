@@ -80,8 +80,8 @@ class AccountOverview extends React.Component {
     _renderTrustyBalaces() {
 
         let balances = []
-        if(this.props.trustyPortfolio && this.props.trustyPortfolio.length) {
-            this.props.trustyPortfolio.forEach(p=>{
+        if(this.props.trustyPortfolio.data && this.props.trustyPortfolio.data.length) {
+            this.props.trustyPortfolio.data.forEach(p=>{
                 let preferredUnit = "USD";
                 let pair = ["BTS", p.assetFullName];
                 p.assetShortName != 'USD' && balances.push(
@@ -131,7 +131,7 @@ class AccountOverview extends React.Component {
 
         let includedOrders;
 
-        let totalBalance = (<span>1000</span>)
+        let totalBalance = (<span>${this.props.trustyPortfolio.totalUSDShare}</span>)
 
 
         return (
@@ -197,7 +197,7 @@ let AccountOverviewConnect  = connect(AccountOverview, {
     },
     getProps() {
         return {
-            trustyPortfolio: PortfolioStore.getState().data,
+            trustyPortfolio: PortfolioStore.getState(),
         };
     }
 });

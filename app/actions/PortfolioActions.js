@@ -16,8 +16,6 @@ import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 
-let portfolioStorage = new ls("__trusty_portfolio__");
-
 const createMap = (myObj) =>{
      return new Map(
         Object
@@ -192,16 +190,15 @@ class PortfolioActions {
 
     compilePortfolio(balances){
         
-        portfolioStorage.set("portfolio",{});
-
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
 
-        let {data,totalBaseValue} = getBalancePortfolio(balances,baseSymbol);
+        let {data,totalBaseValue,totalUSDShare} = getBalancePortfolio(balances,baseSymbol);
 
         let portfolio = {
             data: data,
             totalBaseValue: totalBaseValue,
+            totalUSDShare: totalUSDShare,
             base: baseSymbol,
             map: data.map(b=>b.assetShortName)
         }
@@ -225,7 +222,6 @@ class PortfolioActions {
                     });
 
                     Promise.all(listCallbacks).then(()=>{
-                        portfolioStorage.set("portfolio",portfolio);
                         resolve(portfolio);
                         dispatch(portfolio);
                     });
@@ -238,7 +234,7 @@ class PortfolioActions {
 let getBalancePortfolio = (balances, baseSymbol)=>{
     let futureMode = PortfolioStore.getState().futureMode;
     let activeBalaces = []
-    let totalBaseValue = 0;
+    let totalBaseValue = 0,totalUSDShare = 0;
 
     balances.forEach(balance => {
        
@@ -251,15 +247,16 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
             let amount = Number(balanceObject.get("balance"));
             let eqValue = countEqvValue(amount,symbol,baseSymbol);
             let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
-            totalBaseValue += eqValue;
+            totalBaseValue += Math.floor(eqValue);
+            totalUSDShare += Math.floor(eqUsdValue);
 
             activeBalaces.push({
                 balanceID: balance,
                 balanceMap: balance,
                 assetShortName: ~symbol.search(/open/i) ? symbol.substring(5) : symbol,
                 assetFullName: symbol, 
-                baseEqValue: eqValue,
-                bitUSDShare: eqUsdValue,
+                baseEqValue: +eqValue,
+                bitUSDShare: +eqUsdValue,
                 amount: amount
             });
         }
@@ -270,7 +267,7 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         balance.futureShare = balance.currentShare;
     });
 
-    return {data:activeBalaces,totalBaseValue: totalBaseValue}
+    return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare}
 }
 
 let countEqvValue = (amount,from,to) => {
