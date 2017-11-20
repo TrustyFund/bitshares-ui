@@ -33,35 +33,29 @@ class ManagePortfolio extends React.Component {
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
-		this.onChange = this.onChange.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
+		this.renderManualTab = this.renderManualTab.bind(this);
 		this.update = this.update.bind(this);
 
 	}
 
 	update(){
-        PortfolioActions.compilePortfolio.defer(this.props.account);
+        let balances = this.props.account.get("balances", null);
+        PortfolioActions.compilePortfolio.defer(balances);
     }
 
 	componentDidMount() {
 		ChainStore.subscribe(this.update);
-		PortfolioStore.listen(this.onChange);
-		if (typeof this.props.account != "undefined"){
-            PortfolioActions.compilePortfolio.defer(this.props.account);
-        }
+		let balances = this.props.account.get("balances", null);
+        PortfolioActions.compilePortfolio.defer(balances);
 	}
 
 	componentWillUnmount() {
-		PortfolioStore.unlisten(this.onChange);
 		ChainStore.unsubscribe(this.update);
 	}
 
-	onChange(storeState) {
-		this.state.currentPortfolio = storeState;
-	}
-
 	renderManualTab(){
-		let renderedPortfolio = this.renderPortfolioList(this.state.currentPortfolio.data);	
+		let renderedPortfolio = this.renderPortfolioList(this.props.trustyPortfolio);
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -222,7 +216,7 @@ export default connect(ManagePortfolioWrapper, {
             linkedAccounts: AccountStore.getState().linkedAccounts,
             searchAccounts: AccountStore.getState().searchAccounts,
             myAccounts:  AccountStore.getState().myAccounts,
-            portfolioData: PortfolioStore.getState().data,
+            trustyPortfolio: PortfolioStore.getState().data,
             porfolioTotalShare: PortfolioStore.getState().totalPercentageFutureShare,
         };
     }

@@ -39,7 +39,8 @@ class AccountPage extends React.Component {
     }
 
     update(data){
-        PortfolioActions.compilePortfolio.defer(this.props.account);
+        let balances = this.props.account.get("balances", null);
+        PortfolioActions.compilePortfolio.defer(balances);
     }
 
     componentWillUnmount() {
@@ -88,7 +89,7 @@ class AccountPage extends React.Component {
             let balanceObject = ChainStore.getObject(balance)
             let asset_type = balanceObject.get("asset_type");
             let balanceAsset = ChainStore.getObject(asset_type);
-            //console.log("BALANCE: ",balanceObject,asset_type)
+            console.log("BALANCE: ",balanceObject,asset_type)
         });
 
         return (

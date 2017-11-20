@@ -22,12 +22,10 @@ class PortfolioStore extends BaseStore {
 
         this._export(
             "getDefaultPortfolio",
-            "getBalances",
             "setLoading"
         );
 
         this.getDefaultPortfolio = this.getDefaultPortfolio.bind(this);
-        this.getBalances = this.getBalances.bind(this);
         this.setLoading = this.setLoading.bind(this);
 
         this.state = {
@@ -43,23 +41,6 @@ class PortfolioStore extends BaseStore {
             onDecrementAsset: PortfolioActions.decrementAsset,
             onUpdatePortfolio: PortfolioActions.updatePortfolio,
         })
-    }
-
-    getBalances(account){
-        let account_balances = account.get("balances");
-        let orders = account.get("orders", null);
-        if (account_balances) {
-            // Filter out balance objects that have 0 balance or are not included in open orders
-            account_balances = account_balances.filter((a, index) => {
-                let balanceObject = ChainStore.getObject(a);
-                if (balanceObject && (!balanceObject.get("balance") && !orders[index])) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-        }
-        return account_balances;
     }
 
     getDefaultPortfolio(){

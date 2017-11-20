@@ -188,14 +188,14 @@ class PortfolioActions {
 
     }
 
-    compilePortfolio(account){
+    compilePortfolio(balances){
         
         portfolioStorage.set("portfolio",{});
 
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
 
-        let {data,totalBaseValue} = getBalancePortfolio(account, baseSymbol);
+        let {data,totalBaseValue} = getBalancePortfolio(balances,baseSymbol);
 
         let portfolio = {
             data: data,
@@ -226,13 +226,12 @@ class PortfolioActions {
     }
 }
 
-let getBalancePortfolio = (account, baseSymbol)=>{
-    
-
-    let balances  = PortfolioStore.getBalances(account);
+let getBalancePortfolio = (balances, baseSymbol)=>{
     let futureMode = PortfolioStore.getState().futureMode;
     let activeBalaces = []
     let totalBaseValue = 0;
+
+    console.log("BALANCES",balances)
 
     balances.forEach(balance => {
        
