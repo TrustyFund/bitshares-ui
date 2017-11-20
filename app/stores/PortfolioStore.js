@@ -86,6 +86,7 @@ class PortfolioStore extends BaseStore {
 
 
     onCompilePortfolio(portfolio){
+        console.log("COMPILE")
         this.setState({
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,
@@ -123,7 +124,5 @@ class PortfolioStore extends BaseStore {
     onUpdatePortfolio(){
       this.state.loading.update = false;
     }
-
-
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");

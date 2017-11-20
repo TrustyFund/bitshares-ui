@@ -14,8 +14,6 @@ import PortfolioActions from "actions/PortfolioActions"
 import ManageModal from "components/Trusty/ManageModal";
 
 
-
-
 class ManagePortfolio extends React.Component {
 
     static propTypes = {
@@ -35,27 +33,11 @@ class ManagePortfolio extends React.Component {
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 		this.renderManualTab = this.renderManualTab.bind(this);
-		this.update = this.update.bind(this);
-
-	}
-
-	update(){
-        let balances = this.props.account.get("balances", null);
-        PortfolioActions.compilePortfolio.defer(balances);
-    }
-
-	componentDidMount() {
-		ChainStore.subscribe(this.update);
-		let balances = this.props.account.get("balances", null);
-        PortfolioActions.compilePortfolio.defer(balances);
-	}
-
-	componentWillUnmount() {
-		ChainStore.unsubscribe(this.update);
 	}
 
 	renderManualTab(){
-		let renderedPortfolio = this.renderPortfolioList(this.props.trustyPortfolio);
+		let renderedPortfolio = this.renderPortfolioList(this.props.trustyPortfolio.data);
+
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -74,7 +56,7 @@ class ManagePortfolio extends React.Component {
 					{renderedPortfolio}
 					<tr>
 						<td></td>
-						<td>{this.renderTotalShare(this.state.currentPortfolio.totalPercentageFutureShare)}</td>
+						<td>{this.renderTotalShare(this.props.trustyPortfolio.totalPercentageFutureShare)}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -216,7 +198,7 @@ export default connect(ManagePortfolioWrapper, {
             linkedAccounts: AccountStore.getState().linkedAccounts,
             searchAccounts: AccountStore.getState().searchAccounts,
             myAccounts:  AccountStore.getState().myAccounts,
-            trustyPortfolio: PortfolioStore.getState().data,
+            trustyPortfolio: PortfolioStore.getState(),
             porfolioTotalShare: PortfolioStore.getState().totalPercentageFutureShare,
         };
     }

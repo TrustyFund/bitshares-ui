@@ -22,7 +22,6 @@ import utils from "common/utils";
 import BorrowModal from "components/Modal/BorrowModal";
 
 import ReactTooltip from "react-tooltip";
-import SimpleDepositWithdraw from "components/Dashboard/SimpleDepositWithdraw";
 import { Apis } from "bitsharesjs-ws";
 import GatewayActions from "actions/GatewayActions";
 import MarketCard from "components/Trusty/Dashboard/MarketCard";
@@ -217,16 +216,7 @@ class BalanceWrapper extends React.Component {
         balances: Immutable.List(),
         orders: Immutable.List(),
     };
-
-
-    componentWillMount() {       
-
-        if (Apis.instance().chain_id.substr(0, 8) === "4018d784") { // Only fetch this when on BTS main net
-            GatewayActions.fetchCoins();
-            GatewayActions.fetchBridgeCoins();
-        }
-    }
-
+    
     render() {
         let balanceAssets = this.props.balances.map(b => {
             return b && b.get("asset_type");

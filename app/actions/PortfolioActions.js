@@ -127,6 +127,9 @@ class PortfolioActions {
     updatePortfolio(account, router){
         PortfolioStore.setLoading();
         let portfolio = PortfolioStore.getState();
+
+        console.log("PORTFOLIO",portfolio);
+
         let calculated = this.calculateSums(portfolio);
         let baseAsset = ChainStore.getAsset("BTS");
         let ordersCallbacks = [];
@@ -207,14 +210,26 @@ class PortfolioActions {
         return dispatch =>{
             return new Promise((resolve, reject)=>{
                 Promise.resolve().then(()=>{
+                    let listCallbacks = [];
+
                     portfolio.totalFutureShare = 0;
-                    portfolio.data.forEach(i=>{
-                        portfolio.totalFutureShare += i.futureShare;
+                    portfolio.data.forEach( bal =>{
+                        listCallbacks.push(
+                            Apis.instance().db_api().exec("list_assets", [
+                                bal.assetFullName, 1
+                            ]).then(assets => {
+                                ChainStore._updateObject(assets[0], false);
+                                bal.assetMap = createMap(assets[0]);
+                            })
+                        );
+                        portfolio.totalFutureShare += bal.futureShare;
                     });
 
-                    portfolioStorage.set("portfolio",portfolio);
-                    resolve(portfolio);
-                    dispatch(portfolio);
+                    Promise.all(listCallbacks).then(()=>{
+                        portfolioStorage.set("portfolio",portfolio);
+                        resolve(portfolio);
+                        dispatch(portfolio);
+                    });
                 })
             })
         }
@@ -225,8 +240,6 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
     let futureMode = PortfolioStore.getState().futureMode;
     let activeBalaces = []
     let totalBaseValue = 0;
-
-    console.log("BALANCES",balances)
 
     balances.forEach(balance => {
        

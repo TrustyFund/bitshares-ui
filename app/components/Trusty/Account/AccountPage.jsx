@@ -89,7 +89,6 @@ class AccountPage extends React.Component {
             let balanceObject = ChainStore.getObject(balance)
             let asset_type = balanceObject.get("asset_type");
             let balanceAsset = ChainStore.getObject(asset_type);
-            console.log("BALANCE: ",balanceObject,asset_type)
         });
 
         return (
@@ -121,7 +120,7 @@ class AccountPageStoreWrapper extends React.Component {
 
 export default connect(AccountPageStoreWrapper, {
     listenTo() {
-        return [AccountStore, SettingsStore, WalletUnlockStore, GatewayStore, MarketsStore];
+        return [AccountStore, SettingsStore, WalletUnlockStore, MarketsStore];
     },
     getProps() {
         return {
@@ -133,8 +132,6 @@ export default connect(AccountPageStoreWrapper, {
             wallet_locked: WalletUnlockStore.getState().locked,
             myAccounts:  AccountStore.getState().myAccounts,
             viewSettings: SettingsStore.getState().viewSettings,
-            backedCoins: GatewayStore.getState().backedCoins,
-            bridgeCoins: GatewayStore.getState().bridgeCoins, 
             marketData: MarketsStore.getState().marketData,
         };
     }
