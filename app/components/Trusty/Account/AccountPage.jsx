@@ -38,7 +38,7 @@ class AccountPage extends React.Component {
         this.update = this.update.bind(this);
     }
 
-    update(){
+    update(data){
         PortfolioActions.compilePortfolio.defer(this.props.account);
     }
 

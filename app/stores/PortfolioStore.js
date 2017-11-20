@@ -105,7 +105,6 @@ class PortfolioStore extends BaseStore {
 
 
     onCompilePortfolio(portfolio){
-        console.log("COMPILE",portfolio);
         this.setState({
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,

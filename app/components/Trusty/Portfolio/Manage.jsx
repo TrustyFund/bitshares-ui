@@ -22,7 +22,7 @@ class ManagePortfolio extends React.Component {
         account: ChainTypes.ChainAccount.isRequired,
     };
 
-    
+
 	constructor(){
 		super();
 
@@ -35,9 +35,16 @@ class ManagePortfolio extends React.Component {
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
+		this.update = this.update.bind(this);
+
 	}
 
+	update(){
+        PortfolioActions.compilePortfolio.defer(this.props.account);
+    }
+
 	componentDidMount() {
+		ChainStore.subscribe(this.update);
 		PortfolioStore.listen(this.onChange);
 		if (typeof this.props.account != "undefined"){
             PortfolioActions.compilePortfolio.defer(this.props.account);
@@ -46,6 +53,7 @@ class ManagePortfolio extends React.Component {
 
 	componentWillUnmount() {
 		PortfolioStore.unlisten(this.onChange);
+		ChainStore.unsubscribe(this.update);
 	}
 
 	onChange(storeState) {
