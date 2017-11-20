@@ -126,24 +126,26 @@ class PortfolioActions {
         let ordersCallbacks = [];
         
         calculated.data.forEach((asset)=>{
-            if (asset.assetFullName != baseAsset.get("symbol")){
+            if (asset.assetFullName != baseAsset.get("symbol") && asset.type != "none"){
                 ordersCallbacks.push(this.makeOrderCallback(asset,baseAsset,account.get("id"),asset.type));
             }
         });
 
         return dispatch => {
             return Promise.all(ordersCallbacks).then(function(orders) {
+                console.log("ORDERS",orders);
                 var buyTransaction = WalletApi.new_transaction();
                 var sellTransaction = WalletApi.new_transaction();
                 let sellCount = 0,buyCount = 0;
                 orders.forEach((order)=>{
-                    order.setExpiration();
                     if (order.type == "buy"){
+                        order.setExpiration();
                         order = order.toObject();
                         buyTransaction.add_type_operation("limit_order_create", order);
                         buyCount++;
                     }
                     if (order.type == "sell"){
+                        order.setExpiration();
                         order = order.toObject();
                         sellTransaction.add_type_operation("limit_order_create", order);
                         sellCount++;
@@ -162,7 +164,7 @@ class PortfolioActions {
                 }
 
                 if (sellCount){
-                    console.log("ORDERS",orders);
+                    
                     dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
                 }else{
                     alert("no sell count")
