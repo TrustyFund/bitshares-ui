@@ -27,6 +27,16 @@ class ManageModal extends React.Component {
             password_error: null,
             password_input_reset: Date.now(),
         }
+
+
+        dispatcher.register(({orders,type,transactionProcess})=>{
+            if(type=="trusty_manage_modal"){
+                ZfApi.publish("trusty_manage_modal", "toggle");
+                this.setState({orders})
+                this.transactionProcess = transactionProcess;
+            }
+        })
+        
 	}
 
 
@@ -93,13 +103,6 @@ class ManageModal extends React.Component {
 
 	componentDidMount(){
 		this.startComponent()
-        dispatcher.register(({orders,type,transactionProcess})=>{
-            if(type=="trusty_manage_modal"){
-                ZfApi.publish("trusty_manage_modal", "toggle");
-                this.setState({orders})
-                this.transactionProcess = transactionProcess;
-            }
-        })
 	}
 
 	render(){

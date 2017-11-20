@@ -146,17 +146,19 @@ class PortfolioActions {
                 var sellTransaction = WalletApi.new_transaction();
                 let sellCount = 0,buyCount = 0;
                 orders.forEach((order)=>{
-                    if (order.type == "buy"){
-                        order.setExpiration();
-                        order = order.toObject();
-                        buyTransaction.add_type_operation("limit_order_create", order);
-                        buyCount++;
-                    }
-                    if (order.type == "sell"){
-                        order.setExpiration();
-                        order = order.toObject();
-                        sellTransaction.add_type_operation("limit_order_create", order);
-                        sellCount++;
+                    if(order) {
+                        if (order.type == "buy"){
+                            order.setExpiration();
+                            order = order.toObject();
+                            buyTransaction.add_type_operation("limit_order_create", order);
+                            buyCount++;
+                        }
+                        if (order.type == "sell"){
+                            order.setExpiration();
+                            order = order.toObject();
+                            sellTransaction.add_type_operation("limit_order_create", order);
+                            sellCount++;
+                        }    
                     }
                 });
 
