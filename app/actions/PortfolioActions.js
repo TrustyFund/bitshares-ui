@@ -124,7 +124,7 @@ class PortfolioActions {
 
 
 
-    updatePortfolio(account, router){
+    updatePortfolio(account){
         PortfolioStore.setLoading();
         let portfolio = PortfolioStore.getState();
 
@@ -174,7 +174,6 @@ class PortfolioActions {
                 }
 
                 if (sellCount){
-                    
                     dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
                 }else{
                     alert("no sell count")

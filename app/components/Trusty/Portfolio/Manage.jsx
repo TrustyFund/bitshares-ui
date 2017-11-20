@@ -73,7 +73,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioActions.updatePortfolio(this.props.account ,this.props.router);
+		PortfolioActions.updatePortfolio(this.props.account);
 	}
 
 	suggestPortfolio(){
