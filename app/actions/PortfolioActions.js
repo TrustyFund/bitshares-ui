@@ -48,7 +48,7 @@ class PortfolioActions {
         portfolio.data.forEach((asset) => {
             if (asset.futureShare > asset.currentShare){
                 asset.type = "buy";
-                asset.amountToSellBase = Math.floor(portfolio.totalBaseValue * asset.futureShare / 100);
+                asset.amountToSell = Math.floor(portfolio.totalBaseValue * asset.futureShare / 100);
             }else if(asset.futureShare < asset.currentShare){
                 asset.type = "sell";
                 if (asset.futureShare == 0){
@@ -67,50 +67,19 @@ class PortfolioActions {
         return portfolio;
     }
 
-    makeBuyOrderCallback(asset,baseAsset,accountID){
+    makeOrderCallback(asset,baseAsset,accountID, type){
         let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
 
-        return this.getMarketOrders(baseAsset,quoteAsset,"asks").then((asks)=>{
+        return this.getMarketOrders(baseAsset,quoteAsset,(type == "buy") ? "asks" : "bids").then((marketOrders)=>{
             let totalWants = 0;
-            for (let i = 0; i < asks.length; i++){
-                let ask = asks[i];
-                let theyWants = ask.totalToReceive({noCache: true});
-                totalWants += theyWants.amount;
-                if (totalWants >= asset.amountToSellBase){
-
-                    theyWants.amount = asset.amountToSellBase;
-                    let weReceive = theyWants.times(ask.sellPrice());
-
-                    let order = new LimitOrderCreate({
-                        for_sale: theyWants,
-                        to_receive: weReceive,
-                        seller: accountID,
-                        fee: {
-                            asset_id: baseAsset.get("id"),
-                            amount: 0
-                        }
-                    });
-                    order.type = "buy";
-                    console.log("ORDER FOR " + asset.assetFullName,asset,order);
-                    return order;
-                }
-            }
-        });
-    }
-
-    makeSellOrderCallback(asset,baseAsset,accountID){
-        let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
-        
-        return this.getMarketOrders(baseAsset,quoteAsset,"bids").then((bids)=>{
-            let totalWants = 0;
-            for (let i = 0; i < bids.length; i++){
-                let bid = bids[i];
-                let theyWants = bid.totalToReceive({noCache: true});
+            for (let i = 0; i < marketOrders.length; i++){
+                let marketOrder = marketOrders[i];
+                let theyWants = marketOrder.totalToReceive({noCache: true});
                 totalWants += theyWants.amount;
                 if (totalWants >= asset.amountToSell){
 
                     theyWants.amount = asset.amountToSell;
-                    let weReceive = theyWants.times(bid.sellPrice());
+                    let weReceive = theyWants.times(marketOrder.sellPrice());
 
                     let order = new LimitOrderCreate({
                         for_sale: theyWants,
@@ -121,15 +90,13 @@ class PortfolioActions {
                             amount: 0
                         }
                     });
-                    order.type = "sell";
-                    console.log("ORDER FOR " + asset.assetFullName,asset,order);
+                    order.type = type;
+                    console.log("ORDER " + type + " FOR " + asset.assetFullName,asset,order);
                     return order;
                 }
             }
         });
-
     }
-
 
     getMarketOrders(baseAsset,quoteAsset,type = "bids"){
         let assets = {
@@ -157,15 +124,8 @@ class PortfolioActions {
         let ordersCallbacks = [];
         
         summedportfolio.data.forEach((asset)=>{
-            if (asset.type == "sell"){
-                if (asset.assetFullName != baseAsset.get("symbol")){
-                    ordersCallbacks.push(this.makeSellOrderCallback(asset,baseAsset,account.get("id")));
-                }
-            }
-            if (asset.type == "buy"){
-                if (asset.assetFullName != baseAsset.get("symbol")){
-                    ordersCallbacks.push(this.makeBuyOrderCallback(asset,baseAsset,account.get("id")));
-                }
+            if (asset.assetFullName != baseAsset.get("symbol")){
+                ordersCallbacks.push(this.makeOrderCallback(asset,baseAsset,account.get("id"),asset.type));
             }
         });
 
