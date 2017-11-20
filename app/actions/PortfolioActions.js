@@ -209,13 +209,8 @@ class PortfolioActions {
                 Promise.resolve().then(()=>{
                     portfolio.totalFutureShare = 0;
                     portfolio.data.forEach(i=>{
-                        PortfolioStore.getState().data && PortfolioStore.getState().data.forEach(already=>{
-                            if(already.assetShortName == i.assetShortName) {
-                                i.futureShare = already.futureShare;
-                            }
-                        })
                         portfolio.totalFutureShare += i.futureShare;
-                    })
+                    });
 
                     portfolioStorage.set("portfolio",portfolio);
                     resolve(portfolio);
