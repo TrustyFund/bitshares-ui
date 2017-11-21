@@ -164,37 +164,14 @@ class Landing extends Component {
             showBalls: false,
             windowHeight: window.innerHeight
         }
-        //this.scrollDown = this.scrollDown.bind(this)
     }
     componentWillUnmount() {
         clearInterval(this.timeout)
-        this.scroll.remove()
-        //this.resize.remove()
-        //let viewport = document.querySelector("meta[name=viewport]");
-        //viewport.setAttribute('content', 'width=device-width')
     }
 
     componentDidMount() {
-
-        //let viewport = document.querySelector("meta[name=viewport]");
-        //viewport.setAttribute('content', 'width=750px');
         let last = window.innerHeight
         let current = window.innerHeight
-
-        this.scroll = listen(window, "scroll", ()=>{
-            let scroll = document.body.scrollTop || window.scrollY 
-            let wh = window.innerHeight
-            this.setState({
-                showBalls: scroll >= wh && scroll < wh * 8
-            })
-        })
-
-        // this.resize = listen(window, "resize", ()=>{
-        //     this.setState({
-        //         windowHeight: window.innerHeight
-        //     })
-        // })
-
         let index = 0
 
         this.setState({
@@ -212,19 +189,6 @@ class Landing extends Component {
 
     }
 
-    scrollDown(e, index){
-        if(e) e.stopPropagation()
-        let item = index==null?document.body.querySelector(".sl_id-1"):document.body.querySelector(".sl_id-"+(index+2))
-        JQuery('html, body').animate({
-            scrollTop: index==6 ? JQuery(".last_text").offset().top :JQuery(item).offset().top
-        }, 450);
-        // console.log(item.getBoundingClientRect().top)
-        // if(e) e.stopPropagation()
-        // if(index==null) { JQuery('html,body').animate({scrollTop:window.innerHeight},450); } else {
-        //     JQuery('html,body').animate({scrollTop: window.innerHeight * (index+2)},450);
-        // }
-    }
-
     render() {
         let scrollDown = (e, index) =>{
             e.stopPropagation()
@@ -235,7 +199,7 @@ class Landing extends Component {
         let button = 
             <div className="fixed_bottom _mob">
                 <Link to="/signup"><button>INVEST NOW</button></Link>
-                <div className="trusty_down_arrow" onClick={this.scrollDown.bind(this, event, null)}><Icon name="trusty_arrow_down_landing" /></div>
+                <div className="trusty_down_arrow" onClick={ e => scrollDown(e, 0) }><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
         let currentFirst = this.state.currentFirstSlide
@@ -249,7 +213,7 @@ class Landing extends Component {
 
         const list = slides.map((slide, index)=>
             <div className={"land_slide sl_id-"+slide.id} 
-                key={slide.id} onClick={this.scrollDown.bind(this, event, index)}
+                key={slide.id} onClick={e => scrollDown(e, index+1)}
                 style={{ height: this.state.windowHeight }}>
                 { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                 <div className="image_area">
