@@ -257,7 +257,8 @@ class Landing extends Component {
             </div>
         )
         return ( 
-            <div>        
+            <div>  
+                <div className="trusty_fixed_background_div _mob"/>      
                 <div className="once_finger" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/fingerprint005.svg')}} /> 
                 <div id="landing">
                     {top}
