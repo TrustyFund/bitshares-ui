@@ -12,12 +12,6 @@ class AppContainer extends React.Component {
 	render() {
 		return (<div>{this.props.children}</div>);
 	}
-
-    componentDidMount(){ 
-        if(localStorage.getItem("_trusty_username")) {
-            this.props.router.push("/home");
-        }
-    }
 }
 
 class RootIntl extends React.Component {
@@ -54,6 +48,12 @@ class Root extends React.Component {
     static childContextTypes = {
         router: React.PropTypes.object,
         location: React.PropTypes.object
+    }
+
+    componentWillMount(){
+        if(localStorage.getItem("_trusty_username")) {
+            this.props.router.push("/home");
+        }
     }
 
     componentDidMount(){
