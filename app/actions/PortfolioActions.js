@@ -191,6 +191,7 @@ class PortfolioActions {
                         return
                     })
                     .catch(error => {
+                        dispatch({buyOrdersProcess})
                         console.log("order error:", error);
                         dispatcher.dispatch({type: "orders_transactions_loader", show: false})
                         return {error};
@@ -209,13 +210,8 @@ class PortfolioActions {
 
                 }
 
-                if (sellCount){
-                    dispatch({orders, totalBuyOrdersPrice })
-                    dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
-                }else{
-                    alert("no sell count")
-                    dispatch(0);
-                }
+                dispatch({orders, totalBuyOrdersPrice })
+                dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
 
             });
         }
