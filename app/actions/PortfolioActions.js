@@ -203,18 +203,47 @@ class PortfolioActions {
     suggestPortfolio(){
         let portfolio = PortfolioStore.getState().data;
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio(); 
+        let concatenated = this.concatenate(portfolio,defaultPortfolio,true);
+        return dispatch => {dispatch(concatenated)}
+    }
 
+    //Возвращает массив балансов, дополненный ассетами из портфеля, 
+    //в зависимости от флага futureMode будет заполнение futureShare из портфеля или нет
+    concatenate(portfolio,defaultPortfolio, futureMode = false){
+        defaultPortfolio.map = defaultPortfolio.data.map(b=>b.assetFullName)
+
+        defaultPortfolio.data.forEach(asset => {
+            if (!futureMode){
+                asset.futureShare = 0;
+            }
+        });
+
+        portfolio.forEach((asset)=>{
+            var indexInDefault = defaultPortfolio.map.indexOf(asset.assetFullName);
+            if (indexInDefault > -1){
+                let defaultAsset = defaultPortfolio.data[indexInDefault];
+                if (futureMode){
+                    asset.futureShare = defaultAsset.share;
+                }
+                defaultPortfolio.map.splice(indexInDefault,1);
+                defaultPortfolio.data.splice(indexInDefault,1);
+            }
+        });
+        return portfolio.concat(defaultPortfolio.data);
     }
 
     compilePortfolio(balances){
         
+
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
 
         let {data,totalBaseValue,totalUSDShare} = getBalancePortfolio(balances,baseSymbol);
 
+        let concatenated = this.concatenate(data,defaultPortfolio);
+
         let portfolio = {
-            data: data,
+            data: concatenated,
             totalBaseValue: totalBaseValue,
             totalUSDShare: totalUSDShare,
             base: baseSymbol,
