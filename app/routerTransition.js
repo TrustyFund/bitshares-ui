@@ -22,7 +22,7 @@ import notify from "actions/NotificationActions";
 
 ChainStore.setDispatchFrequency(20);
 
-let connect = true;
+let connect = false;
 let connectionManager;
 let oldChain = "";
 

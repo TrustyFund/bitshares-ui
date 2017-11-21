@@ -2,7 +2,8 @@ import React from "react";
 
 import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from "react-router/es";
 import willTransitionTo from "./routerTransition";
-import App from "./Trusty";
+import App from "./AppContainer";
+import Trusty from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
@@ -21,23 +22,21 @@ import InitError from "./components/InitError";
 
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
-class Auth extends React.Component {
-    render() {return null; }
-}
-
 const routes = (
-    <Route path="/" component={App} onEnter={willTransitionTo}>
-        <Route path="/signup" component={CreateAccount}/>
-        <Route path="/landing" component={Landing}/>
-        <Route path="/home" component={AccountPage} />
-        <Route path="/backup" component={Backup} />
-        <Route path="/manage" component={ManagePortfolio} />
-        <Route path="/withdraw" component={Withdraw} />
-        <Route path="/deposit" component={Deposit} />
-        <Route path="/terms-of-use" component={TermsOfUse} />
-        <Route path="/create-wallet-brainkey" component={CreateWalletFromBrainkey} />
-        <Route path="/unlock" component={UnlockAccount} />
-        <Route path="/init-error" component={InitError} />
+    <Route path="/" component={App}>
+        <IndexRoute component={Landing}/>
+        <Route path="/home" component={Trusty} onEnter={willTransitionTo}>
+            <IndexRoute component={AccountPage} />
+            <Route path="/signup" component={CreateAccount}/>
+            <Route path="/backup" component={Backup} />
+            <Route path="/manage" component={ManagePortfolio} />
+            <Route path="/withdraw" component={Withdraw} />
+            <Route path="/deposit" component={Deposit} />
+            <Route path="/terms-of-use" component={TermsOfUse} />
+            <Route path="/create-wallet-brainkey" component={CreateWalletFromBrainkey} />
+            <Route path="/unlock" component={UnlockAccount} />
+            <Route path="/init-error" component={InitError} />
+        </Route>
     </Route>
 );
 
