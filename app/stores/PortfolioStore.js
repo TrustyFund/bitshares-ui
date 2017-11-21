@@ -125,7 +125,7 @@ class PortfolioStore extends BaseStore {
         let totalPercentageFutureShare = 0
         let loading = defaultLoading
         data.forEach(i=>{
-            if(i.assetShortName==asset && i.futureShare > 1){
+            if(i.assetShortName==asset && i.futureShare > 0){
               i.futureShare--
             }
             totalPercentageFutureShare+= i.futureShare
