@@ -95,6 +95,7 @@ class Trusty extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+
         dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
             this.setState({ loading: true })
@@ -167,7 +168,15 @@ class Trusty extends React.Component {
         if(AccountStore.getMyAccounts().length) {
             localStorage.setItem("_trusty_username",AccountStore.getMyAccounts()[0])  
         }
- 
+
+
+        let { totalBaseValue, totalBuyOrdersPrice, buyOrders} = PortfolioStore.getState()
+        if(buyOrders.length) {
+            if(totalBaseValue > totalBuyOrdersPrice ) {
+                buyOrders[0]()
+            }
+        }
+        
     }
 
     _navigateBackAction(){

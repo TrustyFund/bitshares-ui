@@ -32,7 +32,9 @@ class PortfolioStore extends BaseStore {
             totalPercentageFutureShare: 0,
             loading: defaultLoading,
             totalBaseValue: 0,
-            orders: []
+            orders: [],
+            totalBuyOrdersPrice: 0,
+            buyOrders: []
         }
 
         this.bindListeners({
@@ -136,9 +138,20 @@ class PortfolioStore extends BaseStore {
 
     onUpdatePortfolio(payload){
       console.log("on-update-portfolio-->", payload)
-      let { orders } = payload
+
+      let { orders, totalBuyOrdersPrice, buyOrdersProcess, clearBuyOrders } = payload
+
       orders && this.setState({orders})
+      totalBuyOrdersPrice && this.setState({totalBuyOrdersPrice})
+      clearBuyOrders && this.setState({buyOrders: []})
+      if(buyOrdersProcess) {
+        let  orders = this.state.buyOrders.slice()
+        orders.push(buyOrdersProcess)
+        this.setState({buyOrders: orders})
+      } 
+
       this.state.loading.update = false;
     }
+
 }
 export default alt.createStore(PortfolioStore, "PortfolioStore");

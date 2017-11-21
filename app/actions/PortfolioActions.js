@@ -144,14 +144,17 @@ class PortfolioActions {
                 var buyTransaction = WalletApi.new_transaction();
                 var sellTransaction = WalletApi.new_transaction();
                 let sellCount = 0,buyCount = 0;
+                let totalBuyOrdersPrice = 0
                 orders.forEach((order)=>{
                     if(order) {
                         if (order.type == "buy"){
+                            totalBuyOrdersPrice+= order.amount_for_sale.amount
                             order.setExpiration();
                             order = order.toObject();
                             buyTransaction.add_type_operation("limit_order_create", order);
                             buyCount++;
                         }
+
                         if (order.type == "sell"){
                             order.setExpiration();
                             order = order.toObject();
@@ -161,18 +164,31 @@ class PortfolioActions {
                     }
                 });
 
+
                 let transactionProcess = () => {
                     WalletDb.process_transaction(sellTransaction, null, true).then(result => {
-                        console.log("DONE TRANSACTION",result);
-                        dispatch();
+                        console.log("DONE SELL TRANSACTION",result);
+                        dispatch({buyOrdersProcess:()=>{alert("hello");dispatch({clearBuyOrders: true})}})
                     })
                     .catch(error => {
                         console.log("order error:", error);
                         return {error};
                     });
                 }
+
+                let buyOrdersProcess = () => {
+                    WalletDb.process_transaction(buyTransaction, null, true).then(result => {
+                        console.log("DONE BUY TRANSACTION",result);
+                        dispatch({clearBuyOrders: true});
+                    })
+                    .catch(error => {
+                        console.log("order error:", error);
+                        return {error};
+                    });
+                }
+
                 if (sellCount){
-                    dispatch({orders})
+                    dispatch({orders, totalBuyOrdersPrice })
                     dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
                 }else{
                     alert("no sell count")
