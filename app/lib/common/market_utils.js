@@ -364,7 +364,7 @@ const MarketUtils = {
         let bids = orderArray.filter(a => {
             return a.isBid();
         }).sort((a, b) => {
-            return a.getPrice() - b.getPrice();
+            return b.getPrice() - a.getPrice();
         }).map(order => {
             return order;
         });

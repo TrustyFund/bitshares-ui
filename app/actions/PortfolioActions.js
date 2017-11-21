@@ -14,6 +14,7 @@ import WalletDb from "stores/WalletDb";
 import {LimitOrder,Price,LimitOrderCreate} from "common/MarketClasses";
 import marketUtils from "common/market_utils";
 import WalletUnlockStore from "stores/WalletUnlockStore";
+import priceutils from "common/utils";
 
 const createMap = (myObj) =>{
      return new Map(
@@ -86,17 +87,19 @@ class PortfolioActions {
     makeOrderCallback(asset,baseAsset,accountID, type){
         let quoteAsset = ChainStore.getObject(asset.assetMap.get("id"));
 
-        return this.getMarketOrders(baseAsset,quoteAsset,(type == "buy") ? "asks" : "bids").then((marketOrders)=>{
+        return this.getMarketOrders(baseAsset,quoteAsset,type).then((marketOrders)=>{
             let totalWants = 0;
             for (let i = 0; i < marketOrders.length; i++){
                 let marketOrder = marketOrders[i];
                 let theyWants = marketOrder.totalToReceive({noCache: true});
                 totalWants += theyWants.amount;
                 if (totalWants >= asset.amountToSell){
+                    console.log("MARKET ORDER",marketOrder);
+                    console.log(type,marketOrders);
+                    console.log("MARKET PRICE",priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset));
 
                     theyWants.amount = asset.amountToSell;
                     let weReceive = theyWants.times(marketOrder.sellPrice());
-                    
 
                     let order = new LimitOrderCreate({
                         for_sale: theyWants,
@@ -108,12 +111,6 @@ class PortfolioActions {
                         }
                     });
                     order.type = type;
-                    if (type == "sell"){
-                        console.log("ORDER " + type + " FOR " + asset.assetFullName,order);
-                        console.log("market",marketOrder)
-                        console.log("theyWants",theyWants)
-                        console.log("weReceive",weReceive)
-                    }
                     return order;
                 }
             }
@@ -125,14 +122,14 @@ class PortfolioActions {
             [quoteAsset.get("id")]: {precision: quoteAsset.get("precision")},
             [baseAsset.get("id")]: {precision: baseAsset.get("precision")}
         };
-        return Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 50 ])
+        return Apis.instance().db_api().exec("get_limit_orders", [ baseAsset.get("id"), quoteAsset.get("id"), 150 ])
         .then((results)=>{
             let orders = [];
             results.forEach((result) => {
                 let order = new LimitOrder(result, assets, quoteAsset.get("id"));
                 orders.push(order);
             });
-            return (type == "bids") ? marketUtils.getBids(orders) : marketUtils.getAsks(orders);
+            return (type == "buy") ? marketUtils.getAsks(orders) : marketUtils.getBids(orders);
         });
     }
 
