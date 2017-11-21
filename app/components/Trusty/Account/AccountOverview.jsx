@@ -122,7 +122,7 @@ class AccountOverview extends React.Component {
     }
 
     render() {
-        let {account, hiddenAssets, settings, orders} = this.props;
+        let {account, hiddenAssets, settings, orders, trustyPortfolio: portfolio } = this.props;
         let {showHidden} = this.state;
 
         if (!account) {
@@ -152,6 +152,19 @@ class AccountOverview extends React.Component {
                                     <p>Deposit smth to manage funds</p>
                             }
                         </div> 
+                        { portfolio.orders.length ?
+                            <div className="trusty_profile_incoming_depositis">
+                                <p>Pending Buy Orders</p>
+                                {
+                                    portfolio.orders.map((order, index)=>{
+                                        if(order.type=="buy") {
+                                            return <span key={index}> { order.type + " " + order.amount_for_sale.amount } </span>  
+                                        }
+                                    })
+                                }
+                            </div> : null
+                        }
+
                         {
                             this.props.trustyPortfolio.totalUSDShare ? (
                                 <RecentTransactions
@@ -198,7 +211,7 @@ let AccountOverviewConnect  = connect(AccountOverview, {
     },
     getProps() {
         return {
-            trustyPortfolio: PortfolioStore.getState(),
+            trustyPortfolio: PortfolioStore.getState()
         };
     }
 });

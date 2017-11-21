@@ -46,9 +46,10 @@ class PortfolioActions {
             let { totalBaseValue, totalBuyOrdersPrice, buyOrders } = PortfolioStore.getState()
             if(buyOrders.length) {
                 if(totalBaseValue > totalBuyOrdersPrice ) {
-                    buyOrders[0]()
-                    dispatch(true)
-                    console.log("Orders transactions done")
+                    buyOrders[0]().then(()=>{
+                        dispatch(true)
+                        console.log("Orders transactions done")  
+                    })
                     return
                 }
             }
@@ -196,7 +197,7 @@ class PortfolioActions {
                 }
 
                 let buyOrdersProcess = () => {
-                    WalletDb.process_transaction(buyTransaction, null, true).then(result => {
+                    return WalletDb.process_transaction(buyTransaction, null, true).then(result => {
                         console.log("DONE BUY TRANSACTION",result);
                         return
                     })
@@ -207,8 +208,13 @@ class PortfolioActions {
 
                 }
 
-                dispatch({orders, totalBuyOrdersPrice })
-                dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
+
+                if(buyCount+sellCount) {
+                    dispatch({orders, totalBuyOrdersPrice })
+                    dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });   
+                } else {
+                    alert("no changes")
+                }
 
             });
         }
