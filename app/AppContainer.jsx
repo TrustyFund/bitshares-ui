@@ -7,13 +7,16 @@ import {IntlProvider} from "react-intl";
 import intlData from "./components/Utility/intlData";
 import AccountStore from "stores/AccountStore";
 
+
 class AppContainer extends React.Component {
 	render() {
 		return (<div>{this.props.children}</div>);
 	}
 
-    componentDidMount(){
-        console.log("mount");
+    componentDidMount(){ 
+        if(localStorage.getItem("_trusty_username")) {
+            this.props.router.push("/home");
+        }
     }
 }
 

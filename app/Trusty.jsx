@@ -162,10 +162,7 @@ class Trusty extends React.Component {
 
         //update portfolio
         let pathname = this.props.location.pathname;   
-        let account = ChainStore.getAccount(localStorage.getItem("_trusty_username"));
-        if (account && pathname == "/"){
-            this.props.router.push("/home");
-        }
+        
 
         if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             this.setState({loading: false})
