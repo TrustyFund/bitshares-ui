@@ -183,13 +183,16 @@ class PortfolioActions {
 
 
                 let transactionProcess = () => {
+                    dispatcher.dispatch({type: "orders_transactions_loader", show: true})
                     return WalletDb.process_transaction(sellTransaction, null, true).then(result => {
+                        dispatcher.dispatch({type: "orders_transactions_loader", show: false})
                         console.log("DONE SELL TRANSACTION",result);
                         dispatch({buyOrdersProcess})
                         return
                     })
                     .catch(error => {
                         console.log("order error:", error);
+                        dispatcher.dispatch({type: "orders_transactions_loader", show: false})
                         return {error};
                     });
                 }
@@ -203,6 +206,7 @@ class PortfolioActions {
                         console.log("order error:", error);
                         return {error};
                     });
+
                 }
 
                 if (sellCount){
