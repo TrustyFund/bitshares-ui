@@ -239,21 +239,12 @@ class Trusty extends React.Component {
         }
         grid = grid.bind(this)
 
-        function authFreeRoutes(){
-            return [
-            '/test-home',
-            '/signup',
-            '/create-wallet-brainkey',
-            "/terms-of-use",
-            "/unlock"
-            ].some(i=>i==this.props.location.pathname)
-        }
-        authFreeRoutes = authFreeRoutes.bind(this)
-
         if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
 
 
         if (this.state.syncFail) {content = (<SyncError />);
+        } else if (this.state.showLoader) {
+            content = <LoadingIndicator type={"trusty-owl"}/>
         } else{
             content = grid(this.props.children);
         }

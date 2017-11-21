@@ -25,10 +25,6 @@ const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 const routes = (
     <Route path="/" component={App}>
         <IndexRoute component={Landing}/>
-        <Route path="/signup" component={CreateAccount}/>
-        <Route path="/login" component={CreateWalletFromBrainkey} />
-        <Route path="/terms-of-use" component={TermsOfUse} />
-        
         <Route path="/home" component={Trusty} onEnter={willTransitionTo}>
             <IndexRoute component={AccountPage} />
             <Route path="/backup" component={Backup} />
@@ -37,6 +33,9 @@ const routes = (
             <Route path="/deposit" component={Deposit} />
             <Route path="/unlock" component={UnlockAccount} />
             <Route path="/init-error" component={InitError} />
+            <Route path="/signup" component={CreateAccount}/>
+            <Route path="/login" component={CreateWalletFromBrainkey} />
+            <Route path="/terms-of-use" component={TermsOfUse} />
         </Route>
     </Route>
 );
