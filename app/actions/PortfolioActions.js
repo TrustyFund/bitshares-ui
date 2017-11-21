@@ -142,7 +142,7 @@ class PortfolioActions {
         PortfolioStore.setLoading();
         let portfolio = PortfolioStore.getState();
 
-        console.log("PORTFOLIO",portfolio);
+        console.log("UPDATE",portfolio)
 
         let calculated = this.calculateSums(portfolio);
         let baseAsset = ChainStore.getAsset("BTS");
@@ -234,6 +234,7 @@ class PortfolioActions {
         defaultPortfolio.map = defaultPortfolio.data.map(b=>b.assetFullName)
 
         defaultPortfolio.data.forEach(asset => {
+            asset.currentShare = 0;
             if (!futureMode){
                 asset.futureShare = 0;
             }
