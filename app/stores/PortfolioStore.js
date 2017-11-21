@@ -51,42 +51,42 @@ class PortfolioStore extends BaseStore {
             {
               assetShortName: "BTC",
               assetFullName: "OPEN.BTC",
-              share: 60,
+              futureShare: 60,
             },
             {
               assetShortName: "ETH",
               assetFullName: "OPEN.ETH",
-              share: 10,
+              futureShare: 10,
             },
             {
               assetShortName: "DASH",
               assetFullName: "OPEN.DASH",
-              share: 5,
+              futureShare: 5,
             },
             {
               assetShortName: "LTC",
               assetFullName: "OPEN.LTC",
-              share: 10,
+              futureShare: 10,
             },
             {
               assetShortName: "EOS",
               assetFullName: "OPEN.EOS",
-              share: 4,
+              futureShare: 4,
             },
             {
               assetShortName: "STEEM",
               assetFullName: "OPEN.STEEM",
-              share: 4,
+              futureShare: 4,
             },
             {
               assetShortName: "BTS",
               assetFullName: "BTS",
-              share: 4,
+              futureShare: 4,
             },
             {
               assetShortName: "TRFND",
               assetFullName: "TRFND",
-              share: 3,
+              futureShare: 3,
             },
 
           ]
@@ -109,7 +109,9 @@ class PortfolioStore extends BaseStore {
         let totalPercentageFutureShare = 0
         let loading = defaultLoading
         data.forEach(i=>{
-            if(i.assetShortName==asset) i.futureShare++
+            if(i.assetShortName==asset && i.futureShare < 100){
+              i.futureShare++
+            } 
             totalPercentageFutureShare+= i.futureShare
         })
         this.setState({data, totalPercentageFutureShare, loading})
@@ -120,7 +122,9 @@ class PortfolioStore extends BaseStore {
         let totalPercentageFutureShare = 0
         let loading = defaultLoading
         data.forEach(i=>{
-            if(i.assetShortName==asset) i.futureShare--
+            if(i.assetShortName==asset && i.futureShare > 1){
+              i.futureShare--
+            }
             totalPercentageFutureShare+= i.futureShare
         })
         this.setState({data, totalPercentageFutureShare, loading})

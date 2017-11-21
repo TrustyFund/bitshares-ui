@@ -4,7 +4,6 @@ import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import MarketsActions from "actions/MarketsActions";
 import MarketsStore from "stores/MarketsStore";
-import Immutable from "immutable";
 import AssetActions from 'actions/AssetActions';
 import { dispatcher } from 'components/Trusty/utils';
 import {Apis} from "bitsharesjs-ws";
@@ -207,7 +206,7 @@ class PortfolioActions {
             if (indexInDefault > -1){
                 let defaultAsset = defaultPortfolio.data[indexInDefault];
                 if (futureMode){
-                    asset.futureShare = defaultAsset.share;
+                    asset.futureShare = defaultAsset.futureShare;
                 }
                 defaultPortfolio.map.splice(indexInDefault,1);
                 defaultPortfolio.data.splice(indexInDefault,1);

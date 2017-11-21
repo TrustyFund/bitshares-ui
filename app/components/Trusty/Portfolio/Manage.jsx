@@ -10,6 +10,7 @@ import BindToChainState from "components/Utility/BindToChainState";
 import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import PortfolioActions from "actions/PortfolioActions"
+import Immutable from "immutable";
 
 import ManageModal from "components/Trusty/ManageModal";
 
@@ -27,17 +28,17 @@ class ManagePortfolio extends React.Component {
 		this.state = {
 			valid: false,
 			initPortfolio: false,
-			currentPortfolio: false,
 		}
+		this.componentDidMount = this.componentDidMount.bind(this);
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 		this.renderManualTab = this.renderManualTab.bind(this);
+		this.renderPortfolioList = this.renderPortfolioList.bind(this);
 	}
 
 	renderManualTab(){
 		let renderedPortfolio = this.renderPortfolioList(this.props.trustyPortfolio.data);
-
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -73,7 +74,9 @@ class ManagePortfolio extends React.Component {
 	}
 
 	updatePortfolio(){
-		PortfolioActions.updatePortfolio(this.props.account);
+		console.log("PORTFOLIO INIT:",this.state.initPortfolio);
+		console.log("PORTFOLIO NOW:",this.props.trustyPortfolio);
+		//PortfolioActions.updatePortfolio(this.props.account);
 	}
 
 	suggestPortfolio(){
@@ -104,11 +107,10 @@ class ManagePortfolio extends React.Component {
 				<Icon name="trusty_portfolio_arrow_right"/>
 			</span>
 		)
-		if(assetList == null) return null;
 
-		if (assetList.length > 0 && !this.state.initPortfolio || this.state.initPortfolio.length < assetList.length){
-			this.state.initPortfolio = assetList;
-		}
+		if(assetList == null || !this.state.initPortfolio) return null;
+
+
 		//TODO: сделать сдесь ссылку на описание Ассета
 		assetList.forEach( (asset, i) => {
 			let name = "portfolio_item _" + i
@@ -129,6 +131,12 @@ class ManagePortfolio extends React.Component {
 			)
 		});
 		return renderPortfolio
+	}
+
+	componentDidMount(){
+		let list = Immutable.Set(this.props.trustyPortfolio.data.slice());
+		this.state.initPortfolio = list;
+		console.log("SET STATE INIT")
 	}
 
 	_incrementAsset(asset){
