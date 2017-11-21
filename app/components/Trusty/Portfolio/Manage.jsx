@@ -181,7 +181,7 @@ class ManagePortfolio extends React.Component {
 				    </div>
 				</Tabs>
 
-				<ManageModal id="trusty_manage_modal"/>
+				<ManageModal router={this.props.router} id="trusty_manage_modal"/>
 			</div>
         );
 	}

@@ -43,6 +43,7 @@ class PortfolioStore extends BaseStore {
             onIncrementAsset: PortfolioActions.incrementAsset,
             onDecrementAsset: PortfolioActions.decrementAsset,
             onUpdatePortfolio: PortfolioActions.updatePortfolio,
+            onExecBuyOrders: PortfolioActions.execBuyOrders
         })
     }
 
@@ -136,6 +137,10 @@ class PortfolioStore extends BaseStore {
       this.state.loading = {update: true};
     }
 
+    onExecBuyOrders(clean=false){
+      clean && this.setState({buyOrders: []})
+    }
+
     onUpdatePortfolio(payload){
       console.log("on-update-portfolio-->", payload)
 
@@ -143,7 +148,7 @@ class PortfolioStore extends BaseStore {
 
       orders && this.setState({orders})
       totalBuyOrdersPrice && this.setState({totalBuyOrdersPrice})
-      clearBuyOrders && this.setState({buyOrders: []})
+
       if(buyOrdersProcess) {
         let  orders = this.state.buyOrders.slice()
         orders.push(buyOrdersProcess)

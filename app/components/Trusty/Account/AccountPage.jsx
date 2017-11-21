@@ -41,6 +41,7 @@ class AccountPage extends React.Component {
     update(data){
         let balances = this.props.account.get("balances", null);
         PortfolioActions.compilePortfolio.defer(balances);
+        PortfolioActions.execBuyOrders()
     }
 
     componentWillUnmount() {

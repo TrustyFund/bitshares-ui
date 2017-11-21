@@ -100,6 +100,12 @@ class ManageModal extends React.Component {
         return false;
 	}
 
+    makeOrder(){
+        this.transactionProcess().then(()=>{
+            this.props.router.push("/home") 
+        })
+    }
+
 	componentDidMount(){
 		this.startComponent()
 	}
@@ -137,7 +143,7 @@ class ManageModal extends React.Component {
             { orders }
 
             <div className="trusty_inline_buttons">
-               <button disabled={this.props.locked} onClick={this.transactionProcess} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
+               <button disabled={this.props.locked} onClick={this.makeOrder.bind(this)} style={{opacity: this.props.locked ? "0.4" : "1"}}>Approve</button>
                <button onClick={()=>{ZfApi.publish("trusty_manage_modal","close")}}>Deny</button>
             </div>
 
