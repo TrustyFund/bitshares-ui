@@ -329,6 +329,10 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         balance.futureShare = balance.currentShare;
     });
 
+    activeBalaces.sort((a, b) => {
+        return b.currentShare - a.currentShare;
+    });
+
     return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare}
 }
 
