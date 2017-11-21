@@ -157,8 +157,6 @@ class Landing extends Component {
     constructor() {
         super();
         this.state = {
-            currentFirstSlide: null,
-            currentFirstSlideDesk: null,
             currentThirdSlide: null,
             currentLastSlide: null,
             showBalls: false,
@@ -169,30 +167,20 @@ class Landing extends Component {
         clearInterval(this.timeout)
     }
 
-    componentDidMount() {
-        let last = window.innerHeight
-        let current = window.innerHeight
-        let index = 0
-
-        this.setState({
-            currentFirstSlide: slides[0].images[index],
-            currentFirstSlideDesk: slides[0].desk_images[index],
-        })
-
-        this.timeout = setInterval(() => {
-            if(index >= slides[0].images.length-1) { index=0 } else { index++ }
-            this.setState({
-                currentFirstSlide: slides[0].images[index],
-                currentFirstSlideDesk: slides[0].desk_images[index],
-            })
-        }, 1000)
-
-    }
-
     render() {
         let scrollDown = (e, index) =>{
             e.stopPropagation()
-            JQuery('html,body').animate({scrollTop: window.innerHeight * (index+1)},450);
+            let target_index = index + 1;
+            let target = "#sl_id_" + target_index;
+            let target_element = JQuery(target);
+
+            if (!target_element.length){
+                target_element = JQuery("#last_screen");
+            }
+
+            let target_offset = target_element.offset();
+            let target_top = target_offset.top;
+            JQuery('html,body').animate({scrollTop: target_top},450);
         }
 
         let self = this
@@ -202,46 +190,46 @@ class Landing extends Component {
                 <div className="trusty_down_arrow" onClick={ e => scrollDown(e, 0) }><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
-        let currentFirst = this.state.currentFirstSlide
-        let currentFirstDesk = this.state.currentFirstSlideDesk
+        
 
 
-        let ballsNav = this.state.showBalls ? 
-            (<div className="balls_nav _desk">
-                {[1,2,3,4,5,6,7].map((i, index) => <span key={i} onClick={ e => scrollDown(e, index)} /> )}
-            </div>) : null 
-
-        const list = slides.map((slide, index)=>
-            <div className={"land_slide sl_id-"+slide.id} 
-                key={slide.id} onClick={e => scrollDown(e, index+1)}
-                style={{ height: this.state.windowHeight }}>
-                { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
-                <div className="image_area">
+        const list = slides.map((slide, index)=> {
+            let currentFirst = slide.image;
+            let currentFirstDesk = slide.imageTwo;
+            return(
+                <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id}
+                    key={slide.id} onClick={e => scrollDown(e, index+1)}
+                    style={{ height: this.state.windowHeight }}>
+                    { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
+                    <div className="image_area">
 
 
-                    { index == 0 ? 
-                        <div>
-                            <img className="_image _mob" src={currentFirst}/>
-                            <img className="_image _desk" src={currentFirstDesk}/>
-                        </div>
+                        { index == 0 ? 
+                            <div>
+                                <img className="_image _mob" src={currentFirst}/>
+                                <img className="_image _desk" src={currentFirstDesk}/>
+                            </div>
 
-                    : null }
+                        : null }
 
-                    { index != 0 ? 
-                        <div>
-                            <ImageAnimate class={"_image _mob"} images={slide.images}/>
-                            {/*<img className="_image _mob" src={this.state["slide_pic_"+index]}/>*/}
-                        </div>
-                    : null }
+                        { index != 0 ? 
+                            <div>
+                                <ImageAnimate class={"_image _mob"} images={slide.images}/>
+                                {/*<img className="_image _mob" src={this.state["slide_pic_"+index]}/>*/}
+                            </div>
+                        : null }
 
+                    </div>
+                    <div className="text_area">
+                        <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
+                        { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
+                    </div>
+                    { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
                 </div>
-                <div className="text_area">
-                    <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
-                    { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
-                </div>
-                { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
-            </div>
-        );
+
+            )
+
+        });
 
         const top = (
             <div className="logo_starter" style={{height: this.state.windowHeight}}>
@@ -269,8 +257,7 @@ class Landing extends Component {
             </div>
         )
         return ( 
-            <div>
-                { ballsNav }           
+            <div>        
                 <div className="once_finger" dangerouslySetInnerHTML={{__html:require('components/Trusty/Landing/vendor/fingerprint005.svg')}} /> 
                 <div id="landing">
                     {top}
@@ -278,7 +265,7 @@ class Landing extends Component {
                         {list}
                     </div>
                  
-                    <div className="last_text">
+                    <div className="last_text" id="last_screen">
                         <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
                         <Link to="/signup"><button>INVEST NOW</button></Link>
                         <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in internet companies, when 20 million people <br/> used internet</p>
