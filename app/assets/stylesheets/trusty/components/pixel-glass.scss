@@ -40,9 +40,9 @@ HTML {
 
 .trusty-wrapper, {
   @media screen and (max-width: 768px) {
-    background-image: url(../texture_mob_bgr.png);
+    background-image: url(../pattern_bg.png);
     background-repeat: repeat;
-    background-size: 125%;
+    background-size: auto;
   }
 
   @media screen and (min-width: 769px) {
