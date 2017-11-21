@@ -141,16 +141,10 @@ class AccountOverview extends React.Component {
                     <div className="generic-bordered-box">
                         <br/>
                         <div className="trusty_total_funds">
-                            {
-                                this.props.trustyPortfolio.totalUSDShare 
-                                ?
-                                    <div>
-                                        <p>{this.props.account_name} TOTAL FUNDS</p>
-                                        <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
-                                    </div>
-                                :
-                                    <p>Deposit smth to manage funds</p>
-                            }
+                            <div>
+                                <p>{this.props.account_name} TOTAL FUNDS</p>
+                                <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
+                            </div>
                         </div> 
                         { portfolio.orders.length ?
                             <div className="trusty_profile_incoming_depositis">
@@ -179,9 +173,7 @@ class AccountOverview extends React.Component {
                                 />
                             ) : null
                         }
-                        {
-                            this.props.trustyPortfolio.totalUSDShare ? <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button> : null
-                        }
+                        <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button>
                         <table className="table trusty_table">
                             <thead>
                                 <tr>
