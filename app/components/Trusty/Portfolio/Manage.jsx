@@ -76,7 +76,7 @@ class ManagePortfolio extends React.Component {
 	updatePortfolio(){
 		console.log("PORTFOLIO INIT:",this.state.initPortfolio);
 		console.log("PORTFOLIO NOW:",this.props.trustyPortfolio);
-		//PortfolioActions.updatePortfolio(this.props.account);
+		PortfolioActions.updatePortfolio(this.props.account);
 	}
 
 	suggestPortfolio(){
