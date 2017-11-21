@@ -35,6 +35,7 @@ class PortfolioStore extends BaseStore {
         }
 
         this.bindListeners({
+            onCompilePortfolio: PortfolioActions.suggestPortfolio,
             onCompilePortfolio: PortfolioActions.compilePortfolio,
             onIncrementAsset: PortfolioActions.incrementAsset,
             onDecrementAsset: PortfolioActions.decrementAsset,
@@ -47,35 +48,43 @@ class PortfolioStore extends BaseStore {
           base: "BTS",
           data: [
             {
-              asset: "OPEN.BTC",
+              assetShortName: "BTC",
+              assetFullName: "OPEN.BTC",
               share: 60,
             },
             {
-              asset: "OPEN.ETH",
+              assetShortName: "ETH",
+              assetFullName: "OPEN.ETH",
               share: 10,
             },
             {
-              asset: "OPEN.DASH",
+              assetShortName: "DASH",
+              assetFullName: "OPEN.DASH",
               share: 5,
             },
             {
-              asset: "OPEN.LTC",
+              assetShortName: "LTC",
+              assetFullName: "OPEN.LTC",
               share: 10,
             },
             {
-              asset: "OPEN.EOS",
+              assetShortName: "EOS",
+              assetFullName: "OPEN.EOS",
               share: 4,
             },
             {
-              asset: "OPEN.STEEM",
+              assetShortName: "STEEM",
+              assetFullName: "OPEN.STEEM",
               share: 4,
             },
             {
-              asset: "BTS",
+              assetShortName: "BTS",
+              assetFullName: "BTS",
               share: 4,
             },
             {
-              asset: "TRFND",
+              assetShortName: "TRFND",
+              assetFullName: "TRFND",
               share: 3,
             },
 
@@ -85,7 +94,6 @@ class PortfolioStore extends BaseStore {
 
 
     onCompilePortfolio(portfolio){
-        console.log("COMPILE")
         this.setState({
             data: portfolio.data,
             totalPercentageFutureShare: portfolio.totalFutureShare,
