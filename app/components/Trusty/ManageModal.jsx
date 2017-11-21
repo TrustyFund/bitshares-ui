@@ -11,6 +11,7 @@ import AccountStore from "stores/AccountStore";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 import {Apis} from "bitsharesjs-ws";
 import classnames from 'classnames'
+import PortfolioStore from "stores/PortfolioStore"
 
 import {dispatcher} from "components/Trusty/utils";
 
@@ -23,10 +24,18 @@ class ManageModal extends React.Component {
 		super()
 		this.onPasswordEnter = this.onPasswordEnter.bind(this)
 		this.state = {
-            orders: [],
             password_error: null,
             password_input_reset: Date.now(),
         }
+
+
+        dispatcher.register(({type,transactionProcess})=>{
+            if(type=="trusty_manage_modal"){
+                ZfApi.publish("trusty_manage_modal", "open");
+                this.transactionProcess = transactionProcess;
+            }
+        })
+        
 	}
 
 
@@ -93,18 +102,11 @@ class ManageModal extends React.Component {
 
 	componentDidMount(){
 		this.startComponent()
-        dispatcher.register(({orders,type,transactionProcess})=>{
-            if(type=="trusty_manage_modal"){
-                ZfApi.publish("trusty_manage_modal", "toggle");
-                this.setState({orders})
-                this.transactionProcess = transactionProcess;
-            }
-        })
 	}
 
 	render(){
 
-        let orders = <div className="trusty_profile_incoming_depositis"> { this.state.orders.map((o,i)=><p key={i} className="_yellow">{o.type + " " + o.amount_for_sale.amount}</p>) } </div>
+        let orders = <div className="trusty_profile_incoming_depositis"> { this.props.orders.map((o,i)=><p key={i} className="_yellow">{o.type + " " + o.amount_for_sale.amount}</p>) } </div>
 	    return (
 
 	    <BaseModal ref={"model"} id={this.props.modalId} ref="modal" overlay={true} overlayClose={false}>
@@ -156,8 +158,11 @@ class ManageModalContainer extends React.Component {
     render() {
         return (
             <AltContainer
-                stores={[WalletUnlockStore, AccountStore]}
+                stores={[WalletUnlockStore, AccountStore, PortfolioStore]}
                 inject={{
+                    orders: () => {
+                        return PortfolioStore.getState().orders;
+                    },
                     resolve: () => {
                         return WalletUnlockStore.getState().resolve;
                     },
