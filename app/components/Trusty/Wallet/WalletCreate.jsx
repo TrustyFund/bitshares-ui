@@ -62,11 +62,12 @@ class CreateNewWallet extends Component {
 						return;
 				}
 
-			    dispatcher.dispatch({type:"show-loader"})
+			    dispatcher.dispatch({type:"show-trusty-loader",show: true})
                 WalletActions
                     .setWallet(wallet_public_name, valid_password, this.state.brnkey)
                     .then(data=>{
                         setTimeout(()=>{
+                        	dispatcher.dispatch({type:"show-trusty-loader",show: false})
                             this.props.router.push("/home")
 						},200)
 					});

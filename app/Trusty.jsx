@@ -102,7 +102,7 @@ class Trusty extends React.Component {
             this.setState({ loading: true })
           }
 
-          if ( dispatch.type === 'orders_transactions_loader') {
+          if ( dispatch.type === 'show-trusty-loader') {
             this.setState({showLoader: dispatch.show})
           }
         })

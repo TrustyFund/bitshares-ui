@@ -180,9 +180,9 @@ class PortfolioActions {
 
 
                 let transactionProcess = () => {
-                    dispatcher.dispatch({type: "orders_transactions_loader", show: true})
+                    dispatcher.dispatch({type: "show-trusty-loader", show: true})
                     return WalletDb.process_transaction(sellTransaction, null, true).then(result => {
-                        dispatcher.dispatch({type: "orders_transactions_loader", show: false})
+                        dispatcher.dispatch({type: "show-trusty-loader", show: false})
                         console.log("DONE SELL TRANSACTION",result);
                         dispatch({buyOrdersProcess})
                         return
@@ -190,7 +190,7 @@ class PortfolioActions {
                     .catch(error => {
                         dispatch({buyOrdersProcess})
                         console.log("order error:", error);
-                        dispatcher.dispatch({type: "orders_transactions_loader", show: false})
+                        dispatcher.dispatch({type: "show-trusty-loader", show: false})
                         return {error};
                     });
                 }
