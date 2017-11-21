@@ -71,6 +71,8 @@ class ManageModal extends React.Component {
 
         const password = this.refs.password_input.value() 
 
+        if(password.length < 8) return
+
         const account = passwordLogin ? this.state.account && this.state.account.get("name") : null;
 
         this.setState({password_error: null});
@@ -89,7 +91,7 @@ class ManageModal extends React.Component {
             if (!passwordLogin) {
                 this.refs.password_input.clear();
             } else {
-                this.refs.password_input.value = "";
+                //this.refs.password_input.value = "";
                 AccountActions.setPasswordAccount(account);
             }
             
