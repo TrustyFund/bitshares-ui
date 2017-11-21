@@ -31,7 +31,8 @@ class PortfolioStore extends BaseStore {
             data: null,
             totalPercentageFutureShare: 0,
             loading: defaultLoading,
-            totalBaseValue: 0
+            totalBaseValue: 0,
+            orders: []
         }
 
         this.bindListeners({
@@ -121,7 +122,10 @@ class PortfolioStore extends BaseStore {
       this.state.loading = {update: true};
     }
 
-    onUpdatePortfolio(){
+    onUpdatePortfolio(payload){
+      console.log("on-update-portfolio-->", payload)
+      let { orders } = payload
+      orders && this.setState({orders})
       this.state.loading.update = false;
     }
 }

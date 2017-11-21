@@ -172,8 +172,8 @@ class PortfolioActions {
                         return {error};
                     });
                 }
-
                 if (sellCount){
+                    dispatch({orders})
                     dispatcher.dispatch({type: "trusty_manage_modal", orders, transactionProcess });
                 }else{
                     alert("no sell count")
