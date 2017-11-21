@@ -237,7 +237,7 @@ class Landing extends Component {
                 <div className="top_buttons _mob">
                     <Link to="/signup"><span>SignUp</span></Link>
                      <Link to="/terms-of-use"><span>Info</span></Link>
-                    <Link to="/create-wallet-brainkey"><span>LogIn</span></Link>
+                    <Link to="/login"><span>LogIn</span></Link>
                 </div>
                 <div className="bottom_content">
                     <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>

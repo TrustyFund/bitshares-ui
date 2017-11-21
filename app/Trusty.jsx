@@ -186,7 +186,6 @@ class Trusty extends React.Component {
         let pathname = this.props.location.pathname;
         let showFooter = pathname.indexOf("market") === -1;
         let isAuthPage = pathname.indexOf("brainkey") !== -1;
-        let isLanding = pathname.indexOf("landing") !== -1;
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
@@ -213,7 +212,7 @@ class Trusty extends React.Component {
         let header = (
             <div className="trusty_header" onClick={ isProfilePage ? null : this._navigateBackAction.bind(this)}>
                 {  isProfilePage 
-                    ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/landing`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
+                    ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
                     : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
                         <Icon name="trusty_arrow_back"/>
                       </span>)
@@ -226,8 +225,8 @@ class Trusty extends React.Component {
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
-                    { this.props.location.pathname == "/landing" ? null:header }
-                    { this.props.location.pathname == "/landing" ? null:<div className="trusty_header_fake">{header}</div> } 
+                    { header }
+                    <div className="trusty_header_fake">{header}</div>
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
@@ -254,19 +253,8 @@ class Trusty extends React.Component {
         if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
 
 
-        if (this.state.syncFail) {
-            content = (
-                <SyncError />
-            );
-        } else if (this.state.showLoader) {
-            content = <LoadingIndicator type={"trusty-owl"}/>
-        } else if (this.props.location.pathname === "/init-error") {
-            content = <div className="grid-frame vertical">{this.props.children}</div>;
-        } else if (myAccountCount == 0 && authFreeRoutes()) {
-            content = grid(this.props.children)
-        } else if (myAccountCount == 0 && !authFreeRoutes()) {
-            content = <Landing type={"trusty-owl"} />
-        } else {
+        if (this.state.syncFail) {content = (<SyncError />);
+        } else{
             content = grid(this.props.children);
         }
 
