@@ -37,7 +37,8 @@ class CreateNewWallet extends Component {
 
 		onBack(e) {
 				e.preventDefault();
-				window.history.back();
+				this.props.router.push("/signup")
+				//window.history.back();
 		}
 
 		onPassword(valid_password) {
