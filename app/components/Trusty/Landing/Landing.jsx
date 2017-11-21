@@ -49,7 +49,7 @@ let slides = [
         image: require('./vendor/img_global_network.png'),
         title: "Easy To Create A<br> Decentralized Account",
         text: `
-        Click Signup, create password<br> and your account will be secured <br> by the immutable BitShares. <br> You own the private key`
+        Click Signup, create password<br> and your account will be secured <br> by the BitShares.org blockchain. <br> You own the private key`
     },
     {
         id:3,
@@ -68,7 +68,7 @@ let slides = [
         ],
         title: "Deposit Fiat<br>Or Cryptocurrencies",
         text: `
-        Invest USD, RUB, EUR, CNY or popular cryptocurrencies with minimal commission, at the best exchange rate`
+        Invest USD, RUB, EUR, CNY at the best exchange rate or pay 0% commission to deposit cryptocurrencies directly `
     },
 
     {
@@ -84,7 +84,7 @@ let slides = [
         id:5,
         images: [require('./vendor/img_chng_portfolio.png')],
         image: require('./vendor/img_chng_portfolio.png'),
-        title: "One-Click<br>To Manage Portfolio",
+        title: "One-Click<br>To Manage Your Portfolio",
         text: `
         Manage your portfolio by mirroring<br> trades of ranked portfolio<br> managers, applying index rules or<br> using the portfolio rebalancing tool
         `
@@ -115,7 +115,7 @@ let slides = [
         ],
         title: "Withdraw Fiat<br> Or Cryptocurrencies",
         text: `
-        Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to crypto wallet
+        Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to a crypto wallet
         `
     },
 
@@ -274,7 +274,7 @@ class Landing extends Component {
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares Decentralized Exchange.</section>
+                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares blockchain and trusted gateways.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
             </div>
