@@ -47,9 +47,10 @@ class PortfolioActions {
             if(buyOrders.length) {
                 if(totalBaseValue > totalBuyOrdersPrice ) {
                     buyOrders[0]().then(()=>{
-                        dispatch(true)
+                        dispatch("clear-orders")
                         console.log("Orders transactions done")  
                     })
+                    dispatch("clear-funcs")
                     return
                 }
             }

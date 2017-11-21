@@ -137,8 +137,9 @@ class PortfolioStore extends BaseStore {
       this.state.loading = {update: true};
     }
 
-    onExecBuyOrders(){
-      this.setState({buyOrders: [], orders: []})
+    onExecBuyOrders(type){
+      if(type=="clear-funcs") this.setState({buyOrders: []})
+      if(type=="clear-orders") this.setState({orders: []})
     }
 
     onUpdatePortfolio(payload){
