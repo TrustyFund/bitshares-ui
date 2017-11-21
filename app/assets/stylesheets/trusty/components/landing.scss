@@ -102,7 +102,7 @@ $arrow_size: 9.8vh;
 
 
 #landing {
-
+	color: white;
 	.wrap_img_profile {
 		width: 30vw;
 	}
@@ -201,6 +201,7 @@ $arrow_size: 9.8vh;
 }
 
 .bottom_info {
+	color: white;
 	padding-top:7vw;
 	background: rgba(0,0,0,0.17);
 	margin-top: 5vw;
@@ -324,10 +325,10 @@ br.desk {
 	}
 
 	.text_area {
-		//flex: 2;
 	}
 	
 	h1 {
+		color: white;
 		font-family: Gotham_Pro_Bold;
 		font-size: 6.4vw;
 		line-height: 4.8vh;
@@ -464,6 +465,7 @@ br.desk {
 		}
 	}
 	.land_slide {
+
 		&.sl_id-1 {
 			img {
 				width: 90vw !important;
