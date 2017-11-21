@@ -186,7 +186,6 @@ class PortfolioActions {
         let portfolio = PortfolioStore.getState().data;
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio(); 
         let concatenated = this.concatenate(portfolio,defaultPortfolio,true);
-        console.log("concatenated",concatenated)
         return dispatch => {dispatch(concatenated)}
     }
 
