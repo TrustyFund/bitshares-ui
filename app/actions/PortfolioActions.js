@@ -255,7 +255,6 @@ class PortfolioActions {
     }
 
     compilePortfolio(balances){
-        
 
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
@@ -315,8 +314,8 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
             let amount = Number(balanceObject.get("balance"));
             let eqValue = countEqvValue(amount,symbol,baseSymbol);
             let eqUsdValue = (countEqvValue(amount,symbol,"USD") / 10000).toFixed(2);
-            totalBaseValue += Math.floor(eqValue);
-            totalUSDShare += Math.floor(eqUsdValue);
+            totalBaseValue += Math.round(eqValue);
+            totalUSDShare += Math.round(eqUsdValue);
 
             activeBalaces.push({
                 balanceID: balance,
@@ -330,14 +329,25 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         }
     });
 
+    let totalCurrentShare = 0;
+
     activeBalaces.forEach((balance)=>{
         balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
         balance.futureShare = balance.currentShare;
+        totalCurrentShare += balance.currentShare;
     });
 
     activeBalaces.sort((a, b) => {
         return b.currentShare - a.currentShare;
     });
+
+    if (activeBalaces.length && totalCurrentShare != 100){
+        if (totalCurrentShare > 100){
+            activeBalaces[0].futureShare--;
+        }else{
+            activeBalaces[0].futureShare++;
+        }
+    }
 
     return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare}
 }
