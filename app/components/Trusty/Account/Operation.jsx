@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Translate from "react-translate-component";
 import counterpart from "counterpart";
 import utils from "common/utils";
-import BlockTime from "../../Blockchain/BlockTime";
+import BlockTime from "components/Blockchain/Trusty/BlockTime";
 import LinkToAccountById from "../../Utility/LinkToAccountById";
 import LinkToAssetById from "../../Utility/LinkToAssetById";
 import BindToChainState from "../../Utility/BindToChainState";
@@ -66,10 +66,11 @@ class Row extends React.Component {
             return false;
         }
         return block > last_irreversible_block_num;
+
     }
 
     render() {
-        return this.props.info;
+        return <div> { this.props.info } <BlockTime  block_number={this.props.block}/></div>;
     }
 }
 Row = BindToChainState(Row, {keep_updating:true});
@@ -110,7 +111,7 @@ class Operation extends React.Component {
         let {op, current, block} = this.props;
         let line = null, column = null, color = "info";
         let memoComponent = null;
-
+        
         switch (ops[op[0]]) { // For a list of trx types, see chain_types.coffee
 
             case "transfer":
