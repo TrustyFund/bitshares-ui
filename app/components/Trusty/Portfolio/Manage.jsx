@@ -26,8 +26,7 @@ class ManagePortfolio extends React.Component {
 		super();
 
 		this.state = {
-			valid: false,
-			initPortfolio: false,
+			valid: false
 		}
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
@@ -56,7 +55,7 @@ class ManagePortfolio extends React.Component {
 					{renderedPortfolio}
 					<tr>
 						<td></td>
-						<td>{this.renderTotalShare(this.props.trustyPortfolio.totalPercentageFutureShare)}</td>
+						<td>{this.renderTotalShare(this.props.portfolio.totalPercentageFutureShare)}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -105,7 +104,7 @@ class ManagePortfolio extends React.Component {
 			</span>
 		)
 
-		if(assetList == null || !this.state.initPortfolio) return null;
+		if(assetList == null || !this.props.portfolioInit) return null;
 
 
 		//TODO: сделать сдесь ссылку на описание Ассета
@@ -131,11 +130,11 @@ class ManagePortfolio extends React.Component {
 	}
 
 	componentWillMount(){
-		this.state.initPortfolio = this.props.portfolio.data.slice();
+		console.log("SET INIT",this.props.portfolioInit);
 	}
 
 	_incrementAsset(asset){
-		console.log("INIT",this.state.initPortfolio[0].futureShare);
+		console.log("INIT",this.props.portfolioInit[0].futureShare);
 		console.log("CURRENT",this.props.portfolio.data[0].futureShare);
 		PortfolioActions.incrementAsset(asset.assetShortName);
 	}
@@ -145,7 +144,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	getAssetClass(asset){
-		let initAsset = this.state.initPortfolio.filter((filterAsset)=> filterAsset.assetFullName == asset.assetFullName)[0];
+		let initAsset = this.props.portfolioInit.filter((filterAsset)=> filterAsset.assetFullName == asset.assetFullName)[0];
 		if (!initAsset) return "normal portfolio_asset";
 
 		let initShare = initAsset.futureShare;
@@ -190,7 +189,19 @@ class ManagePortfolioWrapper extends React.Component {
     render () {
         let account_name = AccountStore.getMyAccounts()[0];
         this.props.params.account_name = account_name;
-        return <ManagePortfolio {...this.props} portfolio={PortfolioStore.getState()} account_name={account_name}/>;
+        return <ManagePortfolio {...this.props} portfolio={PortfolioStore.getState()} portfolioInit={this.portfolioInit} account_name={account_name}/>;
+    }
+
+    componentWillMount(){
+    	console.log("MOUNT")
+    	let initPortfolio = PortfolioStore.getState().data.slice();
+    	let initOnce = [];
+    	initPortfolio.forEach(a=>initOnce.push({
+    		assetFullName: a.assetFullName,
+    		futureShare: a.futureShare
+    	}));
+
+    	this.portfolioInit = initOnce;
     }
 }
 
