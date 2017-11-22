@@ -48,7 +48,6 @@ class PortfolioActions {
                 if(totalBaseValue > totalBuyOrdersPrice ) {
                     buyOrders[0]().then(()=>{
                         dispatch("clear-orders")
-                        console.log("Orders transactions done")  
                     })
                     dispatch("clear-funcs")
                     return
@@ -113,6 +112,7 @@ class PortfolioActions {
                         }
                     });
                     order.type = type;
+                    order.market_price = priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset)
                     return order;
                 }
             }

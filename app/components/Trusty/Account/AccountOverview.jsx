@@ -151,8 +151,9 @@ class AccountOverview extends React.Component {
                                 <p>Pending Buy Orders</p>
                                 {
                                     portfolio.orders.map((order, index)=>{
+                                        let asset = ChainStore.getAsset(order.min_to_receive.asset_id)
                                         if(order.type=="buy") {
-                                            return <span key={index}> { order.type + " " + order.amount_for_sale.amount } </span>  
+                                            return <span className="_yellow" key={index}> { `${order.type} ${asset.get("symbol")} ${order.amount_for_sale.amount} for ${order.market_price.int}` } </span>  
                                         }
                                     })
                                 }
