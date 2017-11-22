@@ -275,7 +275,7 @@ class Landing extends Component {
    
                 </div>
                 <div className="bottom_info">
-                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares blockchain and trusted gateways.</section>
+                    <section>The above references are for information purposes only.<br/> They are not intended to be investment advices. <br/> Trusty.Fund provides a trustless service for its clients to manage and<br/> store funds on the BitShares blockchain via trusted gateways.</section>
                     <section>2017 Trusty.Fund</section>
                 </div>
             </div>
