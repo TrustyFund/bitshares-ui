@@ -34,7 +34,7 @@ const routes = (
 
         <Route path="/home" onEnter={willTransitionTo} getComponent={(location, cb) => {
                 System.import("./Trusty").then(loadRoute(cb)).catch(errorLoading);
-            }}/>
+            }}>
 
             <IndexRoute getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/AccountPage").then(loadRoute(cb)).catch(errorLoading);
