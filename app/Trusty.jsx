@@ -31,12 +31,6 @@ import Immutable from "immutable";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 
 
-
-
-/* pixel perfect helper */
-// import 'components/Trusty/pixel-glass'
-// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
-
 import {dispatcher} from 'components/Trusty/utils'
 const user_agent = navigator.userAgent.toLowerCase();
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);

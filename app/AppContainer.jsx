@@ -7,6 +7,10 @@ import {IntlProvider} from "react-intl";
 import intlData from "./components/Utility/intlData";
 import AccountStore from "stores/AccountStore";
 
+/* pixel perfect helper */
+// import 'components/Trusty/pixel-glass'
+// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
+
 
 class AppContainer extends React.Component {
 	render() {
