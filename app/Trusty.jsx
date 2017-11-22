@@ -222,12 +222,11 @@ class Trusty extends React.Component {
         function grid(inside){
             return (
                 <div className="grid-frame vertical">
-                    { header }
-                    <div className="trusty_header_fake">{header}</div>
-                    <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
+                    
                     <div className="grid-block">
                         <div className="grid-block vertical">
-                            {inside}                           
+                        {header }
+                        {inside}                           
                         </div>
                     </div>
                     <ReactTooltip ref="tooltip" place="top" type={theme === "lightTheme" ? "dark" : "light"} effect="solid"/>
