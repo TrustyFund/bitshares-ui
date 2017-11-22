@@ -17,7 +17,11 @@
 }
 
 
-
+.trusty_main_padding {
+	@media screen and (max-width: 768px) {
+		padding: 0 3.6vw;
+	}
+}
 
 .trusty_owl_loader {
 

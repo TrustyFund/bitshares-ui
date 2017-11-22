@@ -22,16 +22,18 @@ class TransactionHistory extends React.Component {
 
   render() {
     return (
-      <RecentTransactions
-          accountsList={Immutable.fromJS([this.props.account.get("id")])}
-          compactView={false}
-          showMore={false}
-          fullHeight={true}
-          limit={300}
-          showFilters={true}
-          dashboard
-          noTitle={true}
-      />
+      <div className="trusty_main_padding">
+        <RecentTransactions
+            accountsList={Immutable.fromJS([this.props.account.get("id")])}
+            compactView={false}
+            showMore={false}
+            fullHeight={true}
+            limit={300}
+            showFilters={true}
+            dashboard
+            noTitle={true}
+        />
+      </div>
     );
   }
 }

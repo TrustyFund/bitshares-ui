@@ -60,9 +60,9 @@ export default class TranslateWithLinks extends React.Component {
     render() {
 
         let {string, params, keys} = this.props;
-
         let text = counterpart.translate(string, params);
         let splitText = utils.get_translation_parts(text);
+
 
         keys.forEach(key => {
             if (splitText.indexOf(key.arg)) {
