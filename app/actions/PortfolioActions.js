@@ -95,8 +95,9 @@ class PortfolioActions {
                 let theyWants = marketOrder.totalToReceive({noCache: true});
                 totalWants += theyWants.amount;
                 if (totalWants >= asset.amountToSell){
-                    theyWants.amount = asset.amountToSell + Math.floor(asset.amountToSell * 0.03);
+                    theyWants.amount = asset.amountToSell;
                     let weReceive = theyWants.times(marketOrder.sellPrice());
+                    weReceive.amount = weReceive.amount - Math.floor(weReceive.amount * 0.03);
 
                     let order = new LimitOrderCreate({
                         for_sale: theyWants,
@@ -108,8 +109,7 @@ class PortfolioActions {
                         }
                     });
 
-                    console.log("MARKET ORDER",priceutils.price_to_text(order.getPrice(), quoteAsset, baseAsset));
-                   
+                    console.log("ORDER",order)
 
                     order.type = type;
                     order.market_price = priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset)
