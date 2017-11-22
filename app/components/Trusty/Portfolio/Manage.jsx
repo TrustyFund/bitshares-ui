@@ -29,7 +29,6 @@ class ManagePortfolio extends React.Component {
 			valid: false,
 			initPortfolio: false,
 		}
-		this.componentDidMount = this.componentDidMount.bind(this);
 		this.renderTotalShare = this.renderTotalShare.bind(this);
 		this.getButtonClass = this.getButtonClass.bind(this);
 		this.updatePortfolio = this.updatePortfolio.bind(this);
@@ -38,7 +37,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	renderManualTab(){
-		let renderedPortfolio = this.renderPortfolioList(this.props.trustyPortfolio.data);
+		let renderedPortfolio = this.renderPortfolioList(this.props.portfolio.data.slice());
 		return (
 			<TabContent for="tab1">
 				<h5 style={{textAlign: "center"}}>Please select shares of assets<br/> in your portfolio</h5>
@@ -131,13 +130,13 @@ class ManagePortfolio extends React.Component {
 		return renderPortfolio
 	}
 
-	componentDidMount(){
-		let list = Immutable.Set(this.props.trustyPortfolio.data.slice());
-		this.state.initPortfolio = list;
-		console.log("SET STATE INIT")
+	componentWillMount(){
+		this.state.initPortfolio = this.props.portfolio.data.slice();
 	}
 
 	_incrementAsset(asset){
+		console.log("INIT",this.state.initPortfolio[0].futureShare);
+		console.log("CURRENT",this.props.portfolio.data[0].futureShare);
 		PortfolioActions.incrementAsset(asset.assetShortName);
 	}
 
@@ -191,7 +190,7 @@ class ManagePortfolioWrapper extends React.Component {
     render () {
         let account_name = AccountStore.getMyAccounts()[0];
         this.props.params.account_name = account_name;
-        return <ManagePortfolio {...this.props} account_name={account_name}/>;
+        return <ManagePortfolio {...this.props} portfolio={PortfolioStore.getState()} account_name={account_name}/>;
     }
 }
 
