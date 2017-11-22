@@ -58,7 +58,7 @@ class AccountDepositWithdraw extends React.Component {
     }
 
     componentWillMount() {
-        unlockAction(this.props.router, this.props.location.pathname)
+        unlockAction(this.props.router, "/home",this.props.location.pathname)
         accountUtils.getFinalFeeAsset(this.props.account, "transfer");
     }
 

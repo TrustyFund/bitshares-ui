@@ -144,7 +144,7 @@ class WalletUnlockModal extends React.Component {
             WalletUnlockActions.change()
             __DEV__ && localStorage.setItem("trusty_dev_fast_unlock_password", password)
             this.setState({password_input_reset: Date.now(), password_error: false});
-            this.props.router.push(this.props.location.query.back || "/home")
+            this.props.router.push(this.props.location.query.to || "/home")
         }
         return false;
     }
