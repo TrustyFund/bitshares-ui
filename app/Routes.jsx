@@ -69,10 +69,14 @@ const routes = (
                 System.import("components/Trusty/UnlockAccount").then(loadRoute(cb)).catch(errorLoading);
             }}/>
 
+            <Route path="/transactions" getComponent={(location, cb) => {
+                System.import("components/Trusty/Account/TransactionHistory").then(loadRoute(cb)).catch(errorLoading);
+            }}/>
 
             <Route path="/init-error" getComponent={(location, cb) => {
                 System.import("components/InitError").then(loadRoute(cb)).catch(errorLoading);
             }}/>
+
         </Route>
 
 
