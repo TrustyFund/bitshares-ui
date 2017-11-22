@@ -114,8 +114,14 @@ class AccountPageStoreWrapper extends React.Component {
         let quoteAsset = "TRFND"
         let baseAsset = "BTS"
         let account_name = AccountStore.getMyAccounts()[0];
-        this.props.params.account_name = account_name;
-        return <AccountPage {...this.props} quoteAsset={quoteAsset} baseAsset={baseAsset} account_name={account_name}/>;
+        if (typeof account_name != "undefined"){
+            this.props.params.account_name = account_name;
+            return <AccountPage {...this.props} quoteAsset={quoteAsset} baseAsset={baseAsset} account_name={account_name}/>;
+        }else{
+            return null
+        }
+        
+        
     }
 }
 
