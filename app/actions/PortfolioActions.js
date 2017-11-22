@@ -249,6 +249,10 @@ class PortfolioActions {
                 }
                 defaultPortfolio.map.splice(indexInDefault,1);
                 defaultPortfolio.data.splice(indexInDefault,1);
+            }else{
+                if (futureMode){
+                    asset.futureShare = 0;
+                }
             }
         });
         return portfolio.concat(defaultPortfolio.data);
