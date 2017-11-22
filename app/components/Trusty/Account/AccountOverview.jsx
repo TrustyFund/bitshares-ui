@@ -145,20 +145,6 @@ class AccountOverview extends React.Component {
                                 <h3 style={{textAlign: "center"}}>{totalBalance}</h3>
                             </div>
                         </div> 
-                        { portfolio.orders.length ?
-                            <div className="trusty_profile_incoming_depositis">
-                                <p>Pending Buy Orders</p>
-                                {
-                                    portfolio.orders.map((order, index)=>{
-                                        let asset = ChainStore.getAsset(order.min_to_receive.asset_id)
-                                        if(order.type=="buy") {
-                                            return <span className="_yellow" key={index}> { `${order.type} ${asset.get("symbol")} ${order.amount_for_sale.amount} for ${order.market_price.int}` } </span>  
-                                        }
-                                    })
-                                }
-                            </div> : null
-                        }
-
                         {
                             this.props.trustyPortfolio.totalUSDShare ? (
                                 <RecentTransactions
@@ -166,7 +152,7 @@ class AccountOverview extends React.Component {
                                     compactView={true}
                                     showMore={false}
                                     fullHeight={true}
-                                    limit={300}
+                                    limit={4}
                                     showFilters={true}
                                     dashboard
                                 />

@@ -12,6 +12,7 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import {Apis} from "bitsharesjs-ws";
 import classnames from 'classnames'
 import PortfolioStore from "stores/PortfolioStore"
+ import {ChainStore} from "bitsharesjs/es";
 
 import {dispatcher} from "components/Trusty/utils";
 
@@ -114,7 +115,11 @@ class ManageModal extends React.Component {
 
 	render(){
 
-        let orders = <div className="trusty_profile_incoming_depositis"> { this.props.orders.map((o,i)=><p key={i} className="_yellow">{o.type + " " + o.amount_for_sale.amount}</p>) } </div>
+        let orders = this.props.orders.map((order, index)=>{
+            let asset = ChainStore.getAsset(order.min_to_receive.asset_id)
+            return <div className="_yellow" key={index}> { `${order.type} ${asset.get("symbol")} ${order.amount_for_sale.amount} for ${order.market_price.int}` } </div>
+        })
+
 	    return (
 
 	    <BaseModal ref={"model"} id={this.props.modalId} ref="modal" overlay={true} overlayClose={false}>

@@ -59,11 +59,8 @@ class RecentTransactions extends React.Component {
         if (!this.props.fullHeight) {
             let t = this.refs.transactions;
             ps.initialize(t);
-
             this._setHeaderHeight();
-
         }
-
     }
 
     _setHeaderHeight() {
@@ -127,7 +124,7 @@ class RecentTransactions extends React.Component {
 
     _onIncreaseLimit() {
         this.setState({
-            limit: this.state.limit + 30
+            limit: this.state.limit + 10
         });
     }
 
@@ -142,9 +139,9 @@ class RecentTransactions extends React.Component {
         }
 
         //Show only transfers
-        history = history.filter(a => {
-                return a.op[0] === 0;
-        });
+        // history = history.filter(a => {
+        //         return a.op[0] === 0 || 
+        // });
 
         return history;
     }
@@ -174,22 +171,26 @@ class RecentTransactions extends React.Component {
             history.slice(0, limit)
             .map(o => {
                 return (
-                    <Operation
-                        style={alignLeft}
-                        key={o.id}
-                        op={o.op}
-                        result={o.result}
-                        block={o.block_num}
-                        current={current_account_id}
-                        hideFee
-                        inverted={false}
-                        hideOpLabel={compactView}
-                    />
+                    <div key={o.id}>
+                        <Operation
+                            style={alignLeft}
+                            key={o.id}
+                            op={o.op}
+                            result={o.result}
+                            block={o.block_num}
+                            current={current_account_id}
+                            hideFee
+                            inverted={false}
+                            hideOpLabel={compactView}
+                        />
+                        <br/>
+                        <br/>
+                    </div>
                 );
             }) : null;
 
         return (
-            <div className="trusty_profile_incoming_depositis">
+            <div onClick={this._onIncreaseLimit.bind(this)} className="trusty_profile_incoming_depositis">
                 <p>Incoming deposits</p>
                 {display_history}
             </div>
