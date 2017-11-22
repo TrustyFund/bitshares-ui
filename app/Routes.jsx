@@ -26,11 +26,15 @@ function errorLoading(err) {
 }
 
 const routes = (
-    <Route path="/" component={App} onEnter={willTransitionTo}>
+    <Route path="/" component={App}>
         {/*Trusty Routes*/}
-        <IndexRoute component={Landing}/>
+        <IndexRoute getComponent={(location, cb) => {
+            System.import("components/Trusty/Landing/Landing").then(loadRoute(cb)).catch(errorLoading);
+        }}/>
 
-        <Route path="/home" component={Trusty} onEnter={willTransitionTo}>
+        <Route path="/home" onEnter={willTransitionTo} getComponent={(location, cb) => {
+                System.import("./Trusty").then(loadRoute(cb)).catch(errorLoading);
+            }}/>
 
             <IndexRoute getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/AccountPage").then(loadRoute(cb)).catch(errorLoading);
@@ -39,11 +43,6 @@ const routes = (
             <Route path="/signup" getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/CreateAccount").then(loadRoute(cb)).catch(errorLoading);
             }}/>
-            <Route path="/landing" getComponent={(location, cb) => {
-                System.import("components/Trusty/Landing/Landing").then(loadRoute(cb)).catch(errorLoading);
-            }}/>
-
-            
 
             <Route path="/withdraw" getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/Withdraw").then(loadRoute(cb)).catch(errorLoading);
