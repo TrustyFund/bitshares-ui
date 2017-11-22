@@ -29,7 +29,7 @@ let slides = [
             require('./vendor/img_how_use_4.png'),
             require('./vendor/img_how_use_5.png'),
         ],
-        title: "How to use",
+        title: "How To Use",
         text: null
     },
 
