@@ -38,7 +38,7 @@
 			text-align: center;
 			margin-bottom: 0;
 			margin-top: 12px;		
-			@media screen and (max-width: 750px){
+			@media screen and (max-width: 768px){
 				font-size: 4.2vw;	
 			}
 		}
@@ -48,14 +48,14 @@
 		margin-top: 0;
 		margin-bottom: 0;
 		line-height: initial;
-		@media screen and (max-width: 750px){
+		@media screen and (max-width: 768px){
 			font-size: 13.4vw;	
 		}
 	}
 }
 
 .trusty_profile_info {
-	@media screen and (max-width: 750px){
+	@media screen and (max-width: 768px){
 		padding: 0 3.6vw;
 	}
 }
