@@ -95,10 +95,9 @@ class PortfolioActions {
                 let theyWants = marketOrder.totalToReceive({noCache: true});
                 totalWants += theyWants.amount;
                 if (totalWants >= asset.amountToSell){
-                    console.log("MARKET ORDER",marketOrder);
-                    console.log(type,marketOrders);
-                    console.log("MARKET PRICE",priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset));
+                    
 
+                    
                     theyWants.amount = asset.amountToSell;
                     let weReceive = theyWants.times(marketOrder.sellPrice());
 
@@ -111,6 +110,14 @@ class PortfolioActions {
                             amount: 0
                         }
                     });
+
+                    if (type == "buy"){
+                        console.log("MARKET ORDER",marketOrder);
+                        console.log("MARKET PRICE",priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset));
+                        console.log("ORDER FOR" + asset.assetFullName,order)
+
+                    }
+
                     order.type = type;
                     order.market_price = priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset)
                     return order;
@@ -263,7 +270,6 @@ class PortfolioActions {
         let {data,totalBaseValue,totalUSDShare} = getBalancePortfolio(balances,baseSymbol);
 
         let concatenated = this.concatenate(data,defaultPortfolio);
-
         let portfolio = {
             data: concatenated,
             totalBaseValue: totalBaseValue,

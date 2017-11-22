@@ -78,13 +78,12 @@ class AccountOverview extends React.Component {
 
 
     _renderTrustyBalaces() {
-
         let balances = []
         if(this.props.trustyPortfolio.data && this.props.trustyPortfolio.data.length) {
             this.props.trustyPortfolio.data.forEach(p=>{
                 let preferredUnit = "USD";
                 let pair = ["BTS", p.assetFullName];
-                p.assetShortName != 'USD' && balances.push(
+                balances.push(
                     <tr key={p.assetShortName} style={{maxWidth: "100rem"}}>
                         <td style={{textAlign: "left"}}>
                             {p.assetShortName}
