@@ -191,7 +191,7 @@ class RecentTransactions extends React.Component {
 
         return (
             <div onClick={this._onIncreaseLimit.bind(this)} className="trusty_profile_incoming_depositis">
-                <p>Incoming deposits</p>
+                <p>RECENT TRANSACTIONS</p>
                 {display_history}
             </div>
         );

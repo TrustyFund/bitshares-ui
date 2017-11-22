@@ -379,7 +379,6 @@ div.trusty_full_width_button_colored {
 		background-color: transparent !important;
 		color: white !important;
 		border: 1px solid white;
-		height: 50px;
 		color: black;
 
 	}
@@ -391,13 +390,14 @@ div.trusty_full_width_button_colored {
 		margin-left: 7px;
 	}
 
-	@media screen and (max-width: 750px) {
+	@media screen and (max-width: 768px) {
 		button {
 			font-size: 4.8vw;
+			height: 13.2vw;
 		}
 
 	}
-	@media screen and (min-width: 751px) {
+	@media screen and (min-width: 769px) {
 		button {
 			width: 200px;
 		}
