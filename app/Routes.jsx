@@ -52,7 +52,7 @@ const routes = (
                 System.import("components/Trusty/Account/Deposit").then(loadRoute(cb)).catch(errorLoading);
             }}/>
 
-            <Route path="/create-wallet-brainkey" getComponent={(location, cb) => {
+            <Route path="/login" getComponent={(location, cb) => {
                 System.import("components/Trusty/Wallet/WalletCreate").then(loadRoute(cb, "CreateWalletFromBrainkey")).catch(errorLoading);
             }}/>
 
