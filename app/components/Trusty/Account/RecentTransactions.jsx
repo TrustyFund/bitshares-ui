@@ -183,15 +183,13 @@ class RecentTransactions extends React.Component {
                             inverted={false}
                             hideOpLabel={compactView}
                         />
-                        <br/>
-                        <br/>
                     </div>
                 );
             }) : null;
 
         return (
-            <div onClick={this._onIncreaseLimit.bind(this)} className="trusty_profile_incoming_depositis">
-                <p>RECENT TRANSACTIONS</p>
+            <div className="trusty_profile_incoming_depositis">
+                { this.props.noTitle ? null : <p>RECENT TRANSACTIONS</p> }
                 {display_history}
             </div>
         );

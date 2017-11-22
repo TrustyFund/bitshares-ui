@@ -147,15 +147,17 @@ class AccountOverview extends React.Component {
                         </div> 
                         {
                             this.props.trustyPortfolio.totalUSDShare ? (
-                                <RecentTransactions
-                                    accountsList={Immutable.fromJS([account.get("id")])}
-                                    compactView={true}
-                                    showMore={false}
-                                    fullHeight={true}
-                                    limit={4}
-                                    showFilters={true}
-                                    dashboard
-                                />
+                                <div onClick={()=>this.props.router.push("/transactions")}>
+                                    <RecentTransactions
+                                        accountsList={Immutable.fromJS([account.get("id")])}
+                                        compactView={true}
+                                        showMore={false}
+                                        fullHeight={true}
+                                        limit={3}
+                                        showFilters={true}
+                                        dashboard
+                                    />
+                                </div>
                             ) : null
                         }
                         <button className="trusty_full_width_button" onClick={this._managePortfolio()}>MANAGE FUND</button>

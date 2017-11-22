@@ -189,7 +189,8 @@ class Trusty extends React.Component {
                 "withdraw": "withdraw",
                 "manage fund": "manage",
                 "terms of use": "terms-of-use",
-                "unlock account": "unlock"
+                "unlock account": "unlock",
+                "recent transactions": "transactions"
             }
             let title = ""
             for ( let k in headerTitles) {
