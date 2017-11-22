@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
 import listen from 'event-listener'
+import AccountStore from 'stores/AccountStore'
 
 
 
@@ -192,7 +193,7 @@ class Landing extends Component {
 
         
 
-
+        let isAuth = !!AccountStore.getMyAccounts().length
         const list = slides.map((slide, index)=> {
             let currentFirst = slide.image;
             let currentFirstDesk = slide.imageTwo;
@@ -235,9 +236,9 @@ class Landing extends Component {
             <div className="logo_starter" style={{height: this.state.windowHeight}}>
 
                 <div className="top_buttons _mob">
-                    <Link to="/signup"><span>SignUp</span></Link>
+                    <Link to={ isAuth ? "/home" : "/signup" }><span>SignUp</span></Link>
                      <Link to="/terms-of-use"><span>Info</span></Link>
-                    <Link to="/login"><span>LogIn</span></Link>
+                    <Link to={ isAuth ? "home" : "/login" }><span>LogIn</span></Link>
                 </div>
                 <div className="bottom_content">
                     <div className="_logo_text _mob" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
