@@ -34,7 +34,6 @@ import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 import {dispatcher} from 'components/Trusty/utils'
 const user_agent = navigator.userAgent.toLowerCase();
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
 class Trusty extends React.Component {
 
     constructor() {
@@ -228,9 +227,6 @@ class Trusty extends React.Component {
             );
         }
         grid = grid.bind(this)
-
-        if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
-
 
         if (this.state.syncFail) {content = (<SyncError />);
         } else if (this.state.showLoader) {

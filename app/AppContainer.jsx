@@ -6,14 +6,19 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import {IntlProvider} from "react-intl";
 import intlData from "./components/Utility/intlData";
 import AccountStore from "stores/AccountStore";
-
+import LoadingIndicator from "components/LoadingIndicator";
 /* pixel perfect helper */
 // import 'components/Trusty/pixel-glass'
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
+const user_agent = navigator.userAgent.toLowerCase();
+let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
+
 
 class AppContainer extends React.Component {
 	render() {
+        if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
 		return (<div>{this.props.children}</div>);
 	}
 }
