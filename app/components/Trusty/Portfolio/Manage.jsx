@@ -130,13 +130,7 @@ class ManagePortfolio extends React.Component {
 		return renderPortfolio
 	}
 
-	componentWillMount(){
-		console.log("SET INIT",this.props.portfolioInit);
-	}
-
 	_incrementAsset(asset){
-		console.log("INIT",this.props.portfolioInit[0].futureShare);
-		console.log("CURRENT",this.props.portfolio.data[0].futureShare);
 		PortfolioActions.incrementAsset(asset.assetShortName);
 	}
 
@@ -194,7 +188,6 @@ class ManagePortfolioWrapper extends React.Component {
     }
 
     componentWillMount(){
-    	console.log("MOUNT")
     	let initPortfolio = PortfolioStore.getState().data.slice();
     	let initOnce = [];
     	initPortfolio.forEach(a=>initOnce.push({
