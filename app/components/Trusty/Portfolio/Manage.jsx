@@ -33,6 +33,7 @@ class ManagePortfolio extends React.Component {
 		this.updatePortfolio = this.updatePortfolio.bind(this);
 		this.renderManualTab = this.renderManualTab.bind(this);
 		this.renderPortfolioList = this.renderPortfolioList.bind(this);
+		this.suggestPortfolio = this.suggestPortfolio.bind(this);
 	}
 
 	renderManualTab(){

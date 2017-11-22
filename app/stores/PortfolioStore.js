@@ -38,7 +38,7 @@ class PortfolioStore extends BaseStore {
         }
 
         this.bindListeners({
-            onCompilePortfolio: PortfolioActions.suggestPortfolio,
+            onSuggestPortfolio: PortfolioActions.suggestPortfolio,
             onCompilePortfolio: PortfolioActions.compilePortfolio,
             onIncrementAsset: PortfolioActions.incrementAsset,
             onDecrementAsset: PortfolioActions.decrementAsset,
@@ -98,6 +98,11 @@ class PortfolioStore extends BaseStore {
         }
     }
 
+    onSuggestPortfolio(portfolio){
+      this.setState({
+          data: portfolio,
+      });
+    }
 
     onCompilePortfolio(portfolio){
         this.setState({
