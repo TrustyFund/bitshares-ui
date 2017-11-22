@@ -34,7 +34,8 @@ class PortfolioStore extends BaseStore {
             totalBaseValue: 0,
             orders: [],
             totalBuyOrdersPrice: 0,
-            buyOrders: []
+            buyOrders: [],
+            baseInBaseValue: 0
         }
 
         this.bindListeners({
@@ -110,8 +111,9 @@ class PortfolioStore extends BaseStore {
             totalPercentageFutureShare: portfolio.totalFutureShare,
             loading: defaultLoading,
             totalBaseValue: portfolio.totalBaseValue,
-            totalUSDShare: portfolio.totalUSDShare
-        })
+            totalUSDShare: portfolio.totalUSDShare,
+            baseInBaseValue: portfolio.baseInBaseValue
+        });
     }
 
     onIncrementAsset({asset}) {

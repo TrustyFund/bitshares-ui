@@ -43,14 +43,16 @@ class PortfolioActions {
 
     execBuyOrders(){
         return dispatch=> { 
-            let { totalBaseValue, totalBuyOrdersPrice, buyOrders } = PortfolioStore.getState()
+            let { baseInBaseValue, totalBuyOrdersPrice, buyOrders } = PortfolioStore.getState()
             if(buyOrders.length) {
-                if(totalBaseValue > totalBuyOrdersPrice ) {
+                if(baseInBaseValue > totalBuyOrdersPrice ) {
                     buyOrders[0]().then(()=>{
                         dispatch("clear-orders")
                     })
                     dispatch("clear-funcs")
                     return
+                }else{
+                    console.log("PRICES:",baseInBaseValue,totalBuyOrdersPrice)
                 }
             }
             dispatch()
@@ -65,7 +67,7 @@ class PortfolioActions {
         portfolio.data.forEach((asset) => {
             if (asset.futureShare > asset.currentShare){
                 asset.type = "buy";
-                asset.amountToSell = Math.floor(portfolio.totalBaseValue * asset.futureShare / 100);
+                asset.amountToSell = Math.floor(0.97 * portfolio.totalBaseValue * asset.futureShare / 100);
             }else if(asset.futureShare < asset.currentShare){
                 asset.type = "sell";
                 if (asset.futureShare == 0){
@@ -97,7 +99,6 @@ class PortfolioActions {
                 if (totalWants >= asset.amountToSell){
                     theyWants.amount = asset.amountToSell;
                     let weReceive = theyWants.times(marketOrder.sellPrice());
-                    weReceive.amount = weReceive.amount - Math.floor(weReceive.amount * 0.03);
 
                     let order = new LimitOrderCreate({
                         for_sale: theyWants,
@@ -109,7 +110,7 @@ class PortfolioActions {
                         }
                     });
 
-                    console.log("ORDER",order)
+                    console.log("ORDER " + type + quoteAsset.get("symbol"),asset.amountToSell,asset,order)
 
                     order.type = type;
                     order.market_price = priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset)
@@ -160,11 +161,12 @@ class PortfolioActions {
                 var buyTransaction = WalletApi.new_transaction();
                 var sellTransaction = WalletApi.new_transaction();
                 let sellCount = 0,buyCount = 0;
-                let totalBuyOrdersPrice = 0
+                let totalBuyOrdersPrice = 0;
+                let totalSellOrdersReceive = 0;
                 orders.forEach((order)=>{
                     if(order) {
                         if (order.type == "buy"){
-                            totalBuyOrdersPrice+= order.amount_for_sale.amount
+                            totalBuyOrdersPrice += order.amount_for_sale.amount
                             order.setExpiration();
                             order = order.toObject();
                             buyTransaction.add_type_operation("limit_order_create", order);
@@ -172,6 +174,7 @@ class PortfolioActions {
                         }
 
                         if (order.type == "sell"){
+                            totalSellOrdersReceive += order.min_to_receive.amount;
                             order.setExpiration();
                             order = order.toObject();
                             sellTransaction.add_type_operation("limit_order_create", order);
@@ -179,6 +182,8 @@ class PortfolioActions {
                         }    
                     }
                 });
+                //console.log("BASE TO PRICES",portfolio.baseInBaseValue,totalSellOrdersReceive,totalBuyOrdersPrice,((portfolio.baseInBaseValue + totalSellOrdersReceive) > totalBuyOrdersPrice),portfolio.baseInBaseValue + totalSellOrdersReceive - totalBuyOrdersPrice);
+                
 
 
                 let transactionProcess = () => {
@@ -263,7 +268,7 @@ class PortfolioActions {
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
 
-        let {data,totalBaseValue,totalUSDShare} = getBalancePortfolio(balances,baseSymbol);
+        let {data,totalBaseValue,totalUSDShare,baseInBaseValue} = getBalancePortfolio(balances,baseSymbol);
 
         let concatenated = this.concatenate(data,defaultPortfolio);
         let portfolio = {
@@ -271,6 +276,7 @@ class PortfolioActions {
             totalBaseValue: totalBaseValue,
             totalUSDShare: totalUSDShare,
             base: baseSymbol,
+            baseInBaseValue: baseInBaseValue,
             map: data.map(b=>b.assetShortName)
         }
 
@@ -305,7 +311,7 @@ class PortfolioActions {
 let getBalancePortfolio = (balances, baseSymbol)=>{
     let futureMode = PortfolioStore.getState().futureMode;
     let activeBalaces = []
-    let totalBaseValue = 0,totalUSDShare = 0;
+    let totalBaseValue = 0,totalUSDShare = 0,baseInBaseValue = 0;
 
     balances.forEach(balance => {
        
@@ -330,6 +336,10 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
                 bitUSDShare: +eqUsdValue,
                 amount: amount
             });
+
+            if (symbol == baseSymbol){
+                baseInBaseValue += amount;
+            }
         }
     });
 
@@ -353,7 +363,7 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         }
     }
 
-    return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare}
+    return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare,baseInBaseValue: baseInBaseValue}
 }
 
 let countEqvValue = (amount,from,to) => {
