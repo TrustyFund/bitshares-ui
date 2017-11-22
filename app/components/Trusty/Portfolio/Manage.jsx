@@ -147,7 +147,7 @@ class ManagePortfolio extends React.Component {
 
 	getAssetClass(asset){
 		let initAsset = this.state.initPortfolio.filter((filterAsset)=> filterAsset.assetFullName == asset.assetFullName)[0];
-		if (!initAsset) return "normal";
+		if (!initAsset) return "normal portfolio_asset";
 
 		let initShare = initAsset.futureShare;
 
@@ -159,7 +159,7 @@ class ManagePortfolio extends React.Component {
 		}else{
 			className = "normal";
 		}
-		return className;
+		return className + " portfolio_asset";
 	}
 
 	render(){

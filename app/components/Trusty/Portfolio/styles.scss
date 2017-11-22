@@ -7,19 +7,20 @@
 
 	table { 
 		thead tr th  {
-	    font-family: Gotham_Pro;
-	    text-transform: uppercase;
-  	}
+		    font-family: Gotham_Pro;
+		    text-transform: uppercase;
+	  	}
 
-  	tbody tr td:first-child {
-	  	text-align: left;
-	    font-family: Gotham_Pro_Medium;
-  	}
+	  	tbody tr td:first-child {
+	  		padding-left: 10.6vw;
+		  	text-align: left;
+		    font-family: Gotham_Pro_Medium;
+	  	}
 
-  	tbody tr td {
-	  	text-align: left;
-	    font-family: Gotham_Pro_Regular;
-  	}
+	  	tbody tr td {
+		  	text-align: left;
+		    font-family: Gotham_Pro_Regular;
+	  	}
 	}
 
 	.portfolio_item span {
@@ -31,6 +32,12 @@
 			color: #ff3030;
 		}
 
+	}
+
+	.portfolio_asset{
+		width: 66px;
+		display: inline-block;
+		text-align: center;
 	}
 }
 
@@ -70,11 +77,13 @@
 		}
 
 		table thead tr th {
-	    font-size: 3.4vw;
+	    	font-size: 3.4vw;
+	    	text-align: left;
+    		padding-left: 9vw;
 		}
 
 		table thead tr th:first-child {
-	    padding-right: 15vw;
+	    	padding-left: 10.6vw;
 		}
 
 		table tbody{
@@ -97,9 +106,9 @@
 			}
 
 			tr .portfolio_item {
-		    font-size: 7.7vw;
-		    padding-top: 7.3vw;
-		 		padding-left: 10.6vw;
+			    font-size: 7.7vw;
+			    padding-top: 7.3vw;
+		 		
 
 		 		span {
 		 			//margin-left: 2vw;
@@ -143,8 +152,8 @@
 
 		.tab-content {
 			font-family: Gotham_Pro;
-    	font-size: 4.8vw;
-    	margin-bottom: 38vw;
+	    	font-size: 4.8vw;
+	    	margin-bottom: 38vw;
 		}
 
 		._plus {
