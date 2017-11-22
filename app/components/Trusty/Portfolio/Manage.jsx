@@ -62,7 +62,7 @@ class ManagePortfolio extends React.Component {
 				</table>
 				<br/>
 				<div className="trusty_inline_button_reverse">
-		            <button className={this.getButtonClass()} onClick={this.suggestPortfolio}>SUGGEST PORTFOLIO</button>                        
+		            <button className="wide" onClick={this.suggestPortfolio}>SUGGEST PORTFOLIO</button>                        
 		        </div>
 		        <br/>
 				<div className="trusty_inline_button">
