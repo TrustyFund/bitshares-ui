@@ -54,13 +54,9 @@ class ManagePortfolio extends React.Component {
 					</thead>
 					<tbody>
 					{renderedPortfolio}
-					<tr>
-						<td></td>
-						<td>{this.renderTotalShare(this.props.portfolio.totalPercentageFutureShare)}</td>
-					</tr>
 					</tbody>
 				</table>
-				<br/>
+				<div className="_total_future_share">{this.renderTotalShare(this.props.portfolio.totalPercentageFutureShare)}</div>
 				<div className="trusty_inline_button_reverse">
 		            <button className="wide" onClick={this.suggestPortfolio}>SUGGEST PORTFOLIO</button>                        
 		        </div>
@@ -119,7 +115,7 @@ class ManagePortfolio extends React.Component {
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
-							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>- </a>
+							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>— </a>
 							{this.renderShare(asset.futureShare,assetClass())}
 							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset)}> +</a>
 						</div>

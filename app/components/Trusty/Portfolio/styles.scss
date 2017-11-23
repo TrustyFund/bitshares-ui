@@ -79,14 +79,14 @@
 		table thead tr th {
 	    	font-size: 3.4vw;
 	    	text-align: left;
-    		padding-left: 9vw;
+    		padding-left: 11.5vw;
 		}
 
 		table thead tr th:first-child {
 	    	padding-left: 10.6vw;
 		}
 
-		table tbody{
+		table tbody {
 			.trusty_portfolio_arrow_right {
 				margin-left: 2.6vw;
 				svg {
@@ -114,26 +114,30 @@
 		 			//margin-left: 2vw;
 		 		}
 
+		  	}
+
+
 	  	}
 
-	  	tr:last-child td:last-child {
-				span {
-					display: inline-block;
-					font-size: 7.7vw;
-			    padding-top: 7.3vw;
-			    padding-left: 14.7vw;
-					font-family: Gotham_Pro_Medium;
-				}
+	  	._total_future_share {
+	  		text-align: right;
+  			span {
+				display: inline-block;
+				font-size: 7.7vw;
+		   		margin-top: 2.3vw;
+		    	padding-left: 14.7vw;
+		    	margin-right: 14.5vw;
+		    	margin-bottom: 6vw;
+				font-family: Gotham_Pro_Medium;
+			}
 	  	}
-  	}
-
 
 
 		.tab-link {
 
-		height: 11.4vw;
-    font-size: 4.9vw;
-    line-height: 11.7vw;
+			height: 11.4vw;
+	    	font-size: 4.9vw;
+	    	line-height: 11.7vw;
 
 		}
 
@@ -162,6 +166,14 @@
 
 		._minus {
 			color: #ff3030;
+		}
+
+		._plus {
+			display: inline-block;
+			font-family: Gotham_Pro;
+			text-align: center;
+			width: 9vw;
+			transform: scale(1.7);
 		}
 	}
 
