@@ -370,6 +370,7 @@ div.trusty_full_width_button_colored {
 		margin-right: 0 !important;
 		padding: 0 !important;
 		line-height: 13vw;
+		font-size: 4.8vw;
 	}
 
 
@@ -394,6 +395,9 @@ div.trusty_full_width_button_colored {
 	}
 
 	@media screen and (max-width: 768px) {
+		span {
+			font-size: 4.8vw;
+		}
 		button {
 			font-size: 4.8vw;
 			height: 13.2vw;
