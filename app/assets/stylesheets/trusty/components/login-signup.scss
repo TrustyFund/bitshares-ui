@@ -29,7 +29,6 @@
 
 	._tooltip_p {
 		font-family: "Gotham_Pro";
-
 	}
 
 	._bottom_button {
@@ -50,18 +49,19 @@
 
 @media screen and (max-width: 768px) {
 
+	._tooltip_p {
+		line-height: 4vw;
+	    margin-top: 2vw;
+	    font-size: 3.3vw;
+	    margin-bottom: 4.6vw;
+	}
+
 	.trusty_wallet_create, 
 	.trusty_account_create, 
 	.trusty_unlock_account {
 		.form-group {
 			margin-bottom: 1px;
 			
-		}
-		._tooltip_p {
-			line-height: 4vw;
-		    margin-top: 2vw;
-		    font-size: 3.3vw;
-		    margin-bottom: 4.6vw;
 		}
 
 		._bottom_button {

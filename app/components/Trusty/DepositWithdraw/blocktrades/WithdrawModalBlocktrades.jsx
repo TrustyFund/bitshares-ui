@@ -550,8 +550,7 @@ class WithdrawModalBlocktrades extends React.Component {
 
                 {/* Memo input */}
                 {withdraw_memo}
-
-                <p className="trusty_help_text _yellow" style={{textAlign: "left"}}>Please enter a valid btc address</p>
+                <p className="_tooltip_p _yellow" style={{textAlign: "left", marginTop: 0}}>Please enter a valid BTC address</p>
                 <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
                 {/* Withdraw/Cancel buttons */}
                 <div className="button-group trusty_inline_buttons">
