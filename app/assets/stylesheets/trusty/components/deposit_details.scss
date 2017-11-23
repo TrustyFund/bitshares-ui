@@ -11,36 +11,37 @@
 		    margin-bottom: 4.9vw;
 		}
 		.trusty_input_container {
-	    margin-top: 2vw;
-	    margin-bottom: 6vw;
+		    margin-top: 2vw;
+		    margin-bottom: 6vw;
 
-	    input {
-	    	padding-bottom: 1vw !important;
-	    }
-  		.trusty_arrow_down {
-		    option {
-		    	background: black !important;
+		    input {
+		    	padding-bottom: 1vw !important;
 		    }
-  		}
-  	}
+	  		.trusty_arrow_down {
+			    option {
+			    	background: black !important;
+			    }
+	  		}
+	  	}
 
-  	.trusty_input_container {
-			margin-bottom: 6vw !important;
-  	}	
+	  	.trusty_input_container {
+				margin-bottom: 6vw !important;
+	  	}	
 
 	}
 
 	._clipboard_value {
-    overflow: scroll;
-    span {
-      display: table-cell;
-      padding-right: 10px;
+		margin-top: 2.3vw;
+	    overflow: scroll;
+	    span {
+	         display: table-cell;
+	         padding-right: 10px;
 		}
 	}
 	.trusty_help_text {
-    font-size: 4.8vw;
-    line-height: 6vw;
-    margin-bottom: 4.1vw;
+	    font-size: 4.8vw;
+	    line-height: 6vw;
+	    margin-bottom: 4.1vw;
 	}
 }
 
