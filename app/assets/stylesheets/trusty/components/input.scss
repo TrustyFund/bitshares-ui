@@ -11,7 +11,7 @@
   }
 }
 
-$color_light_grey: #8a8e8e;//#757777
+$color_light_grey:#a9aaaa;//#8a8e8e;//#757777
 
 @media screen and (max-width: 768px) {
   @include column_trusty_inputs;
@@ -63,9 +63,10 @@ $color_light_grey: #8a8e8e;//#757777
     }
 
     label {
+      font-family: Gotham_Pro_Regular;
       color: $color_light_grey;
       transition: all .2s;
-      font-size: 3.5vw;
+      font-size: 2.5vw;
       margin-bottom: 0 !important;
     }
 
