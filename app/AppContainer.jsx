@@ -8,8 +8,8 @@ import intlData from "./components/Utility/intlData";
 import AccountStore from "stores/AccountStore";
 import LoadingIndicator from "components/LoadingIndicator";
 /* pixel perfect helper */
-import 'components/Trusty/pixel-glass'
-import 'assets/stylesheets/trusty/components/pixel-glass.scss'
+// import 'components/Trusty/pixel-glass'
+// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 const user_agent = navigator.userAgent.toLowerCase();
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
