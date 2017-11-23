@@ -158,8 +158,6 @@ class Landing extends Component {
     constructor() {
         super();
         this.state = {
-            currentThirdSlide: null,
-            currentLastSlide: null,
             showBalls: false,
             windowHeight: window.innerHeight
         }
@@ -195,31 +193,15 @@ class Landing extends Component {
 
         let isAuth = !!AccountStore.getMyAccounts().length
         const list = slides.map((slide, index)=> {
-            let currentFirst = slide.image;
-            let currentFirstDesk = slide.imageTwo;
             return(
                 <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id}
                     key={slide.id} onClick={e => scrollDown(e, index+1)}
                     style={{ height: this.state.windowHeight }}>
                     { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                     <div className="image_area">
-
-
-                        { index == 0 ? 
-                            <div>
-                                <img className="_image _mob" src={currentFirst}/>
-                                <img className="_image _desk" src={currentFirstDesk}/>
-                            </div>
-
-                        : null }
-
-                        { index != 0 ? 
-                            <div>
-                                <ImageAnimate class={"_image _mob"} images={slide.images}/>
-                                {/*<img className="_image _mob" src={this.state["slide_pic_"+index]}/>*/}
-                            </div>
-                        : null }
-
+                        <div>
+                            <ImageAnimate class={"_image _mob"} images={slide.images}/>
+                        </div>
                     </div>
                     <div className="text_area">
                         <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
