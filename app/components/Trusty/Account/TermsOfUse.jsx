@@ -65,7 +65,7 @@ In the event any court shall declare any section or sections of this Agreement i
 		id:7,
 		title: "REFERENCES",
 		text: `
-			This Agreement content is based on original agreement of Copay open source BitCoin wallet.
+			This Agreement content is based on original agreement of Copay open-source Bitcoin wallet.
 		`
 
 	},
