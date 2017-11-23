@@ -1291,18 +1291,18 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                             <div className="t_right">{deposit_input_coin_type_select}</div>
                             <div className="t_input">{deposit_input_amount_edit_box}</div>
                         </div>*/}
-                        <p className="trusty_help_text _yellow">Please send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
+                        <p className="trusty_help_text _yellow">Send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
                         <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
 
                         <ClipboardButton option-text={this._getText} onSuccess={this._onSuccess} component="button" className="trusty_wide_btn">
                             copy address
                         </ClipboardButton>
-                        <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you complete payment</p>
+                        <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you have completed the payment</p>
                         <div className="trusty_inline_buttons">
                             <Link to="/home" className="b_left"><button>Confirm</button></Link>
                             <Link to="/home" className="b_right"><button >Cancel</button></Link>
                         </div>
-                        <p className="trusty_ps_text">Payment getaway service is provided by<br/> Openledger.io, at 0% fee</p>
+                        <p className="trusty_ps_text">Payment getaway service is provided by<br/> Openledger.io at 0% fee</p>
                     </div>
                     )
 
