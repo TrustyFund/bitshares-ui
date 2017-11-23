@@ -304,7 +304,6 @@ div.trusty_full_width_button_colored {
 .trusty_wide_btn {
 	width: 99.9%;
 	height: 50px;
-	border-radius: 3px;
 	border: 1px solid white;
 	text-transform: uppercase;
 	background: transparent;
@@ -379,9 +378,9 @@ div.trusty_full_width_button_colored {
 		display: inline-block;
 		width: 44vw;
 		margin: initial !important;
-		//background-color: #fff !important;
-		background-color: transparent !important;
-		color: white !important;
+		background-color: #fff !important;
+		//background-color: transparent !important;
+		//color: white !important;
 		border: 1px solid white;
 		color: black;
 
