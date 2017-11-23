@@ -138,7 +138,7 @@ $color_light_grey: #8a8e8e;//#757777
   .trusty_arrow_down {
     position: absolute;
     right: 0;
-    top: 42%;
+    top: 38%;
     
   }
   
@@ -146,9 +146,9 @@ $color_light_grey: #8a8e8e;//#757777
     margin: 0 0  !important;
     border: none !important; 
     font-family: 'Gotham_Pro_Medium';
-    padding-bottom: 0 !important;
+    padding-bottom: 1.4vw !important;
     padding-right: 0 !important;
-    color: white;
+    color: white !important;
     option {
       background-color: black;
     }
