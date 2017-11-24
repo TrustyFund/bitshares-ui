@@ -70,7 +70,7 @@ class Row extends React.Component {
     }
 
     render() {
-        return <div> { this.props.info }, <BlockTime  block_number={this.props.block}/></div>;
+        return <div style={{margin:".3rem 0", color:"#e2de1b"}}> { this.props.info }, <BlockTime  block_number={this.props.block}/></div>;
     }
 }
 Row = BindToChainState(Row, {keep_updating:true});
