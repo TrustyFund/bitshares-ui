@@ -47,7 +47,6 @@ class Trusty extends React.Component {
         this.state = {
             firstEnteredApp: false,
             loading: this._syncStatus(),
-            showLoader: false,
             synced: this._syncStatus(),
             syncFail,
             theme: SettingsStore.getState().settings.get("themes"),
@@ -93,10 +92,6 @@ class Trusty extends React.Component {
         dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
             this.setState({ loading: true })
-          }
-
-          if ( dispatch.type === 'show-trusty-loader') {
-            this.setState({showLoader: dispatch.show})
           }
         })
 
@@ -229,9 +224,8 @@ class Trusty extends React.Component {
         }
         grid = grid.bind(this)
 
-        if (this.state.syncFail) {content = (<SyncError />);
-        } else if (this.state.showLoader) {
-            content = <LoadingIndicator type={"trusty-owl"}/>
+        if (this.state.syncFail) {
+            content = (<SyncError />);
         } else{
             content = grid(this.props.children);
         }

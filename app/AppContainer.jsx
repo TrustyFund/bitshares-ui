@@ -7,6 +7,7 @@ import {IntlProvider} from "react-intl";
 import intlData from "./components/Utility/intlData";
 import AccountStore from "stores/AccountStore";
 import LoadingIndicator from "components/LoadingIndicator";
+import { dispatcher } from "components/Trusty/utils"
 /* pixel perfect helper */
 // import 'components/Trusty/pixel-glass'
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
@@ -17,8 +18,17 @@ window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) |
 
 
 class AppContainer extends React.Component {
-	render() {
-        if(!window.isMobile) return <LoadingIndicator type={"trusty-owl"}/>
+    constructor(){
+        super()
+        this.state = {showLoader: false}
+        dispatcher.register(dispatch => {
+            if ( dispatch.type === 'show-trusty-loader') {
+                this.setState({showLoader: dispatch.show})
+            }
+        })
+    }
+    render() {
+        if(!window.isMobile || this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
 		return (<div>{this.props.children}</div>);
 	}
 }

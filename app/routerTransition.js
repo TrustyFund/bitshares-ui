@@ -1,5 +1,6 @@
 import {Apis, Manager} from "bitsharesjs-ws";
 import {ChainStore} from "bitsharesjs/es";
+import { dispatcher } from "components/Trusty/utils"
 
 // Stores
 import iDB from "idb-instance";
@@ -25,6 +26,7 @@ ChainStore.setDispatchFrequency(20);
 let connect = true;
 let connectionManager;
 let oldChain = "";
+let trustyAreadyConnected = false
 
 const filterAndSortURLs = (count, latencies) => {
     let urls = SettingsStore.getState().defaults.apiServer
@@ -57,6 +59,7 @@ let _connectInProgress = false;
 let _connectionCheckPromise = null;
 const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { //appInit is true when called via router onEnter, and false when node is manually selected in access settings
     const apiLatencies = SettingsStore.getState().apiLatencies;
+    if(!trustyAreadyConnected) dispatcher.dispatch({type: "show-trusty-loader", show: true})
     latencyChecks = ss.get("latencyChecks", 1);
     let apiLatenciesCount = Object.keys(apiLatencies).length;
     let connectionStart;
@@ -132,6 +135,7 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
                             });
                             // });
                         }
+
                     })
                     .catch((error) => {
                         console.error("----- WalletDb.willTransitionTo error ----->", error);
@@ -142,6 +146,10 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
                     _connectInProgress = false;
                     SettingsActions.changeSetting({setting: "activeNode", value: connectionManager.url});
                     callback();
+                    if(!trustyAreadyConnected) {
+                        trustyAreadyConnected = true
+                        dispatcher.dispatch({type: "show-trusty-loader", show:false})
+                    }
                 });
             })
         }).catch(err => {
@@ -179,6 +187,7 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
     _connectionCheckPromise = connectionCheckPromise;
 
     Promise.all([connectionCheckPromise]).then((res => {
+
         _connectionCheckPromise = null;
         if (connectionCheckPromise && res[0]) {
             let [latencies] = res;
@@ -195,7 +204,6 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
         if(appInit){
             connectionManager.connectWithFallback(connect).then((res) => {
                 if (!autoSelection) SettingsActions.changeSetting({setting: "apiServer", value: connectionManager.url});
-
                 onConnect(res);
             }).catch( error => {
                 console.error("----- App.willTransitionTo error ----->", error, (new Error).stack);
