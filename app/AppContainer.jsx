@@ -59,12 +59,6 @@ class Root extends React.Component {
         location: React.PropTypes.object
     }
 
-    componentWillMount(){
-        if(localStorage.getItem("_trusty_username")) {
-            this.props.router.push("/home");
-        }
-    }
-
     componentDidMount(){
         //Detect OS for platform specific fixes
         if(navigator.platform.indexOf('Win') > -1){

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
+import { browserHistory } from 'react-router/es';
 import utils from "./dl_cli_index";
 if (window) {
     window.$utils = utils;
@@ -13,6 +14,11 @@ if (window) {
 import Routes from "./Routes-dev";
 
 require("./components/Utility/Prototypes"); // Adds a .equals method to Array for use in shouldComponentUpdate
+
+
+if(localStorage.getItem("_trusty_username")) {
+   browserHistory.push("/home")
+}
 
 const rootEl = document.getElementById("content");
 const render = () => {

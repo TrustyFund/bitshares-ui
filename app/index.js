@@ -17,6 +17,10 @@ require("./components/Utility/Prototypes"); // Adds a .equals method to Array fo
 */
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
+if(localStorage.getItem("_trusty_username")) {
+   history.push("/home")
+}
+
 const rootEl = document.getElementById("content");
 const render = () => {
     ReactDOM.render(
