@@ -240,8 +240,6 @@ class Trusty extends React.Component {
             <div style={{backgroundColor: !this.state.theme ? "#2a2a2a" : null}} className={this.state.theme}>
                 
                 {/*<img src={ require("assets/stylesheets/trusty/texture_mob_bgr.png")} className="trusty_fixed_background _mob"/>*/}
-                
-                <div className="trusty_fixed_background_div _mob"/>
 
                 <div id="content-wrapper" className="trusty-wrapper">
                     {content}
