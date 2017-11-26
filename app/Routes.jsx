@@ -43,6 +43,10 @@ const routes = (
             <Route path="/signup" getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/CreateAccount").then(loadRoute(cb)).catch(errorLoading);
             }}/>
+            
+            <Route path="/backup" getComponent={(location, cb) => {
+                System.import("components/Trusty/Wallet/BackupBrainkey").then(loadRoute(cb)).catch(errorLoading);
+            }}/>
 
             <Route path="/withdraw" getComponent={(location, cb) => {
                 System.import("components/Trusty/Account/Withdraw").then(loadRoute(cb)).catch(errorLoading);
