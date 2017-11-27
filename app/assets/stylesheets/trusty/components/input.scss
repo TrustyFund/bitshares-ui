@@ -158,6 +158,9 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
   .t_input.active_input {
     @media screen and (max-width: 768px) {
       margin-top: 0;
+      input {
+        margin-left: 0 !important;
+      }
     }
   }
 
@@ -165,9 +168,13 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
     width: 100%;
     border-bottom: 1px solid $color_light_grey;
     input {
+      display: inline-block;
       background-color: transparent !important;
       width: 100% !important;
-      margin: 0 !important;
+      margin-left: -1000px !important;
+      margin-right: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
       border-radius: 0 !important;
       border-top: none;
       border-right: none;

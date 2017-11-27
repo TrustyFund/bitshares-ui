@@ -115,11 +115,8 @@ class TrustyInput extends React.Component {
 					{/*</CSSTransitionGroup>*/}
 					<div className="w_input">
 						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
-
 							<label onClick={this.labelClick.bind(this)} className={cname("trusty_place_holder", this.props.label.split(" ").join("_"), {"no_opened":!this.state.opened})}>{this.props.label}</label>
-							{ this.props.input && this.state.opened ? this.props.input : null } 
-							{ !this.state.opened ? input : null }
-
+							{ this.props.input ? this.props.input : null }
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
 							{this.props.right ?  this.props.right : !this.state.isEmpty ? <span className="close_icon" onClick={this._nullField.bind(this)}><Icon name={"trusty_input_close"} /></span> : null }
