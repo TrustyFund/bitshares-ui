@@ -41,50 +41,35 @@ class InitError extends React.Component {
             let {location} = entry;
             if (location && typeof location === "object" && "translate" in location) location = counterpart.translate(location.translate);
 
+            if (entry.url == this.props.apiServer) return null;
+
             return <option key={entry.url} value={entry.url}>{location || entry.url} {!onlyDescription && location ? `(${entry.url})` : null}</option>;
         });
 
         return (
             <div className="grid-block page-layout">
                 <div className="grid-container">
-                    <div className="grid-content no-overflow">
+                    <div className="grid-content no-overflow init-error">
                         <br/>
-                        <Translate component="h3" content={`init_error.title`} />
+                        <h3 style={{textAlign: "center"}}>CONNECTION ISSUE</h3>
                         <br/>
+                        <h5 style={{textAlign: "center"}}>
+                        There seems to be a problem with your connection to the default node 
+                        </h5>
+                        <br/><br/><br/><br/>
                         <section className="block-list">
-                            <header><Translate component="span" content={`settings.apiServer`} /></header>
+                            <header><span>Choose another server</span></header>
                             <ul>
                                 <li className="with-dropdown">
-
                                     <select onChange={this.onChangeWS.bind(this)} value={this.props.apiServer}>
                                         {options}
                                     </select>
-
-                                    <div style={{paddingTop: 10}} className="button-group">
-                                        <div
-                                            onClick={this.triggerModal.bind(this)}
-                                            className="button outline"
-                                            id="add"
-                                        >
-                                                <Translate id="add_text" content="settings.add_api" />
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="key-value clearfix">
-                                    <div className="float-left"><Translate content="init_error.ws_status" /></div>
-                                    <div className="float-right">
-                                        {this.props.rpc_connection_status === "open" ? <span className="txtlabel success"><Translate content={`init_error.connected`} /></span> : <span className="txtlabel warning"><Translate content={`init_error.not_connected`} /></span>}
-                                    </div>
                                 </li>
                             </ul>
                         </section>
                         <br/>
-                        <div className="button-group">
-                            <div className="button outline" href onClick={this.onReloadClick}><Translate content={`init_error.retry`} /></div>
-
-                            <div onClick={this.onReset.bind(this)} className="button outline">
-                                <Translate content="settings.reset" />
-                            </div>
+                        <div className="button-group" style={{paddingLeft: "25%",wodth: "100%"}}>
+                            <div className="button outline" href onClick={this.onReloadClick}>TRY DIFFERENT NODE</div>
                         </div>
                         <WebsocketAddModal ref="ws_modal" apis={this.props.apis} />
                     </div>
