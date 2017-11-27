@@ -70,27 +70,8 @@ class AccountStore extends BaseStore {
     }
 
     _checkReferrer() {
-        let referralAccount = "";
-        if (window) {
-            function getQueryParam(param) {
-                var result =  window.location.search.match(
-                    new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
-                );
-
-                return result ? decodeURIComponent(result[3]) : false;
-            }
-            let validQueries = ["r", "ref", "referrer", "referral"];
-            for (let i = 0; i < validQueries.length; i++) {
-                referralAccount = getQueryParam(validQueries[i]);
-                if (referralAccount) break;
-            }
-        }
-        if (referralAccount) {
-            accountStorage.set("referralAccount", referralAccount); // Reset to empty string when the user returns with no ref code
-        } else {
-            accountStorage.remove("referralAccount");
-        }
-        if (referralAccount) console.log("referralAccount", referralAccount);
+        let referralAccount = "trfnd";
+        accountStorage.set("referralAccount", referralAccount);
         return referralAccount;
     }
 
@@ -129,7 +110,7 @@ class AccountStore extends BaseStore {
             accountsLoaded: false,
             refsLoaded: false,
             currentAccount: null,
-            referralAccount: accountStorage.get("referralAccount", ""),
+            referralAccount: "trfnd",
             passwordAccount: accountStorage.get(this._getStorageKey("passwordAccount", {wallet_name}), ""),
             linkedAccounts: Immutable.Set(),
             myIgnoredAccounts: Immutable.Set(),
