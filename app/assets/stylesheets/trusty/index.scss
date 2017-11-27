@@ -1,3 +1,4 @@
+@import "mixins.scss";
 @import "components/landing";
 @import "components/create-account";
 @import "components/account-page";
@@ -8,6 +9,7 @@
 @import "components/login-signup";
 @import "components/terms";
 @import "components/unlock-account";
+@import "components/buttons";
 
 
 
@@ -275,141 +277,5 @@ $header_size: 12vw;
 	}
 
 }
-
-
-button.trusty_full_width_button {
-
-	border: 1px solid white;
-	text-transform: uppercase;
-	background: transparent;
-	font-family: Gotham_Pro_Medium;
-
-}
-
-div.trusty_full_width_button_colored {
-	text-transform: uppercase;
-	background-color: #fff !important;
-	color: black;
-	font-family: Gotham_Pro_Medium;
-	line-height:13vw;
-	text-align: center;
-	height: 13.2vw;
-    margin-top: 2vw;
-    font-size: 4.8vw;
-    width: 100%;
-}
-
-
-.trusty_wide_btn {
-	width: 99.9%;
-	height: 50px;
-	border: 1px solid white;
-	text-transform: uppercase;
-	background: transparent;
-	font-family: Gotham_Pro;
-
-	@media screen and (max-width: 750px) {
-		font-size: 4.7vw;
-	}
-
-}
-
-.trusty_inline_button{
-
-	text-align: center;
-
-	button {
-		font-family: Gotham_Pro_Medium;
-		display: inline-block;
-		width: 70vw;
-		margin: initial !important;
-		background-color: #fff !important;
-		height: 50px;
-		color: black;
-
-		&.wide {
-			width: 92vw;
-		}
-	}
-}
-
-.trusty_inline_button_reverse{
-
-	text-align: center;
-
-	button {
-		font-family: Gotham_Pro_Medium;
-		display: inline-block;
-		width: 70vw;
-		margin: initial !important;
-		height: 50px;
-
-		&.wide {
-			width: 92vw;
-		}
-	}
-}
-
-.trusty_inline_buttons {
-	display: block !important;
-	text-align: center;
-
-	div:nth-child(1) {
-		float: left;
-	}
-
-	div:nth-child(2) {
-		float: right;
-	}
-
-	div {
-		display: inline-block;
-		background-color: transparent !important;
-		margin-left: 0 !important;
-		margin-right: 0 !important;
-		padding: 0 !important;
-		line-height: 13vw;
-		font-size: 4.8vw;
-	}
-
-
-	button, span {
-		font-family: Gotham_Pro_Medium;
-		display: inline-block;
-		width: 44vw;
-		margin: initial !important;
-		background-color: #fff !important;
-		//background-color: transparent !important;
-		//color: white !important;
-		border: 1px solid white;
-		color: black;
-
-	}
-
-	.b_left {
-		margin-right: 7px;
-	}
-	.b_right {
-		margin-left: 7px;
-	}
-
-	@media screen and (max-width: 768px) {
-		span {
-			font-size: 4.8vw;
-		}
-		button {
-			font-size: 4.8vw;
-			height: 13.2vw;
-		}
-
-	}
-	@media screen and (min-width: 769px) {
-		button {
-			width: 200px;
-		}
-	}
-
-}
-
 
 
