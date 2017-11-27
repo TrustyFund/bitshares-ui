@@ -183,15 +183,15 @@ class Landing extends Component {
         }
 
         let self = this
+
+        let isAuth = !!AccountStore.getMyAccounts().length
+        let currentLinkAdress = isAuth ? "/home" : "/signup" 
         let button = 
             <div className="fixed_bottom _mob">
-                <Link to="/signup"><button>INVEST NOW</button></Link>
+                <Link to={currentLinkAdress}><button>INVEST NOW</button></Link>
                 <div className="trusty_down_arrow" onClick={ e => scrollDown(e, 0) }><Icon name="trusty_arrow_down_landing" /></div>
             </div>
 
-        
-
-        let isAuth = !!AccountStore.getMyAccounts().length
         const list = slides.map((slide, index)=> {
             return(
                 <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id}
@@ -218,8 +218,8 @@ class Landing extends Component {
             <div className="logo_starter" style={{height: this.state.windowHeight}}>
 
                 <div className="top_buttons _mob">
-                    <Link to={ isAuth ? "/home" : "/signup" }><span>SignUp</span></Link>
-                     <Link to="/terms-of-use"><span>Info</span></Link>
+                    <Link to={ currentLinkAdress }><span>SignUp</span></Link>
+                    <Link to="/terms-of-use"><span>Info</span></Link>
                     <Link to={ isAuth ? "home" : "/login" }><span>LogIn</span></Link>
                 </div>
                 <div className="bottom_content">
@@ -233,7 +233,7 @@ class Landing extends Component {
                         <div className="_logo_text _desk" dangerouslySetInnerHTML={{__html:require('./vendor/img_trusty_logo_last.svg')}}/>
                         <p className="_slogan">Investment Wallet</p>
                         <p className="_description">One-Click To Invest In<br/> Crypto Economy</p>
-                        <Link to="/signup"><button className="_desk">INVEST NOW</button></Link>
+                        <Link to={currentLinkAdress}><button className="_desk">INVEST NOW</button></Link>
                     </div>
                 </div>
                 {button}
@@ -251,7 +251,7 @@ class Landing extends Component {
                  
                     <div className="last_text" id="last_screen">
                         <p>First time in history<br/> everybody can invest<br/> in a globally disruptive,<br/> yet infant, technology</p>
-                        <Link to="/signup"><button>INVEST NOW</button></Link>
+                        <Link to={currentLinkAdress}><button>INVEST NOW</button></Link>
                         <p>Depositing into Trusty.Fund<br/> now is like early investing<br/> in internet companies, when 20 million people <br/> used internet</p>
                         <button>FAQ</button>
                     </div>
