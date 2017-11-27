@@ -139,18 +139,12 @@ class CreateAccount extends React.Component {
             password
         ).then(()=> {
             console.log("Congratulations, your wallet was successfully created.");
-        }).catch(err => {
-            console.log("CreateWallet failed:", err);
-            notify.addNotification({
-                message: `Failed to create wallet: ${err}`,
-                level: "error",
-                autoDismiss: 10
-            })
         });
     }
 
     onSubmit(e) {
         e.preventDefault();
+        
         if (!this.isValid()) return;
         dispatcher.dispatch({type:"show-trusty-loader",show: true})
         let account_name = this.accountNameInput.getValue();
@@ -166,7 +160,11 @@ class CreateAccount extends React.Component {
                 }).then(()=>{
                     this.props.router.push("/home")
                     dispatcher.dispatch({type:"show-trusty-loader",show: false})
+                }).catch((err) => {
+                    this.props.router.push("/init-error");
                 })
+            }).catch((err) => {
+                this.props.router.push("/init-error");
             });
         }
     }
