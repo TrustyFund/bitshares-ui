@@ -10,41 +10,34 @@ import counterpart from "counterpart";
 
 class InitError extends React.Component {
 
-    triggerModal(e) {
-        this.refs.ws_modal.show(e);
-    }
-
-    onChangeWS(e) {
-        SettingsActions.changeSetting({setting: "apiServer", value: e.target.value });
-        Apis.reset(e.target.value, true);
+    constructor() {
+        super();
+        this.onReloadClick = this.onReloadClick.bind(this);
     }
 
     onReloadClick(e) {
         if (e) {
             e.preventDefault();
         }
+
+        let notCurrent = this.props.apis.filter((elem) => {
+            return elem.url != this.props.defaultConnection;
+        })[0];
+
+
+        SettingsActions.changeSetting({setting: "apiServer", value: notCurrent.url});
+        Apis.reset(notCurrent.url, true);
+
         if (window.electron) {
             window.location.hash = "";
             window.remote.getCurrentWindow().reload();
+        }else{
+            window.location.href = __BASE_URL__; 
         }
-        else window.location.href = __BASE_URL__;
-    }
-
-    onReset() {
-        SettingsActions.changeSetting({setting: "apiServer", value: this.props.defaultConnection });
-        SettingsActions.clearSettings();
     }
 
     render() {
-        let options = this.props.apis.map(entry => {
-            let onlyDescription = entry.url.indexOf("fake.automatic-selection") !== -1;
-            let {location} = entry;
-            if (location && typeof location === "object" && "translate" in location) location = counterpart.translate(location.translate);
-
-            if (entry.url == this.props.apiServer) return null;
-
-            return <option key={entry.url} value={entry.url}>{location || entry.url} {!onlyDescription && location ? `(${entry.url})` : null}</option>;
-        });
+        //console.log("LAT",this.props.apis);
 
         return (
             <div className="grid-block page-layout">
@@ -57,17 +50,6 @@ class InitError extends React.Component {
                         There seems to be a problem with your connection to the default node 
                         </h5>
                         <br/><br/><br/><br/>
-                        <section className="block-list">
-                            <header><span>Choose another server</span></header>
-                            <ul>
-                                <li className="with-dropdown">
-                                    <select onChange={this.onChangeWS.bind(this)} value={this.props.apiServer}>
-                                        {options}
-                                    </select>
-                                </li>
-                            </ul>
-                        </section>
-                        <br/>
                         <div className="button-group" style={{paddingLeft: "25%",wodth: "100%"}}>
                             <div className="button outline" href onClick={this.onReloadClick}>TRY DIFFERENT NODE</div>
                         </div>
@@ -88,7 +70,7 @@ export default connect(InitError, {
             rpc_connection_status: BlockchainStore.getState().rpc_connection_status,
             apis: SettingsStore.getState().defaults.apiServer,
             apiServer: SettingsStore.getState().settings.get("apiServer"),
-            defaultConnection: SettingsStore.getState().defaultSettings.get("apiServer"),
+            defaultConnection: SettingsStore.getState().defaultSettings.get("apiServer")
         };
     }
 });
