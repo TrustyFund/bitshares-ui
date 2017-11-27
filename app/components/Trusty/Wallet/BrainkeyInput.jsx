@@ -98,7 +98,7 @@ export default class BrainkeyInput extends Component {
                     <pre className="no-overflow">{this.state.check_digits} * Check Digits</pre>
                     <br/>
                 </div>:null}
-                { word_count_label ? <p><i className={cname({error: warn})}>{ word_count_label }</i></p> : null } 
+                { word_count_label ? <p className="trusty_font_error"><i className={cname({error: warn})}>{ word_count_label }</i></p> : null } 
             </div>
 
         )

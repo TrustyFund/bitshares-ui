@@ -63,7 +63,7 @@ export default class PasswordConfirm extends Component {
                     <TrustyInput input={confirmInput} label={"confirm password"}/>
           
 
-                <div>{errors.get("password_match") || errors.get("password_length")}</div>
+                <div className="trusty_font_error">{errors.get("password_match") || errors.get("password_length")}</div>
 
                 {this.props.children}
 

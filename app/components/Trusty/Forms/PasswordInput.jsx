@@ -79,8 +79,8 @@ class PasswordInput extends Component {
         if(this.state.wrong || this.props.wrongPassword) password_error = <div><Translate content="wallet.pass_incorrect" /></div>;
         else if(this.state.error) password_error = <div>{this.state.error}</div>;
         if (!this.props.noValidation && !password_error && (this.state.value.length > 0 && this.state.value.length < this.props.passwordLength))
-            password_error = <div><Translate content="wallet.pass_length" minLength={this.props.passwordLength} /></div>;
-        if(this.state.doesnt_match) confirmation_error = <div><Translate content="wallet.confirm_error" /></div>;
+            password_error = <div className="trusty_font_error"><Translate content="wallet.pass_length" minLength={this.props.passwordLength} /></div>;
+        if(this.state.doesnt_match) confirmation_error = <div className="trusty_font_error"><Translate content="wallet.confirm_error" /></div>;
         let password_class_name = cname("form-group", {"has-error": password_error});
         let password_confirmation_class_name = cname("form-group", {"has-error": this.state.doesnt_match});
         // let {noLabel} = this.props;
