@@ -147,8 +147,8 @@ class AccountNameInput extends React.Component {
                         input={accountInput} 
                         label={"new account name"}/>
                 </section>
-                <div style={{textAlign: "left"}} className="facolor-error">{error}</div>
-                <div style={{textAlign: "left"}} className="facolor-warning">{error ? null : warning}</div>
+                <div style={{textAlign: "left"}} className="facolor-error trusty_font_error">{error}</div>
+                <div style={{textAlign: "left"}} className="facolor-warning trusty_font_error">{error ? null : warning}</div>
             </div>
         );
     }
