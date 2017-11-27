@@ -146,17 +146,27 @@ const willTransitionTo = (nextState, replaceState, callback, appInit=true) => { 
                     _connectInProgress = false;
                     SettingsActions.changeSetting({setting: "activeNode", value: connectionManager.url});
                     callback();
-                    if(!trustyAreadyConnected) {
-                        trustyAreadyConnected = true
-                        dispatcher.dispatch({type: "show-trusty-loader", show:false})
-                    }
                 });
             })
+
+        }).then(()=>{
+            
+            if(!trustyAreadyConnected) {
+                trustyAreadyConnected = true
+                dispatcher.dispatch({type: "show-trusty-loader", show:false})
+            }
+
         }).catch(err => {
             console.error(err);
             replaceState("/init-error");
             _connectInProgress = false;
             callback();
+
+            if(!trustyAreadyConnected) {
+                trustyAreadyConnected = true
+                dispatcher.dispatch({type: "show-trusty-loader", show:false})
+            }
+
         });
     };
 
