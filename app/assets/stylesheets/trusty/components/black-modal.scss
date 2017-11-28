@@ -1,0 +1,32 @@
+@media screen and ( max-width: 768px) {
+
+	#trusty_manage_oops {
+		background: black;
+		height: 70vh;
+		padding-left: 0;
+		padding-right: 0;
+
+		p {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			padding: 4.2vw;
+		}
+	}
+
+
+	.trusty_portfolio_tabs .modal-overlay.is-active {
+		background: rgba(0,0,0,0.35) !important;
+	}
+
+
+
+
+
+
+
+
+
+
+
+}

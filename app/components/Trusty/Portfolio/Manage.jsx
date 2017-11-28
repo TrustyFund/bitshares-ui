@@ -13,6 +13,8 @@ import PortfolioActions from "actions/PortfolioActions"
 import Immutable from "immutable";
 
 import ManageModal from "components/Trusty/ManageModal";
+import BaseModal from "components/Modal/BaseModal"
+import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 
 
 class ManagePortfolio extends React.Component {
@@ -131,7 +133,37 @@ class ManagePortfolio extends React.Component {
 	}
 
 	_decrementAsset(asset){
-		PortfolioActions.decrementAsset(asset.assetShortName);
+
+		switch(asset.assetShortName) {
+			case "BTS": 
+				if(asset.futureShare == 1) {
+					this.setState({
+						modalText: `
+							You are required to keep at least 1% of total fund in BTS tokens, in order to pay transaction fees of BitShares blockchain. You can sell all of the BTS upon full withdrawal of the fund
+						`	
+					})
+					ZfApi.publish("trusty_manage_oops", "open");
+				} else {
+					PortfolioActions.decrementAsset(asset.assetShortName);
+				}
+				break;
+			case "TRFND": 
+				if(asset.futureShare == 3 ) {
+					this.setState({
+						modalText: `
+							You are required to keep at least 3% of total fund in TRFND tokens, in order to pay for wealth management solutions. You can sell all of the TRFND upon full withdrawal of the fund
+						`	
+					})
+					ZfApi.publish("trusty_manage_oops", "open");
+				} else {
+					PortfolioActions.decrementAsset(asset.assetShortName);
+				}
+				break;
+			default: PortfolioActions.decrementAsset(asset.assetShortName);
+	
+		}
+
+		
 	}
 
 	getAssetClass(asset){
@@ -169,6 +201,10 @@ class ManagePortfolio extends React.Component {
 				</Tabs>
 
 				<ManageModal router={this.props.router} id="trusty_manage_modal"/>
+
+				<BaseModal id={"trusty_manage_oops"}>
+					<p>{this.state.modalText}</p>
+				</BaseModal>
 			</div>
         );
 	}
