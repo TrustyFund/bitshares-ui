@@ -120,14 +120,18 @@
 	  	}
 
 	  	._total_future_share {
+	  		margin-bottom: 6vw;
 	  		text-align: right;
   			span {
+  				width: 52vw;
+			    padding: 0;
+			    text-align: center;
 				display: inline-block;
 				font-size: 7.7vw;
 		   		margin-top: 2.3vw;
-		    	padding-left: 14.7vw;
-		    	margin-right: 14.5vw;
-		    	margin-bottom: 6vw;
+		    	//padding-left: 14.7vw;
+		    	//margin-right: 14.5vw;
+		    	//margin-bottom: 6vw;
 				font-family: Gotham_Pro_Medium;
 			}
 	  	}
@@ -157,7 +161,7 @@
 		.tab-content {
 			font-family: Gotham_Pro;
 	    	font-size: 4.8vw;
-	    	margin-bottom: 15vw;
+	    	//margin-bottom: 15vw;
 		}
 
 		._plus {

@@ -154,7 +154,7 @@ class ManagePortfolio extends React.Component {
 	render(){
 
 		return (
-			<div className="trusty_portfolio_tabs">
+			<div className="trusty_portfolio_tabs trusty_bottom_fix_space">
 				<Tabs>
 					<div className="tabs-header-container">
 					    <TabLink to="tab1">MANUAL</TabLink>
