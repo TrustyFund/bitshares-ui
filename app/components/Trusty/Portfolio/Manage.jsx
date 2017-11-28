@@ -97,6 +97,7 @@ class ManagePortfolio extends React.Component {
 	}
 
 	onPress(asset, way, faster){
+		if(this.timeID)clearInterval(this.timeID)
 		this.timeID = setInterval(()=>{
 			let up = this._decrementAsset.bind(this, asset)
 			let down = this._incrementAsset.bind(this, asset)
