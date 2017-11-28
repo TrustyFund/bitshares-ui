@@ -15,7 +15,7 @@ import Immutable from "immutable";
 import ManageModal from "components/Trusty/ManageModal";
 import BaseModal from "components/Modal/BaseModal"
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
-
+import Hammer from "react-hammerjs";
 
 class ManagePortfolio extends React.Component {
 
@@ -36,6 +36,7 @@ class ManagePortfolio extends React.Component {
 		this.renderManualTab = this.renderManualTab.bind(this);
 		this.renderPortfolioList = this.renderPortfolioList.bind(this);
 		this.suggestPortfolio = this.suggestPortfolio.bind(this);
+		this.onPressUp = this.onPressUp.bind(this)
 	}
 
 	renderManualTab(){
@@ -95,6 +96,17 @@ class ManagePortfolio extends React.Component {
 		return (this.props.porfolioTotalShare == 100) ? "wide" : "disabled wide";
 	}
 
+	onPress(asset, way, faster){
+		this.timeID = setInterval(()=>{
+			let up = this._decrementAsset.bind(this, asset)
+			let down = this._incrementAsset.bind(this, asset)
+			way ? up() : down()
+		}, 100)
+	}
+	onPressUp(){
+		if(this.timeID)clearInterval(this.timeID)
+	}
+
 	renderPortfolioList(assetList = [] ){
 		let renderPortfolio = [];
 		let arrow = (
@@ -117,9 +129,14 @@ class ManagePortfolio extends React.Component {
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
-							<a  className={cname("_minus",assetClass())} onClick={this._decrementAsset.bind(this, asset)}><Icon name="mf_minus"/></a>
+							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,true)}>
+								<a  className={cname("_minus",assetClass())} onClick={this._decrementAsset.bind(this, asset)}><Icon name="mf_minus"/></a>
+							</Hammer>
+							
 							{this.renderShare(asset.futureShare,assetClass())}
-							<a  className={cname("_plus",assetClass())} onClick={this._incrementAsset.bind(this, asset)}><Icon name="mf_plus"/></a>
+							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,false)}>
+								<a  className={cname("_plus",assetClass())} onClick={this._incrementAsset.bind(this, asset)}><Icon name="mf_plus"/></a>
+							</Hammer>
 						</div>
 					</td>
 				</tr>

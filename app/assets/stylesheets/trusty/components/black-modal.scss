@@ -5,8 +5,8 @@
 		height: 70vh;
 		padding-left: 0;
 		padding-right: 0;
-
 		p {
+			font-family: Gotham_Pro_Regular;
 			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
@@ -16,7 +16,7 @@
 
 
 	.trusty_portfolio_tabs .modal-overlay.is-active {
-		background: rgba(0,0,0,0.35) !important;
+		background-color: rgba(0,0,0,0.45) !important;
 	}
 
 
