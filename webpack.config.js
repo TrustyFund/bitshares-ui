@@ -183,6 +183,7 @@ module.exports = function(env) {
                 "react",
                 "react-clipboard.js",
                 "react-dom",
+                "react-hammerjs",
                //"react-foundation-apps",
                 "react-highcharts",
                 "react-hot-loader",
