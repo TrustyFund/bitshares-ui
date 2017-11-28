@@ -115,9 +115,9 @@ class ManagePortfolio extends React.Component {
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
-							<a  className="_minus" onClick={this._decrementAsset.bind(this, asset)}>— </a>
+							<a  className={cname("_minus",assetClass())} onClick={this._decrementAsset.bind(this, asset)}><Icon name="mf_minus"/></a>
 							{this.renderShare(asset.futureShare,assetClass())}
-							<a  className="_plus" onClick={this._incrementAsset.bind(this, asset)}> +</a>
+							<a  className={cname("_plus",assetClass())} onClick={this._incrementAsset.bind(this, asset)}><Icon name="mf_plus"/></a>
 						</div>
 					</td>
 				</tr>

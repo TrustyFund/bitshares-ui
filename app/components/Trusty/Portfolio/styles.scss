@@ -12,9 +12,17 @@
 	  	}
 
 	  	tbody tr td:first-child {
+	  		width: 50%;
 	  		padding-left: 10.6vw;
 		  	text-align: left;
 		    font-family: Gotham_Pro_Medium;
+	  	}
+
+	  	tbody tr td:last-child {
+	  		width: 50%;
+	  	
+		  	text-align: center;
+		    font-family: Gotham_Pro;
 	  	}
 
 	  	tbody tr td {
@@ -38,6 +46,7 @@
 		width: 66px;
 		display: inline-block;
 		text-align: center;
+		margin: 0 1.5vw;
 	}
 }
 
@@ -86,6 +95,11 @@
 	    	padding-left: 10.6vw;
 		}
 
+		table thead tr th:last-child {
+	    	text-align: center;
+	    	padding-left: 0;
+		}
+
 		table tbody {
 			.trusty_portfolio_arrow_right {
 				margin-left: 2.6vw;
@@ -120,10 +134,10 @@
 	  	}
 
 	  	._total_future_share {
-	  		margin-bottom: 6vw;
+	  		margin-bottom: 7vw;
 	  		text-align: right;
   			span {
-  				width: 52vw;
+  				width: 48vw;
 			    padding: 0;
 			    text-align: center;
 				display: inline-block;
@@ -132,7 +146,8 @@
 		    	//padding-left: 14.7vw;
 		    	//margin-right: 14.5vw;
 		    	//margin-bottom: 6vw;
-				font-family: Gotham_Pro_Medium;
+				font-family: Gotham_Pro_Regular;
+
 			}
 	  	}
 
@@ -167,9 +182,30 @@
 		._plus {
 			color: #79c610;
 		}
-
 		._minus {
 			color: #ff3030;
+		}
+
+
+		._plus {
+			&.greater {
+				
+				background: white;
+				svg {
+					stroke: black;
+				}	
+			}
+		}
+
+		._minus {
+			line-height: 7vw;
+			&.less {
+				
+				background: white;
+				svg {
+					stroke: black;
+				}	
+			}
 		}
 
 		._plus {
@@ -177,7 +213,35 @@
 			font-family: Gotham_Pro;
 			text-align: center;
 			width: 9vw;
-			transform: scale(1.7);
+			span {
+				transform: translate(.1vw,-0.4vw) !important;
+			}
+		}
+
+		._minus, ._plus {
+
+			$_size: 8vw;
+			display: inline-block;
+			width: $_size;
+			height: $_size;
+			line-height: 9vw;
+			border: 1px solid white;
+			border-radius: 50%;
+			color: white;
+			span {
+				display: inline-block;
+				width: $_size;
+				height: $_size;
+				padding-right: .5vw;
+				transform: translateY(-.4vw);
+			}
+
+			svg {
+				stroke-width: 1.6;
+				display: inline-block;
+				height: 6.2vw;
+				width: 6.2vw;
+			}
 		}
 	}
 
@@ -221,12 +285,14 @@
 	width: 100%;
 }
 
-.greater{
-	color: #79c610;
+.greater:not(a){
+	font-family: "Gotham_Pro_Medium"
+	//color: #79c610;
 }
 
-.less{
-	color: #ff3030;
+.less:not(a){
+	font-family: "Gotham_Pro_Bold"
+	//color: #ff3030;
 }
 
 .managePortfolio td{
@@ -240,6 +306,7 @@
 
 .wrong-total{
 	color: #ff3030;
+	font-family: Gotham_Pro_Medium !important;
 }
 
 .trusty_inline_button_reverse{
