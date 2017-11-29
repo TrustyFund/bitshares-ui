@@ -6,6 +6,7 @@
 
 
 	table { 
+		-webkit-user-select: none;
 		thead tr th  {
 		    font-family: Gotham_Pro;
 		    text-transform: uppercase;
@@ -13,7 +14,7 @@
 
 	  	tbody tr td:first-child {
 	  		width: 50%;
-	  		padding-left: 10.6vw;
+	  		padding-left: 5vw;
 		  	text-align: left;
 		    font-family: Gotham_Pro_Medium;
 	  	}
