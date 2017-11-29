@@ -158,7 +158,7 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
   .t_input.active_input {
     @media screen and (max-width: 768px) {
       margin-top: 0;
-      input {
+      input, textarea {
         margin-left: 0 !important;
       }
     }
@@ -205,6 +205,10 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
       border-left: none;
       border-bottom: 1px solid white;
       outline: none !important;
+    }
+
+    textarea {
+      margin-left: -1000px !important;
     }
     textarea:hover, textarea:active, textarea:focus, textarea {
       background-color: transparent !important;
