@@ -157,6 +157,7 @@ class AccountOverview extends React.Component {
                                         showFilters={true}
                                         dashboard
                                     />
+                                    <span>...</span>
                                 </div>
                             ) : null
                         }
