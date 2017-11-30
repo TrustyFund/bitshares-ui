@@ -201,7 +201,20 @@ class ManagePortfolio extends React.Component {
 		return className + " portfolio_asset";
 	}
 
+
 	render(){
+		let secondTab = 
+			<div className="manage_second_tab">
+				<img src={require("./imgs/manage_fund_index_blank.png")}/>
+				<p>Soon you will be able to<br/> automatically rebalance<br/>fund to index of top-20,<br/> 10 or 5 cryptos</p>
+			</div>
+
+
+		let thirdTab = 
+			<div className="manage_third_tab">
+				<img src={require("./imgs/manage_fund_mirror_blank.png")}/>
+				<p>Soon you will be able to<br/> automatically mirror<br/>trade of ranked<br/>fund managers</p>
+			</div>
 
 		return (
 			<div className="trusty_portfolio_tabs trusty_bottom_fix_space">
@@ -213,8 +226,8 @@ class ManagePortfolio extends React.Component {
 				    </div>
 				    <div className="tabs-content-container">
 					    {this.renderManualTab()}
-					    <TabContent for="tab2">/* content for tab #2 */</TabContent>
-					    <TabContent for="tab3">/* content for tab #3 */</TabContent>
+					    <TabContent for="tab2">{secondTab}</TabContent>
+					    <TabContent for="tab3">{thirdTab}</TabContent>
 				    </div>
 				</Tabs>
 

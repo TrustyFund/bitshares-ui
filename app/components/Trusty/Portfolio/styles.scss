@@ -14,7 +14,7 @@
 
 	  	tbody tr td:first-child {
 	  		width: 50%;
-	  		padding-left: 5vw;
+	  		padding-left: 6vw;
 		  	text-align: left;
 		    font-family: Gotham_Pro_Medium;
 	  	}
@@ -243,6 +243,36 @@
 				height: 6.2vw;
 				width: 6.2vw;
 			}
+		}
+	}
+
+	.manage_third_tab, .manage_second_tab {
+		width: 100%;
+		text-align: center;
+		font-family: Gotham_Pro;
+		position: absolute;
+		top: 55%;
+		transform: translateY(-50%);
+		p { 
+			margin-bottom: 0;
+			font-size: 7vw; 
+			line-height: 9vw;
+		}
+
+		img {
+			margin-bottom: 5vw;
+		}
+	}
+
+	.manage_second_tab {
+		img {
+			width: 47vw;
+		}
+	}
+
+	.manage_third_tab {
+		img { 
+			width: 25vw
 		}
 	}
 
