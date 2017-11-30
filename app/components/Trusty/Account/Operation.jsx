@@ -69,8 +69,10 @@ class Row extends React.Component {
 
     }
 
+
     render() {
-        return <div style={{margin:".3rem 0", color:"#e2de1b"}}> { this.props.info }, <BlockTime  block_number={this.props.block}/></div>;
+        let date = (this.props.hideDate) ? null : (<span>, <BlockTime  block_number={this.props.block}/></span>);
+        return <div style={{margin:".3rem 0", color:"#e2de1b"}}> { this.props.info }{date}</div>;
     }
 }
 Row = BindToChainState(Row, {keep_updating:true});
@@ -130,19 +132,6 @@ class Operation extends React.Component {
             case "limit_order_create":
                 color = "warning";
                 let o = op[1];
-                /*
-                marketID = OPEN.ETH_USD
-                if (!inverted) (default)
-                    price = USD / OPEN.ETH
-                    buy / sell OPEN.ETH
-                    isBid = amount_to_sell.asset_symbol = USD
-                    amount = to_receive
-                if (inverted)
-                    price =  OPEN.ETH / USD
-                    buy / sell USD
-                    isBid = amount_to_sell.asset_symbol = OPEN.ETH
-                    amount =
-                */
                 column = (
                         <span>
                             <BindToChainState.Wrapper base={o.min_to_receive.asset_id} quote={o.amount_to_sell.asset_id}>
@@ -175,31 +164,6 @@ class Operation extends React.Component {
             case "fill_order":
                 color = "success";
                 o = op[1];
-
-                /*
-                marketID = OPEN.ETH_USD
-                if (!inverted) (default)
-                    price = USD / OPEN.ETH
-                    buy / sell OPEN.ETH
-                    isBid = amount_to_sell.asset_symbol = USD
-                    amount = to_receive
-                if (inverted)
-                    price =  OPEN.ETH / USD
-                    buy / sell USD
-                    isBid = amount_to_sell.asset_symbol = OPEN.ETH
-                    amount =
-
-                    const {marketID, first, second} = marketUtils.getMarketID(base, quote);
-                    const inverted = this.props.marketDirections.get(marketID);
-                    // const paySymbol = base.get("symbol");
-                    // const receiveSymbol = quote.get("symbol");
-
-                    const isBid = o.amount_to_sell.asset_id === (inverted ? first.get("id") : second.get("id"));
-
-                    let priceBase = (isBid) ? o.amount_to_sell : o.min_to_receive;
-                    let priceQuote = (isBid) ? o.min_to_receive : o.amount_to_sell;
-                    const amount = isBid ? op[1].min_to_receive : op[1].amount_to_sell;
-                */
 
                 column = (
                         <span>

@@ -73,7 +73,7 @@ export default class TranslateWithLinks extends React.Component {
                         break;
 
                     case "amount":
-                        value = <FormattedAsset amount={key.value.amount} asset={key.value.asset_id} decimalOffset={key.decimalOffset}/>
+                        value = <FormattedAsset amount={key.value.amount} asset={key.value.asset_id} decimalOffset={2}/>
                         break;
 
                     case "price":
@@ -82,6 +82,7 @@ export default class TranslateWithLinks extends React.Component {
                                     base_amount={key.value.base.amount}
                                     quote_asset={key.value.quote.asset_id}
                                     quote_amount={key.value.quote.amount}
+                                    decimals={3}
                                 />
                         break;
 
