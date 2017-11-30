@@ -51,12 +51,18 @@
 		line-height: 7vw;
 		margin-bottom: 4.1vw;
 	}
+
+	#resizing_select {
+	    width: 17vw;
+	    margin-right: 5vw !important;
+	    height: 10vw;
+	    bottom: 0.6vw;
+    	padding-bottom: 0vw !important;
+    	position: relative;
+	} 
+
 }
 
-#resizing_select {
-  width: 17vw;
-  margin-right: 5vw !important;
-} 
  
 #width_tmp_select{
  	display: none;
