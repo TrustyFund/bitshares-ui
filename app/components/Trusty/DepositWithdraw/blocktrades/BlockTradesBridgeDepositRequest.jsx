@@ -1278,6 +1278,22 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     deposit_address_and_memo_element = <span className="trusty_deposit_address">{input_address_and_memo.address}</span>;
                 //<span><span className="blocktrades-with-memo">with memo</span> {input_address_and_memo.memo}</span>;
                 
+
+                let isMemo = input_address_and_memo.memo
+
+                let cutAddress = () => {
+                    let address = input_address_and_memo.address
+                    if(!isMemo){
+                        let firstCount = Math.floor(address.length/2) - 1
+                        let start = address.slice(0, firstCount)
+                        let end = address.slice(firstCount)
+                        return  <div className="trusty_cutted_address">
+                                    <span>{start}</span><br/>
+                                    <span>{end}</span>
+                                </div>;
+                    }
+                }
+
                 let coin_type = this.state.deposit_input_coin_type || ""
                 deposit_body = (
                     <div className="blocktrades-bridge">
@@ -1291,12 +1307,17 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                             <div className="t_right">{deposit_input_coin_type_select}</div>
                             <div className="t_input">{deposit_input_amount_edit_box}</div>
                         </div>*/}
+                        
                         <p className="trusty_help_text _yellow">Send <span style={{textTransform:"uppercase"}}>{coin_type}</span> to the address below</p>
-                        <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p>
+
+                        <p className="trusty_help_text _clipboard_value" style={{ position: "fixed", left: -1000, opacity: 0 }}>{deposit_address_and_memo_element}</p>
+
+                        { isMemo ? <p className="trusty_help_text _clipboard_value">{deposit_address_and_memo_element}</p> : cutAddress() }
 
                         <ClipboardButton option-text={this._getText} onSuccess={this._onSuccess} component="button" className="trusty_wide_btn">
                             copy address
                         </ClipboardButton>
+
                         <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you have completed the payment</p>
                         <div className="trusty_inline_buttons">
                             <Link to="/home" className="b_left"><button>Confirm</button></Link>
