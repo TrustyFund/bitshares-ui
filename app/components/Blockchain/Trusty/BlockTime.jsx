@@ -58,7 +58,7 @@ class BlockTime extends React.Component {
         if(time) {
             let year = time.getFullYear().toString().slice(2)
             let month = words[time.getMonth()]
-            return `${time.getDate()}${month}${year} ${time.getHours()}:${time.getMinutes()}`
+            return `${time.getDate()} ${month} ${year} ${time.getHours()}:${time.getMinutes()}`
         }
     }   
 

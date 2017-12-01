@@ -71,8 +71,9 @@ class Row extends React.Component {
 
 
     render() {
-        let date = (this.props.hideDate) ? null : (<span>, <BlockTime  block_number={this.props.block}/></span>);
-        return <div style={{margin:".3rem 0", color:"#e2de1b"}}> { this.props.info }{date}</div>;
+        let date = (this.props.hideDate) ? null : (<BlockTime  block_number={this.props.block}/>);
+        let content = (this.props.info) ? (<div style={{margin:".3rem 0", color:"#e2de1b"}}>{date} { this.props.info }</div>) : null;
+        return content;
     }
 }
 Row = BindToChainState(Row, {keep_updating:true});
