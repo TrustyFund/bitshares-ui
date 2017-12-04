@@ -210,13 +210,10 @@ class Trusty extends React.Component {
 
         function grid(inside){
             return (
-                <div className="grid-frame vertical">
-                    
-                    <div className="grid-block">
-                        <div className="grid-block vertical">
+                <div>
+                    <div>
                         {header }
                         {inside}                           
-                        </div>
                     </div>
                     <ReactTooltip ref="tooltip" place="top" type={theme === "lightTheme" ? "dark" : "light"} effect="solid"/>
                 </div>
