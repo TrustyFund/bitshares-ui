@@ -93,16 +93,12 @@ class AccountPage extends React.Component {
         });
 
         return (
-            <div className="grid-block page-layout">
-                <div className="grid-block main-content" style={{paddingTop: "0px"}}>
-                    <div className="grid-container">
-                        <div className="trusty_inline_buttons">
-                            <Link to="/deposit"><button>DEPOSIT</button></Link>
-                            <Link to="/withdraw"><button>WITHDRAW</button></Link>
-                        </div>
-                        <AccountOverview balances={balances} orders={orders} {...this.props}/>
-                    </div>
+            <div className="grid-container">
+                <div className="trusty_inline_buttons">
+                    <Link to="/deposit"><button>DEPOSIT</button></Link>
+                    <Link to="/withdraw"><button>WITHDRAW</button></Link>
                 </div>
+                <AccountOverview balances={balances} orders={orders} {...this.props}/>
             </div>
         );
     }
