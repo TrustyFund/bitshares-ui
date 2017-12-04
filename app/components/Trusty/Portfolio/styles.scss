@@ -128,7 +128,8 @@
 			    padding-top: 7.3vw;
 		 		
 
-		 		span {
+		 		& > span, & > div, & > a{
+		 			vertical-align: middle;
 		 			//margin-left: 2vw;
 		 		}
 

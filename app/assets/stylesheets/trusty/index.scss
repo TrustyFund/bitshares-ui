@@ -20,6 +20,11 @@
 }
 
 
+.fake_line_height {
+	display: inline-block;
+	height: 100%;
+}
+
 .trusty_main_padding {
 	@media screen and (max-width: 768px) {
 		padding: 0 3.6vw;

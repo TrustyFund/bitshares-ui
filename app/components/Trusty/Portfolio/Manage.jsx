@@ -126,10 +126,15 @@ class ManagePortfolio extends React.Component {
 			renderPortfolio.push(
 				<tr key={asset.assetShortName}>
 					<td>
-						<div className={name}>{asset.assetShortName}{arrow}</div>
+						<div className={name}>
+							<div className="fake_line_height" />
+							<span>{asset.assetShortName}</span>	
+							{arrow}
+						</div>
 					</td>
 					<td>
 						<div className={cname(name, {"_red": false })}>
+							<div className="fake_line_height" />
 							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,true)}>
 								<a  className={cname("_minus",assetClass())} onClick={this._decrementAsset.bind(this, asset)}><Icon name="trusty_minus"/></a>
 							</Hammer>
