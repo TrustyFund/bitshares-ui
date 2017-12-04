@@ -67,7 +67,8 @@ button.trusty_full_width_button {
 	display: block !important;
 	text-align: center;
 	@include trusty_mobile_button_not_width;
-
+	overflow: initial !important;
+	
 	&::after {
 		display: block;
 		clear: both;

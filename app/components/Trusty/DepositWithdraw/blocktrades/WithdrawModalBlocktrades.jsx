@@ -17,6 +17,7 @@ import { checkFeeStatusAsync, checkBalance } from "common/trxHelper";
 import {Asset} from "common/MarketClasses";
 import { debounce } from "lodash";
 import TrustyInput from "components/Trusty/Forms/TrustyInput";
+import { browserHistory } from 'react-router/es';
 
 class WithdrawModalBlocktrades extends React.Component {
 
@@ -558,10 +559,11 @@ class WithdrawModalBlocktrades extends React.Component {
                     <div onClick={this.onSubmit.bind(this)} className={"button b_left" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
                         <Translate content="modal.withdraw.submit" />
                     </div>
-
-                    <Trigger close={this.props.modal_id}>
-                        <div className="button b_right"><Translate content="account.perm.cancel" /></div>
-                    </Trigger>
+                    <div onClick={()=>{browserHistory.push("/home")}}>
+                        <Trigger close={this.props.modal_id}>
+                            <div className="button b_right"><Translate content="account.perm.cancel" /></div>
+                        </Trigger>
+                    </div>
                 </div>
                 {confirmation}
             </div>

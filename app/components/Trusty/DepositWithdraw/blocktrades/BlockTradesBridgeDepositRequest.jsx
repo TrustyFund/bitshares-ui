@@ -296,7 +296,6 @@ class ButtonWithdraw extends React.Component {
                         <button className={button_class} onClick={this.onWithdraw.bind(this)}><Translate content="" /><Translate content="gateway.withdraw_now" /> </button>
                     </span>
                     <BaseModal id={withdraw_modal_id} overlay={true}>
-                        <br/>
                         <div className="grid-block vertical">
                             <WithdrawModalBlocktrades
 								key={`${this.props.key}`}
@@ -1464,11 +1463,11 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                 <AccountBalance account={this.props.account.get('name')} asset={this.state.coins_by_type[this.state.withdraw_input_coin_type].walletSymbol} />
                             </td>
                             <td>
-                                {withdraw_button}<br/>
                                 {withdraw_limit_element}
                             </td>
                         </tr>
                     </tbody>
+                    {withdraw_button}<br/>
                 </div>
             }
 
