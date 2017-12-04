@@ -67,7 +67,7 @@ class PortfolioActions {
         portfolio.data.forEach((asset) => {
             if (asset.futureShare > asset.currentShare){
                 asset.type = "buy";
-                asset.amountToSell = Math.floor(0.97 * portfolio.totalBaseValue * asset.futureShare / 100);
+                asset.amountToSell = Math.floor(portfolio.totalBaseValue * asset.futureShare / 100) - Math.floor(portfolio.totalBaseValue * asset.currentShare / 100);
             }else if(asset.futureShare < asset.currentShare){
                 asset.type = "sell";
                 if (asset.futureShare == 0){
