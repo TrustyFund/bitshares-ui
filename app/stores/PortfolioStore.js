@@ -102,6 +102,7 @@ class PortfolioStore extends BaseStore {
     onSuggestPortfolio(portfolio){
       this.setState({
           data: portfolio,
+          totalPercentageFutureShare: 100
       });
     }
 

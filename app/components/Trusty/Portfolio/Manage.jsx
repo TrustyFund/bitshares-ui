@@ -60,10 +60,9 @@ class ManagePortfolio extends React.Component {
 					</tbody>
 				</table>
 				<div className="_total_future_share">{this.renderTotalShare(this.props.portfolio.totalPercentageFutureShare)}</div>
-				<div className="trusty_inline_button_reverse">
+				<div className="trusty_inline_button_reverse" style={{marginBottom:".8rem"}}>
 		            <button className="wide" onClick={this.suggestPortfolio}>SUGGEST PORTFOLIO</button>                        
 		        </div>
-		        <br/>
 				<div className="trusty_inline_button">
 		            <button className={this.getButtonClass()} onClick={this.updatePortfolio}>UPDATE PORTFOLIO</button>                        
 		        </div>
@@ -102,7 +101,7 @@ class ManagePortfolio extends React.Component {
 			let up = this._decrementAsset.bind(this, asset)
 			let down = this._incrementAsset.bind(this, asset)
 			way ? up() : down()
-		}, 100)
+		}, 150)
 	}
 	onPressUp(){
 		if(this.timeID)clearInterval(this.timeID)
