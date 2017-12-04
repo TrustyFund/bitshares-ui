@@ -193,7 +193,7 @@
 
 		._plus {
 			&.greater {
-				
+				border: 1px solid white;
 				background: white;
 				svg {
 					//stroke: black;
@@ -204,7 +204,7 @@
 		._minus {
 			line-height: 7vw;
 			&.less {
-				
+				border: 1px solid white;
 				background: white;
 				svg {
 					//stroke: black;
@@ -229,7 +229,6 @@
 			width: $_size;
 			height: $_size;
 			//line-height: 9vw;
-			border: 1px solid white;
 			border-radius: 50%;
 			color: white;
 			span {
@@ -239,15 +238,15 @@
 				display: inline-block;
 				width: $_size;
 				height: $_size;
-				line-height: 9.3vw;
+				//line-height: 9.3vw;
 				text-align: center;
 			}
 
 			svg, svg path {
 				stroke-width: 1.6;
 				display: inline-block;
-				height: 6.3vw;
-				width: 6.3vw;
+				width: $_size;
+				height: $_size;
 			}
 		}
 	}
