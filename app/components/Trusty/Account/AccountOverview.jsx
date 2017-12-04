@@ -136,7 +136,7 @@ class AccountOverview extends React.Component {
 
         return (
             <div className="grid-content trusty_profile_info trusty_bottom_fix_space" style={{overflowX: "hidden"}}>
-                <div className="content-block small-12">
+                <div className="small-12">
                     <div className="generic-bordered-box">
                         <br/>
                         <div className="trusty_total_funds">
