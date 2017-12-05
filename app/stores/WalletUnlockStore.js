@@ -22,18 +22,11 @@ class WalletUnlockStore {
         this.bindListeners({
             onChangeSetting: SettingsActions.changeSetting
         });
-
-        // let timeoutSetting = this._getTimeout();
-
-        // if (timeoutSetting) {
-        //     this.walletLockTimeout = timeoutSetting;
-        // }
     }
 
     onUnlock({resolve, reject}) {
         //DEBUG console.log('... onUnlock setState', WalletDb.isLocked())
         //
-        this._setLockTimeout();
         if( ! WalletDb.isLocked()) {
             this.setState({locked: false});
             resolve();
@@ -68,7 +61,6 @@ class WalletUnlockStore {
         if (payload.setting === "walletLockTimeout") {
             this.walletLockTimeout = payload.value;
             this._clearLockTimeout();
-            this._setLockTimeout();
         } else if (payload.setting === "passwordLogin") {
             this.setState({
                 passwordLogin: payload.value
@@ -76,20 +68,6 @@ class WalletUnlockStore {
         }
     }
 
-
-    _setLockTimeout() {
-        this._clearLockTimeout();
-        /* If the timeout is different from zero, auto unlock the wallet using a timeout */
-        if (!!this.walletLockTimeout) {
-            this.timeout = setTimeout(() => {
-                if (!WalletDb.isLocked()) {
-                    console.log("auto locking after", this.walletLockTimeout, "s");
-                    WalletDb.onLock()
-                    this.setState({locked: true})
-                };
-            }, this.walletLockTimeout * 1000);
-        }
-    }
 
     _clearLockTimeout() {
         if (this.timeout) {
@@ -99,7 +77,7 @@ class WalletUnlockStore {
     }
 
     _getTimeout() {
-        return parseInt(ss.get("lockTimeout", 600), 10);
+        return 60000;
     }
 
     onCheckLock() {
