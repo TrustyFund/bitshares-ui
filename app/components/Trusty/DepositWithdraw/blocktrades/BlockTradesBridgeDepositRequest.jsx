@@ -1196,7 +1196,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
             if (this.state.failed_calculate_deposit != null) {
                 calcTextDeposit = this.state.failed_calculate_deposit;
             }
-            let calcTextWithdraw = <Translate content="gateway.calc" />;
+            let calcTextWithdraw = <LoadingIndicator type={"trusty-owl"}/>;//<Translate content="gateway.calc" />;
             if (this.state.failed_calculate_withdraw != null) {
                 calcTextWithdraw = this.state.failed_calculate_withdraw;
             }
@@ -1420,7 +1420,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 if (this.state.withdraw_error)
                     withdraw_error_element = <div>{this.state.withdraw_error}</div>;
 
-                let withdraw_limit_element = <span>...</span>;
+                let withdraw_limit_element = <span></span>;
                 if (this.state.withdraw_limit)
                 {
                     if (this.state.withdraw_limit.limit)
@@ -1449,7 +1449,6 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                         <div>{withdraw_input_coin_type_select}</div>
                                         <div>{withdraw_input_amount_edit_box}</div>
                                     </div>
-                                    &rarr;
                                     <div className="inline-block">
                                         <div>{withdraw_output_coin_type_select}</div>
                                         <div>{withdraw_output_amount_edit_box}</div>

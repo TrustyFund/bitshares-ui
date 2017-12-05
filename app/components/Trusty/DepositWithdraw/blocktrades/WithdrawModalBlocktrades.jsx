@@ -497,8 +497,8 @@ class WithdrawModalBlocktrades extends React.Component {
                         onChange={this.onWithdrawAmountChange.bind(this)}
                         display_balance={balance}
                     />
-                    {this.state.empty_withdraw_value ? <p className="has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.valid" /></p>:null}
-                    {this.state.balanceError ? <p className="has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.insufficient" /></p>:null}
+                    {this.state.empty_withdraw_value ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.valid" /></p>:null}
+                    {this.state.balanceError ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.insufficient" /></p>:null}
                 </div>
 
                 {/* Fee selection */}

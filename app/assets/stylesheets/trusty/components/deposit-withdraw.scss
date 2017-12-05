@@ -35,6 +35,9 @@
 				height: initial;
 			}
 
+			.dropdown-wrapper:after {
+				content: none !important;
+			}
 
 			
 			.grid-block.vertical {
