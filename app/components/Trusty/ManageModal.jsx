@@ -98,7 +98,7 @@ class ManageModal extends React.Component {
             
             typeof this.props.resolve == "function" && this.props.resolve();
             WalletUnlockActions.change()
-            this.setState({password_input_reset: Date.now(), password_error: false});
+            //this.setState({password_input_reset: Date.now(), password_error: false});
         }
         return false;
 	}
