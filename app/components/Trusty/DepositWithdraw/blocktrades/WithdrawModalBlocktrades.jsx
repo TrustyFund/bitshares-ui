@@ -514,8 +514,8 @@ class WithdrawModalBlocktrades extends React.Component {
                         assets={fee_asset_types}
                         tabIndex={tabIndex++}
                     />
-                    {!this.state.hasBalance ? <p className="has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.noFeeBalance" /></p> : null}
-                    {!this.state.hasPoolBalance ? <p className="has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.noPoolBalance" /></p> : null}
+                    {!this.state.hasBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noFeeBalance" /></p> : null}
+                    {!this.state.hasPoolBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noPoolBalance" /></p> : null}
                 </div> : null}
 
                 {/* Gate fee */}
