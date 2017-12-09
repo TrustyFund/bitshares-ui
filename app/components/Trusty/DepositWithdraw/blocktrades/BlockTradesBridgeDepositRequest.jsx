@@ -1322,7 +1322,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                             <Link to="/home" className="b_left"><button>Confirm</button></Link>
                             <Link to="/home" className="b_right"><button >Cancel</button></Link>
                         </div>
-                        <p className="trusty_ps_text">Payment getaway service is provided by<br/> Openledger.io at 0% fee</p>
+                        <p className="trusty_ps_text">Payment gateway service is provided by<br/> Openledger.io at 0% fee</p>
                     </div>
                     )
 
