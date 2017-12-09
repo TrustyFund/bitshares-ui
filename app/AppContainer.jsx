@@ -13,8 +13,9 @@ import { dispatcher } from "components/Trusty/utils"
 // import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 const user_agent = navigator.userAgent.toLowerCase();
+let isExtension = (window.innerHeight == 590 && window.innerWidth == 400);
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
+window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari || isExtension)
 
 
 class AppContainer extends React.Component {
