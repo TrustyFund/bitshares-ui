@@ -8,6 +8,7 @@ import { Router, browserHistory, hashHistory } from "react-router/es";
 * synchronized between the two files
 */
 import routes from "./Routes";
+import FastClick from 'react-fastclick-alt';
 
 require("./components/Utility/Prototypes"); // Adds a .equals method to Array for use in shouldComponentUpdate
 
@@ -24,9 +25,11 @@ if(localStorage.getItem("_trusty_username")) {
 const rootEl = document.getElementById("content");
 const render = () => {
     ReactDOM.render(
-        <AppContainer>
-            <Router history={history} routes={routes} />
-        </AppContainer>,
+    	<FastClick>
+	        <AppContainer>
+	            <Router history={history} routes={routes} />
+	        </AppContainer>
+        </FastClick>,
         rootEl
     );
 };

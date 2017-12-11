@@ -6,6 +6,9 @@ import utils from "./dl_cli_index";
 if (window) {
     window.$utils = utils;
 };
+
+
+import FastClick from 'react-fastclick-alt';
 /*
 * Routes-dev is only needed for react hot reload, as this does not work with
 * the async routes defined in Routes.jsx. Any changes to the routes must be kept
@@ -23,9 +26,11 @@ if(localStorage.getItem("_trusty_username")) {
 const rootEl = document.getElementById("content");
 const render = () => {
     ReactDOM.render(
-        <AppContainer>
-            <Routes />
-        </AppContainer>,
+        <FastClick>
+          <AppContainer>
+              <Routes />
+          </AppContainer>
+        </FastClick>,
         rootEl
     );
 };
