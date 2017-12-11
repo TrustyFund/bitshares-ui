@@ -217,7 +217,7 @@ class ManagePortfolio extends React.Component {
 		let thirdTab = 
 			<div className="manage_third_tab">
 				<img src={require("./imgs/manage_fund_mirror_blank.png")}/>
-				<p>Soon you will be able to<br/> automatically mirror<br/>trade of ranked<br/>fund managers</p>
+				<p>Soon you will be able to<br/> automatically mirror<br/>trades of ranked<br/>fund managers</p>
 			</div>
 
 		return (
