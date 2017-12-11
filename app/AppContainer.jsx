@@ -9,8 +9,8 @@ import AccountStore from "stores/AccountStore";
 import LoadingIndicator from "components/LoadingIndicator";
 import { dispatcher } from "components/Trusty/utils"
 /* pixel perfect helper */
-import 'components/Trusty/pixel-glass'
-import 'assets/stylesheets/trusty/components/pixel-glass.scss'
+// import 'components/Trusty/pixel-glass'
+// import 'assets/stylesheets/trusty/components/pixel-glass.scss'
 
 const user_agent = navigator.userAgent.toLowerCase();
 let isExtension = (window.innerHeight == 590 && window.innerWidth == 400);
