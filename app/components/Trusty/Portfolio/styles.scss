@@ -325,12 +325,13 @@
 }
 
 .greater:not(a){
-	font-family: "Gotham_Pro_Medium"
+	font-family: "Gotham_Pro_Medium";
 	//color: #79c610;
+	transform: translateY(-2px);
 }
 
 .less:not(a){
-	font-family: "Gotham_Pro_Bold"
+	font-family: "Gotham_Pro_Bold";
 	//color: #ff3030;
 }
 
