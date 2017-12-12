@@ -43,7 +43,8 @@ class AccountOverview extends React.Component {
             depositAsset: null,
             withdrawAsset: null,
             bridgeAsset: null,
-            balances: null
+            balances: null,
+            showPrice: false
         };
     }
 
@@ -76,6 +77,10 @@ class AccountOverview extends React.Component {
         }
     }
 
+    changeShowPrice(val) {
+        this.setState({showPrice: val})
+    }
+
 
     _renderTrustyBalaces() {
         let balances = []
@@ -91,9 +96,15 @@ class AccountOverview extends React.Component {
                         <td style={{textAlign: "right"}}>
                             { p.balanceID != null ? <span>{p.currentShare}%</span> : "0%"}
                         </td>
-                        <td style={{textAlign: "right"}}>
+                        { this.state.showPrice ? 
+                            <td style={{textAlign: "right"}} onClick={this.changeShowPrice.bind(this, false)}>
+                            { p.balanceID != null ? <span>{p.priceUSD}</span> : 0 }
+                            </td>
+                            :
+                            <td style={{textAlign: "right"}} onClick={this.changeShowPrice.bind(this, true)}>
                             { p.balanceID != null ? <span>{p.bitUSDShare}</span> : 0 }
-                        </td>
+                            </td>
+                        }
                         <td>
                             <MarketCard
                                 key={pair[0] + "_" + pair[1]}
@@ -121,8 +132,8 @@ class AccountOverview extends React.Component {
     }
 
     render() {
-        let {account, hiddenAssets, settings, orders, trustyPortfolio: portfolio } = this.props;
-        let {showHidden} = this.state;
+        let { account, hiddenAssets, settings, orders, trustyPortfolio: portfolio } = this.props;
+        let { showHidden } = this.state;
 
         if (!account) {
             return null;
@@ -167,7 +178,7 @@ class AccountOverview extends React.Component {
                                 <tr>
                                     <th style={{textAlign: "left"}}><Translate component="span" content="account.asset" /></th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.share" /></th>
-                                    <th style={{textAlign: "right"}}><span>$VALUE</span></th>
+                                    <th style={{textAlign: "right"}} onClick={this.changeShowPrice.bind(this, !this.state.showPrice)}>{ this.state.showPrice ? <span>$PRICE</span> : <span>$VALUE</span> }</th>
                                     <th style={{textAlign: "right"}}><Translate component="span" content="account.chng" /></th>   
                                 </tr>
                             </thead>

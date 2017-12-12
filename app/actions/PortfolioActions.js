@@ -349,6 +349,7 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
         balance.futureShare = balance.currentShare;
         totalCurrentShare += balance.currentShare;
+        balance.priceUSD = (balance.bitUSDShare/balance.currentShare) * 100%              
     });
 
     activeBalaces.sort((a, b) => {
@@ -366,7 +367,7 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
     return {data:activeBalaces,totalBaseValue: totalBaseValue, totalUSDShare: totalUSDShare,baseInBaseValue: baseInBaseValue}
 }
 
-let countEqvValue = (amount,from,to) => {
+let countEqvValue = (amount,from,to, priceOnly) => {
     let fromAsset = ChainStore.getAsset(from);
     let toAsset = ChainStore.getAsset(to);
 
@@ -393,6 +394,11 @@ let countEqvValue = (amount,from,to) => {
                                     (toID === "1.3.0" || toAsset.has("bitasset")) ? toAsset : null,
                                     fromID,
                                     toID);
+    if(priceOnly && price) {
+        let p = utils.get_asset_price(price.quote.amount, fromAsset, price.base.amount, toAsset);
+        return p
+
+    }
 
     return price ? Math.floor(utils.convertValue(price, amount, fromAsset, toAsset)): 0;
 }
