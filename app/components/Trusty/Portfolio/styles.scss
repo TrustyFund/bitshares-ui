@@ -259,6 +259,15 @@
 				width: $_size;
 				height: $_size;
 			}
+
+			&.greater._disable, 
+			&.less._disable {
+				background: transparent;
+				border: none;
+				svg path {
+					fill: #9ea2a5;
+				}
+			}
 		}
 	}
 

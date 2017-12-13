@@ -135,12 +135,12 @@ class ManagePortfolio extends React.Component {
 						<div className={cname(name, {"_red": false })}>
 							<div className="fake_line_height" />
 							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,true)}>
-								<a  className={cname("_minus",assetClass())} onClick={this._decrementAsset.bind(this, asset)}><Icon name="trusty_minus"/></a>
+								<a  className={cname("_minus",assetClass(),{"_disable": asset.futureShare==0})} onClick={this._decrementAsset.bind(this, asset)}><Icon name="trusty_minus"/></a>
 							</Hammer>
 							
 							{this.renderShare(asset.futureShare,assetClass())}
 							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,false)}>
-								<a  className={cname("_plus",assetClass())} onClick={this._incrementAsset.bind(this, asset)}><Icon name="trusty_plus"/></a>
+								<a  className={cname("_plus",assetClass(),{"_disable": asset.futureShare==100})} onClick={this._incrementAsset.bind(this, asset)}><Icon name="trusty_plus"/></a>
 							</Hammer>
 						</div>
 					</td>
