@@ -265,7 +265,15 @@
 				background: transparent;
 				border: none;
 				svg path {
-					fill: #9ea2a5;
+					fill: #9ea2a5 !important;
+				}
+			}
+
+			&._disable {
+				background: transparent;
+				border: none;
+				svg path {
+					fill: #9ea2a5 !important;
 				}
 			}
 		}
