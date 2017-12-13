@@ -349,7 +349,7 @@ let getBalancePortfolio = (balances, baseSymbol)=>{
         balance.currentShare = Math.round( 100 * balance.baseEqValue / totalBaseValue );
         balance.futureShare = balance.currentShare;
         totalCurrentShare += balance.currentShare;
-        balance.priceUSD = (balance.bitUSDShare/balance.currentShare) * 100%              
+        balance.priceUSD = (balance.bitUSDShare/balance.currentShare) * 100             
     });
 
     activeBalaces.sort((a, b) => {
