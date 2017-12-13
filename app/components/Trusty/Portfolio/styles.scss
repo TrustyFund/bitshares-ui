@@ -334,12 +334,14 @@
 
 .greater:not(a){
 	font-family: "Gotham_Pro_Medium";
+	color: #269c26;
 	//color: #79c610;
 	transform: translateY(-2px);
 }
 
 .less:not(a){
 	font-family: "Gotham_Pro_Bold";
+	color: #ff3030;
 	//color: #ff3030;
 }
 
