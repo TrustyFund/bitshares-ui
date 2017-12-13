@@ -21,7 +21,9 @@ let icons = ["user", "trash", "chevron-down", "menu", "database", "download", "s
         "trusty_plus",
         "trusty_minus",
         "mf_minus",
-        "mf_plus"
+        "mf_plus",
+        "full_plus",
+        "full_minus"
     ])
 
 let icons_map = {};

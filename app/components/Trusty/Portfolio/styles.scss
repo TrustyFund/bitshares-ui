@@ -201,25 +201,10 @@
 			color: #ff3030;
 		}
 
-
-		._plus {
-			&.greater {
-				border: 1px solid white;
-				background: white;
-				svg {
-					//stroke: black;
-				}	
-			}
-		}
-
 		._minus {
 			line-height: 7vw;
 			&.less {
-				border: 1px solid white;
-				background: white;
-				svg {
-					//stroke: black;
-				}	
+
 			}
 		}
 
@@ -228,9 +213,6 @@
 			font-family: Gotham_Pro;
 			text-align: center;
 			width: 9vw;
-			span {
-				//transform: translate(.1vw,-0.4vw) !important;
-			}
 		}
 
 		._minus, ._plus {
