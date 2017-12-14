@@ -19,6 +19,17 @@
   -webkit-tap-highlight-color:  transparent;
 }
 
+iframe {
+	display: block;
+	border: none;
+	position: fixed;
+	margin: 0 auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	overflow: scroll !important;
+}
+
 
 .fake_line_height {
 	display: inline-block;
