@@ -20,7 +20,6 @@ import BitKapital from "components/DepositWithdraw/BitKapital";
 import GatewayStore from "stores/GatewayStore";
 import GatewayActions from "actions/GatewayActions";
 import AccountImage from "components/Account/AccountImage";
-import { unlockAction } from 'components/Trusty/utils'
 
 class AccountDepositWithdraw extends React.Component {
 
@@ -58,7 +57,6 @@ class AccountDepositWithdraw extends React.Component {
     }
 
     componentWillMount() {
-        unlockAction(this.props.router, "/home",this.props.location.pathname)
         accountUtils.getFinalFeeAsset(this.props.account, "transfer");
     }
 
