@@ -8,13 +8,15 @@ import Icon from 'components/Icon/Icon'
 class TrustyInput extends React.Component {
 
   static propTypes = {
-      label: React.PropTypes.string,
-      textArea: React.PropTypes.bool,
-      closeAction: React.PropTypes.func  
+	  	type: React.PropTypes.string,
+	    label: React.PropTypes.string,
+	    textArea: React.PropTypes.bool,
+	    closeAction: React.PropTypes.func  
   };
 
   static defaultProps = {
       label: "label here",
+      type: "",
   };
 
 
@@ -93,7 +95,7 @@ class TrustyInput extends React.Component {
 	}
 
 	render(){
-		let input = <input 
+		let inputThis = <input 
 										id="_id_trusty_input"
 										style={{display: "none"}}
 										onBlur={this.setOpened.bind(this,false)}
@@ -107,16 +109,17 @@ class TrustyInput extends React.Component {
 
 		let body = document.body
 		let newLabel = this.props.label != "label here" 
-		
+		let { type, input } = this.props
+		let classes = { "text_area": this.props.textArea, "opened_text_area": this.state.opened && this.props.textArea, "select_input": type=="select" }
 		return (
-				<div className={cname("trusty_input_container",{ "text_area": this.props.textArea, "opened_text_area": this.state.opened && this.props.textArea })}>
+				<div style={this.props.style} className={cname("trusty_input_container",classes)}>
 					{/*<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>*/}
 						{/* this.state.opened ? <label>{this.props.label}</label> : null*/ }
 					{/*</CSSTransitionGroup>*/}
 					<div className="w_input">
 						<div ref="inputWrap" className={cname("t_input", {"active_input": this.state.opened})}>
 							<label onClick={this.labelClick.bind(this)} className={cname("trusty_place_holder", this.props.label.split(" ").join("_"), {"no_opened":!this.state.opened})}>{this.props.label}</label>
-							{ this.props.input ? this.props.input : null }
+							{ input  ? input : null}
 						</div>
 						<div className="t_right" onClick={this.props.closeAction ? this.props.closeAction : ()=>{return}}>
 							{this.props.right ?  this.props.right : !this.state.isEmpty ? <span className="close_icon" onClick={this._nullField.bind(this)}><Icon name={"trusty_input_close"} /></span> : null }

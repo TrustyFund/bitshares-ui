@@ -14,10 +14,11 @@
 	}
 	
 	.trusty_deposit_and_withdraw {
-
+		.trusty_input_container {
+			margin-bottom: 6vw !important;
+		}
 		.trusty_withdraw_wrap {
-			padding: 0 4vw;
-			margin-top: 1.9vw;
+			//margin-top: 1.9vw;
 		}
 
 		.modal-overlay.is-active {
@@ -26,9 +27,9 @@
 			width: 100%;
 		}
 
-		#withdraw_asset_blocktrades_bridge {
+		div[id^='withdraw_asset_'] {
 			background: transparent !important;
-			padding: 0 0;//4vw;
+			padding: 0 0 !important;//4vw;
 
 
 			&.modal {
@@ -92,7 +93,7 @@
 	margin-bottom: get-vw(8px);
 }
 
-.trusty_deposit {
+.trusty_deposit_and_withdraw {
 	@media screen and (max-width: 750px){
 		padding: 0 3.6vw;
 		._bottom {

@@ -295,7 +295,7 @@ class ButtonWithdraw extends React.Component {
                     <span className="_hide">
                         <button className={button_class} onClick={this.onWithdraw.bind(this)}><Translate content="" /><Translate content="gateway.withdraw_now" /> </button>
                     </span>
-                    <BaseModal id={withdraw_modal_id} overlay={true}>
+                    <BaseModal className={"_transparent_modal"} id={withdraw_modal_id} overlay={true}>
                         <div className="grid-block vertical">
                             <WithdrawModalBlocktrades
 								key={`${this.props.key}`}
@@ -1571,32 +1571,17 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 </tbody>;
             }
 
-            // let TrustyWithdraw =  <WithdrawModalBlocktrades  
-            //                           key={this.state.key_for_withdrawal_dialog}
-            //                           account={this.props.account.get('name')}
-            //                           issuer={this.props.issuer_account.get('name')}
-            //                           asset={this.state.coins_by_type[this.state.withdraw_input_coin_type].walletSymbol}
-            //                           output_coin_name={this.state.coins_by_type[this.state.withdraw_output_coin_type].name}
-            //                           output_coin_symbol={this.state.coins_by_type[this.state.withdraw_output_coin_type].symbol}
-            //                           output_coin_type={this.state.withdraw_output_coin_type}
-            //                           output_supports_memos={this.state.supports_output_memos}
-            //                           amount_to_withdraw={this.state.withdraw_estimated_input_amount}
-            //                           url={this.state.url}
-            //                           output_wallet_type={this.state.coins_by_type[this.state.withdraw_output_coin_type].walletType}
-            //                           balance={this.props.account.get("balances").toJS()[this.props.asset.get('id')]} />
+  
             return (
                 <div>
                     {/*this.props.deposit_only ? deposit_header : null*/}
                     {this.props.deposit_only ? deposit_body : null}
-                    <table className="table">
+                    <div className="table">
                         {/*!this.props.deposit_only ? withdraw_header : null*/}
                         {!this.props.deposit_only ? withdraw_body : null}
                         {/*conversion_header*/}
                         {/*conversion_body*/}
-                    </table>
-                    
-                    {/*TrustyWithdraw*/}
-
+                    </div>
                 </div>
             );
         }

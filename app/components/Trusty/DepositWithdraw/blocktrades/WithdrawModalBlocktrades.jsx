@@ -519,19 +519,15 @@ class WithdrawModalBlocktrades extends React.Component {
                 </div> : null}
 
                 {/* Gate fee */}
-                {this.props.gateFee ?
+                {/*this.props.gateFee ?
                     (<div className="amount-selector right-selector" style={{paddingBottom: 20}}>
-                        <label className="left-label"><Translate content="gateway.fee" /></label>
-                        <div className="inline-label input-wrapper">
-                            <input type="text" disabled value={this.props.gateFee} />
-
-                            <div className="form-label select floating-dropdown">
-                                <div className="dropdown-wrapper inactive">
-                                    <div>{this.props.output_coin_symbol}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>):null}
+                        <TrustyInput 
+                            style={{marginBottom: 0}}
+                            isOpen={true}
+                            input={<input type="text" disabled value={this.props.gateFee} />} 
+                            right={this.props.output_coin_symbol}
+                            label={"gateway fee"} />
+                    </div>):null*/}
                 <div className="content-block">
                     {/*<label className="left-label">
                                             <Translate component="span" content="modal.withdraw.address"/>

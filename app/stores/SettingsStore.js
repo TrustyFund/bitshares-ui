@@ -244,7 +244,6 @@ class SettingsStore {
         for (let key in payload) {
             this.viewSettings = this.viewSettings.set(key, payload[key]);
         }
-
         ss.set("viewSettings_v1", this.viewSettings.toJS());
     }
 

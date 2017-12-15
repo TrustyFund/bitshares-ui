@@ -16,6 +16,7 @@ import ManageModal from "components/Trusty/ManageModal";
 import BaseModal from "components/Modal/BaseModal"
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import Hammer from "react-hammerjs";
+import FastClick from 'react-fastclick-alt';
 
 class ManagePortfolio extends React.Component {
 

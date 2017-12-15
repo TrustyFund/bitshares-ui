@@ -6,7 +6,7 @@ import Translate from "react-translate-component";
 import ChainTypes from "components/Utility/ChainTypes";
 import BindToChainState from "components/Utility/BindToChainState";
 //import TranswiserDepositWithdraw from "components/DepositWithdraw/transwiser/TranswiserDepositWithdraw";
-import BlockTradesGateway from "components/DepositWithdraw/BlockTradesGateway";
+import BlockTradesGateway from "components/Trusty/DepositWithdraw/BlockTradesGateway";
 import OpenLedgerFiatDepositWithdrawal from "components/DepositWithdraw/openledger/OpenLedgerFiatDepositWithdrawal";
 import OpenLedgerFiatTransactionHistory from "components/DepositWithdraw/openledger/OpenLedgerFiatTransactionHistory";
 import BlockTradesBridgeDepositRequest from "components/Trusty/DepositWithdraw/blocktrades/BlockTradesBridgeDepositRequest";
@@ -20,6 +20,10 @@ import BitKapital from "components/DepositWithdraw/BitKapital";
 import GatewayStore from "stores/GatewayStore";
 import GatewayActions from "actions/GatewayActions";
 import AccountImage from "components/Account/AccountImage";
+import TrustyInput from "components/Trusty/Forms/TrustyInput"
+
+
+
 
 class AccountDepositWithdraw extends React.Component {
 
@@ -40,7 +44,8 @@ class AccountDepositWithdraw extends React.Component {
             olService: props.viewSettings.get("olService", "gateway"),
             btService: props.viewSettings.get("btService", "bridge"),
             metaService: props.viewSettings.get("metaService", "bridge"),
-            activeService: props.viewSettings.get("activeService", 0)
+            activeService: props.viewSettings.get("activeService", 0),
+            activeType: "crypto",
         };
     }
 
@@ -90,6 +95,20 @@ class AccountDepositWithdraw extends React.Component {
         });
     }
 
+    onSetType(e) {
+        //let index = this.state.services.indexOf(e.target.value);
+        this.setState({
+            activeType: e.target.value
+        });
+
+        switch (e.target.value) {
+            case "fiat": this.toggleOLService("fiat")
+            break;
+            case "crypto": this.toggleOLService("gateway")
+        }
+
+    }
+
     onSetService(e) {
         //let index = this.state.services.indexOf(e.target.value);
         this.setState({
@@ -106,6 +125,36 @@ class AccountDepositWithdraw extends React.Component {
         let serList = [];
         let { account } = this.props;
         let { olService, btService } = this.state;
+
+
+        serList.push({
+            name: "Openledger (OPEN.X)",
+            template: (
+                <div className="content-block">
+
+                        {olService === "gateway" && openLedgerGatewayCoins.length ?
+                        <BlockTradesGateway
+                            deposit_only={this.props.deposit}
+                            account={account}
+                            coins={openLedgerGatewayCoins}
+                            provider="openledger"
+                        /> : null}
+
+                        {olService === "fiat" ?
+                        <div>
+                            <div style={{paddingBottom: 15}}><Translate component="h5" content="gateway.fiat_text" /></div>
+
+                            <OpenLedgerFiatDepositWithdrawal
+                                rpc_url={settingsAPIs.RPC_URL}
+                                account={account}
+                                issuer_account="openledger-fiat" />
+                            <OpenLedgerFiatTransactionHistory
+                                rpc_url={settingsAPIs.RPC_URL}
+                                account={account} />
+                        </div> : null}
+                    </div>
+            )
+        });
 
         serList.push({
             name: "BlockTrades (TRADE.X)",
@@ -134,13 +183,13 @@ class AccountDepositWithdraw extends React.Component {
                         </div>
                     </div>)
         });
-
+        serList.reverse()
         return serList;
     }
 
     render() {
         let { account } = this.props;
-        let { activeService } = this.state;
+        let { activeService, activeType } = this.state;
 
         let blockTradesGatewayCoins = this.props.blockTradesBackedCoins.filter(coin => {
             if (coin.backingCoinType.toLowerCase() === "muse") {
@@ -175,8 +224,37 @@ class AccountDepositWithdraw extends React.Component {
         let options = services.map((services_obj, index) => {
             return <option key={index} value={index}>{services_obj.name}</option>;
         });
+
+        let selectBridge = (
+            <select onChange={this.onSetService.bind(this)} className="bts-select" value={activeService} >
+                        {options}
+            </select>
+        )
+
+        let selectType = (
+            <select onChange={this.onSetType.bind(this)} className="bts-select" value={activeType} >
+                <option>crypto</option>
+                <option>fiat</option>
+            </select>
+        )
+
         return (
             <div className="trusty_deposit_and_withdraw">
+
+                <div><TrustyInput 
+                    isOpen={true}
+                    input={selectType}
+                    type={"select"}
+                    label={"Type"}
+                /></div>
+      
+                <div><TrustyInput 
+                    isOpen={true}
+                    input={selectBridge}
+                    type={"select"}
+                    label={"services"}
+                /></div>
+      
                 <div className="grid-content no-padding" style={{overflow: "hidden"}}>
                 {activeService && services[activeService] ? services[activeService].template : services[0].template}
                 </div>

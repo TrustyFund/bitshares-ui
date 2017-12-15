@@ -11,6 +11,31 @@
   }
 }
 
+
+@mixin input_tag_style {
+    display: inline-block;
+    background-color: transparent !important;
+    width: 100% !important;
+    margin-left: -1000px !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: none !important;
+    border-bottom-width: 0px !important;
+    outline: none !important;
+    padding-bottom: 2px;
+    padding-left: 0;
+    padding-top: 0 !important;
+    font-size: 5.4vw !important;
+    height: 6.4vw;
+    font-family: "Gotham_Pro_Regular";
+    width: 100% !important;
+}
+
 $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
 
 @media screen and (max-width: 768px) {
@@ -168,23 +193,7 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
     width: 100%;
     border-bottom: 1px solid $color_light_grey;
     input {
-      display: inline-block;
-      background-color: transparent !important;
-      width: 100% !important;
-      margin-left: -1000px !important;
-      margin-right: 0 !important;
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
-      border-radius: 0 !important;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      border-bottom: none !important;
-      border-bottom-width: 0px !important;
-      outline: none !important;
-      padding-bottom: 2px;
-      padding-left: 0;
-      padding-top: 0 !important;
+      @include input_tag_style;
     }
 
     input::placeholder {
@@ -214,6 +223,28 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
       background-color: transparent !important;
       border-radius: 0 !important;
     }
+  }
+  
+
+  &.select_input {
+
+    select {
+      padding-bottom: 0 !important;
+      @include input_tag_style;
+
+      option {
+        //font-size: inherit;
+        //height: inherit;
+        //font-family: inherit;
+      }
+    }
+
+    .active_input {
+      select {
+        margin-left: 0 !important;
+      }
+    }
+
   }
 }
 

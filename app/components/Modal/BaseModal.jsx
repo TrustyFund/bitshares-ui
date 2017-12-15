@@ -24,6 +24,7 @@ class BaseModal extends React.Component {
     }
 
     render() {
+
         const { props } = this;
 
         return (
