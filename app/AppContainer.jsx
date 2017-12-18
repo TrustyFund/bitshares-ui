@@ -17,6 +17,26 @@ let isExtension = (window.innerHeight == 590 && window.innerWidth == 400);
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari || isExtension)
 
+import jquery from 'jquery'
+
+jquery.fn.nodoubletapzoom = function() {
+    jquery(this).bind('touchstart', function preventZoom(e) {
+        var t2 = e.timeStamp;
+        var t1 = jquery(this).data('lastTouch') || t2;
+        var dt = t2 - t1;
+        var fingers = e.originalEvent.touches.length;
+        jquery(this).data('lastTouch', t2);
+        if (!dt || dt > 500 || fingers > 1) {
+            return; // not double-tap
+        }
+        e.preventDefault(); // double tap - prevent the zoom
+        // also synthesize click events we just swallowed up
+        jquery(e.target).trigger('click');
+    });
+};
+
+jquery('body').nodoubletapzoom();
+
 class AppContainer extends React.Component {
     constructor(){
         super()
