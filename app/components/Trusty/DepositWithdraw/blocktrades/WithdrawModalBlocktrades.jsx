@@ -480,89 +480,89 @@ class WithdrawModalBlocktrades extends React.Component {
         let addressSelect = <span onClick={this.onDropDownList.bind(this)} >&#9660;</span>
 
         return (<form className="grid-block vertical full-width-content">
-            <div className="grid-container">
-                {/*<div className="content-block">
-                                    <h3><Translate content="gateway.withdraw_coin" coin={this.props.output_coin_name} symbol={this.props.output_coin_symbol} /></h3>
-                                </div>*/}
+                <div className="grid-container">
+                    {/*<div className="content-block">
+                                        <h3><Translate content="gateway.withdraw_coin" coin={this.props.output_coin_name} symbol={this.props.output_coin_symbol} /></h3>
+                                    </div>*/}
 
-                {/* Withdraw amount */}
-                <div className="content-block _hide">
-                    <AmountSelector 
-                        trustyLabel="enter amount"
-                        label="modal.withdraw.amount"
-                        amount={this.state.withdraw_amount}
-                        asset={this.props.asset.get("id")}
-                        assets={[this.props.asset.get("id")]}
-                        placeholder="0.0"
-                        onChange={this.onWithdrawAmountChange.bind(this)}
-                        display_balance={balance}
-                    />
-                    {this.state.empty_withdraw_value ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.valid" /></p>:null}
-                    {this.state.balanceError ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.insufficient" /></p>:null}
-                </div>
+                    {/* Withdraw amount */}
+                    <div className="content-block _hide">
+                        <AmountSelector 
+                            trustyLabel="enter amount"
+                            label="modal.withdraw.amount"
+                            amount={this.state.withdraw_amount}
+                            asset={this.props.asset.get("id")}
+                            assets={[this.props.asset.get("id")]}
+                            placeholder="0.0"
+                            onChange={this.onWithdrawAmountChange.bind(this)}
+                            display_balance={balance}
+                        />
+                        {this.state.empty_withdraw_value ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.valid" /></p>:null}
+                        {this.state.balanceError ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.insufficient" /></p>:null}
+                    </div>
 
-                {/* Fee selection */}
-                {this.state.feeAmount ? <div className="content-block gate_fee">
-                    <AmountSelector
-                        trustyLabel="exchange fee"
-                        refCallback={this.setNestedRef.bind(this)}
-                        label="transfer.fee"
-                        disabled={true}
-                        amount={this.state.feeAmount.getAmount({real: true})}
-                        onChange={this.onFeeChanged.bind(this)}
-                        asset={this.state.feeAmount.asset_id}
-                        assets={fee_asset_types}
-                        tabIndex={tabIndex++}
-                    />
-                    {!this.state.hasBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noFeeBalance" /></p> : null}
-                    {!this.state.hasPoolBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noPoolBalance" /></p> : null}
-                </div> : null}
+                    {/* Fee selection */}
+                    {this.state.feeAmount ? <div className="content-block gate_fee">
+                        <AmountSelector
+                            trustyLabel="exchange fee"
+                            refCallback={this.setNestedRef.bind(this)}
+                            label="transfer.fee"
+                            disabled={true}
+                            amount={this.state.feeAmount.getAmount({real: true})}
+                            onChange={this.onFeeChanged.bind(this)}
+                            asset={this.state.feeAmount.asset_id}
+                            assets={fee_asset_types}
+                            tabIndex={tabIndex++}
+                        />
+                        {!this.state.hasBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noFeeBalance" /></p> : null}
+                        {!this.state.hasPoolBalance ? <p className="has-error no-margin trusty_font_error"><Translate content="transfer.errors.noPoolBalance" /></p> : null}
+                    </div> : null}
 
-                {/* Gate fee */}
-                {/*this.props.gateFee ?
-                    (<div className="amount-selector right-selector" style={{paddingBottom: 20}}>
-                        <TrustyInput 
-                            style={{marginBottom: 0}}
-                            isOpen={true}
-                            input={<input type="text" disabled value={this.props.gateFee} />} 
-                            right={this.props.output_coin_symbol}
-                            label={"gateway fee"} />
-                    </div>):null*/}
-                <div className="content-block">
-                    {/*<label className="left-label">
-                                            <Translate component="span" content="modal.withdraw.address"/>
-                                        </label>*/}
-                    <div className="blocktrades-select-dropdown">
-                        <div className="inline-label">
-                            <TrustyInput
-                                input={addressInput} label="enter address"/>
+                    {/* Gate fee */}
+                    {/*this.props.gateFee ?
+                        (<div className="amount-selector right-selector" style={{paddingBottom: 20}}>
+                            <TrustyInput 
+                                style={{marginBottom: 0}}
+                                isOpen={true}
+                                input={<input type="text" disabled value={this.props.gateFee} />} 
+                                right={this.props.output_coin_symbol}
+                                label={"gateway fee"} />
+                        </div>):null*/}
+                    <div className="content-block">
+                        {/*<label className="left-label">
+                                                <Translate component="span" content="modal.withdraw.address"/>
+                                            </label>*/}
+                        <div className="blocktrades-select-dropdown">
+                            <div className="inline-label">
+                                <TrustyInput
+                                    input={addressInput} label="enter address"/>
 
+                            </div>
+                        </div>
+                        <div className="blocktrades-position-options">
+                            {options}
+                        </div>
+                        {invalid_address_message}
+                    </div>
+
+                    {/* Memo input */}
+                    {withdraw_memo}
+                    <p className="_tooltip_p _yellow" style={{textAlign: "left", marginTop: 0, marginBottom: 0}}>Please enter a valid BTC address</p>
+                    <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
+                    {/* Withdraw/Cancel buttons */}
+                    <div className="button-group trusty_inline_buttons">
+                        <div onClick={this.onSubmit.bind(this)} className={"button b_left" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
+                            <Translate content="modal.withdraw.submit" />
+                        </div>
+                        <div onClick={()=>{browserHistory.push("/home")}}>
+                            <Trigger close={this.props.modal_id}>
+                                <div className="button b_right"><Translate content="account.perm.cancel" /></div>
+                            </Trigger>
                         </div>
                     </div>
-                    <div className="blocktrades-position-options">
-                        {options}
-                    </div>
-                    {invalid_address_message}
+                    {confirmation}
                 </div>
-
-                {/* Memo input */}
-                {withdraw_memo}
-                <p className="_tooltip_p _yellow" style={{textAlign: "left", marginTop: 0, marginBottom: 0}}>Please enter a valid BTC address</p>
-                <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
-                {/* Withdraw/Cancel buttons */}
-                <div className="button-group trusty_inline_buttons">
-
-                    <div onClick={this.onSubmit.bind(this)} className={"button b_left" + (this.state.error || this.state.balanceError ? (" disabled") : "")}>
-                        <Translate content="modal.withdraw.submit" />
-                    </div>
-                    <div onClick={()=>{browserHistory.push("/home")}}>
-                        <Trigger close={this.props.modal_id}>
-                            <div className="button b_right"><Translate content="account.perm.cancel" /></div>
-                        </Trigger>
-                    </div>
-                </div>
-                {confirmation}
-            </div>
+                <p className="trusty_ps_text" style={{marginTop:0}}>Payment bridge service is provided<br/> by { this.props.withdrawService }</p>
             </form>
 	    );
     }

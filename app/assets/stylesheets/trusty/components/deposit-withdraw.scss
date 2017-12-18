@@ -106,13 +106,13 @@
 .trusty_ps_text {
 
 	font-family: Gotham_Pro;
-  text-align: center;
+  	text-align: center;
 
-  @media screen and (max-width: 750px) {
+    @media screen and (max-width: 750px) {
 		font-size: 3.3vw;
-	  margin: 3.8vw 0;
-	  line-height: 4.3vw;
-  }
+	    margin: 3.8vw 0;
+	    line-height: 4.3vw;
+  	}
 }
 
 .trusty_deposit_input {

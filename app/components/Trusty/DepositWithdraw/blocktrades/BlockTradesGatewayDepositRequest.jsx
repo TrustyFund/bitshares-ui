@@ -256,6 +256,7 @@ class BlockTradesGatewayDepositRequest extends React.Component {
                     <BaseModal id={withdraw_modal_id} className={"_transparent_modal"} overlay={true}>
                         <div className="grid-block vertical">
                             <WithdrawModalBlocktrades
+                                withdrawService={"OpenLedger"}
                                 account={this.props.account.get("name")}
                                 issuer={this.props.issuer_account.get("name")}
                                 asset={this.props.receive_asset.get("symbol")}

@@ -298,6 +298,7 @@ class ButtonWithdraw extends React.Component {
                     <BaseModal className={"_transparent_modal"} id={withdraw_modal_id} overlay={true}>
                         <div className="grid-block vertical">
                             <WithdrawModalBlocktrades
+                                withdrawService={"BlockTrades"}
 								key={`${this.props.key}`}
                                 account={this.props.account.get('name')}
                                 issuer={this.props.issuer}
