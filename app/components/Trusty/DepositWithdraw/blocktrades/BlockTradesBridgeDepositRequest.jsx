@@ -1441,7 +1441,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 
                withdraw_body =
                 <div className="trusty_withdraw_wrap">
-                    <TrustyInput isOpen={true} label="enter amount" input={withdraw_output_amount_edit_box} right={withdraw_output_coin_type_select}/>
+                    <TrustyInput isOpen={true} label="enter amount to withdraw" input={withdraw_output_amount_edit_box} right={withdraw_output_coin_type_select}/>
                     <tbody>
                         <tr>
                             <td className="_hide">

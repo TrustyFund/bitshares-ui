@@ -535,7 +535,7 @@ class WithdrawModalBlocktrades extends React.Component {
                         <div className="blocktrades-select-dropdown">
                             <div className="inline-label">
                                 <TrustyInput
-                                    input={addressInput} label="enter address"/>
+                                    input={addressInput} label="ENTER RECEIVING ADDRESS"/>
 
                             </div>
                         </div>
