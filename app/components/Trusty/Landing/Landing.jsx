@@ -4,7 +4,6 @@ import cname from "classnames";
 import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
-import AccountStore from 'stores/AccountStore'
 
 
 
@@ -100,8 +99,8 @@ class Landing extends Component {
         }
 
         let self = this
-
-        let isAuth = !!AccountStore.getMyAccounts().length
+        let trusty_username = localStorage.getItem("_trusty_username");
+        let isAuth = !!trusty_username
         let currentLinkAdress = isAuth ? "/home" : "/signup" 
         let button = 
             <div className="fixed_bottom _mob">
