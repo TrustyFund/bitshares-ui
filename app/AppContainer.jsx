@@ -17,7 +17,6 @@ let isExtension = (window.innerHeight == 590 && window.innerWidth == 400);
 let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 window.isMobile = !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari || isExtension)
 
-
 class AppContainer extends React.Component {
     constructor(){
         super()
@@ -35,7 +34,7 @@ class AppContainer extends React.Component {
             return (<div>{this.props.children}</div>);
         }
         else {
-            if(!window.isMobile) return <iframe src="index.html" height="80%" width="385"/>
+            if(!window.isMobile) return <iframe src="index.html" height="80%" width="385"><LoadingIndicator type={"trusty-owl"}/></iframe>
             if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
     		return (<div>{this.props.children}</div>);
         }

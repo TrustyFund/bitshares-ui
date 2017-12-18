@@ -7,6 +7,9 @@ if (window) {
     window.$utils = utils;
 };
 
+import initReactFastclick from 'react-fastclick';
+initReactFastclick();
+
 /*
 * Routes-dev is only needed for react hot reload, as this does not work with
 * the async routes defined in Routes.jsx. Any changes to the routes must be kept

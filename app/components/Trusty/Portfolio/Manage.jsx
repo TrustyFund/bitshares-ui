@@ -16,7 +16,7 @@ import ManageModal from "components/Trusty/ManageModal";
 import BaseModal from "components/Modal/BaseModal"
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import Hammer from "react-hammerjs";
-import FastClick from 'react-fastclick-alt';
+
 
 class ManagePortfolio extends React.Component {
 
@@ -91,21 +91,24 @@ class ManagePortfolio extends React.Component {
 			<span className={className}>{total}%</span>
 		)
 	}
-
+	_clearInterval(){
+		if(this.timeID)clearInterval(this.timeID)
+	}
 	getButtonClass(){
 		return (this.props.porfolioTotalShare == 100) ? "wide" : "disabled wide";
 	}
 
 	onPress(asset, way, faster){
-		if(this.timeID)clearInterval(this.timeID)
+		this._clearInterval()
 		this.timeID = setInterval(()=>{
 			let up = this._decrementAsset.bind(this, asset)
 			let down = this._incrementAsset.bind(this, asset)
 			way ? up() : down()
 		}, 150)
+		setTimeout(()=>this._clearInterval(), 4000)
 	}
 	onPressUp(){
-		if(this.timeID)clearInterval(this.timeID)
+		this._clearInterval()
 	}
 
 	renderPortfolioList(assetList = [] ){
@@ -133,21 +136,40 @@ class ManagePortfolio extends React.Component {
 						</div>
 					</td>
 					<td>
+						
 						<div className={cname(name, {"_red": false })}>
 							<div className="fake_line_height" />
-							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,true)}>
+							<Hammer options={{
+								       recognizers: {
+								          
+								       }
+								    }} 
+								    onTap={this.onPress.bind(this, asset,true)} 
+								    onPressUp={this.onPressUp} 
+								    onMouseUp={this.onPressUp} 
+								    onPress={this.onPress.bind(this, asset,true)}>
+
 								<a  className={cname("_minus",assetClass(),{"core": asset.futureShare==0})} onClick={this._decrementAsset.bind(this, asset)}>
 									{ ~assetClass().indexOf("less") ? <Icon name="full_minus"/> : <Icon name="trusty_minus"/> }
 								</a>
 							</Hammer>
 							
 							{this.renderShare(asset.futureShare,assetClass())}
-							<Hammer onPressUp={this.onPressUp} onMouseUp={this.onPressUp} onPress={this.onPress.bind(this, asset,false)}>
+							<Hammer onPressUp={this.onPressUp} 
+									onMouseUp={this.onPressUp} 
+									onPress={this.onPress.bind(this, asset,false)}
+									onTap={this.onPress.bind(this, asset,false)}
+									options={{
+								       recognizers: {
+								         
+								       }
+								    }}>
 								<a  className={cname("_plus",assetClass(),{"_disable": isComplete || asset.futureShare==100 })} onClick={this._incrementAsset.bind(this, asset)}>
 									{ ~assetClass().indexOf("greater") ? <Icon name="full_plus"/> : <Icon name="trusty_plus"/> }
 								</a>
 							</Hammer>
 						</div>
+					
 					</td>
 				</tr>
 			)
@@ -248,6 +270,7 @@ class ManagePortfolio extends React.Component {
 				<BaseModal id={"trusty_manage_oops"}>
 					<p>{this.state.modalText}</p>
 				</BaseModal>
+				<div style={{height: "1rem"}} />
 			</div>
         );
 	}
