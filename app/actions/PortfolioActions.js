@@ -110,7 +110,7 @@ class PortfolioActions {
                         }
                     });
 
-                    console.log("ORDER " + type + quoteAsset.get("symbol"),asset.amountToSell,asset,order)
+                    console.log("ORDER " + type + quoteAsset.get("symbol"),asset.amountToSell,asset,order.toObject())
 
                     order.type = type;
                     order.market_price = priceutils.price_to_text(marketOrder.getPrice(), quoteAsset, baseAsset)

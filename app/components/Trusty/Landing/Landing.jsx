@@ -4,7 +4,6 @@ import cname from "classnames";
 import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
-import listen from 'event-listener'
 import AccountStore from 'stores/AccountStore'
 
 
@@ -13,41 +12,14 @@ let slides = [
     {         
         id:1,
 
-        image: require('./vendor/img_how_use_m_1.png'),
-        images: [
-            require('./vendor/img_how_use_m_0.png'),
-            require('./vendor/img_how_use_m_1.png'),
-            require('./vendor/img_how_use_m_2.png'),
-            require('./vendor/img_how_use_m_3.png'),
-            require('./vendor/img_how_use_m_4.png'),
-            require('./vendor/img_how_use_m_5.png'),
-        ],
-        desk_images: [
-            require('./vendor/img_how_use_0.png'),
-            require('./vendor/img_how_use_1.png'),
-            require('./vendor/img_how_use_2.png'),
-            require('./vendor/img_how_use_3.png'),
-            require('./vendor/img_how_use_4.png'),
-            require('./vendor/img_how_use_5.png'),
-        ],
+        image: require('./vendor/how.gif'),
         title: "How To Use",
         text: null
     },
 
     {
         id:2,
-        images: [
-            require('./vendor/img_glb_netwk01.png'),
-            require('./vendor/img_glb_netwk02.png'),
-            require('./vendor/img_glb_netwk03.png'),
-            require('./vendor/img_glb_netwk04.png'),
-            require('./vendor/img_glb_netwk05.png'),
-            require('./vendor/img_glb_netwk06.png'),
-            require('./vendor/img_glb_netwk07.png'),
-            //require('./vendor/img_glb_netwk08.png'),
-            require('./vendor/img_glb_netwk09.png')
-        ],
-        image: require('./vendor/img_global_network.png'),
+        image: require('./vendor/network.gif'),
         title: "Easy To Create A<br> Decentralized Account",
         text: `
         Click Signup, create password<br> and your account will be secured <br> by the BitShares.org blockchain. <br> You own the private key`
@@ -55,18 +27,7 @@ let slides = [
     {
         id:3,
 
-        image: require('./vendor/img_wallets_1.png'),
-        images: [
-            //require('./vendor/img_wallets_1.png'),
-            require('./vendor/img_wallets_1a.png'),
-            require('./vendor/img_wallets_1b.png'),
-            require('./vendor/img_wallets_1c.png'),
-            require('./vendor/img_wallets_1d.png'),
-            require('./vendor/img_wallets_1e.png'),
-            require('./vendor/img_wallets_1f.png'),
-            require('./vendor/img_wallets_1g.png'),
-            require('./vendor/img_wallets_1h.png'),
-        ],
+        image: require('./vendor/wallet1.gif'),
         title: "Deposit Fiat<br>Or Cryptocurrencies",
         text: `
         Invest USD, RUB, EUR, CNY at the best exchange rate or pay 0% commission to deposit cryptocurrencies directly `
@@ -101,19 +62,7 @@ let slides = [
     },
     {
         id:7,
-        image: require('./vendor/img_wallets_1.png'),
-        imageTwo: require('./vendor/img_wallets_2.png'),
-        images: [
-            //require('./vendor/img_wallets_2.png'),
-            require('./vendor/img_wallets_2a.png'),
-            require('./vendor/img_wallets_2b.png'),
-            require('./vendor/img_wallets_2c.png'),
-            require('./vendor/img_wallets_2d.png'),
-            require('./vendor/img_wallets_2e.png'),
-            require('./vendor/img_wallets_2f.png'),
-            require('./vendor/img_wallets_2g.png'),
-            require('./vendor/img_wallets_2h.png'),
-        ],
+        image: require('./vendor/wallet2.gif'),
         title: "Withdraw Fiat<br> Or Cryptocurrencies",
         text: `
         Withdraw funds in USD, RUB, EUR, CNY directly to a bank card, payment service account or send cryptocurrencies to a crypto wallet
@@ -121,35 +70,6 @@ let slides = [
     },
 
 ]
-
-
-
-
-class ImageAnimate extends Component {
-    constructor(){
-        super()
-        this.state = {
-            current: "",
-            currentIndex: 0
-        }
-    }
-    componentDidMount(){
-        this.time = setInterval(()=>{
-            let i = this.state.currentIndex
-            this.setState({current: this.props.images[i]})
-            i++
-            this.setState({currentIndex: i})
-            if(i >= this.props.images.length) this.setState({currentIndex: 0})
-        }, 1000)
-    }
-    componentWillUnmount(){
-        clearInterval(this.time)
-    }
-    render(){
-        return <img className={this.props.class} src={this.state.current}/>
-    }
-}
-
 
 
 
@@ -161,9 +81,6 @@ class Landing extends Component {
             showBalls: false,
             windowHeight: window.innerHeight
         }
-    }
-    componentWillUnmount() {
-        clearInterval(this.timeout)
     }
 
     render() {
@@ -200,7 +117,7 @@ class Landing extends Component {
                     { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
                     <div className="image_area">
                         <div>
-                            <ImageAnimate class={"_image _mob"} images={slide.images}/>
+                            <img src={slide.image} className="_image _mob"/>
                         </div>
                     </div>
                     <div className="text_area">
@@ -209,7 +126,6 @@ class Landing extends Component {
                     </div>
                     { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
                 </div>
-
             )
 
         });
