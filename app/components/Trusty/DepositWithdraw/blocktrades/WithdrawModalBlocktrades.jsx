@@ -419,7 +419,7 @@ class WithdrawModalBlocktrades extends React.Component {
         {
             if (!this.state.withdraw_address_is_valid) {
 
-                invalid_address_message = <div className="has-error" style={{paddingTop: 10}}><Translate content="gateway.valid_address" coin_type={this.props.output_coin_type} /></div>;
+                invalid_address_message = <div className="trusty_font_error has-error"><Translate content="gateway.valid_address" coin_type={this.props.output_coin_type} /></div>;
                 confirmation =
                 <Modal id={withdrawModalId} overlay={true}>
                     <Trigger close={withdrawModalId}>
