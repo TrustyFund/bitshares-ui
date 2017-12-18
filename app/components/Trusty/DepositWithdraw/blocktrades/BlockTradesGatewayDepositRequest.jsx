@@ -13,6 +13,7 @@ import LinkToAccountById from "components/Utility/LinkToAccountById";
 import {requestDepositAddress} from "common/blockTradesMethods";
 import { blockTradesAPIs } from "api/apiConfig";
 import LoadingIndicator from "components/LoadingIndicator";
+import { Link } from "react-router"
 
 class BlockTradesGatewayDepositRequest extends React.Component {
     static propTypes = {
@@ -244,6 +245,12 @@ class BlockTradesGatewayDepositRequest extends React.Component {
                             </div>) : null}
 
                             {deposit_address_fragment ? <button className="trusty_wide_btn" onClick={this.toClipboard.bind(this, clipboardText)}>Copy address</button> : null}
+                            <div className="trusty_help_text _yellow" style={{fontWeight:"initial"}}>Push CONFIRM button as soon as you have completed the payment</div>
+                            <div className="trusty_inline_buttons">
+                                <Link to="/home" className="b_left"><button>Confirm</button></Link>
+                                <Link to="/home" className="b_right"><button >Cancel</button></Link>
+                            </div>
+                            <p className="trusty_ps_text">Payment gateway service is provided by<br/> Openledger.io at 0% fee</p>
                             {memoText ? <div className="button" onClick={this.toClipboard.bind(this, memoText)}>Copy memo</div> : null}
                             {/*<button className={"button"} onClick={requestDepositAddress.bind(null, this._getDepositObject())}><Translate content="gateway.generate_new" /></button>*/}
                         </div>

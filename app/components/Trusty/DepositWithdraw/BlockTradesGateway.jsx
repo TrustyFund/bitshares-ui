@@ -134,7 +134,7 @@ class BlockTradesGateway extends React.Component {
                 <div>
         
                     <TrustyInput input={select} type="select" label={"select coin"} isOpen={true}/>
-                  
+                    <div className={"trusty_help_text _yellow"}>Send BTC to the address below</div>
 {/*                    <div className="medium-6 medium-offset-1">
                         <label style={{minHeight: "2rem"}} className="left-label"><Translate content="gateway.gateway_text" />:</label>
                         <div style={{paddingBottom: 15}}>
