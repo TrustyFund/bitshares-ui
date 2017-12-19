@@ -931,6 +931,9 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     this.setState({[deposit_withdraw_or_convert + "_estimated_output_amount"]: reply.outputAmount, [deposit_withdraw_or_convert + "_error"]: null});
             }
         }, error => {
+        }).then(()=>{
+            this.setState({withdraw_estimated_output_amount: "0"})
+           
         });
 
         return null;
