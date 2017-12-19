@@ -24,78 +24,19 @@ window.isMobile = function() {
 class AppContainer extends React.Component {
     constructor(){
         super();
-        this.state = {showLoader: false,isPrivate: false};
+        this.state = {showLoader: false};
         dispatcher.register(dispatch => {
             if ( dispatch.type === 'show-trusty-loader') {
                 this.setState({showLoader: dispatch.show})
             }
         });
     }
-    componentWillMount(){
-        isPrivateMode().then(isPrivate => this.setState({isPrivate}));
-    }
     render() {
-        if (this.state.isPrivate && window.isMobile()){
-            return (<div>{this.props.children}</div>);
-        }
         if(!window.isMobile() || this.state.showLoader)  {
-            let loader = (this.state.showLoader) ? "YES" : "NO";
-            let mobile = (window.isMobile()) ? "YES" : "NO";
-            let sprivate = (this.state.isPrivate) ? "YES" : "NO";
-            return (
-                <div>
-                    <h1 style={{color: 'white'}}>Loader - {loader}, Mobile - {mobile}, Private - {sprivate}</h1>
-                    <LoadingIndicator type={"trusty-owl"}/>
-                </div>
-            )
+            return (<LoadingIndicator type={"trusty-owl"}/>);
         } else {
             return (<div>{this.props.children}</div>);
         }
 	}
 }
-
-function isPrivateMode() {
-  return new Promise((resolve) => {
-    const on = () => resolve(true); // is in private mode
-    const off = () => resolve(false); // not private mode
-    const testLocalStorage = () => {
-      try {
-        if (localStorage.length) off();
-        else {
-          localStorage.x = 1;
-          localStorage.removeItem('x');
-          off();
-        }
-      } catch (e) {
-        // Safari only enables cookie in private mode
-        // if cookie is disabled then all client side storage is disabled
-        // if all client side storage is disabled, then there is no point
-        // in using private mode
-        navigator.cookieEnabled ? on() : off();
-      }
-    };
-    // Chrome & Opera
-    if (window.webkitRequestFileSystem) {
-      return void window.webkitRequestFileSystem(0, 0, off, on);
-    }
-    // Firefox
-    if ('MozAppearance' in document.documentElement.style) {
-      const db = indexedDB.open('test');
-      db.onerror = on;
-      db.onsuccess = off;
-      return void 0;
-    }
-    // Safari
-    if (/constructor/i.test(window.HTMLElement)) {
-      return testLocalStorage();
-    }
-    // IE10+ & Edge
-    if (!window.indexedDB && (window.PointerEvent || window.MSPointerEvent)) {
-      return on();
-    }
-    // others
-    return off();
-  });
-}
-
 export default AppContainer;
