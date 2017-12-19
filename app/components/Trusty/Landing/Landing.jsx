@@ -3,7 +3,6 @@ import {PropTypes, Component} from "react";
 import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
-import Hammer from 'react-hammerjs';
 
 
 
@@ -82,6 +81,7 @@ class Landing extends Component {
 
     render() {
         let scrollDown = (e, index) =>{
+            e.preventDefault();
             let target_index = index + 1;
             let target = "#sl_id_" + target_index;
             let target_element = JQuery(target);
@@ -107,23 +107,21 @@ class Landing extends Component {
 
         const list = slides.map((slide, index)=> {
             return(
-                <Hammer onTap={e => scrollDown(e, index+1)} key={slide.id} >
-                    <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id} style={{ height: this.state.windowHeight }}>
+                <div key={slide.id} className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id} style={{ height: this.state.windowHeight }}>
 
-                        { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
-                        
-                        <div className="image_area">
-                            <div>
-                                <img src={slide.image} className="_image _mob"/>
-                            </div>
+                    { index==0?<div onClick={e => scrollDown(e, index+1)} className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
+                    
+                    <div className="image_area">
+                        <div>
+                            <img src={slide.image} className="_image _mob"/>
                         </div>
-                        <div className="text_area">
-                            <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
-                            { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
-                        </div>
-                        { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
                     </div>
-                </Hammer>
+                    <div className="text_area">
+                        <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
+                        { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
+                    </div>
+                    { index!= 0 ? <div className="trusty_down_arrow" onClick={e => scrollDown(e, index+1)}><Icon name="trusty_arrow_down_landing" /></div>: null }
+                </div>
             )
 
         });
