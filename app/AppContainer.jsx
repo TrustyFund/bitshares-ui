@@ -48,23 +48,11 @@ class AppContainer extends React.Component {
         })
     }
     render() {
-
-
         if(!window.isMobile || this.state.showLoader)  {
             return <LoadingIndicator type={"trusty-owl"}/>
         } else {
             return (<div>{this.props.children}</div>);
         }
-
-      //   if (window.frameElement) {
-      //       if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
-      //       return (<div>{this.props.children}</div>);
-      //   }
-      //   else {
-      //       if(!window.isMobile) return <iframe src="index.html" height="80%" width="385"><LoadingIndicator type={"trusty-owl"}/></iframe>
-      //       if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
-            // return (<div>{this.props.children}</div>);
-      //   }
 	}
 }
 
@@ -86,45 +74,4 @@ class RootIntl extends React.Component {
     }
 }
 
-RootIntl = connect(RootIntl, {
-    listenTo() {
-        return [AccountStore,IntlStore,WalletUnlockStore];
-    },
-    getProps() {
-        return {
-            locale: IntlStore.getState().currentLocale,
-            walletLocked: WalletUnlockStore.getState().locked,
-        };
-    }
-});
-
-class Root extends React.Component {
-    static childContextTypes = {
-        router: React.PropTypes.object,
-        location: React.PropTypes.object
-    }
-
-    componentDidMount(){
-        //Detect OS for platform specific fixes
-        if(navigator.platform.indexOf('Win') > -1){
-            var main = document.getElementById('content');
-            var windowsClass = 'windows';
-            if(main.className.indexOf('windows') === -1){
-                main.className = main.className + (main.className.length ? ' ' : '') + windowsClass;
-            }
-        }
-    }
-
-    getChildContext() {
-        return {
-            router: this.props.router,
-            location: this.props.location
-        };
-    }
-
-    render() {
-        return <RootIntl {...this.props} />;
-    }
-}
-
-export default Root;
+export default AppContainer;
