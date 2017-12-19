@@ -39,7 +39,15 @@ class AppContainer extends React.Component {
             return (<div>{this.props.children}</div>);
         }
         if(!window.isMobile() || this.state.showLoader)  {
-            return <LoadingIndicator type={"trusty-owl"}/>
+            let loader = (this.state.showLoader) ? "YES" : "NO";
+            let mobile = (window.isMobile()) ? "YES" : "NO";
+            let sprivate = (this.state.isPrivate) ? "YES" : "NO";
+            return (
+                <div>
+                    <h1 style={{color: 'white'}}>Loader - {loader}, Mobile - {mobile}, Private - {sprivate}</h1>
+                    <LoadingIndicator type={"trusty-owl"}/>
+                </div>
+            )
         } else {
             return (<div>{this.props.children}</div>);
         }
