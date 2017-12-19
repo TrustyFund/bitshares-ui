@@ -1,16 +1,15 @@
 import React from "react";
 import {PropTypes, Component} from "react";
-import cname from "classnames";
 import {Link} from 'react-router';
 import Icon from 'components/Icon/Icon'
 import JQuery from 'jquery'
+import Hammer from 'react-hammerjs';
 
 
 
 let slides = [
     {         
         id:1,
-
         image: require('./vendor/how.gif'),
         title: "How To Use",
         text: null
@@ -77,14 +76,12 @@ class Landing extends Component {
     constructor() {
         super();
         this.state = {
-            showBalls: false,
             windowHeight: window.innerHeight
         }
     }
 
     render() {
         let scrollDown = (e, index) =>{
-            e.stopPropagation()
             let target_index = index + 1;
             let target = "#sl_id_" + target_index;
             let target_element = JQuery(target);
@@ -110,21 +107,23 @@ class Landing extends Component {
 
         const list = slides.map((slide, index)=> {
             return(
-                <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id}
-                    key={slide.id} onClick={e => scrollDown(e, index+1)}
-                    style={{ height: this.state.windowHeight }}>
-                    { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
-                    <div className="image_area">
-                        <div>
-                            <img src={slide.image} className="_image _mob"/>
+                <Hammer onTap={e => scrollDown(e, index+1)} key={slide.id} >
+                    <div className={"land_slide sl_id-"+slide.id} id={"sl_id_"+slide.id} style={{ height: this.state.windowHeight }}>
+
+                        { index==0?<div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>:null}
+                        
+                        <div className="image_area">
+                            <div>
+                                <img src={slide.image} className="_image _mob"/>
+                            </div>
                         </div>
+                        <div className="text_area">
+                            <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
+                            { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
+                        </div>
+                        { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
                     </div>
-                    <div className="text_area">
-                        <h1 dangerouslySetInnerHTML={{__html:slide.title}}/>
-                        { slide.text?<div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>: null }
-                    </div>
-                    { index!= 0 ? <div className="trusty_down_arrow"><Icon name="trusty_arrow_down_landing" /></div>: null }
-                </div>
+                </Hammer>
             )
 
         });
