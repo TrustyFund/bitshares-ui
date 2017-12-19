@@ -56,22 +56,4 @@ class AppContainer extends React.Component {
 	}
 }
 
-class RootIntl extends React.Component {
-    componentWillMount() {
-        IntlActions.switchLocale(this.props.locale);
-    }
-
-    render() {
-        return (
-            <IntlProvider
-                locale={this.props.locale.replace(/cn/, "zh")}
-                formats={intlData.formats}
-                initialNow={Date.now()}
-            >
-                <AppContainer {...this.props}/>
-            </IntlProvider>
-        );
-    }
-}
-
 export default AppContainer;
