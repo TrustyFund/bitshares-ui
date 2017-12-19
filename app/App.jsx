@@ -37,7 +37,6 @@ class App extends React.Component {
             synced: this._syncStatus(),
             syncFail,
             theme: SettingsStore.getState().settings.get("themes"),
-            isMobile: !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari),
             incognito: false,
             incognitoWarningDismissed: false
         };
@@ -152,7 +151,7 @@ class App extends React.Component {
     // }
 
     render() {
-        let {isMobile, theme } = this.state;
+        let {theme } = this.state;
         let content = null;
 
         let showFooter = 1;

@@ -11,11 +11,30 @@ import AccountStore from "stores/AccountStore";
 import {ChainStore} from "bitsharesjs/es";
 import PortfolioActions from "actions/PortfolioActions"
 import Immutable from "immutable";
-
 import ManageModal from "components/Trusty/ManageModal";
 import BaseModal from "components/Modal/BaseModal"
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import Hammer from "react-hammerjs";
+
+import jquery from 'jquery'
+
+jquery.fn.nodoubletapzoom = function() {
+    jquery(this).bind('touchstart', function preventZoom(e) {
+        var t2 = e.timeStamp;
+        var t1 = jquery(this).data('lastTouch') || t2;
+        var dt = t2 - t1;
+        var fingers = e.originalEvent.touches.length;
+        jquery(this).data('lastTouch', t2);
+        if (!dt || dt > 500 || fingers > 1) {
+            return; // not double-tap
+        }
+        e.preventDefault(); // double tap - prevent the zoom
+        // also synthesize click events we just swallowed up
+        jquery(e.target).trigger('click');
+    });
+};
+
+jquery('body').nodoubletapzoom();
 
 
 class ManagePortfolio extends React.Component {
