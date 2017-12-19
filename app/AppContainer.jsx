@@ -49,20 +49,23 @@ class AppContainer extends React.Component {
     }
     render() {
 
-        if (window.frameElement) {
-            if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
+
+        if(!window.isMobile || this.state.showLoader)  {
+            return <LoadingIndicator type={"trusty-owl"}/>
+        } else {
             return (<div>{this.props.children}</div>);
         }
-        else {
-            if(!window.isMobile) return <iframe src="index.html" height="80%" width="385"><LoadingIndicator type={"trusty-owl"}/></iframe>
-            if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
-    		return (<div>{this.props.children}</div>);
-        }
+
+      //   if (window.frameElement) {
+      //       if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
+      //       return (<div>{this.props.children}</div>);
+      //   }
+      //   else {
+      //       if(!window.isMobile) return <iframe src="index.html" height="80%" width="385"><LoadingIndicator type={"trusty-owl"}/></iframe>
+      //       if(this.state.showLoader) return <LoadingIndicator type={"trusty-owl"}/>
+            // return (<div>{this.props.children}</div>);
+      //   }
 	}
-
-    componentDidMount() {
-
-    }
 }
 
 class RootIntl extends React.Component {

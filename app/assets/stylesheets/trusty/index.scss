@@ -72,7 +72,6 @@ iframe {
 }
 
 .trusty_owl_loader {
-
 	width: 60vw;  
 	opacity: .6;
 	margin: 0 auto;
@@ -82,12 +81,9 @@ iframe {
 	transform: translate(-50%,-50%);
 	svg {
 		fill: white;
-
 	}
-
 	@media (min-width: 768px) {
-		width: 500px;
-		//transform: scale(.6);
+		width: 220px;
 	}
 }
 
