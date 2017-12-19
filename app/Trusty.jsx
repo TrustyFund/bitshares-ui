@@ -49,8 +49,7 @@ class Trusty extends React.Component {
             loading: this._syncStatus(),
             synced: this._syncStatus(),
             syncFail,
-            theme: SettingsStore.getState().settings.get("themes"),
-            isMobile: !!(/android|ipad|ios|iphone|windows phone/i.test(user_agent) || isSafari)
+            theme: SettingsStore.getState().settings.get("themes")
         };
         this._chainStoreSub = this._chainStoreSub.bind(this);
         this._syncStatus = this._syncStatus.bind(this);
