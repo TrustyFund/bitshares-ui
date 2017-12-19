@@ -139,32 +139,24 @@ class ManagePortfolio extends React.Component {
 						
 						<div className={cname(name, {"_red": false })}>
 							<div className="fake_line_height" />
-							<Hammer options={{
-								       recognizers: {
-								          
-								       }
-								    }} 
-								    onTap={this.onPress.bind(this, asset,true)} 
-								    onPressUp={this.onPressUp} 
-								    onMouseUp={this.onPressUp} 
+							<Hammer onPressUp={this.onPressUp} 
+								    onMouseUp={this.onPressUp}
+								    onTap={this._decrementAsset.bind(this, asset)}
 								    onPress={this.onPress.bind(this, asset,true)}>
 
-								<a  className={cname("_minus",assetClass(),{"core": asset.futureShare==0})} onClick={this._decrementAsset.bind(this, asset)}>
+								<a  className={cname("_minus",assetClass(),{"core": asset.futureShare==0})}>
 									{ ~assetClass().indexOf("less") ? <Icon name="full_minus"/> : <Icon name="trusty_minus"/> }
 								</a>
+
 							</Hammer>
 							
 							{this.renderShare(asset.futureShare,assetClass())}
 							<Hammer onPressUp={this.onPressUp} 
 									onMouseUp={this.onPressUp} 
-									onPress={this.onPress.bind(this, asset,false)}
-									onTap={this.onPress.bind(this, asset,false)}
-									options={{
-								       recognizers: {
-								         
-								       }
-								    }}>
-								<a  className={cname("_plus",assetClass(),{"_disable": isComplete || asset.futureShare==100 })} onClick={this._incrementAsset.bind(this, asset)}>
+									onTap={this._incrementAsset.bind(this, asset)}
+									onPress={this.onPress.bind(this, asset,false)}>
+
+								<a  className={cname("_plus",assetClass(),{"_disable": isComplete || asset.futureShare==100 })}>
 									{ ~assetClass().indexOf("greater") ? <Icon name="full_plus"/> : <Icon name="trusty_plus"/> }
 								</a>
 							</Hammer>
