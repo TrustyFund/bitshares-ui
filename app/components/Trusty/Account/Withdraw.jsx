@@ -241,18 +241,18 @@ class AccountDepositWithdraw extends React.Component {
         return (
             <div className="trusty_deposit_and_withdraw">
 
-                <div><TrustyInput 
+                {/*<div><TrustyInput 
                     isOpen={true}
                     input={selectType}
                     type={"select"}
                     label={"Type"}
-                /></div>
+                /></div>*/}
       
                 <div><TrustyInput 
                     isOpen={true}
                     input={selectBridge}
                     type={"select"}
-                    label={"services"}
+                    label={"payment method"}
                 /></div>
       
                 <div className="grid-content no-padding" style={{overflow: "hidden"}}>

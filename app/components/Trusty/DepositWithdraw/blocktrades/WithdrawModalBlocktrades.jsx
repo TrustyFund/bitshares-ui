@@ -18,6 +18,7 @@ import {Asset} from "common/MarketClasses";
 import { debounce } from "lodash";
 import TrustyInput from "components/Trusty/Forms/TrustyInput";
 import { browserHistory } from 'react-router/es';
+import classnames from "classnames"
 
 class WithdrawModalBlocktrades extends React.Component {
 
@@ -478,7 +479,7 @@ class WithdrawModalBlocktrades extends React.Component {
 
         let addressInput = <input type="text" value={withdraw_address_selected} tabIndex="4" onChange = {this.onWithdrawAddressChanged.bind(this)} autoComplete="off" />
         let addressSelect = <span onClick={this.onDropDownList.bind(this)} >&#9660;</span>
-
+        let outputCoinType = this.props.output_coin_type
         return (<form className="grid-block vertical full-width-content">
                 <div className="grid-container">
                     {/*<div className="content-block">
@@ -486,19 +487,19 @@ class WithdrawModalBlocktrades extends React.Component {
                                     </div>*/}
 
                     {/* Withdraw amount */}
-                    <div className="content-block _hide">
+                    <div className={classnames("content-block",{_hide: this.props.withdrawService !='OpenLedger' })}>
                         <AmountSelector 
                             trustyLabel="enter amount"
                             label="modal.withdraw.amount"
                             amount={this.state.withdraw_amount}
                             asset={this.props.asset.get("id")}
                             assets={[this.props.asset.get("id")]}
-                            placeholder="0.0"
+                            placeholder="0"
                             onChange={this.onWithdrawAmountChange.bind(this)}
                             display_balance={balance}
                         />
-                        {this.state.empty_withdraw_value ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.valid" /></p>:null}
-                        {this.state.balanceError ? <p className="trusty_font_error has-error no-margin" style={{paddingTop: 10}}><Translate content="transfer.errors.insufficient" /></p>:null}
+                        {this.state.empty_withdraw_value ? <p className="trusty_font_error has-error no-margin"><Translate content="transfer.errors.valid" /></p>:null}
+                        {this.state.balanceError ? <p className="trusty_font_error has-error no-margin"><Translate content="transfer.errors.insufficient" /></p>:null}
                     </div>
 
                     {/* Fee selection */}
@@ -540,14 +541,14 @@ class WithdrawModalBlocktrades extends React.Component {
                             </div>
                         </div>
                         <div className="blocktrades-position-options">
-                            {options}
+                            {options}   
                         </div>
-                        {invalid_address_message}
+                        {/*invalid_address_message*/}
                     </div>
 
                     {/* Memo input */}
                     {withdraw_memo}
-                    <p className="_tooltip_p _yellow" style={{textAlign: "left", marginTop: 0, marginBottom: 0}}>Please enter a valid BTC address</p>
+                    <p className="_tooltip_p _yellow" style={{textAlign: "left", marginTop: 0, marginBottom: 0}}>Please enter a valid <span style={{textTransform: "uppercase"}}>{ ~outputCoinType.search(/open/i) ? outputCoinType.substring(5) : outputCoinType }</span> address</p>
                     <button className="trusty_full_width_button" onClick={this._pasteAddress.bind(this)}>Paste address</button>
                     {/* Withdraw/Cancel buttons */}
                     <div className="button-group trusty_inline_buttons">

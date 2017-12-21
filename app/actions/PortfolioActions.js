@@ -139,6 +139,7 @@ class PortfolioActions {
 
 
     updatePortfolio(account){
+
         PortfolioStore.setLoading();
         let portfolio = PortfolioStore.getState();
 
