@@ -9,6 +9,7 @@ import Immutable from "immutable";
 import cnames from "classnames";
 import LoadingIndicator from "components/LoadingIndicator";
 import TrustyInput from "components/Trusty/Forms/TrustyInput"
+import ResizingSelect from "components/Trusty/ResizingSelect"
 
 class BlockTradesGateway extends React.Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class BlockTradesGateway extends React.Component {
         if(!props.deposit_only) action = 'withdraw'
         this.state = {
             activeCoin: this._getActiveCoin(props, {action}),
-            action
+            action,
+
         };
     }
 
@@ -128,12 +130,22 @@ class BlockTradesGateway extends React.Component {
             </select>
         )
 
+        let resizingSelect =    (
+            <ResizingSelect
+                onChange={this.onSelectCoin.bind(this)}
+                type={"select"}
+                value={activeCoin}>
+                    {coinOptions}
+            </ResizingSelect>
+        )
+
+
         return (
 
             <div style={this.props.style}>
                 <div>
         
-                    <TrustyInput input={select} type="select" label={"select coin"} isOpen={true}/>
+                    { !coin.isAvailable && coin || ~window.location.pathname.indexOf("deposit") ? <TrustyInput input={select} type="select" label={"select coin"} isOpen={true}/> : null }
                     { ~window.location.pathname.indexOf("deposit") ? <div className={"trusty_help_text _yellow"}>Send { this.state.activeCoin } to the address below</div> : null }
 {/*                    <div className="medium-6 medium-offset-1">
                         <label style={{minHeight: "2rem"}} className="left-label"><Translate content="gateway.gateway_text" />:</label>
@@ -152,6 +164,7 @@ class BlockTradesGateway extends React.Component {
 
                     <div style={{marginBottom: 15}}>
                         <BlockTradesGatewayDepositRequest
+                            trustySelects={resizingSelect}
                             key={`${provider}.${coin.symbol}`}
                             gateway={provider}
                             issuer_account={issuer.name}

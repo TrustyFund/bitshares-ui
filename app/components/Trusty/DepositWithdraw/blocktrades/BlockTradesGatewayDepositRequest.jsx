@@ -15,6 +15,8 @@ import { blockTradesAPIs } from "api/apiConfig";
 import LoadingIndicator from "components/LoadingIndicator";
 import { Link } from "react-router"
 
+
+
 class BlockTradesGatewayDepositRequest extends React.Component {
     static propTypes = {
         url:               React.PropTypes.string,
@@ -113,6 +115,9 @@ class BlockTradesGatewayDepositRequest extends React.Component {
     }
 
     onWithdraw() {
+        if(!this.props.issuer_account || !this.props.receive_asset) {
+           return
+        } 
         ZfApi.publish(this.getWithdrawModalId(), "open");
     }
 
@@ -263,6 +268,7 @@ class BlockTradesGatewayDepositRequest extends React.Component {
                     <BaseModal id={withdraw_modal_id} className={"_transparent_modal"} overlay={true}>
                         <div className="grid-block vertical">
                             <WithdrawModalBlocktrades
+                                trustySelects={this.props.trustySelects}
                                 withdrawService={"OpenLedger"}
                                 account={this.props.account.get("name")}
                                 issuer={this.props.issuer_account.get("name")}

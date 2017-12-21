@@ -489,6 +489,7 @@ class WithdrawModalBlocktrades extends React.Component {
                     {/* Withdraw amount */}
                     <div className={classnames("content-block",{_hide: this.props.withdrawService !='OpenLedger' })}>
                         <AmountSelector 
+                            trustySelects={this.props.trustySelects}
                             trustyLabel="enter amount"
                             label="modal.withdraw.amount"
                             amount={this.state.withdraw_amount}
