@@ -7,6 +7,9 @@ import FloatingDropdown from "../FloatingDropdown";
 import Immutable from "immutable";
 import counterpart from "counterpart";
 import TrustyInput from "components/Trusty/Forms/TrustyInput"
+import CoinStore from "stores/CoinStore"
+
+import {connect} from "alt-react"
 
 class AssetSelector extends React.Component {
 
@@ -50,6 +53,8 @@ class AmountSelector extends React.Component {
 
     componentDidMount() {
         this.onAssetChange(this.props.asset);
+
+        this._onChange({target:{value:this.props.changedCoinValue}})
     }
 
     formatAmount(v) {
@@ -81,7 +86,7 @@ class AmountSelector extends React.Component {
         let input = <input
                         disabled={this.props.disabled}
                         type="text"
-                        value={value || ""}
+                        value={this.props.trustyLabel=="exchange fee" ? value || "" : this.props.changedCoinValue}
                         placeholder={this.props.placeholder}
                         onChange={this._onChange.bind(this) }
                         tabIndex={this.props.tabIndex}
@@ -92,7 +97,7 @@ class AmountSelector extends React.Component {
                 {/*<label className="right-label">{this.props.display_balance}</label>
                                 <Translate className="left-label" component="label" content={this.props.label}/>*/}
                 <div className="inline-label input-wrapper">
-                    {<TrustyInput isOpen={true} input={input} label={this.props.trustyLabel} right={this.props.trustySelects ? this.props.trustySelects : assetSelector}/>}
+                    {<TrustyInput className="_trusty_hide_input" isOpen={true} input={input} label={this.props.trustyLabel} right={this.props.trustySelects ? this.props.trustySelects : assetSelector}/>}
                     {/*input*/}
                     <div className="form-label select floating-dropdown">
                         {/*assetSelector*/}
@@ -102,6 +107,18 @@ class AmountSelector extends React.Component {
         )
     }
 }
-AmountSelector = BindToChainState(AmountSelector);
 
-export default AmountSelector;
+
+let storeWrapper = BindToChainState(AmountSelector);
+
+export default connect(storeWrapper, {
+    listenTo() {
+        return [CoinStore];
+    },
+    getProps() {
+        return {
+            changedCoinValue: CoinStore.getState().coinValue,
+        };
+    }
+});
+

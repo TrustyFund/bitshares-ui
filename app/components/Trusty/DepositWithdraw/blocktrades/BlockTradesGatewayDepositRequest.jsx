@@ -292,3 +292,5 @@ class BlockTradesGatewayDepositRequest extends React.Component {
 };
 
 export default BindToChainState(BlockTradesGatewayDepositRequest, {keep_updating:true});
+
+

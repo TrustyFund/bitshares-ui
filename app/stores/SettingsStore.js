@@ -241,6 +241,7 @@ class SettingsStore {
     }
 
     onChangeViewSetting(payload) {
+ 
         for (let key in payload) {
             this.viewSettings = this.viewSettings.set(key, payload[key]);
         }

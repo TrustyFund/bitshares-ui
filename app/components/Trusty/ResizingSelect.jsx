@@ -4,6 +4,7 @@ import $ from 'jquery'
 import Icon from "components/Icon/Icon"
 
 export default class ResizingSelect extends React.Component {
+  
 	  static propTypes = {
 	    value: PropTypes.string,
 	    onChange: PropTypes.func,
@@ -12,13 +13,19 @@ export default class ResizingSelect extends React.Component {
 	  constructor(props) {
 	    super(props);
 	  }
+
+
+    componentDidUpdate(){
+      this._resize()
+    }
+
   	_resize(){
   		if($(this.refs.option).width() == 0 ) {
   			setTimeout(()=>{
   				this._resize()
   			},100)
   		} else {
-        $(this.refs.select).width($(this.refs.option).width() * 1.1);  
+        $(this.refs.select).width($(this.refs.option).width() + 21);  
   		}
   	}
 
@@ -32,7 +39,7 @@ export default class ResizingSelect extends React.Component {
   	let fakeWidth = <span ref="option" style={{ display: "none", fontFamily: "Gotham_Pro_Bold", fontSize: "6.6vw"}}>{this.props.value}</span>
     return (
         <div>
-        	<select ref="select"  value={this.props.value} onChange={this.props.onChange}>
+        	<select ref="select"  id={this.props.id} value={this.props.value} onChange={this.props.onChange}>
           	{this.props.children}
         	</select>
         	{fakeWidth}

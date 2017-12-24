@@ -21,7 +21,7 @@ require("./components/Utility/Prototypes"); // Adds a .equals method to Array fo
 
 
 if(localStorage.getItem("_trusty_username")) {
-   browserHistory.push("/home")
+   //browserHistory.push("/home")
 }
 
 const rootEl = document.getElementById("content");

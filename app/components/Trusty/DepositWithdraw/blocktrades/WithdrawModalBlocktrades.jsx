@@ -20,6 +20,9 @@ import TrustyInput from "components/Trusty/Forms/TrustyInput";
 import { browserHistory } from 'react-router/es';
 import classnames from "classnames"
 
+import CoinStore from "stores/CoinStore"
+import { connect } from "alt-react"
+
 class WithdrawModalBlocktrades extends React.Component {
 
     static propTypes = {
@@ -79,6 +82,12 @@ class WithdrawModalBlocktrades extends React.Component {
                 fee_asset_id: "1.3.0",
                 feeAmount: new Asset({amount: 0})
             }, () => {this._updateFee(); this._checkFeeStatus();});
+        }
+
+        if(np.changedCoinValue != this.props.changedCoinValue) {
+            let newValue = np.changedCoinValue
+            //this.setState({withdraw_estimated_output_amount: newValue})
+            this.onWithdrawAmountChange({ amount: newValue}) 
         }
     }
 
@@ -571,3 +580,16 @@ class WithdrawModalBlocktrades extends React.Component {
 };
 
 export default BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
+// let storeWrapper = BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
+
+// export default connect(storeWrapper, {
+//     listenTo() {
+//         return [CoinStore];
+//     },
+//     getProps() {
+//         return {
+//             changedCoinValue: CoinStore.getState().coinValue,
+//         };
+//     }
+// });
+

@@ -45,7 +45,8 @@ class TrustyInput extends React.Component {
 		this.setState({opened})
 	}
 
-	labelClick(){
+	labelClick(e){
+		e.stopPropagation()
 		this.setState({ opened: !this.state.opened})
 		//if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
 	}
@@ -112,7 +113,7 @@ class TrustyInput extends React.Component {
 		let { type, input } = this.props
 		let classes = { "text_area": this.props.textArea, "opened_text_area": this.state.opened && this.props.textArea, "select_input": type=="select" }
 		return (
-				<div style={this.props.style} className={cname("trusty_input_container",classes)}>
+				<div style={this.props.style} className={cname("trusty_input_container",classes, this.props.className || "")}>
 					{/*<CSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>*/}
 						{/* this.state.opened ? <label>{this.props.label}</label> : null*/ }
 					{/*</CSSTransitionGroup>*/}

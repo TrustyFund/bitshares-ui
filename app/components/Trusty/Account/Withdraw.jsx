@@ -21,8 +21,13 @@ import GatewayStore from "stores/GatewayStore";
 import GatewayActions from "actions/GatewayActions";
 import AccountImage from "components/Account/AccountImage";
 import TrustyInput from "components/Trusty/Forms/TrustyInput"
+import coinDefinition from "components/Trusty/definition"
+import ResizingSelect from "components/Trusty/ResizingSelect"
+import PropTypes from "prop-types"
+import TopInputs from "components/Trusty/DepositWithdrawInputs"
 
 
+import CoinStore from "stores/CoinStore"
 
 
 class AccountDepositWithdraw extends React.Component {
@@ -38,6 +43,7 @@ class AccountDepositWithdraw extends React.Component {
         deposit: false
     };
 
+
     constructor(props) {
         super();
         this.state = {
@@ -46,6 +52,7 @@ class AccountDepositWithdraw extends React.Component {
             metaService: props.viewSettings.get("metaService", "bridge"),
             activeService: props.viewSettings.get("activeService", 0),
             activeType: "crypto",
+            coinType: "BTC",
         };
     }
 
@@ -111,6 +118,7 @@ class AccountDepositWithdraw extends React.Component {
 
     onSetService(e) {
         //let index = this.state.services.indexOf(e.target.value);
+
         this.setState({
             activeService: parseInt(e.target.value)
         });
@@ -131,7 +139,6 @@ class AccountDepositWithdraw extends React.Component {
             name: "Openledger (OPEN.X)",
             template: (
                 <div className="content-block">
-
                         {olService === "gateway" && openLedgerGatewayCoins.length ?
                         <BlockTradesGateway
                             deposit_only={this.props.deposit}
@@ -163,6 +170,7 @@ class AccountDepositWithdraw extends React.Component {
                         <div className="content-block">
                             {btService === "bridge" ?
                             <BlockTradesBridgeDepositRequest
+                                coinInputValue={this.props.changedCoinValue}
                                 deposit_only={this.props.deposit}
                                 gateway="blocktrades"
                                 issuer_account="blocktrades"
@@ -183,14 +191,13 @@ class AccountDepositWithdraw extends React.Component {
                         </div>
                     </div>)
         });
-        serList.reverse()
+        //serList.reverse()
         return serList;
     }
 
     render() {
         let { account } = this.props;
         let { activeService, activeType } = this.state;
-
         let blockTradesGatewayCoins = this.props.blockTradesBackedCoins.filter(coin => {
             if (coin.backingCoinType.toLowerCase() === "muse") {
                 return false;
@@ -227,26 +234,14 @@ class AccountDepositWithdraw extends React.Component {
 
         let selectBridge = (
             <select onChange={this.onSetService.bind(this)} className="bts-select" value={activeService} >
-                        {options}
-            </select>
-        )
-
-        let selectType = (
-            <select onChange={this.onSetType.bind(this)} className="bts-select" value={activeType} >
-                <option>crypto</option>
-                <option>fiat</option>
+                {options}
             </select>
         )
 
         return (
             <div className="trusty_deposit_and_withdraw">
 
-                {/*<div><TrustyInput 
-                    isOpen={true}
-                    input={selectType}
-                    type={"select"}
-                    label={"Type"}
-                /></div>*/}
+                <TopInputs />
       
                 <div><TrustyInput 
                     isOpen={true}
@@ -290,14 +285,15 @@ class DepositStoreWrapper extends React.Component {
 
 export default connect(DepositStoreWrapper, {
     listenTo() {
-        return [AccountStore, SettingsStore, GatewayStore];
+        return [AccountStore, SettingsStore, GatewayStore, CoinStore];
     },
     getProps() {
         return {
+            changedCoinValue: CoinStore.getState().coinValue,
             account: AccountStore.getState().currentAccount,
             viewSettings: SettingsStore.getState().viewSettings,
             openLedgerBackedCoins: GatewayStore.getState().backedCoins.get("OPEN", []),
-            blockTradesBackedCoins: GatewayStore.getState().backedCoins.get("TRADE", [])
+            blockTradesBackedCoins: GatewayStore.getState().backedCoins.get("TRADE", []),
         };
     }
 });

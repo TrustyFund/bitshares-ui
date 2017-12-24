@@ -20,10 +20,13 @@ import Icon from 'components/Icon/Icon';
 import $ from 'jquery'
 import { Link } from 'react-router'
 import ClipboardButton from 'react-clipboard.js'
+import CoinStore from 'stores/CoinStore'
+import { connect } from 'alt-react'
 
 import TrustyInput from 'components/Trusty/Forms/TrustyInput';
 import TrustyWithdraw from './TrustyWithdraw';
 import LoadingIndicator from 'components/LoadingIndicator';
+
 
 class ButtonConversion extends React.Component {
     static propTypes = {
@@ -66,6 +69,7 @@ class ButtonConversion extends React.Component {
     componentWillMount() {
         this._updateFee();
         this._checkFeeStatus();
+
     }
 
     componentWillUnmount() {
@@ -274,7 +278,7 @@ class ButtonWithdraw extends React.Component {
     }
 
     componentDidMount(){
-        ZfApi.publish(this.getWithdrawModalId(), "open");
+        ZfApi.publish(this.getWithdrawModalId(), "open")
     }
 
     render() {
@@ -621,6 +625,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 				conversion_estimate_direction: this.estimation_directions.output_from_input,
                 supports_output_memos: coins_by_type['btc'].supportsOutputMemos
             });
+
         })
 		.catch((error) => {
             this.setState( {
@@ -715,7 +720,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     }
                 }
             });
-        }).catch((error) => {
+        })
+        .catch((error) => {
             this.urlConnection("https://api.blocktrades.info/v2", 2);
             this.setState( {
                 coin_info_request_state: 0,
@@ -729,8 +735,15 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 
     componentDidMount()
     {
-        this.triggerInputAmountChange()
         this.update_timer = setInterval(this.updateEstimates.bind(this), this.refresh_interval);
+        let isLocation = path => ~window.location.pathname.indexOf(path)
+        if(isLocation("withdraw")) {
+            this.triggerInputAmountChange("withdraw")
+        } 
+        if(isLocation("deposit")){
+            this.triggerInputAmountChange("deposit")
+        }
+  
     }
 
     componentWillUnmount()
@@ -931,9 +944,9 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                     this.setState({[deposit_withdraw_or_convert + "_estimated_output_amount"]: reply.outputAmount, [deposit_withdraw_or_convert + "_error"]: null});
             }
         }, error => {
+            alert("connection error")
         }).then(()=>{
-            this.setState({withdraw_estimated_output_amount: "0"})
-           
+            this.setState({withdraw_estimated_output_amount: this.props.changedCoinValue})
         });
 
         return null;
@@ -992,10 +1005,10 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         return null;
     }
 
+
     triggerInputAmountChange(deposit_withdraw_or_convert="withdraw")
     {
-        let new_estimated_input_amount = "1";
-
+        let new_estimated_input_amount = ""+this.props.changedCoinValue;//"1";
         let new_estimated_output_amount = this.getAndUpdateOutputEstimate(deposit_withdraw_or_convert,
                                                                           this.state[deposit_withdraw_or_convert + "_input_coin_type"],
                                                                           this.state[deposit_withdraw_or_convert + "_output_coin_type"],
@@ -1104,12 +1117,16 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         });
     }
 
+
     onOutputCoinTypeChanged(deposit_withdraw_or_convert, event)
     {
+
         let estimated_input_output_amount = null;
         let estimated_input_output_amount_state = "_estimated_output_amount";
         let new_output_coin_type = event.target.value;
-		let withdraw_output_coin_types = this.state.allowed_mappings_for_withdraw[this.state.withdraw_input_coin_type];
+
+        let withdraw_output_coin_types = this.state.allowed_mappings_for_withdraw[this.state.withdraw_input_coin_type];
+
 
 		if (deposit_withdraw_or_convert == "withdraw") {
 			withdraw_output_coin_types.forEach(allowed_withdraw_output_coin_type => {
@@ -1122,6 +1139,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 				}
 			});
 		}
+
 
         let new_input_address_and_memo = this.state.input_address_and_memo;
         if (deposit_withdraw_or_convert == "deposit")
@@ -1143,15 +1161,39 @@ class BlockTradesBridgeDepositRequest extends React.Component {
             [deposit_withdraw_or_convert + estimated_input_output_amount_state]: estimated_input_output_amount,
             [deposit_withdraw_or_convert + "_estimate_direction"]: this.estimation_directions.output_from_input
         });
+
+    }
+    componentDidUpdate(prevProps, prevState){
+
+        if(prevState.allowed_mappings_for_withdraw == null && this.state.allowed_mappings_for_withdraw != null) { 
+            this.onOutputCoinTypeChanged("withdraw", {target: {value: ""+this.props.changedCoinName.toLowerCase()}})
+        }
+        //$('#resizing_select').change(function(){
+            $("#width_tmp_option").html($('#resizing_select option:selected').text());
+                $('#resizing_select').width($("#width_tmp_option").width() + 4);  
+       // });
+        
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        $('#resizing_select').change(function(){
-            $("#width_tmp_option").html($('#resizing_select option:selected').text());
-                console.log($("#width_tmp_option").width())
-                $(this).width($("#width_tmp_option").width() + 4);  
-        });
-    }  
+    componentWillReceiveProps(nextProps) {
+        console.log(this.state.allowed_mappings_for_withdraw)
+
+        if(nextProps.changedCoinValue != this.props.changedCoinValue) {
+            let newValue = nextProps.changedCoinValue
+            this.onOutputAmountChanged("withdraw", { target: {value: newValue}}) 
+        }
+
+        if(nextProps.changedCoinName != this.props.changedCoinName) {
+            let newValue = nextProps.changedCoinName.toLowerCase()
+            //this.setState({coin_symbol: newValue})
+            if ( ~window.location.pathname.indexOf("withdraw") ) {
+                this.onOutputCoinTypeChanged("withdraw", { target: {value: newValue}}) 
+            } else {
+                this.onInputCoinTypeChanged("deposit", { target: { value: newValue}})
+            }
+        }
+
+    }
 
     _onSuccess(a) {
         alert("address copied")
@@ -1186,8 +1228,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
         else if (this.state.coin_info_request_state == this.coin_info_request_states.never_requested ||
                  this.state.coin_info_request_state == this.coin_info_request_states.request_in_progress)
         {
-            return  <LoadingIndicator type={"trusty-owl"} />
-            //<div><p>Retrieving current trade data from blocktrades.us</p></div>;
+   
+            return <div><LoadingIndicator type={"trusty-owl"} /><p className="trusty_help_text">connecting blocktrades.us...</p></div>;
         }
         else
         {
@@ -1300,12 +1342,13 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 let coin_type = this.state.deposit_input_coin_type || ""
                 deposit_body = (
                     <div className="blocktrades-bridge">
-                        <TrustyInput
+                        {<TrustyInput
+                            className={"_trusty_hide_input"}
                             input={deposit_input_amount_edit_box}
                             right={deposit_input_coin_type_select}
                             label={"SEND ANY SUM"}
                             editValue={(v)=>{ console.log(v)}}
-                        />
+                        />}
                         {/*<div className="trusty_deposit_input">
                             <div className="t_right">{deposit_input_coin_type_select}</div>
                             <div className="t_input">{deposit_input_amount_edit_box}</div>
@@ -1402,7 +1445,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                 let estimated_output_amount_text = this.state.withdraw_estimated_output_amount;
 
                 let withdraw_output_amount_edit_box = estimated_output_amount_text ?
-                    <input style={{width: "11rem"}} type="text"
+                    <input style={{width: "11rem"}} 
+                           type="text"
                            value={estimated_output_amount_text || ""}
                            onChange={this.onOutputAmountChanged.bind(this, "withdraw") } /> : calcTextWithdraw;
 
@@ -1444,8 +1488,8 @@ class BlockTradesBridgeDepositRequest extends React.Component {
 
                withdraw_body =
                 <div className="trusty_withdraw_wrap">
-                    <TrustyInput isOpen={true} label="enter amount to withdraw" input={withdraw_output_amount_edit_box} right={withdraw_output_coin_type_select}/>
-                    <tbody>
+                    <TrustyInput isOpen={true} className="_trusty_hide_input" label="enter amount to withdraw" input={withdraw_output_amount_edit_box} right={withdraw_output_coin_type_select}/>
+{/*                    <tbody>
                         <tr>
                             <td className="_hide">
                                 <div className="blocktrades-bridge">
@@ -1469,7 +1513,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
                                 {withdraw_limit_element}
                             </td>
                         </tr>
-                    </tbody>
+                    </tbody>*/}
                     {withdraw_button}<br/>
                 </div>
             }
@@ -1592,4 +1636,17 @@ class BlockTradesBridgeDepositRequest extends React.Component {
     }
 }; // BlockTradesBridgeDepositRequest
 
-export default BindToChainState(BlockTradesBridgeDepositRequest, {keep_updating:true});
+
+let storeWrapper = BindToChainState(BlockTradesBridgeDepositRequest, {keep_updating:true});
+
+export default connect(storeWrapper, {
+    listenTo() {
+        return [CoinStore];
+    },
+    getProps() {
+        return {
+            changedCoinValue: CoinStore.getState().coinValue,
+            changedCoinName: CoinStore.getState().coinType,
+        };
+    }
+});

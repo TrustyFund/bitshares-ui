@@ -10,6 +10,7 @@ import cnames from "classnames";
 import LoadingIndicator from "components/LoadingIndicator";
 import TrustyInput from "components/Trusty/Forms/TrustyInput"
 import ResizingSelect from "components/Trusty/ResizingSelect"
+import CoinStore from "stores/CoinStore"
 
 class BlockTradesGateway extends React.Component {
     constructor(props) {
@@ -28,27 +29,36 @@ class BlockTradesGateway extends React.Component {
         let cachedCoin = props.viewSettings.get(`activeCoin_${props.provider}_${state.action}`, null);
 		let firstTimeCoin = null;
 		if ((props.provider == 'blocktrades') && (state.action == 'deposit')) {
-			firstTimeCoin = 'BTC';
+			firstTimeCoin = props.changedCoinName//'BTC';
 		}
 		if ((props.provider == 'openledger') && (state.action == 'deposit')) {
-			firstTimeCoin = 'BTC';
+			firstTimeCoin = props.changedCoinName//'BTC';
 		}
 		if ((props.provider == 'blocktrades') && (state.action == 'withdraw')) {
 			firstTimeCoin = 'TRADE.BTC';
 		}
 		if ((props.provider == 'openledger') && (state.action == 'withdraw')) {
-			firstTimeCoin = 'OPEN.BTC';
+			firstTimeCoin = 'OPEN.'+props.changedCoinName// OPEN.BTC';
 		}
         let activeCoin = cachedCoin ? cachedCoin : firstTimeCoin;
         return activeCoin;
+        //return  firstTimeCoin
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.provider !== this.props.provider) {
             this.setState({
                 activeCoin: this._getActiveCoin(nextProps, this.state.action)
             });
         }
+
+
+        if(nextProps.changedCoinName != this.props.changedCoinName) {
+            let newValue = ~window.location.pathname.indexOf("withdraw") ? "OPEN." + nextProps.changedCoinName : nextProps.changedCoinName 
+            this.onSelectCoin({target:{value: newValue}})
+        }
+
     }
 
     // shouldComponentUpdate(nextProps, nextState) {
@@ -74,7 +84,6 @@ class BlockTradesGateway extends React.Component {
     changeAction(type) {
 
         let activeCoin = this._getActiveCoin(this.props, {action: type});
-
 
         this.setState({
             action: type,
@@ -145,7 +154,7 @@ class BlockTradesGateway extends React.Component {
             <div style={this.props.style}>
                 <div>
         
-                    { !coin.isAvailable && coin || ~window.location.pathname.indexOf("deposit") ? <TrustyInput input={select} type="select" label={"select coin"} isOpen={true}/> : null }
+                    { !coin.isAvailable && coin || ~window.location.pathname.indexOf("deposit") ? <TrustyInput className={"_trusty_hide_input"} input={select} type="select" label={"select coin"} isOpen={true}/> : null }
                     { ~window.location.pathname.indexOf("deposit") ? <div className={"trusty_help_text _yellow"}>Send { this.state.activeCoin } to the address below</div> : null }
 {/*                    <div className="medium-6 medium-offset-1">
                         <label style={{minHeight: "2rem"}} className="left-label"><Translate content="gateway.gateway_text" />:</label>
@@ -225,11 +234,15 @@ class BlockTradesGateway extends React.Component {
 
 export default connect(BlockTradesGateway, {
     listenTo() {
-        return [SettingsStore];
+        return [SettingsStore,CoinStore];
     },
     getProps() {
         return {
-            viewSettings: SettingsStore.getState().viewSettings
+            viewSettings: SettingsStore.getState().viewSettings,
+            changedCoinValue: CoinStore.getState().coinValue,
+            changedCoinName: CoinStore.getState().coinType,
         };
     }
 });
+
+
