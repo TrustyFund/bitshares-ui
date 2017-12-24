@@ -24,6 +24,7 @@ if(localStorage.getItem("_trusty_username")) {
    //browserHistory.push("/home")
 }
 
+
 const rootEl = document.getElementById("content");
 const render = () => {
     ReactDOM.render(

@@ -10,8 +10,12 @@ initReactFastclick();
 * the async routes defined in Routes.jsx. Any changes to the routes must be kept
 * synchronized between the two files
 */
-import routes from "./Routes";
 
+import jquery from 'jquery'
+
+jquery('head').append('<style>._trusty_hide_input {display: none;}</style>')
+
+import routes from "./Routes";
 
 require("./components/Utility/Prototypes"); // Adds a .equals method to Array for use in shouldComponentUpdate
 
