@@ -1181,8 +1181,7 @@ class BlockTradesBridgeDepositRequest extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.state.allowed_mappings_for_withdraw)
-
+ 
         if(nextProps.changedCoinValue != this.props.changedCoinValue) {
             let newValue = nextProps.changedCoinValue
             this.onOutputAmountChanged("withdraw", { target: {value: newValue}}) 

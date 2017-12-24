@@ -3,6 +3,11 @@ button.trusty_full_width_button {
 	background: transparent;
 	font-family: Gotham_Pro_Medium;
 	@include trusty_mobile_button_not_width;
+	&::after {
+		content: "";
+		display: block;
+		height: 1px;
+	}
 }
 
 .trusty_full_width_button_colored {

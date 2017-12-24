@@ -402,6 +402,10 @@ class WithdrawModalBlocktrades extends React.Component {
         return {fee_asset_types};
     }
 
+    componentDidMount(){
+        document.body.querySelector(".modal-overlay").classList.add("is-active")
+    }
+
     render() {
 
         let {withdraw_address_selected, memo} = this.state;

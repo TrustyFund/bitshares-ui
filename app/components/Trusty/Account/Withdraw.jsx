@@ -50,13 +50,15 @@ class AccountDepositWithdraw extends React.Component {
             olService: props.viewSettings.get("olService", "gateway"),
             btService: props.viewSettings.get("btService", "bridge"),
             metaService: props.viewSettings.get("metaService", "bridge"),
-            activeService: props.viewSettings.get("activeService", 0),
+            activeService: 0,//props.viewSettings.get("activeService", 0),
             activeType: "crypto",
             coinType: "BTC",
         };
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+
         return (
             nextProps.account !== this.props.account ||
             !utils.are_equal_shallow(nextProps.blockTradesBackedCoins, this.props.blockTradesBackedCoins) ||
@@ -191,7 +193,7 @@ class AccountDepositWithdraw extends React.Component {
                         </div>
                     </div>)
         });
-        //serList.reverse()
+        //let a = serList.reverse()
         return serList;
     }
 

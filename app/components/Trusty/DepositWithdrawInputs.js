@@ -84,7 +84,7 @@ class InputTest extends React.Component {
 	                    isOpen={true}
 	                    input={coinInput}
 	                    right={selectCoin}
-	                    label={"enter amount"}/>
+	                    label={"send any sum"}/>
 	            </div>
 
 {/*	            <div>
