@@ -118,6 +118,12 @@ class AccountDepositWithdraw extends React.Component {
 
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.changedCoinValue != this.props.changedCoinName) {
+            this.forceUpdate()
+        }
+    }
+    
     onSetService(e) {
         //let index = this.state.services.indexOf(e.target.value);
 
@@ -231,7 +237,13 @@ class AccountDepositWithdraw extends React.Component {
         let services = this.renderServices(blockTradesGatewayCoins, openLedgerGatewayCoins);
 
         let options = services.map((services_obj, index) => {
-            return <option key={index} value={index}>{services_obj.name}</option>;
+ 
+            let coin = coinDefinition.find(i=>i.name==this.props.changedCoinName)
+            let isDeposit = ~window.location.pathname.indexOf("deposit")
+            console.log(coin)
+            let isService = isDeposit ? coin.deposit.find(i=>i==services_obj.name) : coin.withdraw ? coin.withdraw.find(i=>i==services_obj.name) : null
+
+            return isService ? <option key={index} value={index}>{services_obj.name}</option> : null ;
         });
 
         let selectBridge = (
@@ -245,12 +257,12 @@ class AccountDepositWithdraw extends React.Component {
 
                 <TopInputs />
       
-                <div><TrustyInput 
+                { !options.every(i=>i==null) ? <div><TrustyInput 
                     isOpen={true}
                     input={selectBridge}
                     type={"select"}
                     label={"payment method"}
-                /></div>
+                /></div> : null }
       
                 <div className="grid-content no-padding" style={{overflow: "hidden"}}>
                 {activeService && services[activeService] ? services[activeService].template : services[0].template}
@@ -291,6 +303,7 @@ export default connect(DepositStoreWrapper, {
     },
     getProps() {
         return {
+            changedCoinName: CoinStore.getState().coinType,
             changedCoinValue: CoinStore.getState().coinValue,
             account: AccountStore.getState().currentAccount,
             viewSettings: SettingsStore.getState().viewSettings,

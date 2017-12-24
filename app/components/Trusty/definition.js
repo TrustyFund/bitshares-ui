@@ -1,5 +1,5 @@
 
-let openledger = "Openledger (OPEN.X)"
+let openledger =  "Openledger (OPEN.X)"
 let blocktrades = "BlockTrades (TRADE.X)"
 let cryptobot = "cryptobot"
 
@@ -30,18 +30,18 @@ export default [
 	},
 	{
 		name: "USD", //blocktrades OPEN.USD
-		deposit: [openledger,blocktrades],
-		withdraw: [openledger,blocktrades]
+		deposit: [cryptobot],
+		withdraw: [cryptobot]
 	},
 	{
 	    name: "RUB",
 	    deposit: [cryptobot],
-	    widthdraw: []
+	    widthdraw: [cryptobot]
 	},
 	{
 	    name: "TRUSTY",
-		deposit: [openledger,blocktrades],
-		withdraw: [openledger,blocktrades]
+		deposit: [],
+		withdraw: []
 	}   
 ]
 
