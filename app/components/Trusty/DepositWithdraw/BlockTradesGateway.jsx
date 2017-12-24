@@ -26,7 +26,7 @@ class BlockTradesGateway extends React.Component {
     }
 
     componentDidMount(){
-        let newValue = ~window.location.pathname.indexOf("withdraw") ? "OPEN." + this.props.changedCoinName : nextProps.changedCoinName 
+        let newValue = ~window.location.pathname.indexOf("withdraw") ? "OPEN." + this.props.changedCoinName : this.props.changedCoinName 
         this.onSelectCoin({target:{value: newValue}})
     }
 

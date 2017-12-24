@@ -1166,7 +1166,12 @@ class BlockTradesBridgeDepositRequest extends React.Component {
     componentDidUpdate(prevProps, prevState){
 
         if(prevState.allowed_mappings_for_withdraw == null && this.state.allowed_mappings_for_withdraw != null) { 
-            this.onOutputCoinTypeChanged("withdraw", {target: {value: ""+this.props.changedCoinName.toLowerCase()}})
+            
+           if(~window.location.pathname.indexOf("withdraw")) {
+                this.onOutputCoinTypeChanged("withdraw", {target: {value: this.props.changedCoinName.toLowerCase()}})
+           } else {
+                this.onInputCoinTypeChanged("deposit", { target: { value: this.props.changedCoinName.toLowerCase()}})
+           }
         }
         //$('#resizing_select').change(function(){
             $("#width_tmp_option").html($('#resizing_select option:selected').text());
