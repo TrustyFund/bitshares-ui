@@ -47,6 +47,7 @@ class TrustyInput extends React.Component {
 
 	labelClick(e){
 		e.stopPropagation()
+		e.preventDefault()
 		this.setState({ opened: !this.state.opened})
 		//if(~this.props.label.indexOf("enter amount"))document.body.querySelector(".grid-container .trusty_input_container .exchange_fee").click()
 	}
