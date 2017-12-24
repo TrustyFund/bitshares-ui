@@ -25,6 +25,11 @@ class BlockTradesGateway extends React.Component {
         };
     }
 
+    componentDidMount(){
+        let newValue = ~window.location.pathname.indexOf("withdraw") ? "OPEN." + this.props.changedCoinName : nextProps.changedCoinName 
+        this.onSelectCoin({target:{value: newValue}})
+    }
+
     _getActiveCoin(props, state) {
         let cachedCoin = props.viewSettings.get(`activeCoin_${props.provider}_${state.action}`, null);
 		let firstTimeCoin = null;

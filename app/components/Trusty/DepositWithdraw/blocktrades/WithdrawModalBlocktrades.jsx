@@ -579,17 +579,17 @@ class WithdrawModalBlocktrades extends React.Component {
     }
 };
 
-export default BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
-// let storeWrapper = BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
+//export default BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
+let storeWrapper = BindToChainState(WithdrawModalBlocktrades, {keep_updating:true});
 
-// export default connect(storeWrapper, {
-//     listenTo() {
-//         return [CoinStore];
-//     },
-//     getProps() {
-//         return {
-//             changedCoinValue: CoinStore.getState().coinValue,
-//         };
-//     }
-// });
+export default connect(storeWrapper, {
+    listenTo() {
+        return [CoinStore];
+    },
+    getProps() {
+        return {
+            changedCoinValue: CoinStore.getState().coinValue,
+        };
+    }
+});
 
