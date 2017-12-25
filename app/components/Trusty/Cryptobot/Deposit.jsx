@@ -133,13 +133,14 @@ class DepositFiat extends React.Component {
   }
 
   createOrder(){
+    
     let address = localStorage.getItem("_trusty_username");
     let client_name = this.state.name;
-    let payment_method = this.state.method;
-    let currency = this.state.currency;
-    let fiat_amount = parseInt(this.state.amount);
-
+    let payment_method =  this.state.method;
+    let currency = this.props.currency/*this.state.currency*/;
+    let fiat_amount = parseInt(this.props.amount/*this.state.amount*/);
     this.state.soso.request("create","order",{client_name,address,payment_method,currency,fiat_amount});
+
   }
 
   clearOrder(){
@@ -205,12 +206,12 @@ class DepositFiat extends React.Component {
       );
                     
       return (
-        <div className="trusty_deposit_and_withdraw" style={{paddingTop: "10px 2rem 0 2rem"}}>
-          <TrustyInput
+        <div className="trusty_deposit_fiat" style={{paddingTop: "10px 2rem 0 2rem"}}>
+          {/*<TrustyInput
             input={deposit_input_amount_edit_box}
             right={deposit_input_coin_type_select}
             label={"deposit sum"}
-          />
+          />*/}
           <TrustyInput 
             input={payment_methods} 
             right={<div className="only_right_arrow"><Icon name="trusty_arrow_down"/></div>} 

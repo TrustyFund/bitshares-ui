@@ -25,6 +25,7 @@ import coinDefinition from "components/Trusty/definition"
 import ResizingSelect from "components/Trusty/ResizingSelect"
 import PropTypes from "prop-types"
 import TopInputs from "components/Trusty/DepositWithdrawInputs"
+import DepositFiat from "../Cryptobot/Deposit";
 
 
 import CoinStore from "stores/CoinStore"
@@ -252,6 +253,8 @@ class AccountDepositWithdraw extends React.Component {
             </select>
         )
 
+        let isFiatTrustyDeposit = this.props.changedCoinName.search(/rub|usd/gi) != -1
+        console.log(isFiatTrustyDeposit)
         return (
             <div className="trusty_deposit_and_withdraw">
 
@@ -263,11 +266,16 @@ class AccountDepositWithdraw extends React.Component {
                     type={"select"}
                     label={"payment method"}
                 /></div> : null }
-      
-                <div className="grid-content no-padding" style={{overflow: "hidden"}}>
-                {activeService && services[activeService] ? services[activeService].template : services[0].template}
-                </div>
-                {this.props.children}
+                {
+
+                    isFiatTrustyDeposit ? <DepositFiat currency={this.props.changedCoinName } amount={this.props.changedCoinValue} method="SBERBANK" /> : 
+
+                    <div className="grid-content no-padding" style={{overflow: "hidden"}}>
+                        {activeService && services[activeService] ? services[activeService].template : services[0].template}
+                    </div>
+
+                }
+                {/*this.props.children*/}
             </div>
         );
     }
