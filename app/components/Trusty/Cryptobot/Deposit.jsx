@@ -133,7 +133,7 @@ class DepositFiat extends React.Component {
   }
 
   createOrder(){
-    
+
     let address = localStorage.getItem("_trusty_username");
     let client_name = this.state.name;
     let payment_method =  this.state.method;
@@ -223,9 +223,10 @@ class DepositFiat extends React.Component {
             input={name_input}
             label="NAME AND SURNAME OF PAYER"
           />
-          <button type="button" className="trusty_wide_btn" onClick={this.createOrder}>
+          <button style={{marginBottom: 0}} type="button" className="trusty_wide_btn" onClick={this.createOrder}>
             CONFIRM
           </button>
+          <p className="trusty_ps_text">Payment gateway service is provided by users of <br/> Localbitcoins.com</p>
         </div>
       );
   }
