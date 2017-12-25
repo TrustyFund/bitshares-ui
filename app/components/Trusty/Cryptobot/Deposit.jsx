@@ -205,20 +205,22 @@ class DepositFiat extends React.Component {
       );
                     
       return (
-        <div className="trusty_deposit" style={{paddingTop: "10px 2rem 0 2rem"}}>
+        <div className="trusty_deposit_and_withdraw" style={{paddingTop: "10px 2rem 0 2rem"}}>
           <TrustyInput
             input={deposit_input_amount_edit_box}
             right={deposit_input_coin_type_select}
-            label={"SEND ANY SUM"}
+            label={"deposit sum"}
           />
           <TrustyInput 
             input={payment_methods} 
-            right={<Icon name="trusty_arrow_down"/>} 
+            right={<div className="only_right_arrow"><Icon name="trusty_arrow_down"/></div>} 
             isOpen={true} 
+            label={"payment method"}
+            type="select"
           />
           <TrustyInput
             input={name_input}
-            label="NAME AND SURNAME"
+            label="NAME AND SURNAME OF PAYER"
           />
           <button type="button" className="trusty_wide_btn" onClick={this.createOrder}>
             CONFIRM
@@ -226,6 +228,7 @@ class DepositFiat extends React.Component {
         </div>
       );
   }
+
   
   render(){
       let try_again_button = (
@@ -316,6 +319,9 @@ class DepositFiat extends React.Component {
       }
   }
 }
+
+
+
 
 export default DepositFiat
       
