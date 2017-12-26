@@ -238,12 +238,9 @@ class AccountDepositWithdraw extends React.Component {
         let services = this.renderServices(blockTradesGatewayCoins, openLedgerGatewayCoins);
 
         let options = services.map((services_obj, index) => {
- 
             let coin = coinDefinition.find(i=>i.name==this.props.changedCoinName)
             let isDeposit = ~window.location.pathname.indexOf("deposit")
-            console.log(coin)
             let isService = isDeposit ? coin.deposit.find(i=>i==services_obj.name) : coin.withdraw ? coin.withdraw.find(i=>i==services_obj.name) : null
-
             return isService ? <option key={index} value={index}>{services_obj.name}</option> : null ;
         });
 
@@ -254,7 +251,7 @@ class AccountDepositWithdraw extends React.Component {
         )
 
         let isFiatTrustyDeposit = this.props.changedCoinName.search(/rub|usd/gi) != -1
-        console.log(isFiatTrustyDeposit)
+
         return (
             <div className="trusty_deposit_and_withdraw">
 

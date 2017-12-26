@@ -92,7 +92,7 @@ SoSo.prototype.request = function (action_str, data_type, request, trans_map) {
       request_map: request,
       trans_map: trans
     };
-
+    console.log("-------->", data)
     self.sock.send(JSON.stringify(data));
   })
 }

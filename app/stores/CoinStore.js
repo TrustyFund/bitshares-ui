@@ -15,15 +15,21 @@ class PortfolioStore extends BaseStore {
         this.state = {
             coinValue: "0",
             coinType: "BTC",
-            deposit: true
+            deposit: true,
+            isTrustyDepositOrder: false
         }
 
         this.bindListeners({
             onSetCoinPayload: CoinActions.setCoinPayload,
+            onSetTrustyDepositIsOrdered: CoinActions.setTrustyDepositIsOrdered
         })
 
     }
-
+    onSetTrustyDepositIsOrdered(value) {
+        this.setState({
+            isTrustyDepositOrder: value
+        })
+    }
     onSetCoinPayload({value, type, deposit}) {
         this.setState({
           coinType: type,
