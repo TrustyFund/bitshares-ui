@@ -269,8 +269,7 @@ class PortfolioActions {
         let assets = {}
         Apis.instance().db_api().exec("list_assets", ["USD",1]).then(data=>{
             assets["USD"] = data
-            console.log(data)
-        })
+        });
 
         let defaultPortfolio = PortfolioStore.getDefaultPortfolio();
         let baseSymbol = defaultPortfolio.base;
