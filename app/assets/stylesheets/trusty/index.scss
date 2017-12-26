@@ -11,6 +11,7 @@
 @import "components/unlock-account";
 @import "components/buttons";
 @import "components/black-modal";
+@import "components/timer";
 
 
 
@@ -31,6 +32,16 @@
 
 ._trusty_hide_input {
 	display: none;
+}
+
+.trusty_center_vertical_fixed {
+
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100vw;
 }
 
 iframe {

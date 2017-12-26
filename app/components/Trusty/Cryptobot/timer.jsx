@@ -45,10 +45,10 @@ class Timer extends React.Component{
   	let seconds_string = (this.state.secondsRemaining < 10) ? "0" + seconds : seconds;
 
     return (
-	    <div>
-	    	<h1>{this.state.text}</h1>
-	      	<h2>0{this.state.minutesRemaining} {seconds_string}</h2>
-		</div>
+	    <div className="trusty_deposit_timer">
+	    	<div className="_title" dangerouslySetInnerHTML={{__html: this.state.text }} />
+	      <div className="_timer">0{this.state.minutesRemaining}<span>:</span>{seconds_string}</div>
+		  </div>
     );
   }
 };

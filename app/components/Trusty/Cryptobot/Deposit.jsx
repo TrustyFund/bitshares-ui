@@ -24,13 +24,13 @@ class DepositFiat extends React.Component {
     //Order state update
     if (nextState.order && this.state.order){
       if (nextState.order.Status != this.state.order.Status){
-        console.log("Change order status from ",this.state.order.Status, " to ", nextState.order.Status);
+        __DEV__ && console.log("Change order status from ",this.state.order.Status, " to ", nextState.order.Status);
       }
     }
 
     //New order or loaded one
     if (nextState.order && !this.state.order){
-      console.log("SET ORDER",nextState.order);
+      __DEV__ && console.log("SET ORDER",nextState.order);
     }
   }
 
@@ -48,7 +48,7 @@ class DepositFiat extends React.Component {
   }
 
   componentWillMount(){
-    console.log("STORED ORDER ID",this.getCurrentOrderId());
+    __DEV__ && console.log("STORED ORDER ID",this.getCurrentOrderId());
 
     let server = "https://trusty.fund/channel/";
     let soso = new SoSo(server);
@@ -129,7 +129,7 @@ class DepositFiat extends React.Component {
   }
 
   getOrder(order_id){
-    console.log("GET ORDER",order_id);
+    __DEV__ && console.log("GET ORDER",order_id);
     let address = localStorage.getItem("_trusty_username");
     this.state.soso.request("get","order",{order_id: parseInt(order_id),address});
   }
@@ -152,7 +152,7 @@ class DepositFiat extends React.Component {
 
   cancelOrder(){
     let current_order_id = this.getCurrentOrderId();
-    console.log("CURRENT ORDER ID",current_order_id);
+    __DEV__ && console.log("CURRENT ORDER ID",current_order_id);
     let address = localStorage.getItem("_trusty_username");
     this.state.soso.request("cancel","order",{order_id: parseInt(current_order_id),address}).then(()=>{
       this.clearOrder();
@@ -216,7 +216,7 @@ class DepositFiat extends React.Component {
 
     return (
       <div className="trusty_deposit_fiat_fullscreen">
-        <Timer text="YOU WILL GET DEPOSIT DETAILS IN UNDER 3 MINUTES"/>
+        <Timer text="YOU WILL GET DEPOSIT DETAILS IN <br /> UNDER 3 MINUTES"/>
         {cancel_button}
       </div>
     );
@@ -279,8 +279,13 @@ class DepositFiat extends React.Component {
       );
   }
 
+
+  render() {
+    if(this.state.order) return  <div className="trusty_center_vertical_fixed trusty_main_padding">{this.renderMain()}</div>
+    if(!this.state.order) return  this.renderMain()
+  }
   
-  render(){
+  renderMain(){
       let try_again_button = (
         <button type="button" className="trusty_wide_btn" onClick={this.clearOrder}>
           TRY AGAIN
@@ -314,7 +319,7 @@ class DepositFiat extends React.Component {
           break;
 
           case states.ORDER_CANCELED:
-            return (<span>You canceled the order</span>);
+            return (<span onClick={this.clearOrder}>You canceled the order</span>);
           break;
 
           case states.ORDER_TIMEOUT:
