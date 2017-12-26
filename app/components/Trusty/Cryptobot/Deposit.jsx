@@ -288,7 +288,7 @@ class DepositFiat extends React.Component {
       );
       
       if (!this.state.connected){
-        return (<span>Connection error</span>);
+        return (<span>Loading...</span>);
       }
 
       if (this.state.order){
