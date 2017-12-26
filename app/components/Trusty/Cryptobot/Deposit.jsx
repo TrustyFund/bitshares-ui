@@ -202,6 +202,7 @@ class DepositFiat extends React.Component {
         {header}
         {this.state.order.PaymentRequisites}
         {mark_payed_button}
+        {cancel_button}
       </div>
     );
   }
