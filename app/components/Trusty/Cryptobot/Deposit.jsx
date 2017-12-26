@@ -5,6 +5,8 @@ import SoSo from './soso'
 import * as states from './states';
 import Timer from './timer';
 import { browserHistory } from 'react-router/es';
+import './styles.scss';
+import Header from "components/Trusty/Layout/Header";
 
 class DepositFiat extends React.Component {
 
@@ -169,6 +171,56 @@ class DepositFiat extends React.Component {
             Status == states.ORDER_FINISHED);
   }
 
+  _navigateBackAction(){
+     browserHistory.push(`/home`);
+  }
+
+  drawPaymentState(){
+    let mark_payed_button = (
+      <button type="button" className="trusty_wide_btn" onClick={this.setPayedStatus}>
+        I JUST PAYD
+      </button>
+    );
+
+    let cancel_button = (
+      <button type="button" className="trusty_wide_btn" onClick={this.cancelOrder}>
+        CANCEL ORDER
+      </button>
+    );
+
+    let header = (
+        <div className="trusty_header">
+            <span className="_back" onClick={this._navigateBackAction}>
+              <Icon name="trusty_arrow_back"/>
+            </span>
+            <span className="header_title">DEPOSIT PAYMENT</span>
+        </div>
+    )
+
+    return (
+      <div className="trusty_deposit_fiat_fullscreen">
+        {header}
+        {this.state.order.PaymentRequisites}
+        {mark_payed_button}
+      </div>
+    );
+  }
+
+  drawTimerState(){
+    let cancel_button = (
+      <button type="button" className="trusty_wide_btn" onClick={this.cancelOrder}>
+        CANCEL ORDER
+      </button>
+    );
+
+    return (
+      <div className="trusty_deposit_fiat_fullscreen">
+        <Timer text="YOU WILL GET DEPOSIT DETAILS IN UNDER 3 MINUTES"/>
+        {cancel_button}
+      </div>
+    );
+  }
+
   drawNewOrderFields(){
     let fakeWidth = <span style={{ display: "none", fontFamily: "Gotham_Pro_Bold", fontSize: "6.6vw"}} id="width_tmp_option"/>
 
@@ -204,14 +256,9 @@ class DepositFiat extends React.Component {
       let name_input = (
           <input type="text" value={this.state.name} onChange={this.onInputChange.bind(this,"name")} />
       );
-                    
+
       return (
         <div className="trusty_deposit_fiat" style={{paddingTop: "10px 2rem 0 2rem"}}>
-          {/*<TrustyInput
-            input={deposit_input_amount_edit_box}
-            right={deposit_input_coin_type_select}
-            label={"deposit sum"}
-          />*/}
           <TrustyInput 
             input={payment_methods} 
             right={<div className="only_right_arrow"><Icon name="trusty_arrow_down"/></div>} 
@@ -238,18 +285,6 @@ class DepositFiat extends React.Component {
           TRY AGAIN
         </button>
       );
-
-      let cancel_button = (
-        <button type="button" className="trusty_wide_btn" onClick={this.cancelOrder}>
-          CANCEL ORDER
-        </button>
-      );
-
-      let mark_payed_button = (
-        <button type="button" className="trusty_wide_btn" onClick={this.setPayedStatus}>
-          I JUST PAYD
-        </button>
-      );
       
       if (!this.state.connected){
         return (<span>Connection error</span>);
@@ -258,12 +293,7 @@ class DepositFiat extends React.Component {
       if (this.state.order){
         switch(this.state.order.Status){
           case states.ORDER_NEW: 
-            return (
-              <div>
-                <Timer text="YOU WILL GET DEPOSIT DETAILS IN UNDER 3 MINUTES"/>
-                {cancel_button}
-              </div>
-            );
+            return this.drawTimerState();
           break;
 
           case states.ORDER_DROPPED: 
@@ -278,21 +308,8 @@ class DepositFiat extends React.Component {
             return (<span>Operator just tooked order</span>);
           break;
 
-          case states.ORDER_LINKED:
-            return (
-              <div>
-                {this.state.order.PaymentRequisites}
-              </div>
-            );
-          break;
-
           case states.ORDER_PAYMENT:
-            return (
-              <div>
-                <span>Waiting payment from you</span>
-                {mark_payed_button}
-              </div>
-            );
+            return this.drawPaymentState();
           break;
 
           case states.ORDER_CANCELED:
