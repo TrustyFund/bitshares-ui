@@ -39,6 +39,7 @@ class TrustyInput extends React.Component {
 	  });
 
 	  this.props.editValue(this.state.value)
+	  
 	}
 
 	setOpened(opened){

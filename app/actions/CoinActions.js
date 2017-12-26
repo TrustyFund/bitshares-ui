@@ -6,6 +6,10 @@ class CoinActions {
         return { value, type, deposit }
     }
 
+    setTrustyDepositIsOrdered(value) {
+    	return value
+    }
+
 }
 
 const CoinActionsInstance = alt.createActions(CoinActions);

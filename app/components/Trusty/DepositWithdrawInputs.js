@@ -79,13 +79,13 @@ class InputTest extends React.Component {
 	    return (
 	    	<div className="trusty_deposit_withdraw_top_inputs">
 	    		
-	    		<div>
+	    		{ this.props.isTrustyDepositOrder ? null : <div>
 	    			<TrustyInput 
 	                    isOpen={true}
 	                    input={coinInput}
 	                    right={selectCoin}
 	                    label={"send any sum"}/>
-	            </div>
+	            </div> }
 
 {/*	            <div>
 	                <TrustyInput
@@ -108,6 +108,7 @@ export default connect(InputTest, {
     },
     getProps() {
         return {
+            isTrustyDepositOrder: CoinStore.getState().isTrustyDepositOrder,
             changedCoinValue: CoinStore.getState().coinValue,
             changedCoinName: CoinStore.getState().coinType,
         };

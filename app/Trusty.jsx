@@ -23,7 +23,7 @@ import Landing from "components/Trusty/Landing/Landing";
 import {Link} from 'react-router';
 import Icon from "components/Icon/Icon"
 import PortfolioStore from "stores/PortfolioStore";
-
+import CoinStore from "stores/CoinStore"
 import WalletDb from "stores/WalletDb";
 import WalletUnlockStore from "stores/WalletUnlockStore";
 
@@ -174,12 +174,11 @@ class Trusty extends React.Component {
         let myAccountCount = myAccounts.length;
         let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
-
         function getHeaderTitle(){
             let  headerTitles = {
                 "signup": "signup",
                 "login": "login", 
-                "deposit details": "deposit",
+                [this.props.isTrustyDepositOrder ? "deposit payment" : "deposit details"]: "deposit",
                 "withdraw": "withdraw",
                 "manage fund": "manage",
                 "terms of use": "terms-of-use",
@@ -203,7 +202,7 @@ class Trusty extends React.Component {
                       </span>)
                 }
                 { isProfilePage ? <Link to="/backup"> <Icon name="trusty_options"/> </Link> : null }
-                <span className="header_title">{getHeaderTitle()}</span>
+                <span className="header_title">{getHeaderTitle.call(this)}</span>
             </div>
         )
 
@@ -271,12 +270,13 @@ class RootIntl extends React.Component {
 
 RootIntl = connect(RootIntl, {
     listenTo() {
-        return [AccountStore,IntlStore,WalletUnlockStore];
+        return [AccountStore,IntlStore,WalletUnlockStore, CoinStore];
     },
     getProps() {
         return {
             locale: IntlStore.getState().currentLocale,
             walletLocked: WalletUnlockStore.getState().locked,
+            isTrustyDepositOrder: CoinStore.getState().isTrustyDepositOrder
         };
     }
 });

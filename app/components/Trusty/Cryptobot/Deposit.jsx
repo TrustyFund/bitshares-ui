@@ -7,6 +7,26 @@ import Timer from './timer';
 import { browserHistory } from 'react-router/es';
 import './styles.scss';
 import Header from "components/Trusty/Layout/Header";
+import CoinActions from "actions/CoinActions"
+import { Link } from "react-router"
+
+import ClipboardButton from "react-clipboard.js"
+let object = {
+  BotFee:"0",
+  ClientName:"stas",
+  Currency:"RUB",
+  Destination:"trustytest2",
+  FiatAmount:"500",
+  ID:86,
+  LBAmount:"0.0005328511187012",
+  LBContractID:0,
+  LBFee:"0",
+  OperatorFee:"0",
+  OperatorID:0,
+  PaymentMethod:"SBERBANK",
+  PaymentRequisites:"",
+  Status:1
+}
 
 class DepositFiat extends React.Component {
 
@@ -30,6 +50,7 @@ class DepositFiat extends React.Component {
 
     //New order or loaded one
     if (nextState.order && !this.state.order){
+        CoinActions.setTrustyDepositIsOrdered(true)
       __DEV__ && console.log("SET ORDER",nextState.order);
     }
   }
@@ -156,6 +177,7 @@ class DepositFiat extends React.Component {
     let address = localStorage.getItem("_trusty_username");
     this.state.soso.request("cancel","order",{order_id: parseInt(current_order_id),address}).then(()=>{
       this.clearOrder();
+      CoinActions.setTrustyDepositIsOrdered(false)
     });
   }
 
@@ -174,6 +196,14 @@ class DepositFiat extends React.Component {
   _navigateBackAction(){
      browserHistory.push(`/home`);
   }
+
+  _onSuccess(a) {
+      alert("address copied",this._getText())
+  }
+ 
+  _getText() {
+      return this.state.order.PaymentRequisites
+  } 
 
   drawPaymentState(){
     let mark_payed_button = (
@@ -197,12 +227,39 @@ class DepositFiat extends React.Component {
         </div>
     )
 
+    let body = (
+        <div>
+          <TrustyInput style={{border: "none"}} isOpen={true} label="please use your online bank to send" input={<div className="_simple_text_left">{this.state.order.FiatAmount + " " + this.state.order.Currency}</div>} />
+          <TrustyInput style={{border: "none"}} isOpen={true} label="to" input={<div className="_simple_text_left">{this.state.order.PaymentMethod}</div>} />
+          <TrustyInput style={{border: "none"}} isOpen={true} label="number" input={<div className="_simple_text_left">{this.state.order.PaymentRequisites}</div>} />
+          {/*<button className="trusty_wide_btn">Copy address</button>*/}
+          <ClipboardButton option-text={this._getText.bind(this)} onSuccess={this._onSuccess.bind(this)} component="button" className="trusty_wide_btn">
+              copy address
+          </ClipboardButton>
+          <TrustyInput isOpen={true} label="exchange rate confirmed" input={<div className="_simple_text_left">237 000</div>} right={<div className="_right_slash">RUB / BTC</div>} />
+          <p className="_deposit_help_text">you will receive 0.178937 BTC</p>
+
+
+          <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you have completed the payment</p>
+
+          <div className="trusty_inline_buttons">
+              <a onClick={this.setPayedStatus} className="b_left"><button>Confirm</button></a>
+              <a onClick={this.cancelOrder} className="b_right"><button >Cancel</button></a>
+          </div>
+
+          <p className="trusty_ps_text">Payment gateway service is provided by users of <br/> Localbitcoins.com</p>
+
+
+        </div>
+      )
+
     return (
       <div className="trusty_deposit_fiat_fullscreen">
-        {header}
-        {this.state.order.PaymentRequisites}
-        {mark_payed_button}
-        {cancel_button}
+        {/*header*/}
+        {/*this.state.order.PaymentRequisites*/}
+        {body}
+        {/*mark_payed_button*/}
+        {/*cancel_button*/}
       </div>
     );
   }
@@ -227,7 +284,7 @@ class DepositFiat extends React.Component {
 
     let deposit_input_amount_edit_box = (
         <input 
-          value={this.state.amount}
+          value={this.state.amount} 
           style={{width: "11rem"}} 
           type="text"
           placeholder="SEND ANY SUM"
@@ -267,25 +324,27 @@ class DepositFiat extends React.Component {
             label={"payment method"}
             type="select"
           />
+
           <TrustyInput
             input={name_input}
             label="NAME AND SURNAME OF PAYER"
           />
+
           <button style={{marginBottom: 0}} type="button" className="trusty_wide_btn" onClick={this.createOrder}>
             CONFIRM
           </button>
+
           <p className="trusty_ps_text">Payment gateway service is provided by users of <br/> Localbitcoins.com</p>
+        
         </div>
       );
   }
 
-
-  render() {
-    if(this.state.order) return  <div className="trusty_center_vertical_fixed trusty_main_padding">{this.renderMain()}</div>
-    if(!this.state.order) return  this.renderMain()
+  componentWillUnmount(){
+    CoinActions.setTrustyDepositIsOrdered(false)
   }
-  
-  renderMain(){
+
+  render(){
       let try_again_button = (
         <button type="button" className="trusty_wide_btn" onClick={this.clearOrder}>
           TRY AGAIN
@@ -299,7 +358,7 @@ class DepositFiat extends React.Component {
       if (this.state.order){
         switch(this.state.order.Status){
           case states.ORDER_NEW: 
-            return this.drawTimerState();
+            return <div className="trusty_center_vertical_fixed trusty_main_padding">{ this.drawTimerState() } </div>;
           break;
 
           case states.ORDER_DROPPED: 

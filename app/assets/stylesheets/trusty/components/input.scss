@@ -113,6 +113,8 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
       padding-bottom:0;
 
     }
+
+    ._simple_text_left,
     .trusty_fake_input_show,
     input {
       height: 6.4vw;
@@ -126,6 +128,18 @@ $color_light_grey:#a9aaaa;//#8a8e8e;//#757777
      
     textarea {
       padding-left: 0;
+    }
+
+    ._simple_text_left {
+      text-align: left;
+      color: white;
+    }
+    
+    ._right_slash {
+      font-size: 5.7vw;
+      font-family: Gotham_Pro_Regular;
+      margin-bottom: 1.14vw;
+      
     }
 
 
