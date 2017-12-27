@@ -197,11 +197,11 @@ class DepositFiat extends React.Component {
      browserHistory.push(`/home`);
   }
 
-  _onSuccess(a) {
-      alert("address copied",this._getText())
+  _onCopyAdress(a) {
+      alert("address copied",this._getRequisitesText())
   }
  
-  _getText() {
+  _getRequisitesText() {
       return this.state.order.PaymentRequisites
   } 
 
@@ -232,8 +232,7 @@ class DepositFiat extends React.Component {
           <TrustyInput style={{border: "none"}} isOpen={true} label="please use your online bank to send" input={<div className="_simple_text_left">{this.state.order.FiatAmount + " " + this.state.order.Currency}</div>} />
           <TrustyInput style={{border: "none"}} isOpen={true} label="to" input={<div className="_simple_text_left">{this.state.order.PaymentMethod}</div>} />
           <TrustyInput style={{border: "none"}} isOpen={true} label="number" input={<div className="_simple_text_left">{this.state.order.PaymentRequisites}</div>} />
-          {/*<button className="trusty_wide_btn">Copy address</button>*/}
-          <ClipboardButton option-text={this._getText.bind(this)} onSuccess={this._onSuccess.bind(this)} component="button" className="trusty_wide_btn">
+          <ClipboardButton option-text={this._getRequisitesText.bind(this)} onSuccess={this._onCopyAdress.bind(this)} component="button" className="trusty_wide_btn">
               copy address
           </ClipboardButton>
           <TrustyInput isOpen={true} label="exchange rate confirmed" input={<div className="_simple_text_left">237 000</div>} right={<div className="_right_slash">RUB / BTC</div>} />
