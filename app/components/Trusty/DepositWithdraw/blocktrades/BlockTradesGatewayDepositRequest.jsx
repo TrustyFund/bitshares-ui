@@ -241,7 +241,7 @@ class BlockTradesGatewayDepositRequest extends React.Component {
             return (
                 <div className="Blocktrades__gateway grid-block no-padding no-margin">
                     <div className="small-12 medium-7">
-                        <div style={{padding: "10px 0", fontSize: "1.1rem", fontWeight: "bold"}}>
+                        <div>
                             { receive_address.memo ? deposit_address_fragment : cutAddress()}
 
                             {deposit_memo ? (
