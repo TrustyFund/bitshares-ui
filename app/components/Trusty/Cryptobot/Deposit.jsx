@@ -69,14 +69,15 @@ class DepositFiat extends React.Component {
   }
 
   componentWillMount(){
-    __DEV__ && console.log("STORED ORDER ID",this.getCurrentOrderId());
+    this.initSoso();
+  }
 
+  initSoso(){
     let server = "https://trusty.fund/channel/";
     let soso = new SoSo(server);
     soso.onmsg = this.receiveMessage;
     soso.onopen = this.socketConnected;
     soso.onclose = this.socketDisconnected;
-
     this.setState({soso});
   }
 
@@ -139,7 +140,8 @@ class DepositFiat extends React.Component {
   }
 
   socketDisconnected(){
-    this.setState({connected: false});
+    this.setState({connected: false,soso: null});
+    this.initSoso();
   }
 
   onInputChange(type,e){
@@ -160,8 +162,8 @@ class DepositFiat extends React.Component {
     let address = localStorage.getItem("_trusty_username");
     let client_name = this.state.name;
     let payment_method =  this.state.method;
-    let currency = this.props.currency/*this.state.currency*/;
-    let fiat_amount = parseInt(this.props.amount/*this.state.amount*/);
+    let currency = this.props.currency;
+    let fiat_amount = parseInt(this.props.amount);
     this.state.soso.request("create","order",{client_name,address,payment_method,currency,fiat_amount});
 
   }
@@ -169,6 +171,7 @@ class DepositFiat extends React.Component {
   clearOrder(){
     this.clearCurrentOrderId();
     this.setState({order: null});
+    CoinActions.setTrustyDepositIsOrdered(false);
   }
 
   cancelOrder(){
@@ -176,8 +179,7 @@ class DepositFiat extends React.Component {
     __DEV__ && console.log("CURRENT ORDER ID",current_order_id);
     let address = localStorage.getItem("_trusty_username");
     this.state.soso.request("cancel","order",{order_id: parseInt(current_order_id),address}).then(()=>{
-      this.clearOrder();
-      CoinActions.setTrustyDepositIsOrdered(false)
+      this.clearOrder();      
     });
   }
 
@@ -206,18 +208,6 @@ class DepositFiat extends React.Component {
   } 
 
   drawPaymentState(){
-    let mark_payed_button = (
-      <button type="button" className="trusty_wide_btn" onClick={this.setPayedStatus}>
-        I JUST PAYD
-      </button>
-    );
-
-    let cancel_button = (
-      <button type="button" className="trusty_wide_btn" onClick={this.cancelOrder}>
-        CANCEL ORDER
-      </button>
-    );
-
     let header = (
         <div className="trusty_header">
             <span className="_back" onClick={this._navigateBackAction}>
@@ -248,17 +238,12 @@ class DepositFiat extends React.Component {
 
           <p className="trusty_ps_text">Payment gateway service is provided by users of <br/> Localbitcoins.com</p>
 
-
         </div>
       )
 
     return (
       <div className="trusty_deposit_fiat_fullscreen">
-        {/*header*/}
-        {/*this.state.order.PaymentRequisites*/}
         {body}
-        {/*mark_payed_button*/}
-        {/*cancel_button*/}
       </div>
     );
   }
