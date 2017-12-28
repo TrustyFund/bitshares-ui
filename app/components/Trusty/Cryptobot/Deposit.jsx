@@ -50,7 +50,6 @@ class DepositFiat extends React.Component {
 
     //New order or loaded one
     if (nextState.order && !this.state.order){
-        CoinActions.setTrustyDepositIsOrdered(true)
       __DEV__ && console.log("SET ORDER",nextState.order);
     }
   }
@@ -171,7 +170,6 @@ class DepositFiat extends React.Component {
   clearOrder(){
     this.clearCurrentOrderId();
     this.setState({order: null});
-    CoinActions.setTrustyDepositIsOrdered(false);
   }
 
   cancelOrder(){
@@ -218,7 +216,7 @@ class DepositFiat extends React.Component {
     )
 
     let body = (
-        <div>
+        <div className="deposit_paddings">
           <TrustyInput style={{border: "none"}} isOpen={true} label="please use your online bank to send" input={<div className="_simple_text_left">{this.state.order.FiatAmount + " " + this.state.order.Currency}</div>} />
           <TrustyInput style={{border: "none"}} isOpen={true} label="to" input={<div className="_simple_text_left">{this.state.order.PaymentMethod}</div>} />
           <TrustyInput style={{border: "none"}} isOpen={true} label="number" input={<div className="_simple_text_left">{this.state.order.PaymentRequisites}</div>} />
@@ -243,6 +241,7 @@ class DepositFiat extends React.Component {
 
     return (
       <div className="trusty_deposit_fiat_fullscreen">
+        {header}
         {body}
       </div>
     );
@@ -256,7 +255,7 @@ class DepositFiat extends React.Component {
     );
 
     return (
-      <div className="trusty_deposit_fiat_fullscreen">
+      <div className="trusty_deposit_fiat_fullscreen deposit_paddings">
         <Timer text="YOU WILL GET DEPOSIT DETAILS IN <br /> UNDER 3 MINUTES"/>
         {cancel_button}
       </div>
@@ -324,10 +323,6 @@ class DepositFiat extends React.Component {
       );
   }
 
-  componentWillUnmount(){
-    CoinActions.setTrustyDepositIsOrdered(false)
-  }
-
   render(){
       let try_again_button = (
         <button type="button" className="trusty_wide_btn" onClick={this.clearOrder}>
@@ -342,7 +337,7 @@ class DepositFiat extends React.Component {
       if (this.state.order){
         switch(this.state.order.Status){
           case states.ORDER_NEW: 
-            return <div className="trusty_center_vertical_fixed trusty_main_padding">{ this.drawTimerState() } </div>;
+            return this.drawTimerState();
           break;
 
           case states.ORDER_DROPPED: 

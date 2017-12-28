@@ -178,7 +178,7 @@ class Trusty extends React.Component {
             let  headerTitles = {
                 "signup": "signup",
                 "login": "login", 
-                [this.props.isTrustyDepositOrder ? "deposit payment" : "deposit details"]: "deposit",
+                "deposit details": "deposit",
                 "withdraw": "withdraw",
                 "manage fund": "manage",
                 "terms of use": "terms-of-use",
@@ -275,8 +275,7 @@ RootIntl = connect(RootIntl, {
     getProps() {
         return {
             locale: IntlStore.getState().currentLocale,
-            walletLocked: WalletUnlockStore.getState().locked,
-            isTrustyDepositOrder: CoinStore.getState().isTrustyDepositOrder
+            walletLocked: WalletUnlockStore.getState().locked
         };
     }
 });
