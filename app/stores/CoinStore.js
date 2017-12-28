@@ -13,7 +13,7 @@ class PortfolioStore extends BaseStore {
         );
 
         this.state = {
-            coinValue: "0",
+            coinValue: "",
             coinType: "BTC",
             deposit: true,
             isTrustyDepositOrder: false

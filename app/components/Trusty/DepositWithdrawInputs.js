@@ -19,7 +19,7 @@ class InputTest extends React.Component {
 
 	    this.state = {
 	    	coinType: "BTC",
-	    	coinValue: "0",
+	    	coinValue: "",
 	    	trustyServices: [ "Openledger (OPEN.X)","BlockTrades (TRADE.X)"],
 	    }
 	 }
@@ -69,10 +69,6 @@ class InputTest extends React.Component {
   	render() {
 
 	  	let coinInput = <input type="text" value={this.state.coinValue} onChange={this.onCoinValueChange.bind(this)}/>
-	    
-	    let services = this.state.trustyServices.map((s, index)=><option key={index}>{s}</option>)
-	    let selectService = <select>{services}</select>
-
 	   	let coins = coinDefinition.map((coin, index)=><option key={index}>{coin.name}</option>)
 	    let selectCoin = <ResizingSelect value={this.props.changedCoinName} id="coin_dipatcher" onChange={this.onCoinNameChange.bind(this)}>{coins}</ResizingSelect>
 	    
@@ -81,19 +77,11 @@ class InputTest extends React.Component {
 	    		
 	    		{ this.props.isTrustyDepositOrder ? null : <div>
 	    			<TrustyInput 
-	                    isOpen={true}
+	                    isOpen={false}
 	                    input={coinInput}
 	                    right={selectCoin}
 	                    label={"send any sum"}/>
 	            </div> }
-
-{/*	            <div>
-	                <TrustyInput
-	                    label={"select service"}
-	                    isOpen={true}
-	                    input={selectService}
-	                    type="select"/>
-	           </div>*/}
 
 	    	</div>
 	    );
