@@ -164,6 +164,9 @@ class Trusty extends React.Component {
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
     }
+    _navigateToBackupAction() {
+        this.props.router.push("/backup");
+    }
     render() {
         let {theme} = this.state;
         let content = null;
@@ -197,11 +200,11 @@ class Trusty extends React.Component {
             <div className="trusty_header" onClick={ isProfilePage ? null : this._navigateBackAction.bind(this)}>
                 {  isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
-                    : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
+                  : (<span className="_back" onClick={()=> { this._navigateBackAction.bind(this) }}>
                         <Icon name="trusty_arrow_back"/>
                       </span>)
                 }
-                { isProfilePage ? <Link to="/backup"> <Icon name="trusty_options"/> </Link> : null }
+                { isProfilePage ? <span  className="_options" onClick={this._navigateToBackupAction.bind(this)}><Icon name="trusty_options"/></span> : null }
                 <span className="header_title">{getHeaderTitle.call(this)}</span>
             </div>
         )
