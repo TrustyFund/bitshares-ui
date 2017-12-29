@@ -255,6 +255,7 @@ $header_size: 12vw;
 		font-family: Gotham_Pro_Regular;
 		text-transform: uppercase;
 		line-height: $header_size;
+                font-weight: bold;
 		@media screen and (max-width: 750px){
 			font-size: 4.8vw;
 		}
