@@ -10,6 +10,9 @@ import Header from "components/Trusty/Layout/Header";
 import CoinActions from "actions/CoinActions"
 import { Link } from "react-router"
 
+import BaseModal from "components/Modal/BaseModal"
+import ZfApi from "react-foundation-apps/src/utils/foundation-api";
+
 import ClipboardButton from "react-clipboard.js"
 let object = {
   BotFee:"0",
@@ -181,6 +184,14 @@ class DepositFiat extends React.Component {
     });
   }
 
+  confirmStatus(){
+    ZfApi.publish("trusty_modal_deposit", "open");
+  }
+
+  closeModal(){
+    ZfApi.publish("trusty_modal_deposit", "close");
+  }
+
   setPayedStatus(){
      let current_order_id = this.getCurrentOrderId();
      let address = localStorage.getItem("_trusty_username");
@@ -230,7 +241,7 @@ class DepositFiat extends React.Component {
           <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you have completed the payment</p>
 
           <div className="trusty_inline_buttons">
-              <a onClick={this.setPayedStatus} className="b_left"><button>Confirm</button></a>
+              <a onClick={this.confirmStatus} className="b_left"><button>Confirm</button></a>
               <a onClick={this.cancelOrder} className="b_right"><button >Cancel</button></a>
           </div>
 
@@ -243,6 +254,15 @@ class DepositFiat extends React.Component {
       <div className="trusty_deposit_fiat_fullscreen">
         {header}
         {body}
+        <BaseModal id={"trusty_modal_deposit"}>
+          <div className="_inner">
+            <p>Before you continue,<br /> make sure the<br /> payment is done</p>
+            <div className="trusty_inline_buttons">
+                <a onClick={this.setPayedStatus} className="b_left"><button>Done</button></a>
+                <a onClick={this.closeModal}className="b_right"><button >Back</button></a>
+            </div>
+          </div>
+        </BaseModal>
       </div>
     );
   }
@@ -318,7 +338,6 @@ class DepositFiat extends React.Component {
           </button>
 
           <p className="trusty_ps_text">Payment gateway service is provided by users of <br/> Localbitcoins.com</p>
-        
         </div>
       );
   }
