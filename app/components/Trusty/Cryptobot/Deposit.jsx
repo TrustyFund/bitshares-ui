@@ -215,6 +215,13 @@ class DepositFiat extends React.Component {
         </div>
     )
 
+    let fiat_amount = parseInt(this.state.order.FiatAmount);
+    let lb_amount = parseFloat(this.state.order.LBAmount);
+    let lb_fee = parseFloat(this.state.order.LBFee);
+    let op_fee = parseFloat(this.state.order.OperatorFee);
+    let final_amount = (lb_amount - lb_fee - op_fee).toFixed(8);
+    let exchange_rate = Math.floor(fiat_amount / final_amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
     let body = (
         <div className="deposit_paddings">
           <TrustyInput style={{border: "none"}} isOpen={true} label="please use your online bank to send" input={<div className="_simple_text_left">{this.state.order.FiatAmount + " " + this.state.order.Currency}</div>} />
@@ -223,8 +230,8 @@ class DepositFiat extends React.Component {
           <ClipboardButton option-text={this._getRequisitesText.bind(this)} onSuccess={this._onCopyAdress.bind(this)} component="button" className="trusty_wide_btn">
               copy address
           </ClipboardButton>
-          <TrustyInput isOpen={true} label="exchange rate confirmed" input={<div className="_simple_text_left">237 000</div>} right={<div className="_right_slash">RUB / BTC</div>} />
-          <p className="_deposit_help_text">you will receive 0.178937 BTC</p>
+          <TrustyInput isOpen={true} label="exchange rate confirmed" input={<div className="_simple_text_left">{exchange_rate}</div>} right={<div className="_right_slash">RUB / BTC</div>} />
+          <p className="_deposit_help_text">you will receive {final_amount} BTC</p>
 
 
           <p className="trusty_help_text _bottom _yellow">Push CONFIRM button as soon as<br/> you have completed the payment</p>
