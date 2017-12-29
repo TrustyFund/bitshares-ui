@@ -255,6 +255,7 @@ $header_size: 12vw;
 		font-family: Gotham_Pro_Regular;
 		text-transform: uppercase;
 		line-height: $header_size;
+                font-weight: bold;
 		@media screen and (max-width: 750px){
 			font-size: 4.8vw;
 		}
@@ -268,6 +269,14 @@ $header_size: 12vw;
 		width: 12vw !important;
     height: 12vw !important;
 	}
+        span._options {
+		position: absolute;
+		top:0;
+		right:0;
+		display: inline-block;
+		width: 12vw !important;
+                height: 12vw !important;
+        }
 	@media screen and (min-width: 768px) {
 		height: $header_size_desk;
 		.header_title {
