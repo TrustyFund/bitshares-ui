@@ -219,7 +219,8 @@ class DepositFiat extends React.Component {
     let lb_amount = parseFloat(this.state.order.LBAmount);
     let lb_fee = parseFloat(this.state.order.LBFee);
     let op_fee = parseFloat(this.state.order.OperatorFee);
-    let final_amount = (lb_amount - lb_fee - op_fee).toFixed(8);
+    let bot_fee = parseFloat(this.state.order.BotFee);
+    let final_amount = (lb_amount - lb_fee - op_fee - bot_fee).toFixed(8);
     let exchange_rate = Math.floor(fiat_amount / final_amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
     let body = (
