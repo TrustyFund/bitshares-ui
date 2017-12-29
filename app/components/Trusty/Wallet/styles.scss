@@ -1,0 +1,21 @@
+.backup_container {
+    .bottom_button_container {
+        min-height: 100%;
+    }
+    .bottom_button {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+    .backup_text {
+        font-size: 5.5vw;
+        line-height: 1.2;
+    }
+    .brainkey {
+        margin-top: 20px;
+        font-size: 8vw;
+        line-height: 1.2;
+    }
+
+}

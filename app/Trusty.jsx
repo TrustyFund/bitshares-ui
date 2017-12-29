@@ -30,6 +30,9 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import Immutable from "immutable";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from "react-router/es";
+const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
+
 
 import {dispatcher} from 'components/Trusty/utils'
 const user_agent = navigator.userAgent.toLowerCase();
@@ -81,6 +84,10 @@ class Trusty extends React.Component {
         ChainStore.unsubscribe(this._chainStoreSub);
     }
 
+    componentWillMount() {
+        this._redirectIfNotBackedUp(window.location);
+    }
+
     componentDidMount() {
         this._setListeners();
         this.syncCheckInterval = setInterval(this._syncStatus, 5000);
@@ -98,11 +105,26 @@ class Trusty extends React.Component {
 
     }
 
+    _redirectIfNotBackedUp(location) {
+      switch(location.pathname) {
+        case "/withdraw":
+        case "/deposit":
+        case "/manage":
+          console.log("backup check..");
+          let backup_date = WalletDb.getWallet().brainkey_backup_date;
+          if (AccountStore.getMyAccounts().length && !backup_date) {
+            console.log("there is no brainkey backup, go to options");
+            this._navigateToBackupAction();
+          }
+          break;
+      }
+    }
     _setListeners() {
         try {
             NotificationStore.listen(this._onNotificationChange.bind(this));
             ChainStore.subscribe(this._chainStoreSub);
             AccountStore.tryToSetCurrentAccount();
+            history.listen(this._redirectIfNotBackedUp.bind(this));
         } catch(e) {
             console.error("e:", e);
         }
@@ -164,6 +186,9 @@ class Trusty extends React.Component {
        let path = AccountStore.getMyAccounts().length ? "/home": "/"
        this.props.router.push(path)
     }
+    _navigateToBackupAction() {
+        this.props.router.push("/backup");
+    }
     render() {
         let {theme} = this.state;
         let content = null;
@@ -183,7 +208,8 @@ class Trusty extends React.Component {
                 "manage fund": "manage",
                 "terms of use": "terms-of-use",
                 "unlock account": "unlock",
-                "recent transactions": "transactions"
+                "recent transactions": "transactions",
+                "backup phrase": "backup"
             }
             let title = ""
             for ( let k in headerTitles) {
@@ -197,11 +223,11 @@ class Trusty extends React.Component {
             <div className="trusty_header" onClick={ isProfilePage ? null : this._navigateBackAction.bind(this)}>
                 {  isProfilePage 
                     ? <div  className="trusty_header_logo" onClick={()=> { this.props.router.push(`/`)}} dangerouslySetInnerHTML={{__html: require('components/Trusty/Landing/vendor/trusty_fund_logo.svg')}} />
-                    : (<span className="_back" onClick={this._navigateBackAction.bind(this)}>
+                  : (<span className="_back" onClick={()=> { this._navigateBackAction.bind(this) }}>
                         <Icon name="trusty_arrow_back"/>
                       </span>)
                 }
-                { isProfilePage ? <Link to="/backup"> <Icon name="trusty_options"/> </Link> : null }
+                { isProfilePage ? <span  className="_options" onClick={this._navigateToBackupAction.bind(this)}><Icon name="trusty_options"/></span> : null }
                 <span className="header_title">{getHeaderTitle.call(this)}</span>
             </div>
         )
