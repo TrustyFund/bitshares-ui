@@ -30,6 +30,9 @@ import WalletUnlockStore from "stores/WalletUnlockStore";
 import Immutable from "immutable";
 import TotalBalanceValue from "components/Utility/Trusty/TotalBalanceValue";
 
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from "react-router/es";
+const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
+
 
 import {dispatcher} from 'components/Trusty/utils'
 const user_agent = navigator.userAgent.toLowerCase();
@@ -81,6 +84,10 @@ class Trusty extends React.Component {
         ChainStore.unsubscribe(this._chainStoreSub);
     }
 
+    componentWillMount() {
+        this._redirectIfNotBackedUp(window.location);
+    }
+
     componentDidMount() {
         this._setListeners();
         this.syncCheckInterval = setInterval(this._syncStatus, 5000);
@@ -98,11 +105,26 @@ class Trusty extends React.Component {
 
     }
 
+    _redirectIfNotBackedUp(location) {
+      switch(location.pathname) {
+        case "/withdraw":
+        case "/deposit":
+        case "/manage":
+          console.log("backup check..");
+          let backup_date = WalletDb.getWallet().brainkey_backup_date;
+          if (AccountStore.getMyAccounts().length && !backup_date) {
+            console.log("there is no brainkey backup, go to options");
+            this._navigateToBackupAction();
+          }
+          break;
+      }
+    }
     _setListeners() {
         try {
             NotificationStore.listen(this._onNotificationChange.bind(this));
             ChainStore.subscribe(this._chainStoreSub);
             AccountStore.tryToSetCurrentAccount();
+            history.listen(this._redirectIfNotBackedUp.bind(this));
         } catch(e) {
             console.error("e:", e);
         }
