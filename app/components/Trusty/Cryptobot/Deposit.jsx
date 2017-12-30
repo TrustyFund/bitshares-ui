@@ -419,7 +419,7 @@ class DepositFiat extends React.Component {
           break;
 
           case states.ORDER_TRANSFER:
-            reutrn (<span>It seemd to be ready 1</span>);
+            return (<span>It seemd to be ready 1</span>);
           break;
 
           case states.ORDER_FINISHED:
