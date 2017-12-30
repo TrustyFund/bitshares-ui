@@ -110,6 +110,15 @@ class DepositFiat extends React.Component {
               this.clearOrder();
               browserHistory.push(`/home`);
             }
+
+            if(new_order.Status == states.ORDER_FINISHED) {
+              let all = JSON.parse(localStorage.getItem("trusty_pending_deposit")) || []
+              if(all.length){
+                let one = all.findIndex(i=>i.ID == new_order.ID)
+                all.splice(one,1)
+              }
+              localStorage.setItem("trusty_pending_deposit", JSON.stringify(all))
+            }
           }
         }else{
           this.setState({order: new_order});
