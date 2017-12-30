@@ -114,6 +114,14 @@ class Operation extends React.Component {
         let {op, current, block} = this.props;
         let line = null, column = null, color = "info";
         let memoComponent = null;
+
+        
+        if (this.props.trustyPendingDeposit) {
+            let {LBAmount, FiatAmount, currency} = this.props.trustyPendingDeposit
+            return  <p className="_yellow">
+                        Pending {LBAmount} BTC for { FiatAmount } {currency}
+                    </p>
+        }
         
         switch (ops[op[0]]) { // For a list of trx types, see chain_types.coffee
 
@@ -192,7 +200,7 @@ class Operation extends React.Component {
                                         ]}
                                     />;
                                 }}
-                        </BindToChainState.Wrapper>
+                            </BindToChainState.Wrapper>
                         </span>
                 );
                 break;

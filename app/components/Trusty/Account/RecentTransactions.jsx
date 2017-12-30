@@ -167,10 +167,26 @@ class RecentTransactions extends React.Component {
         style.width = "100%";
         style.height = "100%";
 
-        let display_history = history.length ?
-            history.slice(0, limit)
-            .map(o => {
-                return (
+        let fialTrustyDepositTransactions = JSON.parse(localStorage.getItem("trusty_pending_deposit"))
+
+        let addictive = object => {
+            let {LBAmount, FiatAmount, Currency} = object
+            return  <p className="_yellow">
+                        Pending {LBAmount} BTC for { FiatAmount } {Currency}
+                    </p>
+        }
+
+
+        let display_history = null
+
+        if (history.length) {
+
+            fialTrustyDepositTransactions && fialTrustyDepositTransactions.forEach(i=>{
+                history.unshift(i)
+            })
+            
+            display_history = history.slice(0, limit).map(o => {
+                return o.LBAmount ? <div key={o.ID}>{addictive(o)}</div> : (
                     <div key={o.id}>
                         <Operation
                             style={alignLeft}
@@ -186,7 +202,9 @@ class RecentTransactions extends React.Component {
                         />
                     </div>
                 );
-            }) : null;
+            }) 
+        }
+
 
         return (
             <div className="trusty_profile_incoming_depositis">

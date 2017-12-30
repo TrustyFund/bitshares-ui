@@ -14,6 +14,7 @@ import BaseModal from "components/Modal/BaseModal"
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 
 import ClipboardButton from "react-clipboard.js"
+
 let object = {
   BotFee:"0",
   ClientName:"stas",
@@ -184,6 +185,12 @@ class DepositFiat extends React.Component {
     });
   }
 
+
+  cancelOrder(id){
+    let address = localStorage.getItem("_trusty_username");
+    this.state.soso.request("cancel","order",{order_id: id,address})
+  }
+
   confirmStatus(){
     ZfApi.publish("trusty_modal_deposit", "open");
   }
@@ -193,9 +200,16 @@ class DepositFiat extends React.Component {
   }
 
   setPayedStatus(){
-     let current_order_id = this.getCurrentOrderId();
-     let address = localStorage.getItem("_trusty_username");
-     this.state.soso.request("mark_payed","order",{order_id: parseInt(current_order_id),address});
+    let current_order_id = this.getCurrentOrderId();
+    let address = localStorage.getItem("_trusty_username");
+    let pendingDeposits = JSON.parse(localStorage.getItem("trusty_pending_deposit")) || []
+    let order = this.state.order
+    order.created_at = Date.now()
+    let orders = JSON.stringify([...pendingDeposits, order])
+    localStorage.setItem("trusty_pending_deposit", orders)
+     this.state.soso
+       .request("mark_payed","order",{order_id: parseInt(current_order_id),address})
+
   }
 
   inFinalStatus(Status){
